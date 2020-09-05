@@ -1,0 +1,49 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.breadcrumb-icon {
+  font-size: 1.75rem;
+  color: #6c757d;
+  padding-right: 5px;
+  margin: -5px 0;
+}
+
+.breadcrumb-item.active, .breadcrumb-item a {
+  padding-top: 5px;
+}
+
+  .breadcrumb-item a,
+  .breadcrumb-item a:active {
+    text-decoration: none;
+    color: black;
+  }
+
+    .breadcrumb-item a:hover {
+      color: darkorange;
+    }
+
+input.ng-invalid.ng-touched,
+select.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+.alert-danger {
+  border: 1px solid red;
+  border-radius: 3px;
+  padding: 5px;
+}
