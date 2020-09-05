@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { BanksComponent } from './banks/banks.component';
+import { BranchesComponent } from './branches/branches.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { AboutComponent } from './about/about.component';
@@ -18,6 +19,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
         RouterModule.forRoot([
             { path: '', component: HomeComponent, pathMatch: 'full' },
             { path: 'banks', component: BanksComponent },
+            { path: 'branches', component: BranchesComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
            

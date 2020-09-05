@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-contact',

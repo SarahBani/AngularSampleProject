@@ -18,6 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { BranchesComponent } from './branches/branches.component';
 
 @NgModule({
     declarations: [
@@ -31,7 +32,8 @@ import { ErrorPageComponent } from './error-page/error-page.component';
         AccessDeniedComponent,
         AboutComponent,
         ContactComponent,
-        ErrorPageComponent
+        ErrorPageComponent,
+        BranchesComponent
     ],
     imports: [
         BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
