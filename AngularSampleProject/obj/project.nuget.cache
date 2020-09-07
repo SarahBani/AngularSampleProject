@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "dgSpecHash": "+ZyqK5Vkifbz42EIrLr8mOkS9QSn6r/I1oxKd+CajSV/2zwX6tOvf/Nrzi4524LWZOhNjSWP4+uwrvQ6JR4+NA==",
+  "success": true,
+  "projectFilePath": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\AngularSampleProject\\AngularSampleProject.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Sarah\\.nuget\\packages\\bootstrap\\4.5.2\\bootstrap.4.5.2.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\jquery\\3.0.0\\jquery.3.0.0.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.aspnetcore.nodeservices\\3.0.3\\microsoft.aspnetcore.nodeservices.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.aspnetcore.spaservices\\3.0.3\\microsoft.aspnetcore.spaservices.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.aspnetcore.spaservices.extensions\\3.0.3\\microsoft.aspnetcore.spaservices.extensions.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.configuration\\3.0.3\\microsoft.extensions.configuration.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.0.3\\microsoft.extensions.configuration.abstractions.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.configuration.binder\\3.0.3\\microsoft.extensions.configuration.binder.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\3.0.3\\microsoft.extensions.dependencyinjection.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\3.0.3\\microsoft.extensions.dependencyinjection.abstractions.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\3.0.3\\microsoft.extensions.fileproviders.abstractions.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\3.0.3\\microsoft.extensions.fileproviders.physical.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\3.0.3\\microsoft.extensions.filesystemglobbing.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.logging\\3.0.3\\microsoft.extensions.logging.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.0.3\\microsoft.extensions.logging.abstractions.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.logging.configuration\\3.0.3\\microsoft.extensions.logging.configuration.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.logging.console\\3.0.3\\microsoft.extensions.logging.console.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.options\\3.0.3\\microsoft.extensions.options.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\3.0.3\\microsoft.extensions.options.configurationextensions.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.primitives\\3.0.3\\microsoft.extensions.primitives.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.typescript.msbuild\\4.0.2\\microsoft.typescript.msbuild.4.0.2.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\popper.js\\1.16.1\\popper.js.1.16.1.nupkg.sha512"
+  ],
+  "logs": []
+}

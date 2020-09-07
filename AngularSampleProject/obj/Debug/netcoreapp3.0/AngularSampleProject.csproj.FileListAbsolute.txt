@@ -28,12 +28,13 @@ H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\bin\De
 H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\bin\Debug\netcoreapp3.0\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\bin\Debug\netcoreapp3.0\Microsoft.Extensions.Primitives.dll
 H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll
-H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\staticwebassets\AngularSampleProject.StaticWebAssets.Manifest.cache
-H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\staticwebassets\AngularSampleProject.StaticWebAssets.xml
-H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.RazorAssemblyInfo.cache
-H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.RazorAssemblyInfo.cs
 H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.AssemblyInfoInputs.cache
 H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.AssemblyInfo.cs
+H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.csproj.CoreCompileInputs.cache
+H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.MvcApplicationPartsAssemblyInfo.cs
+H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.MvcApplicationPartsAssemblyInfo.cache
+H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.RazorAssemblyInfo.cache
+H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.RazorAssemblyInfo.cs
 H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.TagHelpers.input.cache
 H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.TagHelpers.output.cache
 H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.RazorCoreGenerate.cache
@@ -43,6 +44,9 @@ H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\De
 H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.RazorTargetAssemblyInfo.cs
 H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.Views.pdb
 H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.csproj.CopyComplete
+H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\staticwebassets\AngularSampleProject.StaticWebAssets.Manifest.cache
+H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\staticwebassets\AngularSampleProject.StaticWebAssets.xml
 H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.dll
 H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.pdb
+H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.genruntimeconfig.cache
 H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\Debug\netcoreapp3.0\AngularSampleProject.csprojAssemblyReference.cache

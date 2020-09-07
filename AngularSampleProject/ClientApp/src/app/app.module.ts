@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TooltipModule } from 'ng2-tooltip-directive';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -19,6 +20,7 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { BranchesComponent } from './branches/branches.component';
+import { TooltipDirective } from './directives/tooltip.directive';
 
 @NgModule({
     declarations: [
@@ -33,14 +35,16 @@ import { BranchesComponent } from './branches/branches.component';
         AboutComponent,
         ContactComponent,
         ErrorPageComponent,
-        BranchesComponent
+        BranchesComponent,
+        TooltipDirective
     ],
     imports: [
         BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        AppRoutingModule
+        AppRoutingModule,
+        TooltipModule
     ],
     providers: [AuthService, AuthGuardService, CanDeactivateGuardService],
     bootstrap: [AppComponent]
