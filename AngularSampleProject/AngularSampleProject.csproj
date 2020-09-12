@@ -34,6 +34,10 @@
 
   <ItemGroup>
     <TypeScriptCompile Remove="ClientApp\src\app\directives\tooltip.directive.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\models\Ibank.model.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\models\IBranch.model.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\services\bank-service.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\services\branch-service.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

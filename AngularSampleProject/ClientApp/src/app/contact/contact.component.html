@@ -20,7 +20,8 @@
           <label for="email">Email</label>
           <input type="email" id="email" name="email" class="form-control col-5" ngModel required email
 		  [tooltip]="f.controls.email != undefined && !f.controls.email.valid && f.controls.email.touched ? 'Email is not valid!' : ''" 
-		  [display]="f.controls.email != undefined && !f.controls.email.valid && f.controls.email.touched" />
+		  [display]="f.controls.email != undefined && !f.controls.email.valid && f.controls.email.touched"
+                 [theme]="light"/>
         </div>
         <div class="form-group">
           <label for="message">Message</label>
