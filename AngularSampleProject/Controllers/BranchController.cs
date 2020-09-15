@@ -10,7 +10,7 @@ namespace AngularSampleProject.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BranchController : ControllerBase
+    public class BranchController : BaseAPIController
     {
 
         [HttpGet("ItemAsync")]
@@ -54,10 +54,10 @@ namespace AngularSampleProject.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return base.GetInvalidModelActionResult();
             }
             await Task.Run(() => { });
-            return CreatedAtAction("GetListAsync", new { id = branch.Id }, branch);
+            return base.GetCreatedActionResult<Branch, int>("GetListAsync", branch);
         }
 
         [HttpPut("UpdateAsync")]
@@ -67,14 +67,14 @@ namespace AngularSampleProject.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return base.GetInvalidModelActionResult();
             }
             if (id <= 0)
             {
-                return BadRequest();
+                return base.GetBadRequestActionResult();
             }
             await Task.Run(() => { });
-            return Ok(); // Http status code 200
+            return base.GetOKActionResult();
         }
 
         [HttpPut("DeleteAsync")]
@@ -84,10 +84,10 @@ namespace AngularSampleProject.Controllers
         {
             if (id <= 0)
             {
-                return BadRequest();
+                return base.GetBadRequestActionResult();
             }
             await Task.Run(() => { });
-            return Ok(); // Http status code 200
+            return base.GetOKActionResult();
         }
 
         [HttpPut("DeleteByBankIdAsync")]
@@ -97,10 +97,10 @@ namespace AngularSampleProject.Controllers
         {
             if (bankId <= 0)
             {
-                return BadRequest();
+                return base.GetBadRequestActionResult();
             }
             await Task.Run(() => { });
-            return Ok(); // Http status code 200
+            return base.GetOKActionResult();
         }
 
     }

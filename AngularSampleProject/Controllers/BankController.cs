@@ -10,7 +10,7 @@ namespace AngularSampleProject.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BankController : ControllerBase
+    public class BankController : BaseAPIController
     {
 
         [HttpGet("ItemAsync")]
@@ -52,21 +52,10 @@ namespace AngularSampleProject.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return base.GetInvalidModelActionResult();
             }
             await Task.Run(() => { });
-            return CreatedAtAction("GetListAsync", new { id = bank.Id }, bank);
-        }
-
-        [HttpPost("eee")]
-        public async Task<IActionResult> eee([FromBody] Bank bank)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            await Task.Run(() => { });
-            return Ok();
+            return base.GetCreatedActionResult<Bank, int>("GetListAsync", bank);
         }
 
         [HttpPut("UpdateAsync")]
@@ -76,14 +65,14 @@ namespace AngularSampleProject.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return base.GetInvalidModelActionResult();
             }
             if (id <= 0)
             {
-                return BadRequest();
+                return base.GetBadRequestActionResult();
             }
             await Task.Run(() => { });
-            return Ok(); // Http status code 200
+            return base.GetOKActionResult();
         }
 
         [HttpPut("DeleteAsync")]
@@ -93,10 +82,10 @@ namespace AngularSampleProject.Controllers
         {
             if (id <= 0)
             {
-                return BadRequest();
+                return base.GetBadRequestActionResult();
             }
             await Task.Run(() => { });
-            return Ok(); // Http status code 200
+            return base.GetOKActionResult();
         }
 
     }

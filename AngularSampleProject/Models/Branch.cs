@@ -2,11 +2,8 @@
 
 namespace AngularSampleProject.Models
 {
-    public class Branch
+    public class Branch : Entity<int>
     {
-
-        [Required]
-        public int Id { get; set; }
 
         [Required(ErrorMessage = "Bank is required!")]
         public int BankId { get; set; }

@@ -1,6 +1,9 @@
 import { EventEmitter, Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { IBank } from '../models/IBank.model';
+
+import { Observable } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import { IContact } from '../models/IContact.model';
 
 @Injectable({ providedIn: 'root' })
 export class ContactService {
@@ -14,17 +17,24 @@ export class ContactService {
     }
 
     send(email: string, message: string): void {
-        var contact: { email: string, message: string } = { email: email, message: message };
-        var bank: IBank = { id: 1, name: message, logoUrl: message };
-        //this.http.post(this.baseUrl + 'contact/SendAsync', {
-        //    email: email,
-        //    message: message
-        //}, { headers: this.headers })
-            //this.http.post(this.baseUrl + 'contact/SendAsync', contact, { headers: this.headers })
-        this.http.post(this.baseUrl + 'bank/eee', bank, { headers: this.headers })
+        var contact: IContact = { email: email, message: message };
+        this.http.post(this.baseUrl + 'Contact/SendAsync', contact, { headers: this.headers, responseType: 'text'})
+            //.toPromise()
+            //.map(res => res.json().data )
+            //.map((res: Response) => {
+            //    return res;
+            //})
+            .pipe(map(res => { console.log(res); return res; }))
+            //.pipe(
+            //    tap(result => {
+            //        //this code is not executed, I do not understand why                
+            //        console.log(result);
+            //        return result;
+            //    })
+            //)
             .subscribe(result => {
                 alert(result);
-                this.sentCompleted.emit();
+                //this.sentCompleted.emit();
             }, error => console.error(error));
     }
 

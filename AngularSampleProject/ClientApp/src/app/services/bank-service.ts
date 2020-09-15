@@ -53,7 +53,7 @@ export class BankService {
   }
 
   delete(id: number): void {
-    this.http.put(this.baseUrl + 'bank/DeleteAsync/' + id, { headers: this.headers })
+    this.http.delete(this.baseUrl + 'bank/DeleteAsync/' + id, { headers: this.headers })
       .subscribe(result => {
         alert(result);
       }, error => console.error(error));

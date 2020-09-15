@@ -1,32 +1,33 @@
 ﻿using System.Threading.Tasks;
+using AngularSampleProject.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AngularSampleProject.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
-    public class ContactController : ControllerBase
+    [Route("[controller]")]
+    public class ContactController : BaseAPIController
     {
 
         [HttpPost("SendAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> SendAsync(string email, string message)
+        public async Task<IActionResult> SendAsync([FromBody] Contact contact)
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return base.GetInvalidModelActionResult();
             }
             //bool isSent = await Task.Run(() => SendMail());
             bool isSent = await SendMail();
             if (isSent)
             {
-                return Ok(); // Http status code 200
+                return base.GetOKActionResult();
             }
             else
             {
-                return BadRequest();
+                return base.GetBadRequestActionResult();
             }
         }
 

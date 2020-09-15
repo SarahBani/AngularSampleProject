@@ -22,6 +22,14 @@ namespace AngularSampleProject
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.SetIsOriginAllowed(_ => true)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+            });
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -51,6 +59,8 @@ namespace AngularSampleProject
             }
 
             app.UseRouting();
+            //app.UseCorsMiddleware();
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {
