@@ -1,5 +1,5 @@
 export interface ICustomActionResult {
-  isSuccessful: bool;
-  exceptionContentResult: string ;
+  isSuccessful: boolean;
+  exceptionContentResult: string;
   content: string;
 }

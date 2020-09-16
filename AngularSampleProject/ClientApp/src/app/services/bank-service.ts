@@ -7,13 +7,11 @@ export class BankService {
 
   saveCompleted = new EventEmitter();
   private headers: HttpHeaders;
-  private baseUrl: string;
   public currentBank: IBank;
   public banks: IBank[];
   public count: number;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.baseUrl = baseUrl;
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   }
 
