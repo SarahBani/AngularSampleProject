@@ -11,7 +11,8 @@ export class BankService {
   public banks: IBank[];
   public count: number;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
+  constructor(private http: HttpClient,
+    @Inject('BASE_URL') private baseUrl: string) {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   }
 

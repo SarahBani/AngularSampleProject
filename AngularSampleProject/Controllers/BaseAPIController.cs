@@ -17,7 +17,7 @@ namespace AngularSampleProject.Controllers
             where TEntity : Entity<TKey>
         {
             return CreatedAtAction(actionName,
-                new { id = createdObject.Id }, 
+                new { id = createdObject.Id },
                 createdObject);
         }
 
@@ -29,7 +29,8 @@ namespace AngularSampleProject.Controllers
 
         protected IActionResult GetBadRequestActionResult()
         {
-            return BadRequest();
+            return BadRequest(new CustomActionResult(new CustomException(Constant.Exception_HasError)));
+
         }
 
         protected IActionResult GetActionResult<T>(T value)

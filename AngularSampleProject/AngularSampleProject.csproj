@@ -29,7 +29,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\models\Enums.ts" />
     <None Remove="ClientApp\src\app\services\contact-service.ts" />
+    <None Remove="ClientApp\src\app\services\modal-service.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +42,12 @@
     <TypeScriptCompile Remove="ClientApp\src\app\models\ICustomActionResult.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\services\bank-service.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\services\branch-service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Update="ClientApp\src\app\services\modal-service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

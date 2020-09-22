@@ -15,6 +15,7 @@ namespace AngularSampleProject.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> SendAsync([FromBody] Contact contact)
         {
+            //return base.GetBadRequestActionResult();
             if (!ModelState.IsValid)
             {
                 return base.GetInvalidModelActionResult();
