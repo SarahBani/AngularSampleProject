@@ -21,7 +21,6 @@ namespace AngularSampleProject
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -30,6 +29,7 @@ namespace AngularSampleProject
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
+            services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -59,7 +59,7 @@ namespace AngularSampleProject
             }
 
             app.UseRouting();
-            //app.UseCorsMiddleware();
+            app.UseCorsMiddleware();
             app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
@@ -80,6 +80,7 @@ namespace AngularSampleProject
                 if (env.IsDevelopment())
                 {
                     spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
         }

@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using AngularSampleProject.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using System.Net.Mime;
 
 namespace AngularSampleProject.Controllers
 {
-    [ApiController]
+    [Produces(MediaTypeNames.Application.Json)]
     [Route("[controller]")]
     public class BankController : BaseAPIController
     {
