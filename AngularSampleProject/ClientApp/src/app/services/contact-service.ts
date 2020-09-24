@@ -1,19 +1,21 @@
-import { EventEmitter, Inject, Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { IContact } from '../models/IContact.model';
 import { ICustomActionResult } from '../models/ICustomActionResult.model';
 import { ModalService } from './modal-service';
+import { ExceptionHandlerService } from './exception-handler-service';
 
 @Injectable({ providedIn: 'root' })
 export class ContactService {
-  sentCompleted = new EventEmitter();
+  messageSentCompleted: Subject<void> = new Subject();
   private headers: HttpHeaders;
 
   constructor(private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string,
-    private modalService: ModalService) {
+    private modalService: ModalService,
+    private exceptionHanlerService: ExceptionHandlerService) {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   }
 
@@ -29,17 +31,10 @@ export class ContactService {
         if (result.isSuccessful) {
           this.modalService.showSuccess('Your message has been sent.');
         }
-        console.log(result);
-        //this.sentCompleted.emit();
-      }, error => {
-        console.error(error);
-          if (!error.isSuccessful) {
-            this.modalService.showError(error.message);
-          }
+        this.messageSentCompleted.next();
+      }, response => {
+          this.exceptionHanlerService.showModalException(response);
       });
-  }
-
-  displayInfo() {
   }
 
 }

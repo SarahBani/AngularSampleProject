@@ -21,6 +21,12 @@ import { ContactComponent } from './contact/contact.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { BranchesComponent } from './branches/branches.component';
 import { TooltipDirective } from './directives/tooltip.directive';
+import { BankListComponent } from './banks/bank-list/bank-list.component';
+import { BankEditComponent } from './banks/bank-edit/bank-edit.component';
+import { BankDetailComponent } from './banks/bank-detail/bank-detail.component';
+import { BranchListComponent } from './branches/branch-list/branch-list.component';
+import { BranchDetailComponent } from './branches/branch-detail/branch-detail.component';
+import { BranchEditComponent } from './branches/branch-edit/branch-edit.component';
 
 @NgModule({
     declarations: [
@@ -36,7 +42,13 @@ import { TooltipDirective } from './directives/tooltip.directive';
         ContactComponent,
         ErrorPageComponent,
         BranchesComponent,
-        TooltipDirective
+        TooltipDirective,
+        BankListComponent,
+        BankEditComponent,
+        BankDetailComponent,
+        BranchDetailComponent,
+        BranchEditComponent,
+        BranchListComponent
     ],
     imports: [
         BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
