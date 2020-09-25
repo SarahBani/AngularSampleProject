@@ -28,11 +28,11 @@
             this.Content = content;
         }
 
-        public CustomActionResult(CustomException exception)
+        public CustomActionResult(CustomException exception, object content = null)
         {
             this.IsSuccessful = false;
             this.ExceptionContentResult = exception.CustomMessage;
-            //this.ExceptionKey = exception.ExceptionKey;
+            this.Content = content;
         }
 
         #endregion /Constructors

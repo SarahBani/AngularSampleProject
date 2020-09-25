@@ -13,7 +13,8 @@ namespace AngularSampleProject.Controllers
     public class BranchController : BaseAPIController
     {
 
-        [HttpGet("ItemAsync")]
+        //[HttpGet("ItemAsync")]
+        [HttpGet("{id}")]
         public async Task<Branch> GetItemAsync([FromRoute] int id)
         {
             await Task.Run(() => { });
@@ -71,7 +72,7 @@ namespace AngularSampleProject.Controllers
             }
             if (id <= 0)
             {
-                return base.GetBadRequestActionResult();
+                return base.GetInvalidRequestActionResult();
             }
             await Task.Run(() => { });
             return base.GetOKActionResult();
@@ -84,7 +85,7 @@ namespace AngularSampleProject.Controllers
         {
             if (id <= 0)
             {
-                return base.GetBadRequestActionResult();
+                return base.GetInvalidRequestActionResult();
             }
             await Task.Run(() => { });
             return base.GetOKActionResult();
@@ -97,7 +98,7 @@ namespace AngularSampleProject.Controllers
         {
             if (bankId <= 0)
             {
-                return base.GetBadRequestActionResult();
+                return base.GetInvalidRequestActionResult();
             }
             await Task.Run(() => { });
             return base.GetOKActionResult();

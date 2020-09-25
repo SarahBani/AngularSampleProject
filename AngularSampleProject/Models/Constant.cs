@@ -13,6 +13,8 @@
 
         public const string Exception_HasError = "An error has occured!";
 
+        public const string Exception_InvalidModelState = "Data is invalid!";
+        public const string Exception_InvalidRequestData = "Request data is invalid!";
         public const string Exception_NoActiveTransaction = "There is no active transation!";
         public const string Exception_InvalidOrderID = "OrderID is invalid!";
         public const string Exception_OrderItemsNotExist = "There is not any order item!";

@@ -20,11 +20,9 @@ export class BankListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.updateSubscription = this.bankService.listUpdated.subscribe((banks) => {
-    //  this.banks = banks;
-    //})
-    //this.banks =
-      this.bankService.getList();
+    this.bankService.getList().subscribe((banks) => {
+      this.banks = banks;
+    });
   }
 
   onClick(): void {

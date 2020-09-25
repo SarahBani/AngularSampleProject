@@ -1,15 +1,10 @@
-<div class="container" *ngIf="recipes">
+<div class="container" *ngIf="banks">
   <div class="row">
     <div class="col-12 list-group">
-      <app-recipe-item *ngFor="let bank of banks; let i = index;" [model]="bank" [index]="i">
-      </app-recipe-item>
+      <app-bank-item *ngFor="let bank of banks;" [model]="bank">
+      </app-bank-item>
     </div>
   </div>
 </div>
 <button class="btn btn-primary" (click)="onClick()">Add</button>
 <button class="btn btn-success">Refresh</button>
-<div class="bg-info clearfix">
-  <button type="button" class="btn btn-secondary float-left">Example Button floated left</button>
-  <button type="button" class="btn btn-secondary float-right">Example Button floated right</button>
-</div>
-

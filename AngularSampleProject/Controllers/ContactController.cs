@@ -15,11 +15,6 @@ namespace AngularSampleProject.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> SendAsync([FromBody] Contact contact)
         {
-            //return base.GetBadRequestActionResult();
-            if (!ModelState.IsValid)
-            {
-                return base.GetInvalidModelActionResult();
-            }
             //bool isSent = await Task.Run(() => SendMail());
             bool isSent = await SendMail();
             if (isSent)
@@ -28,7 +23,7 @@ namespace AngularSampleProject.Controllers
             }
             else
             {
-                return base.GetBadRequestActionResult();
+                return base.GetErrorActionResult();
             }
         }
 

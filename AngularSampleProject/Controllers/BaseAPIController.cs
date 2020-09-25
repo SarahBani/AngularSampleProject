@@ -21,21 +21,24 @@ namespace AngularSampleProject.Controllers
                 createdObject);
         }
 
-
         protected IActionResult GetInvalidModelActionResult()
         {
-            return BadRequest(ModelState);
+            return BadRequest(new CustomActionResult(new CustomException(Constant.Exception_InvalidModelState), ModelState));
         }
 
-        protected IActionResult GetBadRequestActionResult()
+         protected IActionResult GetInvalidRequestActionResult()
+        {
+            return BadRequest(new CustomActionResult(new CustomException(Constant.Exception_InvalidRequestData), ModelState));
+        }
+
+        protected IActionResult GetErrorActionResult()
         {
             return BadRequest(new CustomActionResult(new CustomException(Constant.Exception_HasError)));
-
         }
 
         protected IActionResult GetActionResult<T>(T value)
         {
-            return Ok(value);
+            return Ok(new CustomActionResult(value));
         }
 
     }

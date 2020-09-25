@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using AngularSampleProject.Models;
@@ -14,29 +13,18 @@ namespace AngularSampleProject.Controllers
     public class BankController : BaseAPIController
     {
 
-        [HttpGet("ItemAsync")]
+        [HttpGet("ItemAsync/{id}")]
         public async Task<Bank> GetItemAsync([FromRoute] int id)
         {
             await Task.Run(() => { });
-            return new Bank
-            {
-                Id = 2,
-                Name = "Bank2",
-                LogoUrl = "2.png"
-            };
+            return GetBanks().AsQueryable().Single(q => q.Id.Equals(id));
         }
 
         [HttpGet("ListAsync")]
         public async Task<IEnumerable<Bank>> GetListAsync()
         {
             await Task.Run(() => { });
-            return Enumerable.Range(1, 5).Select(index => new Bank
-            {
-                Id = index,
-                Name = $"Bank{index}",
-                LogoUrl = $"{index}.png"
-            })
-             .ToArray();
+            return GetBanks().ToArray();
         }
 
         [HttpGet("CountAsync")]
@@ -70,7 +58,7 @@ namespace AngularSampleProject.Controllers
             }
             if (id <= 0)
             {
-                return base.GetBadRequestActionResult();
+                return base.GetInvalidRequestActionResult();
             }
             await Task.Run(() => { });
             return base.GetOKActionResult();
@@ -83,10 +71,20 @@ namespace AngularSampleProject.Controllers
         {
             if (id <= 0)
             {
-                return base.GetBadRequestActionResult();
+                return base.GetInvalidRequestActionResult();
             }
             await Task.Run(() => { });
             return base.GetOKActionResult();
+        }
+
+        private IEnumerable<Bank> GetBanks()
+        {
+            return Enumerable.Range(1, 5).Select(index => new Bank
+            {
+                Id = index,
+                Name = $"Bank{index}",
+                LogoUrl = $"banks/{index}.png"
+            });
         }
 
     }

@@ -1,36 +1,82 @@
 import { EventEmitter, Inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { IBank } from '../models/Ibank.model';
+import { empty, Observable, Subject } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { ICustomActionResult } from '../models/ICustomActionResult.model';
 
 @Injectable({ providedIn: 'root' })
 export class BankService {
 
-  saveCompleted = new EventEmitter();
   private headers: HttpHeaders;
-  public currentBank: IBank;
-  public banks: IBank[];
   public count: number;
+
+  saveCompleted = new EventEmitter();
+  selectedChanged = new Subject<IBank>();
 
   constructor(private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string) {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   }
 
-  getItem(id: number) {
-    this.http.get<IBank>(this.baseUrl + 'bank/ItemAsync/' + id, { headers: this.headers })
-      .subscribe(result => {
-        this.currentBank = result;
-      }, error => console.error(error));
+  select(bank: IBank): void {
+    this.selectedChanged.next(bank);
   }
 
-  getList() {
-    this.http.get<IBank[]>(this.baseUrl + 'bank/ListAsync', { headers: this.headers })
-      .subscribe(result => {
-        this.banks = result;
-      }, error => console.error(error));
+  getItem(id: number): Observable<IBank> {
+    return this.http.get<IBank>(this.baseUrl + 'bank/ItemAsync/' + id, { headers: this.headers })
+      .pipe(map((response) => {
+        console.log(response);
+        return response;
+      //}))
+      //.pipe(catchError((error: HttpErrorResponse) => {
+      //  if (error.error instanceof Error) {
+      //    // A client-side or network error occurred. Handle it accordingly.
+      //    console.error('An error occurred:', error.error.message);
+      //  } else {
+      //    // The backend returned an unsuccessful response code.
+      //    // The response body may contain clues as to what went wrong,
+      //    console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+      //  }
+
+      //  // If you want to return a new response:
+      //  //return of(new HttpResponse({body: [{name: "Default value..."}]}));
+
+      //  // If you want to return the error on the upper level:
+      //  //return throwError(error);
+
+      //  // or just return nothing:
+      //  return empty;
+      }));      
   }
 
-  getCount() {
+  getList(): Observable<IBank[]> {
+    return this.http.get<IBank[]>(this.baseUrl + 'bank/ListAsync', { headers: this.headers })
+      .pipe(map((response: IBank[]) => {
+        return response;
+      }))
+      .pipe(catchError((error: HttpErrorResponse) => {
+        if (error.error instanceof Error) {
+          // A client-side or network error occurred. Handle it accordingly.
+          console.error('An error occurred:', error.error.message);
+        } else {
+          // The backend returned an unsuccessful response code.
+          // The response body may contain clues as to what went wrong,
+          console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+        }
+
+        // If you want to return a new response:
+        //return of(new HttpResponse({body: [{name: "Default value..."}]}));
+
+        // If you want to return the error on the upper level:
+        //return throwError(error);
+
+        // or just return nothing:
+        return empty;
+      }));
+  }
+
+  getCount(): void {
     this.http.get<number>(this.baseUrl + 'bank/CountAsync', { headers: this.headers })
       .subscribe(result => {
         this.count = result;

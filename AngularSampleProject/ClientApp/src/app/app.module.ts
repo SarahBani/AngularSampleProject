@@ -22,43 +22,49 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { BranchesComponent } from './branches/branches.component';
 import { TooltipDirective } from './directives/tooltip.directive';
 import { BankListComponent } from './banks/bank-list/bank-list.component';
-import { BankEditComponent } from './banks/bank-edit/bank-edit.component';
+import { BankItemComponent } from './banks/bank-item/bank-item.component';
 import { BankDetailComponent } from './banks/bank-detail/bank-detail.component';
+import { BankEditComponent } from './banks/bank-edit/bank-edit.component';
 import { BranchListComponent } from './branches/branch-list/branch-list.component';
 import { BranchDetailComponent } from './branches/branch-detail/branch-detail.component';
 import { BranchEditComponent } from './branches/branch-edit/branch-edit.component';
+import { BranchItemComponent } from './branches/branch-item/branch-item.component';
+import { SelectBankComponent } from './banks/select-bank/select-bank.component';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        NavMenuComponent,
-        HomeComponent,
-        CounterComponent,
-        FetchDataComponent,
-        BanksComponent,
-        PageNotFoundComponent,
-        AccessDeniedComponent,
-        AboutComponent,
-        ContactComponent,
-        ErrorPageComponent,
-        BranchesComponent,
-        TooltipDirective,
-        BankListComponent,
-        BankEditComponent,
-        BankDetailComponent,
-        BranchDetailComponent,
-        BranchEditComponent,
-        BranchListComponent
-    ],
-    imports: [
-        BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-        HttpClientModule,
-        FormsModule,
-        ReactiveFormsModule,
-        AppRoutingModule,
-        TooltipModule
-    ],
-    providers: [AuthService, AuthGuardService, CanDeactivateGuardService],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    NavMenuComponent,
+    HomeComponent,
+    CounterComponent,
+    FetchDataComponent,
+    BanksComponent,
+    PageNotFoundComponent,
+    AccessDeniedComponent,
+    AboutComponent,
+    ContactComponent,
+    ErrorPageComponent,
+    BranchesComponent,
+    TooltipDirective,
+    BankListComponent,
+    BankItemComponent,
+    BankDetailComponent,
+    BankEditComponent,
+    BranchDetailComponent,
+    BranchEditComponent,
+    BranchListComponent,
+    BranchItemComponent,
+    SelectBankComponent,
+  ],
+  imports: [
+    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    TooltipModule
+  ],
+  providers: [AuthService, AuthGuardService, CanDeactivateGuardService],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
