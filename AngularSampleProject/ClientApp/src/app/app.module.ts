@@ -31,6 +31,7 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { TooltipDirective } from './directives/tooltip.directive';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { TooltipDirective } from './directives/tooltip.directive';
     ContactComponent,
     ErrorPageComponent,
     TooltipDirective,
+    FooterComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
