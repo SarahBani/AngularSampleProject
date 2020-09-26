@@ -1,1 +1,14 @@
-<p>branch-list works!</p>
+<div class="container" *ngIf="branches">
+  <div class="row">
+    <div class="col-12 list-group">
+      <app-branch-item *ngFor="let branch of branches;" [model]="branch">
+      </app-branch-item>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <button class="btn btn-primary" (click)="onClick()">Add</button>
+      <button class="btn btn-success">Refresh</button>
+    </div>
+  </div>
+</div>

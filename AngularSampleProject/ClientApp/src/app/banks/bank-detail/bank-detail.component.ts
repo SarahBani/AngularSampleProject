@@ -16,9 +16,13 @@ export class BankDetailComponent implements OnInit {
   constructor(private bankService: BankService,
     private route: ActivatedRoute,
     private router: Router) {
+    this.fillData();
   }
 
   ngOnInit(): void {
+  }
+
+  fillData(): void {
     this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
       this.bankService.getItem(this.id).subscribe((bank) => {

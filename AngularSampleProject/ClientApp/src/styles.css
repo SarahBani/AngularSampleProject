@@ -1,5 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 
+/**************** ScrollBar *************/
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #D8D8D8;
+  border: 1px solid #B7B7B7;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #69BFCE;
+  border-radius: 20px;
+  border: 1px solid #438089;
+}
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #64CBDB;
+  }
+
+/*************************************/
+
 /* Provide sufficient contrast against white background */
 a {
   color: #0366d6;
@@ -78,3 +105,46 @@ p.alert-danger {
 #myModalAlert .alert-danger, #myModalAlert .alert-danger button {
   color: #a94442;
 }
+
+.scrollbar-auto {
+  background-color: lightgreen;
+  height: 150px;
+  width: 200px;
+  overflow-y: scroll;
+}
+
+.dropdown > button {
+  border: 1px solid #96A3BC;
+  text-align: right;
+  width: 100%;
+}
+
+  .dropdown > button > div {
+    float: left;
+  }
+
+ul.dropdown-menu {
+  padding: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  min-height: 80px;
+  width: 100%;
+}
+
+  ul.dropdown-menu > li {
+    padding: 5px;
+    border: 1px solid #96A3BC;
+    cursor: pointer;
+  }
+
+    ul.dropdown-menu > li:hover {
+      background-color: #74ECFF;
+    }
+
+    ul.dropdown-menu > li.selected {
+      background-color: #99D1DB;
+    }
+
+    ul.dropdown-menu > li > img {
+      width: 20px;
+    }

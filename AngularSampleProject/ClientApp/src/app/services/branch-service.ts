@@ -1,41 +1,40 @@
 import { EventEmitter, Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IBranch } from '../models/Ibranch.model';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class BranchService {
 
-  saveCompleted = new EventEmitter();
   private headers: HttpHeaders;
-  private baseUrl: string;
-  public currentBranch: IBranch;
-  public branchs: IBranch[];
+
+  selectedBankChanged = new Subject<number>();
+  selectedChanged = new Subject<IBranch>();
+  saveCompleted = new EventEmitter();
   public count: number;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    this.baseUrl = baseUrl;
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
   }
 
-  getItem(id: number) {
-    this.http.get<IBranch>(this.baseUrl + 'branch/ItemAsync/' + id, { headers: this.headers })
-      .subscribe(result => {
-        this.currentBranch = result;
-      }, error => console.error(error));
+  changeBank(bankId: number): void {
+    this.selectedBankChanged.next(bankId);
   }
 
-  getListByBankId(bankId: number) {
-    this.http.get<IBranch[]>(this.baseUrl + 'branch/ListByBankIdAsync/' + bankId, { headers: this.headers })
-      .subscribe(result => {
-        this.branchs = result;
-      }, error => console.error(error));
+  select(branch: IBranch): void {
+    this.selectedChanged.next(branch);
   }
 
-  getCountByBankId(bankId: number) {
-    this.http.get<number>(this.baseUrl + 'branch/CountByBankIdAsync/' + bankId, { headers: this.headers })
-      .subscribe(result => {
-        this.count = result;
-      }, error => console.error(error));
+  getItem(id: number): Observable<IBranch> {
+    return this.http.get<IBranch>(this.baseUrl + 'branch/ItemAsync/' + id, { headers: this.headers })
+  }
+
+  getListByBankId(bankId: number): Observable<IBranch[]> {
+    return this.http.get<IBranch[]>(this.baseUrl + 'branch/ListAsync/' + bankId, { headers: this.headers })
+  }
+
+  getCountByBankId(bankId: number): Observable<number> {
+    return this.http.get<number>(this.baseUrl + 'branch/CountAsync/' + bankId, { headers: this.headers })
   }
 
   insert(branch: IBranch): void {

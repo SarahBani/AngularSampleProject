@@ -19,5 +19,7 @@ namespace AngularSampleProject.Models
         [StringLength(500, ErrorMessage = "Address can't be longer than 500 characters!")]
         public string Address { get; set; }
 
+        public virtual Bank Bank { get; set; }
+
     }
 }

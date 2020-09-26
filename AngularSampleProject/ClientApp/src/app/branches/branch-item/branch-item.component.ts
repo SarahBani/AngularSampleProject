@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IBranch } from '../../models/Ibranch.model';
+import { BranchService } from '../../services/branch-service';
 
 @Component({
   selector: 'app-branch-item',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BranchItemComponent implements OnInit {
 
-  constructor() { }
+  @Input() model: IBranch;
+
+  constructor(private branchService: BranchService) { }
 
   ngOnInit(): void {
+  }
+
+  onSelect(): void {
+    this.branchService.select(this.model);
   }
 
 }

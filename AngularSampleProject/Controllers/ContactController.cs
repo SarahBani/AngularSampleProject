@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AngularSampleProject.Controllers
 {
-    [ApiController]
     [Route("[controller]")]
     public class ContactController : BaseAPIController
     {

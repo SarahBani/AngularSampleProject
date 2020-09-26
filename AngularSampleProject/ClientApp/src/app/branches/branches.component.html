@@ -7,9 +7,35 @@
       <a [routerLink]="['/']">Home</a>
     </li>
     <li class="breadcrumb-item active" aria-current="page">
-      <span>Banks</span>
+      <span>Branches</span>
     </li>
   </ol>
 </nav>
 
-<app-branch-list></app-branch-list>
+<div class="container">
+  <div class="row">
+    <div class="dropdown col-4">
+      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="true">
+        <div>{{ selectedBankName }}</div>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li *ngFor="let bank of banks" value="bank.id" (click)="onSelectBank(bank);"
+            [ngClass]="selectedBankId == bank.id ? 'selected' : ''">
+          <img [src]="'/images/' + bank.logoUrl" alt="{{ bank.name }}" />
+          {{ bank.name }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-7">
+      <app-branch-list></app-branch-list>
+    </div>
+    <div class="col-5">
+      <router-outlet *ngIf="selectedBankId != null"></router-outlet>
+    </div>
+  </div>
+</div>

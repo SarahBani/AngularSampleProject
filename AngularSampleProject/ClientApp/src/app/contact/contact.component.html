@@ -29,9 +29,12 @@
                     [tooltip]="f.controls.message != undefined && !f.controls.message.valid && f.controls.message.touched ? 'Message is not valid!' : ''"
                     [display]="f.controls.message != undefined && !f.controls.message.valid && f.controls.message.touched"></textarea>
         </div>
-        <p *ngIf="!f.valid && f.touched" class="alert-danger">
+        <p *ngIf="(!f.controls.email.valid && f.controls.email.touched) ||
+           (!f.controls.message.valid && f.controls.message.touched)"
+           class="alert-danger">
           Please enter valid values!
         </p>
+        <button type="reset" class="btn btn-danger" [disabled]="!f.touched">Clear</button>
         <button type="submit" class="btn btn-primary" [disabled]="!f.valid">Send</button>
       </form>
     </div>

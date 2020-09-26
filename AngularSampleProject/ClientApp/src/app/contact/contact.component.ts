@@ -23,7 +23,7 @@ export class ContactComponent implements OnInit {
   ngOnInit(): void {
     this.messageSent = this.contactService.messageSentCompleted.subscribe(() => {
       this.myForm.reset();
-      this.router.navigate(['../'], { relativeTo: this.route });
+      //this.router.navigate(['../'], { relativeTo: this.route });
     })
   }
 

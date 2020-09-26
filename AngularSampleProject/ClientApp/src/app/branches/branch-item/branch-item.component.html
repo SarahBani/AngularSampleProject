@@ -1,1 +1,8 @@
-<p>branch-item works!</p>
+<a [routerLink]="[model.id]"
+   [routerLinkActive]="['active']"
+   class="container list-group-item clearfix">
+  <strong class="list-group-item-heading">{{ model.name }}</strong>
+  <span class="float-right">
+    Code: {{ model.code }}
+  </span>
+</a>

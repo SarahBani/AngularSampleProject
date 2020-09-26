@@ -1,1 +1,39 @@
-<p>branch-detail works!</p>
+<div class="container text-center" *ngIf="model != null">
+  <div class="row">
+    <div class="col-8">
+      <h5>{{ model.name }}</h5>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-4 text-right">
+      <b>Code: </b>
+    </div>
+    <div class="col-8 text-left">
+      <span>{{ model.code }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4 text-right">
+      <b>Address: </b>
+    </div>
+    <div class="col-8 text-left">
+      <span>{{ model.address }}</span>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-12">
+      <div class="btn-group">
+        <button class="btn btn-primary" style="cursor:pointer" (click)="onBack()">Back</button>
+        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" appDropDown>
+          Manage<span class="caret"></span>
+        </button>
+        <div class=" dropdown-menu">
+          <a class="dropdown-item" style="cursor:pointer" (click)="onEdit()">Edit</a>
+          <a class="dropdown-item" style="cursor:pointer" (click)="onDelete()">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

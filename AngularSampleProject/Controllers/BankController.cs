@@ -4,11 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using AngularSampleProject.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using System.Net.Mime;
 
 namespace AngularSampleProject.Controllers
 {
-    [Produces(MediaTypeNames.Application.Json)]
     [Route("[controller]")]
     public class BankController : BaseAPIController
     {
@@ -82,7 +80,7 @@ namespace AngularSampleProject.Controllers
             return Enumerable.Range(1, 5).Select(index => new Bank
             {
                 Id = index,
-                Name = $"Bank{index}",
+                Name = $"Bank {index}",
                 LogoUrl = $"banks/{index}.png"
             });
         }

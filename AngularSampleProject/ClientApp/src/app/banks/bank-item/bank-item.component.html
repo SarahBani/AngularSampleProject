@@ -1,8 +1,8 @@
 <a [routerLink]="[model.id]"
    [routerLinkActive]="['active']"
-   class="list-group-item clearfix ">
+   class="list-group-item clearfix">
   <strong class="list-group-item-heading">{{ model.name }}</strong>
   <span class="float-right">
-    <img src="images/{{ model.logoUrl }}" alt="" class="img-responsive" style="max-height:50px" />
+    <img src="images/{{ model.logoUrl }}" alt="{{ model.logoUrl }}" class="img-responsive" style="max-height:50px" />
   </span>
 </a>

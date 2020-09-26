@@ -10,6 +10,17 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { BanksComponent } from './banks/banks.component';
+import { BankListComponent } from './banks/bank-list/bank-list.component';
+import { BankItemComponent } from './banks/bank-item/bank-item.component';
+import { BankDetailComponent } from './banks/bank-detail/bank-detail.component';
+import { BankEditComponent } from './banks/bank-edit/bank-edit.component';
+import { SelectBankComponent } from './banks/select-bank/select-bank.component';
+import { BranchesComponent } from './branches/branches.component';
+import { BranchListComponent } from './branches/branch-list/branch-list.component';
+import { BranchDetailComponent } from './branches/branch-detail/branch-detail.component';
+import { BranchEditComponent } from './branches/branch-edit/branch-edit.component';
+import { BranchItemComponent } from './branches/branch-item/branch-item.component';
+import { SelectBranchComponent } from './branches/select-branch/select-branch.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { AuthGuardService } from './services/auth-guard-service';
@@ -19,17 +30,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import { BranchesComponent } from './branches/branches.component';
 import { TooltipDirective } from './directives/tooltip.directive';
-import { BankListComponent } from './banks/bank-list/bank-list.component';
-import { BankItemComponent } from './banks/bank-item/bank-item.component';
-import { BankDetailComponent } from './banks/bank-detail/bank-detail.component';
-import { BankEditComponent } from './banks/bank-edit/bank-edit.component';
-import { BranchListComponent } from './branches/branch-list/branch-list.component';
-import { BranchDetailComponent } from './branches/branch-detail/branch-detail.component';
-import { BranchEditComponent } from './branches/branch-edit/branch-edit.component';
-import { BranchItemComponent } from './branches/branch-item/branch-item.component';
-import { SelectBankComponent } from './banks/select-bank/select-bank.component';
 
 @NgModule({
   declarations: [
@@ -39,22 +40,23 @@ import { SelectBankComponent } from './banks/select-bank/select-bank.component';
     CounterComponent,
     FetchDataComponent,
     BanksComponent,
+    BankListComponent,
+    BankItemComponent,
+    BankDetailComponent,
+    BankEditComponent,
+    SelectBankComponent,
+    BranchesComponent,
+    BranchDetailComponent,
+    BranchEditComponent,
+    BranchListComponent,
+    BranchItemComponent,
+    SelectBranchComponent,
     PageNotFoundComponent,
     AccessDeniedComponent,
     AboutComponent,
     ContactComponent,
     ErrorPageComponent,
-    BranchesComponent,
     TooltipDirective,
-    BankListComponent,
-    BankItemComponent,
-    BankDetailComponent,
-    BankEditComponent,
-    BranchDetailComponent,
-    BranchEditComponent,
-    BranchListComponent,
-    BranchItemComponent,
-    SelectBankComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

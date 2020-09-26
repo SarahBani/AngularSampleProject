@@ -28,26 +28,26 @@ export class BankService {
       .pipe(map((response) => {
         console.log(response);
         return response;
-      //}))
-      //.pipe(catchError((error: HttpErrorResponse) => {
-      //  if (error.error instanceof Error) {
-      //    // A client-side or network error occurred. Handle it accordingly.
-      //    console.error('An error occurred:', error.error.message);
-      //  } else {
-      //    // The backend returned an unsuccessful response code.
-      //    // The response body may contain clues as to what went wrong,
-      //    console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
-      //  }
+        //}))
+        //.pipe(catchError((error: HttpErrorResponse) => {
+        //  if (error.error instanceof Error) {
+        //    // A client-side or network error occurred. Handle it accordingly.
+        //    console.error('An error occurred:', error.error.message);
+        //  } else {
+        //    // The backend returned an unsuccessful response code.
+        //    // The response body may contain clues as to what went wrong,
+        //    console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+        //  }
 
-      //  // If you want to return a new response:
-      //  //return of(new HttpResponse({body: [{name: "Default value..."}]}));
+        //  // If you want to return a new response:
+        //  //return of(new HttpResponse({body: [{name: "Default value..."}]}));
 
-      //  // If you want to return the error on the upper level:
-      //  //return throwError(error);
+        //  // If you want to return the error on the upper level:
+        //  //return throwError(error);
 
-      //  // or just return nothing:
-      //  return empty;
-      }));      
+        //  // or just return nothing:
+        //  return empty;
+      }));
   }
 
   getList(): Observable<IBank[]> {
@@ -76,11 +76,8 @@ export class BankService {
       }));
   }
 
-  getCount(): void {
-    this.http.get<number>(this.baseUrl + 'bank/CountAsync', { headers: this.headers })
-      .subscribe(result => {
-        this.count = result;
-      }, error => console.error(error));
+  getCount(): Observable<number> {
+    return this.http.get<number>(this.baseUrl + 'bank/CountAsync', { headers: this.headers });
   }
 
   insert(bank: IBank): void {
