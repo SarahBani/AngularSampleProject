@@ -1,20 +1,22 @@
 import { EventEmitter, Inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { IBranch } from '../models/Ibranch.model';
 import { Observable, Subject } from 'rxjs';
+import { BaseService } from './base-service';
 
 @Injectable({ providedIn: 'root' })
-export class BranchService {
+export class BranchService extends BaseService {
 
-  private headers: HttpHeaders;
+  protected controllerName: string = 'Branch';
 
   selectedBankChanged = new Subject<number>();
   selectedChanged = new Subject<IBranch>();
   saveCompleted = new EventEmitter();
   public count: number;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
-    this.headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8' });
+  constructor(http: HttpClient,
+    @Inject('BASE_URL') baseUrl: string) {
+    super(http, baseUrl);
   }
 
   changeBank(bankId: number): void {
@@ -26,43 +28,31 @@ export class BranchService {
   }
 
   getItem(id: number): Observable<IBranch> {
-    return this.http.get<IBranch>(this.baseUrl + 'branch/ItemAsync/' + id, { headers: this.headers })
+    return super.httpGet<IBranch>('ItemAsync/' + id);
   }
 
   getListByBankId(bankId: number): Observable<IBranch[]> {
-    return this.http.get<IBranch[]>(this.baseUrl + 'branch/ListAsync/' + bankId, { headers: this.headers })
+    return super.httpGet<IBranch[]>('ListAsync/' + bankId);
   }
 
   getCountByBankId(bankId: number): Observable<number> {
-    return this.http.get<number>(this.baseUrl + 'branch/CountAsync/' + bankId, { headers: this.headers })
+    return super.httpGet<number>('CountAsync/' + bankId);
   }
 
   insert(branch: IBranch): void {
-    this.http.post(this.baseUrl + 'branch/InsertAsync', branch, { headers: this.headers })
-      .subscribe(result => {
-        alert(result);
-      }, error => console.error(error));
+    super.httpPost('InsertAsync', branch);
   }
 
   update(id: number, branch: IBranch): void {
-    this.http.put(this.baseUrl + 'branch/UpdateAsync/' + id, branch, { headers: this.headers })
-      .subscribe(result => {
-        alert(result);
-      }, error => console.error(error));
+    super.httpPut('UpdateAsync/' + id, branch);
   }
 
   delete(id: number): void {
-    this.http.put(this.baseUrl + 'branch/DeleteAsync/' + id, { headers: this.headers })
-      .subscribe(result => {
-        alert(result);
-      }, error => console.error(error));
+    super.httpDelete('DeleteAsync/' + id);
   }
 
   deleteByBankIdAsync(bankId: number): void {
-    this.http.put(this.baseUrl + 'branch/DeleteByBankIdAsync/' + bankId, { headers: this.headers })
-      .subscribe(result => {
-        alert(result);
-      }, error => console.error(error));
+    super.httpDelete('DeleteByBankIdAsync/' + bankId);
   }
 
 }

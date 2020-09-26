@@ -9,7 +9,9 @@ import { BaseService } from './base-service';
 @Injectable({ providedIn: 'root' })
 export class ContactService extends BaseService {
 
-  messageSentCompleted: Subject<void> = new Subject();
+  protected controllerName: string = 'Contact';
+
+  public messageSentCompleted: Subject<void> = new Subject();
 
   constructor(http: HttpClient,
     @Inject('BASE_URL') baseUrl: string,
@@ -18,15 +20,15 @@ export class ContactService extends BaseService {
     super(http, baseUrl, modalService, exceptionHandlerService);
   }
 
-  send(email: string, message: string): void {
+  public send(email: string, message: string): void {
     var contact: IContact = {
       email: email,
       message: message
     };
-    super.post<IContact>('Contact/SendAsync',
+    super.httpPost<IContact>('SendAsync',
       contact,
-      'Your message has been sent.',
-       this.messageSentCompleted);
+      this.messageSentCompleted,
+      'Your message has been sent.');
   }
 
 }

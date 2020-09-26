@@ -29,8 +29,8 @@
                     [tooltip]="f.controls.message != undefined && !f.controls.message.valid && f.controls.message.touched ? 'Message is not valid!' : ''"
                     [display]="f.controls.message != undefined && !f.controls.message.valid && f.controls.message.touched"></textarea>
         </div>
-        <p *ngIf="(!f.controls.email.valid && f.controls.email.touched) ||
-           (!f.controls.message.valid && f.controls.message.touched)"
+        <p *ngIf="(f.controls.email != undefined && !f.controls.email.valid && f.controls.email.touched) ||
+           (f.controls.message != undefined && !f.controls.message.valid && f.controls.message.touched)"
            class="alert-danger">
           Please enter valid values!
         </p>
