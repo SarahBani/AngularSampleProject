@@ -12,7 +12,7 @@ import { BranchService } from '../services/branch-service';
 export class BranchesComponent implements OnInit {
 
   banks: IBank[] = [];
-  @Input() selectedBankId: number;
+  selectedBankId: number;
   selectedBankName: string = 'Select Bank';
   url: string = '/branches';
 
@@ -22,15 +22,27 @@ export class BranchesComponent implements OnInit {
     private router: Router) {
     this.resetUrl();
     this.fillBanks();
+    this.setSelectedBank();
   }
 
   ngOnInit(): void {
+    if (this.selectedBankId != null) {
+      this.branchService.changeBank(this.selectedBankId);
+    }
   }
 
   fillBanks(): void {
     this.bankService.getList().subscribe((banks) => {
       this.banks = banks;
     });
+  }
+
+  setSelectedBank(): void {
+    const state = this.router.getCurrentNavigation().extras.state;
+    if (state != null && state.bank != null) {
+      this.selectedBankId = state.bank.id;
+      this.selectedBankName = state.bank.name;
+    }
   }
 
   onSelectBank(bank: IBank): void {
@@ -40,7 +52,7 @@ export class BranchesComponent implements OnInit {
     this.branchService.changeBank(bank.id);
   }
 
-  resetUrl():void {
+  resetUrl(): void {
     if (this.router.url != this.url) {
       this.router.navigate(['/branches']);
     }

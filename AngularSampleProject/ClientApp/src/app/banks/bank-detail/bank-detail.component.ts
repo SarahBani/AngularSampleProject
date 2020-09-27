@@ -10,8 +10,8 @@ import { BankService } from '../../services/bank-service';
 })
 export class BankDetailComponent implements OnInit {
 
-  model: IBank;
-  id: number;
+  private id: number;
+  public model: IBank;
 
   constructor(private bankService: BankService,
     private route: ActivatedRoute,
@@ -42,6 +42,13 @@ export class BankDetailComponent implements OnInit {
 
   onEdit() {
     this.router.navigate(['edit'], { relativeTo: this.route });
+  }
+
+  redirectToBranches() {
+    this.router.navigate(['/branches'],
+      {
+        state: { bank: this.model }
+      });
   }
 
 }

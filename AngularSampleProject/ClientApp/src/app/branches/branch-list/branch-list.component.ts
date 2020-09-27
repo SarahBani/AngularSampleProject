@@ -18,12 +18,13 @@ export class BranchListComponent implements OnInit {
   constructor(private branchService: BranchService,
     private router: Router,
     private route: ActivatedRoute) {
+    this.changeBankSubscription = this.branchService.selectedBankChanged.subscribe(
+      (bankId: number) => {
+        this.fillBranches(bankId);
+      }, error => console.error(error));
   }
 
   ngOnInit(): void {
-    this.changeBankSubscription = this.branchService.selectedBankChanged.subscribe((bankId: number) => {
-      this.fillBranches(bankId);
-    }, error => console.error(error));
   }
 
   fillBranches(bankId: number): void {
