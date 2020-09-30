@@ -19,6 +19,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,11 +34,13 @@
     <None Remove="ClientApp\src\app\services\base-service.ts" />
     <None Remove="ClientApp\src\app\services\contact-service.ts" />
     <None Remove="ClientApp\src\app\services\exception-handler-service.ts" />
+    <None Remove="ClientApp\src\app\services\file-upload-service.ts" />
     <None Remove="ClientApp\src\app\services\modal-service.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Remove="ClientApp\src\app\directives\tooltip.directive.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\image-uploader.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\Ibank.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\IBranch.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\IContact.model.ts" />
@@ -50,9 +53,16 @@
     <TypeScriptCompile Update="ClientApp\src\app\services\base-service.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+    <TypeScriptCompile Update="ClientApp\src\app\services\file-upload-service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Update="ClientApp\src\app\services\modal-service.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Images\Banks\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

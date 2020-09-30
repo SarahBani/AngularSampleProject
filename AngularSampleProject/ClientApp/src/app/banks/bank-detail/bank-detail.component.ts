@@ -10,7 +10,6 @@ import { BankService } from '../../services/bank-service';
 })
 export class BankDetailComponent implements OnInit {
 
-  private id: number;
   public model: IBank;
 
   constructor(private bankService: BankService,
@@ -24,8 +23,8 @@ export class BankDetailComponent implements OnInit {
 
   fillData(): void {
     this.route.params.subscribe((params: Params) => {
-      this.id = +params['id'];
-      this.bankService.getItem(this.id).subscribe((bank) => {
+      const id:number = +params['id'];
+      this.bankService.getItem(id).subscribe((bank) => {
         this.model = bank;
       }, error => console.error(error));
     });
@@ -36,7 +35,7 @@ export class BankDetailComponent implements OnInit {
   }
 
   onDelete() {
-    this.bankService.delete(this.id);
+    this.bankService.delete(this.model.id);
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using AngularSampleProject.Models;
+using AngularSampleProject.Common;
 
 namespace AngularSampleProject.Controllers
 {
@@ -7,9 +8,28 @@ namespace AngularSampleProject.Controllers
     public abstract class BaseAPIController : ControllerBase
     {
 
+        #region Properties
+
+        #endregion /Properties
+
+        #region Constructors
+
+        public BaseAPIController()
+        {
+        }
+
+        #endregion /Constructors
+
+        #region Actions
+
         protected IActionResult GetOKActionResult()
         {
             return Ok(new CustomActionResult()); // Http status code 200
+        }
+
+        protected IActionResult GetActionResult<T>(T value)
+        {
+            return Ok(new CustomActionResult(value));
         }
 
         protected IActionResult GetCreatedActionResult<TEntity, TKey>(string actionName,
@@ -21,25 +41,22 @@ namespace AngularSampleProject.Controllers
                 createdObject);
         }
 
-        protected IActionResult GetInvalidModelActionResult()
+        protected IActionResult GetInvalidModelResult()
         {
             return BadRequest(new CustomActionResult(new CustomException(Constant.Exception_InvalidModelState), ModelState));
         }
 
-         protected IActionResult GetInvalidRequestActionResult()
+         protected IActionResult GetInvalidRequestResult()
         {
             return BadRequest(new CustomActionResult(new CustomException(Constant.Exception_InvalidRequestData), ModelState));
         }
 
-        protected IActionResult GetErrorActionResult()
+        protected IActionResult GetErrorResult()
         {
             return BadRequest(new CustomActionResult(new CustomException(Constant.Exception_HasError)));
         }
 
-        protected IActionResult GetActionResult<T>(T value)
-        {
-            return Ok(new CustomActionResult(value));
-        }
+        #endregion /Actions
 
     }
 }

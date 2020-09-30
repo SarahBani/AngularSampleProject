@@ -22,7 +22,7 @@ namespace AngularSampleProject.Controllers
             }
             else
             {
-                return base.GetErrorActionResult();
+                return base.GetErrorResult();
             }
         }
 

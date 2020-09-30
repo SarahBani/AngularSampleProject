@@ -11,8 +11,8 @@ import { BankService } from '../../services/bank-service';
 })
 export class BankListComponent implements OnInit {
 
-  banks: IBank[] = [];
-  private updateSubscription: Subscription;
+  public banks: IBank[] = [];
+  private dataUpdated: Subscription;
 
   constructor(private bankService: BankService,
     private router: Router,
@@ -20,13 +20,24 @@ export class BankListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fillList();
+    this.dataUpdated = this.bankService.dataUpdated.subscribe(() => {
+      this.fillList();
+    });
+  }
+
+  private fillList() {
     this.bankService.getList().subscribe((banks) => {
       this.banks = banks;
     });
   }
 
-  onClick(): void {
+  onAdd(): void {
     this.router.navigate(['new'], { relativeTo: this.route });
+  }
+
+  ngOnDestroy(): void {
+    this.dataUpdated.unsubscribe();
   }
 
 }

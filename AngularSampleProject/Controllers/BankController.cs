@@ -8,8 +8,18 @@ using Microsoft.AspNetCore.Http;
 namespace AngularSampleProject.Controllers
 {
     [Route("[controller]")]
-    public class BankController : BaseAPIController
+    public class BankController : BaseUploaderAPIController
     {
+
+        #region Constructors
+
+        public BankController()
+        {
+        }
+
+        #endregion /Constructors
+
+        #region Actions
 
         [HttpGet("ItemAsync/{id}")]
         public async Task<Bank> GetItemAsync([FromRoute] int id)
@@ -39,24 +49,24 @@ namespace AngularSampleProject.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return base.GetInvalidModelActionResult();
+                return base.GetInvalidModelResult();
             }
             await Task.Run(() => { });
             return base.GetCreatedActionResult<Bank, int>("GetListAsync", bank);
         }
 
-        [HttpPut("UpdateAsync")]
+        [HttpPut("UpdateAsync/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] Bank bank)
         {
             if (!ModelState.IsValid)
             {
-                return base.GetInvalidModelActionResult();
+                return base.GetInvalidModelResult();
             }
             if (id <= 0)
             {
-                return base.GetInvalidRequestActionResult();
+                return base.GetInvalidRequestResult();
             }
             await Task.Run(() => { });
             return base.GetOKActionResult();
@@ -69,11 +79,21 @@ namespace AngularSampleProject.Controllers
         {
             if (id <= 0)
             {
-                return base.GetInvalidRequestActionResult();
+                return base.GetInvalidRequestResult();
             }
             await Task.Run(() => { });
             return base.GetOKActionResult();
         }
+
+        [HttpPost("UploadLogo"), DisableRequestSizeLimit]
+        public IActionResult UploadLogo()
+        {
+            return base.UploadImage("Banks");
+        }
+
+        #endregion /Actions
+
+        #region Methods
 
         private IEnumerable<Bank> GetBanks()
         {
@@ -84,6 +104,8 @@ namespace AngularSampleProject.Controllers
                 LogoUrl = $"banks/{index}.png"
             });
         }
+
+        #endregion /Methods
 
     }
 }

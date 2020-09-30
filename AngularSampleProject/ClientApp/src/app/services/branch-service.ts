@@ -28,7 +28,7 @@ export class BranchService extends BaseService {
   }
 
   getItem(id: number): Observable<IBranch> {
-    return super.httpGet<IBranch>('ItemAsync/' + id);
+    return super.httpGetItem<IBranch>(id);
   }
 
   getListByBankId(bankId: number): Observable<IBranch[]> {

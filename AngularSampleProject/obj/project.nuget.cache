@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Q2jNnRhXxAG0GYLkx05snANY/Pjt+/1TMZ2ocbJZ7jGEd+t4MCslowj9HyZsxbLfMePpqYJF7qAVuwcfTxmCoA==",
+  "dgSpecHash": "V5SDawwAaQmylGWJpuu63UuA4afLLbB5jXQpQzOx8s/cAmWbf3vefCUwzsMmiKtW6I3fUf150gtQI84rLiv9jQ==",
   "success": true,
   "projectFilePath": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\AngularSampleProject\\AngularSampleProject.csproj",
   "expectedPackageFiles": [
@@ -24,9 +24,12 @@
     "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.options\\3.0.3\\microsoft.extensions.options.3.0.3.nupkg.sha512",
     "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\3.0.3\\microsoft.extensions.options.configurationextensions.3.0.3.nupkg.sha512",
     "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.extensions.primitives\\3.0.3\\microsoft.extensions.primitives.3.0.3.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.typescript.msbuild\\4.0.2\\microsoft.typescript.msbuild.4.0.2.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\Sarah\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
-    "C:\\Users\\Sarah\\.nuget\\packages\\popper.js\\1.16.1\\popper.js.1.16.1.nupkg.sha512"
+    "C:\\Users\\Sarah\\.nuget\\packages\\popper.js\\1.16.1\\popper.js.1.16.1.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\system.drawing.common\\4.7.0\\system.drawing.common.4.7.0.nupkg.sha512"
   ],
   "logs": []
 }

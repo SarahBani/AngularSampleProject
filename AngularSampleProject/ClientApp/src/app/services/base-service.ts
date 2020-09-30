@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEventType, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { ICustomActionResult } from '../models/ICustomActionResult.model';
@@ -8,16 +8,14 @@ import { ExceptionHandlerService } from './exception-handler-service';
 
 export abstract class BaseService {
 
-  protected headers: HttpHeaders;
   protected abstract controllerName: string;
 
-  constructor(private http: HttpClient,
+  public onUploadFinished = new Subject<string>();
+
+  constructor(private httpClient: HttpClient,
     @Inject('BASE_URL') private baseUrl: string,
     private modalService: ModalService = null,
     private exceptionHandlerService: ExceptionHandlerService = null) {
-    this.headers = new HttpHeaders({
-      'Content-Type': 'application/json; charset=utf-8'
-    });
   }
 
   private getInitialUrl(): string {
@@ -28,7 +26,9 @@ export abstract class BaseService {
     headers?: HttpHeaders; responseType: 'json';
   } {
     return {
-      headers: this.headers,
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json; charset=utf-8'
+      }),
       responseType: 'json'
     };
   }
@@ -46,7 +46,7 @@ export abstract class BaseService {
   }
 
   //protected getList<T>(url: string): Observable<T[]> {
-  //  return this.http.get<T[]>(this.baseUrl + url, { headers: this.headers })
+  //  return this.httpClient.get<T[]>(this.baseUrl + url, this.getHeaders())
   //    .pipe(map((response: T[]) => {
   //      return response;
   //      //}))
@@ -72,7 +72,7 @@ export abstract class BaseService {
   //}
 
   protected httpGet<T>(remainedUrl: string): Observable<T> {
-    return this.http.get<T>(this.getInitialUrl() + remainedUrl, { headers: this.headers })
+    return this.httpClient.get<T>(this.getInitialUrl() + remainedUrl, this.getHeaders())
       .pipe(map((response) => {
         return response;
         //}))
@@ -95,15 +95,17 @@ export abstract class BaseService {
         //  // or just return nothing:
         //  return empty;
       }));
+    //this.handleError(e)
   }
 
   protected httpPost<T>(remainedUrl: string,
     body: T,
-    callback: Subject<any> = null,
+    callback: Subject<void> = null,
     successMessage: string = ''): void {
-    this.http.post<ICustomActionResult>(
+    this.httpClient.post<ICustomActionResult>(
       this.getInitialUrl() + remainedUrl,
-      body, this.getHeaders())
+      body,
+      this.getHeaders())
       //.toPromise()
       //.map(res => res.json().data )
       .pipe(map((response: ICustomActionResult) => {
@@ -121,10 +123,12 @@ export abstract class BaseService {
 
   protected httpPut<T>(remainedUrl: string,
     body: T,
-    callback: Subject<any> = null,
+    callback: Subject<void> = null,
+    //callback: () => void,
     successMessage: string = ''): void {
-    this.http.put<ICustomActionResult>(this.getInitialUrl() + remainedUrl,
-      body, this.getHeaders())
+    this.httpClient.put<ICustomActionResult>(this.getInitialUrl() + remainedUrl,
+      body,
+      this.getHeaders())
       //.toPromise()
       //.map(res => res.json().data )
       .pipe(map((response: ICustomActionResult) => {
@@ -143,7 +147,7 @@ export abstract class BaseService {
   protected httpDelete(remainedUrl: string,
     callback: Subject<any> = null,
     successMessage: string = ''): void {
-    this.http.delete<ICustomActionResult>(this.getInitialUrl() + remainedUrl,
+    this.httpClient.delete<ICustomActionResult>(this.getInitialUrl() + remainedUrl,
       this.getHeaders())
       //.toPromise()
       //.map(res => res.json().data )
@@ -158,6 +162,29 @@ export abstract class BaseService {
       }, response => {
         this.exceptionHandlerService.showModalException(response);
       });
+  }
+
+  protected postFile(remainedUrl: string, fileToUpload: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+    return this.httpClient.post(this.getInitialUrl() + remainedUrl, formData, {
+      reportProgress: true,
+      observe: 'events'
+    });
+
+    //  .pipe(map((response) => {
+    //    return true;
+    //  }))
+    //  //.pipe(catchError((error) => {
+    //  //  //(error: HttpErrorResponse) => {
+    //  //  //this.handleError(e)
+    //  //  return false;
+    //  //}))
+    //  .subscribe(result => {
+    //  }, response => {
+    //      console.log(response);
+    //   // this.exceptionHandlerService.showModalException(response);
+    //  });
   }
 
 }

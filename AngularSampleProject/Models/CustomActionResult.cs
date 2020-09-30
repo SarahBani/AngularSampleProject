@@ -1,4 +1,6 @@
-﻿namespace AngularSampleProject.Models
+﻿using AngularSampleProject.Common;
+
+namespace AngularSampleProject.Models
 {
     public class CustomActionResult
     {

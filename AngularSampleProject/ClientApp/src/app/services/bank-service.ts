@@ -8,11 +8,10 @@ import { BaseService } from './base-service';
 export class BankService extends BaseService {
 
   protected controllerName: string = 'Bank';
-
   public count: number;
-
-  public saveCompleted = new EventEmitter();
   public selectedChanged = new Subject<IBank>();
+  public dataUpdated = new Subject<void>();
+  //public saveCompleted = new EventEmitter();
 
   constructor(http: HttpClient,
     @Inject('BASE_URL') baseUrl: string) {
@@ -25,29 +24,39 @@ export class BankService extends BaseService {
 
   public getItem(id: number): Observable<IBank> {
     return super.httpGetItem<IBank>(id);
-    //return super.httpGet<IBank>('ItemAsync/' + id);
   }
 
   public getList(): Observable<IBank[]> {
     return super.httpGetAll<IBank>();
-    //return super.httpGet<IBank[]>('ListAsync');  
   }
 
   public getCount(): Observable<number> {
-    return super.httpCount();
-    //return super.httpGet<number>('CountAsync');
+    return super.httpGetCount();
   }
 
-  public insert(bank: IBank): void {
-    super.httpPost<IBank>('bank/InsertAsync', bank, this.saveCompleted);
+  public save(bank: IBank): void {
+    if (bank.id > 0) {
+      this.update(bank.id, bank);
+    }
+    else {
+      this.insert(bank);
+    }
   }
 
-  public update(id: number, bank: IBank): void {
-    super.httpPut('bank/UpdateAsync/' + id, bank, this.saveCompleted);
+  private insert(bank: IBank) {
+    super.httpPost<IBank>('InsertAsync', bank, this.dataUpdated);
+  }
+
+  private update(id: number, bank: IBank) {
+    super.httpPut('UpdateAsync/' + id, bank, this.dataUpdated);
   }
 
   public delete(id: number): void {
-    super.httpDelete('bank/DeleteAsync/' + id, this.saveCompleted);
+    super.httpDelete('DeleteAsync/' + id, this.dataUpdated);
+  }
+
+  public uploadLogo(file: File): Observable<any> {
+    return super.postFile('UploadLogo/', file);
   }
 
 }

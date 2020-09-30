@@ -1,4 +1,4 @@
-﻿namespace AngularSampleProject.Models
+﻿namespace AngularSampleProject.Common
 {
     public static class Constant
     {
@@ -15,6 +15,8 @@
 
         public const string Exception_InvalidModelState = "Data is invalid!";
         public const string Exception_InvalidRequestData = "Request data is invalid!";
+        public const string Exception_EmptyFile = "The file is empty!";
+
         public const string Exception_NoActiveTransaction = "There is no active transation!";
         public const string Exception_InvalidOrderID = "OrderID is invalid!";
         public const string Exception_OrderItemsNotExist = "There is not any order item!";

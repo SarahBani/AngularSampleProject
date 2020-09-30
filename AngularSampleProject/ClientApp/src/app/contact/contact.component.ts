@@ -13,7 +13,7 @@ export class ContactComponent implements OnInit {
 
   @ViewChild('f') myForm: NgForm;
   private messageSent: Subscription;
-  changesSaved: boolean = false;
+  private changesSaved: boolean = false;
 
   constructor(private contactService: ContactService,
     private route: ActivatedRoute,

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AngularSampleProject.Models
+namespace AngularSampleProject.Common
 {
     public enum ExceptionKey
     {

@@ -55,7 +55,7 @@ namespace AngularSampleProject.Controllers
         {
             if (id <= 0)
             {
-                return base.GetInvalidRequestActionResult();
+                return base.GetInvalidRequestResult();
             }
             await Task.Run(() => { });
             return base.GetOKActionResult();
@@ -68,7 +68,7 @@ namespace AngularSampleProject.Controllers
         {
             if (id <= 0)
             {
-                return base.GetInvalidRequestActionResult();
+                return base.GetInvalidRequestResult();
             }
             await Task.Run(() => { });
             return base.GetOKActionResult();
@@ -81,7 +81,7 @@ namespace AngularSampleProject.Controllers
         {
             if (bankId <= 0)
             {
-                return base.GetInvalidRequestActionResult();
+                return base.GetInvalidRequestResult();
             }
             await Task.Run(() => { });
             return base.GetOKActionResult();
