@@ -1,0 +1,12 @@
+H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainModel\bin\Debug\netcoreapp3.0\Core.DomainModel.deps.json
+H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainModel\bin\Debug\netcoreapp3.0\Core.DomainModel.dll
+H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainModel\bin\Debug\netcoreapp3.0\Core.DomainModel.pdb
+H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainModel\obj\Debug\netcoreapp3.0\Core.DomainModel.AssemblyInfoInputs.cache
+H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainModel\obj\Debug\netcoreapp3.0\Core.DomainModel.AssemblyInfo.cs
+H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainModel\obj\Debug\netcoreapp3.0\Core.DomainModel.dll
+H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainModel\obj\Debug\netcoreapp3.0\Core.DomainModel.pdb
+H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainModel\bin\Debug\netcoreapp3.0\Core.DomainModel.runtimeconfig.json
+H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainModel\bin\Debug\netcoreapp3.0\Core.DomainModel.runtimeconfig.dev.json
+H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainModel\obj\Debug\netcoreapp3.0\Core.DomainModel.genruntimeconfig.cache
+H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainModel\obj\Debug\netcoreapp3.0\Core.DomainModel.csproj.CoreCompileInputs.cache
+H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainModel\obj\Debug\netcoreapp3.0\Core.DomainModel.csprojAssemblyReference.cache

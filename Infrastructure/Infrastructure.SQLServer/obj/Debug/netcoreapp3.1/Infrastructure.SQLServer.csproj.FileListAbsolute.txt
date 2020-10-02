@@ -1,0 +1,14 @@
+H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\bin\Debug\netcoreapp3.1\Infrastructure.SQLServer.deps.json
+H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\bin\Debug\netcoreapp3.1\Infrastructure.SQLServer.dll
+H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\bin\Debug\netcoreapp3.1\Infrastructure.SQLServer.pdb
+H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\bin\Debug\netcoreapp3.1\Core.DomainModel.dll
+H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\bin\Debug\netcoreapp3.1\Core.DomainServices.dll
+H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\bin\Debug\netcoreapp3.1\Core.DomainModel.pdb
+H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\bin\Debug\netcoreapp3.1\Core.DomainServices.pdb
+H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\obj\Debug\netcoreapp3.1\Infrastructure.SQLServer.csprojAssemblyReference.cache
+H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\obj\Debug\netcoreapp3.1\Infrastructure.SQLServer.AssemblyInfoInputs.cache
+H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\obj\Debug\netcoreapp3.1\Infrastructure.SQLServer.AssemblyInfo.cs
+H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\obj\Debug\netcoreapp3.1\Infrastructure.SQLServer.csproj.CoreCompileInputs.cache
+H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\obj\Debug\netcoreapp3.1\Infrastructure.SQLServer.csproj.CopyComplete
+H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\obj\Debug\netcoreapp3.1\Infrastructure.SQLServer.dll
+H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\obj\Debug\netcoreapp3.1\Infrastructure.SQLServer.pdb
