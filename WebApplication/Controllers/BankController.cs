@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.ApplicationService.Contracts;
 
 namespace WebApplication.Controllers
 {
@@ -11,10 +12,17 @@ namespace WebApplication.Controllers
     public class BankController : BaseUploaderAPIController
     {
 
+        #region Properties
+
+        public IBankService _bankService { get; set; }
+
+        #endregion /Properties
+
         #region Constructors
 
-        public BankController()
+        public BankController(IBankService bankService)
         {
+            this._bankService = bankService;
         }
 
         #endregion /Constructors
@@ -24,22 +32,20 @@ namespace WebApplication.Controllers
         [HttpGet("ItemAsync/{id}")]
         public async Task<Bank> GetItemAsync([FromRoute] int id)
         {
-            await Task.Run(() => { });
-            return GetBanks().AsQueryable().Single(q => q.Id.Equals(id));
+            return await this._bankService.GetByIdAsync(id);
         }
 
         [HttpGet("ListAsync")]
         public async Task<IEnumerable<Bank>> GetListAsync()
         {
-            await Task.Run(() => { });
-            return GetBanks().ToArray();
+            var banks = await this._bankService.GetAllAsync();
+            return banks.ToArray();
         }
 
         [HttpGet("CountAsync")]
         public async Task<int> GetCountAsync()
         {
-            await Task.Run(() => { });
-            return 5;
+            return await this._bankService.GetCountAsync();
         }
 
         [HttpPost("InsertAsync")]
@@ -51,8 +57,15 @@ namespace WebApplication.Controllers
             {
                 return base.GetInvalidModelResult();
             }
-            await Task.Run(() => { });
-            return base.GetCreatedActionResult<Bank, int>("GetListAsync", bank);
+            var result = await this._bankService.InsertAsync(bank);
+            if (result.IsSuccessful)
+            {
+                return base.GetCreatedActionResult<Bank, int>("GetListAsync", bank);
+            }
+            else
+            {
+                return base.GetErrorResult(result.ExceptionContentResult);
+            }
         }
 
         [HttpPut("UpdateAsync/{id}")]
@@ -68,8 +81,15 @@ namespace WebApplication.Controllers
             {
                 return base.GetInvalidRequestResult();
             }
-            await Task.Run(() => { });
-            return base.GetOKActionResult();
+            var result = await this._bankService.UpdateAsync(bank);
+            if (result.IsSuccessful)
+            {
+                return base.GetOKActionResult();
+            }
+            else
+            {
+                return base.GetErrorResult(result.ExceptionContentResult);
+            }
         }
 
         [HttpPut("DeleteAsync")]
@@ -81,8 +101,15 @@ namespace WebApplication.Controllers
             {
                 return base.GetInvalidRequestResult();
             }
-            await Task.Run(() => { });
-            return base.GetOKActionResult();
+            var result = await this._bankService.DeleteAsync(id);
+            if (result.IsSuccessful)
+            {
+                return base.GetOKActionResult();
+            }
+            else
+            {
+                return base.GetErrorResult(result.ExceptionContentResult);
+            }
         }
 
         [HttpPost("UploadLogo"), DisableRequestSizeLimit]
@@ -95,15 +122,15 @@ namespace WebApplication.Controllers
 
         #region Methods
 
-        private IEnumerable<Bank> GetBanks()
-        {
-            return Enumerable.Range(1, 5).Select(index => new Bank
-            {
-                Id = index,
-                Name = $"Bank {index}",
-                LogoUrl = $"banks/{index}.png"
-            });
-        }
+        //private IEnumerable<Bank> GetBanks()
+        //{
+        //    return Enumerable.Range(1, 5).Select(index => new Bank
+        //    {
+        //        Id = index,
+        //        Name = $"Bank {index}",
+        //        LogoUrl = $"banks/{index}.png"
+        //    });
+        //}
 
         #endregion /Methods
 

@@ -1,10 +1,11 @@
-﻿using Core.ApplicationServices.Contracts;
+﻿using Core.ApplicationService.Contracts;
 using Core.DomainModel.Entities;
+using Core.DomainService.Repositoy;
 using System.Threading.Tasks;
 
-namespace Core.ApplicationServices.Implementation
+namespace Core.ApplicationService.Implementation
 {
-    public class BankService : BaseService<Bank, int>, IBankService
+    public class BankService : BaseService<IBankRepository, Bank, int>, IBankService
     {
 
         #region Properties

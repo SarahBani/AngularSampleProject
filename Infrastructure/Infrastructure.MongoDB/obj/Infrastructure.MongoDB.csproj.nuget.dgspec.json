@@ -93,14 +93,14 @@
         }
       }
     },
-    "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainServices\\Core.DomainServices.csproj": {
+    "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainService\\Core.DomainService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainServices\\Core.DomainServices.csproj",
-        "projectName": "Core.DomainServices",
-        "projectPath": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainServices\\Core.DomainServices.csproj",
+        "projectUniqueName": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainService\\Core.DomainService.csproj",
+        "projectName": "Core.DomainService",
+        "projectPath": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainService\\Core.DomainService.csproj",
         "packagesPath": "C:\\Users\\Sarah\\.nuget\\packages\\",
-        "outputPath": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainServices\\obj\\",
+        "outputPath": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainService\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -187,8 +187,8 @@
               "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainModel\\Core.DomainModel.csproj": {
                 "projectPath": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainModel\\Core.DomainModel.csproj"
               },
-              "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainServices\\Core.DomainServices.csproj": {
-                "projectPath": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainServices\\Core.DomainServices.csproj"
+              "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainService\\Core.DomainService.csproj": {
+                "projectPath": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainService\\Core.DomainService.csproj"
               }
             }
           }

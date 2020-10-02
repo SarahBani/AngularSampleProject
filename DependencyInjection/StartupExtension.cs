@@ -1,9 +1,11 @@
-﻿using Core.ApplicationServices.Contracts;
-using Core.ApplicationServices.Implementation;
+﻿using Core.ApplicationService;
+using Core.ApplicationService.Contracts;
+using Core.ApplicationService.Implementation;
 using Core.DomainModel.Entities;
-using Core.DomainServices;
-using Core.DomainServices.Repositoy;
+using Core.DomainService;
+using Core.DomainService.Repositoy;
 using Infrastructure.DataBase.Repository;
+using Infrastructure.SQLServer;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DependencyInjection
@@ -12,20 +14,14 @@ namespace DependencyInjection
     {
         public static IServiceCollection SetInjection(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IUnitOfWork), typeof(Infrastructure.SQLServer.UnitOfWork));
-            // services.AddScoped<EntityService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IEntityService, EntityService>();
 
-            services.AddScoped(typeof(IRepository<Bank, int>), typeof(BankRepository));
-            services.AddScoped(typeof(IRepository<Branch, int>), typeof(BranchRepository));
+            services.AddScoped(typeof(IBaseRepository<Bank, int>), typeof(BankRepository));
+            services.AddScoped(typeof(IBaseRepository<Branch, int>), typeof(BranchRepository));
 
             services.AddScoped(typeof(IBankService), typeof(BankService));
             services.AddScoped(typeof(IBranchService), typeof(BranchService));
-
-            //services.AddClassesAsImplementedInterface(Assembly.GetEntryAssembly(), typeof(IBaseService));
-
-            // Can't do this for abstract classes
-            //services.AddScoped(typeof(IReadOnlyRepository<,>), typeof(ReadOnlyRepository<,>));
-            //services.AddScoped(typeof(IBaseService), typeof(BaseService<,>));
 
             return services;
         }

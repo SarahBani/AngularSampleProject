@@ -2117,7 +2117,7 @@
           "bin/placeholder/Core.DomainModel.dll": {}
         }
       },
-      "Core.DomainServices/1.0.0": {
+      "Core.DomainService/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
@@ -2125,10 +2125,10 @@
           "Microsoft.Extensions.Configuration.Abstractions": "3.1.8"
         },
         "compile": {
-          "bin/placeholder/Core.DomainServices.dll": {}
+          "bin/placeholder/Core.DomainService.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Core.DomainServices.dll": {}
+          "bin/placeholder/Core.DomainService.dll": {}
         }
       }
     }
@@ -7200,16 +7200,16 @@
       "path": "../Core.DomainModel/Core.DomainModel.csproj",
       "msbuildProject": "../Core.DomainModel/Core.DomainModel.csproj"
     },
-    "Core.DomainServices/1.0.0": {
+    "Core.DomainService/1.0.0": {
       "type": "project",
-      "path": "../Core.DomainServices/Core.DomainServices.csproj",
-      "msbuildProject": "../Core.DomainServices/Core.DomainServices.csproj"
+      "path": "../Core.DomainService/Core.DomainService.csproj",
+      "msbuildProject": "../Core.DomainService/Core.DomainService.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
       "Core.DomainModel >= 1.0.0",
-      "Core.DomainServices >= 1.0.0"
+      "Core.DomainService >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -7245,8 +7245,8 @@
             "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainModel\\Core.DomainModel.csproj": {
               "projectPath": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainModel\\Core.DomainModel.csproj"
             },
-            "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainServices\\Core.DomainServices.csproj": {
-              "projectPath": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainServices\\Core.DomainServices.csproj"
+            "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainService\\Core.DomainService.csproj": {
+              "projectPath": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainService\\Core.DomainService.csproj"
             }
           }
         }

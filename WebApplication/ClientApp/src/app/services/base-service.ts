@@ -109,14 +109,20 @@ export abstract class BaseService {
       //.toPromise()
       //.map(res => res.json().data )
       .pipe(map((response: ICustomActionResult) => {
+        console.warn('pipe');
         return response;
       }))
       .subscribe(result => {
+        console.warn('result');
+        console.warn(result);
+
         if (result.isSuccessful) {
           this.modalService.showSuccess(successMessage);
         }
         callback.next();
       }, response => {
+        console.warn('ererr');
+          console.warn(response);
         this.exceptionHandlerService.showModalException(response);
       });
   }

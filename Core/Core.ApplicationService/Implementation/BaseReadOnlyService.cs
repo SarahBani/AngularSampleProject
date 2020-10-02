@@ -1,32 +1,34 @@
-﻿using Core.DomainModel.Entities;
-using Core.DomainServices;
-using Core.DomainServices.Repositoy;
+﻿using Core.ApplicationService;
+using Core.DomainModel.Entities;
+using Core.DomainService;
+using Core.DomainService.Repositoy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Core.ApplicationServices.Implementation
+namespace Core.ApplicationService.Implementation
 {
-    public abstract class BaseReadOnlyService<TEntity, TKey>
-          where TEntity : Entity<TKey>
+    public abstract class BaseReadOnlyService<TRepository, TEntity, TKey>
+where TRepository : IBaseReadOnlyRepository<TEntity, TKey>
+where TEntity : BaseEntity<TKey>
     {
 
         #region Properties
 
-        protected IReadOnlyRepository<TEntity, TKey> Repository { get; private set; }
+        protected IEntityService EntityService { get; set; }
 
-        protected EntityService EntityService { get; set; }
+        protected TRepository Repository { get; private set; }
 
         #endregion /Properties
 
         #region Constructors
 
-        public BaseReadOnlyService(EntityService entityService)
+        public BaseReadOnlyService(IEntityService entityService)
         {
             this.EntityService = entityService;
-            this.Repository = this.EntityService.GetRepository<TEntity, TKey>();
+            this.Repository = (TRepository)this.EntityService.GetRepository<TEntity, TKey>();
         }
 
         public BaseReadOnlyService()

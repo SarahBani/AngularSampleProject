@@ -1,24 +1,24 @@
-﻿using Core.ApplicationServices.Contracts;
-using Core.ApplicationServices.Implementation;
+﻿using Core.ApplicationService.Contracts;
+using Core.ApplicationService.Implementation;
 using Core.DomainModel.Entities;
-using Core.DomainServices;
-using Core.DomainServices.Repositoy;
+using Core.DomainService;
+using Core.DomainService.Repositoy;
 using System.Linq;
 
-namespace Core.ApplicationServices
+namespace Core.ApplicationService
 {
-    public class EntityService
+    public class EntityService : IEntityService
     {
 
         #region Properties
 
-        public IUnitOfWork UnitOfWork { get; set; }
+        public IUnitOfWork UnitOfWork { get; private set; }
 
         #region Repositories
 
-        public IBankRepository BankRepository { get; set; }
+        public IBankRepository BankRepository { get; private set; }
 
-        public IBranchRepository BranchRepository { get; set; }
+        public IBranchRepository BranchRepository { get; private set; }
 
         #endregion /Repositories
 
@@ -58,8 +58,8 @@ namespace Core.ApplicationServices
 
         #region Constructors
 
-        public EntityService(IRepository<Bank, int> bankRepository,
-                             IRepository<Branch, int> branchRepository,
+        public EntityService(IBaseRepository<Bank, int> bankRepository,
+                             IBaseRepository<Branch, int> branchRepository,
                              IUnitOfWork unitOfWork)
         {
             this.BankRepository = (bankRepository as IBankRepository);
@@ -72,8 +72,8 @@ namespace Core.ApplicationServices
 
         #region Methods
 
-        public IReadOnlyRepository<TEntity, TKey> GetRepository<TEntity, TKey>()
-            where TEntity : Entity<TKey>
+        public IBaseReadOnlyRepository<TEntity, TKey> GetRepository<TEntity, TKey>()
+          where TEntity : BaseEntity<TKey>
         {
             string entityName = typeof(TEntity).Name;
 
@@ -81,7 +81,7 @@ namespace Core.ApplicationServices
                 .Where(q => q.Name.Equals(entityName + "Repository"))
                 .SingleOrDefault();
 
-            return prop.GetValue(this) as IReadOnlyRepository<TEntity, TKey>;
+            return prop.GetValue(this) as IBaseReadOnlyRepository<TEntity, TKey>;
         }
 
         #endregion /Methods

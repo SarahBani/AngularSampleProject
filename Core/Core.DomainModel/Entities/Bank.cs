@@ -8,7 +8,7 @@ namespace Core.DomainModel.Entities
         A, B, C, D, F
     }
 
-    public class Bank : Entity<int>
+    public class Bank : BaseEntity<int>
     {
 
         [Required(ErrorMessage = "Name is required!")]

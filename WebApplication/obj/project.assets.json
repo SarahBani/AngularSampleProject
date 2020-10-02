@@ -2354,7 +2354,7 @@
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
           "Core.DomainModel": "1.0.0",
-          "Core.DomainServices": "1.0.0"
+          "Core.DomainService": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Core.ApplicationService.dll": {}
@@ -2380,7 +2380,7 @@
           "bin/placeholder/Core.DomainModel.dll": {}
         }
       },
-      "Core.DomainServices/1.0.0": {
+      "Core.DomainService/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
@@ -2388,10 +2388,10 @@
           "Microsoft.Extensions.Configuration.Abstractions": "3.1.8"
         },
         "compile": {
-          "bin/placeholder/Core.DomainServices.dll": {}
+          "bin/placeholder/Core.DomainService.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Core.DomainServices.dll": {}
+          "bin/placeholder/Core.DomainService.dll": {}
         }
       },
       "DependencyInjection/1.0.0": {
@@ -2400,7 +2400,7 @@
         "dependencies": {
           "Core.ApplicationService": "1.0.0",
           "Core.DomainModel": "1.0.0",
-          "Core.DomainServices": "1.0.0",
+          "Core.DomainService": "1.0.0",
           "Infrastructure.MongoDB": "1.0.0",
           "Infrastructure.SQLServer": "1.0.0"
         },
@@ -2416,7 +2416,7 @@
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
           "Core.DomainModel": "1.0.0",
-          "Core.DomainServices": "1.0.0"
+          "Core.DomainService": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Infrastructure.MongoDB.dll": {}
@@ -2430,7 +2430,7 @@
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
           "Core.DomainModel": "1.0.0",
-          "Core.DomainServices": "1.0.0"
+          "Core.DomainService": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Infrastructure.SQLServer.dll": {}
@@ -7944,10 +7944,10 @@
       "path": "../Core/Core.DomainModel/Core.DomainModel.csproj",
       "msbuildProject": "../Core/Core.DomainModel/Core.DomainModel.csproj"
     },
-    "Core.DomainServices/1.0.0": {
+    "Core.DomainService/1.0.0": {
       "type": "project",
-      "path": "../Core/Core.DomainServices/Core.DomainServices.csproj",
-      "msbuildProject": "../Core/Core.DomainServices/Core.DomainServices.csproj"
+      "path": "../Core/Core.DomainService/Core.DomainService.csproj",
+      "msbuildProject": "../Core/Core.DomainService/Core.DomainService.csproj"
     },
     "DependencyInjection/1.0.0": {
       "type": "project",

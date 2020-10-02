@@ -9,7 +9,7 @@
       "Infrastructure.MongoDB/1.0.0": {
         "dependencies": {
           "Core.DomainModel": "1.0.0",
-          "Core.DomainServices": "1.0.0"
+          "Core.DomainService": "1.0.0"
         },
         "runtime": {
           "Infrastructure.MongoDB.dll": {}
@@ -1387,13 +1387,13 @@
           "Core.DomainModel.dll": {}
         }
       },
-      "Core.DomainServices/1.0.0": {
+      "Core.DomainService/1.0.0": {
         "dependencies": {
           "Core.DomainModel": "1.0.0",
           "Microsoft.Extensions.Configuration.Abstractions": "3.1.8"
         },
         "runtime": {
-          "Core.DomainServices.dll": {}
+          "Core.DomainService.dll": {}
         }
       }
     }
@@ -2340,7 +2340,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Core.DomainServices/1.0.0": {
+    "Core.DomainService/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

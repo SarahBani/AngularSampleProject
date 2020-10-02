@@ -1,5 +1,5 @@
 ﻿//using Core.DomainModel.Entities;
-//using Core.DomainServices.Repositoy;
+//using Core.DomainService.Repositoy;
 //using Infrastructure.MongoDB.Repositoy;
 
 //namespace Infrastructure.MongoDB.Repository

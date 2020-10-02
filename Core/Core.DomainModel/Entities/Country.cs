@@ -2,7 +2,7 @@
 
 namespace Core.DomainModel.Entities
 {
-    public class Country : Entity<short>
+    public class Country : BaseEntity<short>
     {
 
         [Required(ErrorMessage = "Name is required!")]

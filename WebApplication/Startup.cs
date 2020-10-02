@@ -1,5 +1,5 @@
 using Core.DomainModel.Entities;
-using Core.DomainServices;
+using Core.DomainService;
 using DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

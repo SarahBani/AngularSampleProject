@@ -1,9 +1,9 @@
 ﻿using Core.DomainModel.Entities;
-using Core.DomainServices;
+using Core.DomainService;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Core.ApplicationServices.Contracts
+namespace Core.ApplicationService.Contracts
 {
     public interface IBankService
     {

@@ -1,6 +1,6 @@
 ﻿using Core.DomainModel;
 using Core.DomainModel.Entities;
-using Core.DomainServices;
+using Core.DomainService;
 using System;
 using System.Threading.Tasks;
 
@@ -9,55 +9,76 @@ namespace Infrastructure.SQLServer
     public class UnitOfWork : IUnitOfWork
     {
 
-        public string TransactionName { get; private set; }
+        #region Properties
 
-        public MyDataBaseContext MyDBContext { get; set; }
+        private string _transactionName;
+
+        private MyDataBaseContext _dbContext;
+
+        #endregion /Properties
+
+        #region Constructors
 
         public UnitOfWork(MyDataBaseContext dbContext)
         {
-            this.MyDBContext = dbContext;
+            this._dbContext = dbContext;
         }
+
+        #endregion /Constructors
+
+        #region Destructors
 
         ~UnitOfWork()
         {
             Dispose();
         }
 
-        public void Dispose()
-        {
-            if (this.MyDBContext != null)
-            {
-                this.MyDBContext.Dispose();
-            }
-            GC.SuppressFinalize(this);
-        }
+        #endregion /Destructors
+
+        #region Methods
 
         public string GetTransactionName()
         {
-            return this.TransactionName;
+            return this._transactionName;
+        }
+
+        public bool HasTransaction()
+        {
+            return !string.IsNullOrEmpty(this._transactionName);
         }
 
         public void BeginTransaction(string transactionName)
         {
-            if (string.IsNullOrEmpty(this.TransactionName))
+            if (string.IsNullOrEmpty(this._transactionName))
             {
-                this.TransactionName = transactionName;
+                this._transactionName = transactionName;
             }
         }
 
         public async Task Commit()
         {
-            if (string.IsNullOrEmpty(this.TransactionName))
+            if (string.IsNullOrEmpty(this._transactionName))
             {
-                throw new InvalidOperationException(Constant.Exception_NoActiveTransaction);
+                throw new CustomException(ExceptionKey.NoActiveTransaction);
             }
-            await this.MyDBContext.SaveChangesAsync();
-            this.TransactionName = string.Empty;
+            await this._dbContext.SaveChangesAsync();
+            this._transactionName = string.Empty;
         }
 
         public void RollBack()
         {
         }
+
+        public void Dispose()
+        {
+            if (this._dbContext != null)
+            {
+                this._dbContext.Dispose();
+            }
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion /Methods
 
     }
 }

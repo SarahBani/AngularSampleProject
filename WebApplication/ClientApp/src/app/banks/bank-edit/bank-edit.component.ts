@@ -58,6 +58,12 @@ export class BankEditComponent extends ImageUploaderComponent implements OnInit 
       name: form.value.name,
       logoUrl: super.uploadedImageUrl
     };
+    if (this.id > 0) {
+      this.bankService.update(bank);
+    }
+    else {
+      this.bankService.insert(bank);
+    }
   }
 
   onDelete() {

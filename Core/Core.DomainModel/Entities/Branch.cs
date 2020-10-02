@@ -2,7 +2,7 @@
 
 namespace Core.DomainModel.Entities
 {
-    public class Branch : Entity<int>
+    public class Branch : BaseEntity<int>
     {
 
         [Required(ErrorMessage = "Bank is required!")]

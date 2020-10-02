@@ -43,11 +43,11 @@ export class BankService extends BaseService {
     }
   }
 
-  private insert(bank: IBank) {
+  private insert(bank: IBank): void {
     super.httpPost<IBank>('InsertAsync', bank, this.dataUpdated);
   }
 
-  private update(id: number, bank: IBank) {
+  private update(id: number, bank: IBank): void {
     super.httpPut('UpdateAsync/' + id, bank, this.dataUpdated);
   }
 

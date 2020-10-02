@@ -1,12 +1,13 @@
-﻿using Core.ApplicationServices.Contracts;
+﻿using Core.ApplicationService.Contracts;
 using Core.DomainModel.Entities;
+using Core.DomainService.Repositoy;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Core.ApplicationServices.Implementation
+namespace Core.ApplicationService.Implementation
 {
-    public class BranchService : BaseService<Branch, int>, IBranchService
+    public class BranchService : BaseService<IBranchRepository, Branch, int>, IBranchService
     {
 
         #region Properties

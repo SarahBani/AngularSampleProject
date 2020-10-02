@@ -1,5 +1,5 @@
 ﻿using Core.DomainModel.Settings;
-using Core.DomainServices;
+using Core.DomainService;
 using Microsoft.Extensions.Configuration;
 
 namespace WebApplication.Common

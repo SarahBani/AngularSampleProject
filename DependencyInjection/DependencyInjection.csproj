@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -7,7 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.ApplicationService\Core.ApplicationService.csproj" />
     <ProjectReference Include="..\Core\Core.DomainModel\Core.DomainModel.csproj" />
-    <ProjectReference Include="..\Core\Core.DomainServices\Core.DomainServices.csproj" />
+    <ProjectReference Include="..\Core\Core.DomainService\Core.DomainService.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.MongoDB\Infrastructure.MongoDB.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.SQLServer\Infrastructure.SQLServer.csproj" />
   </ItemGroup>

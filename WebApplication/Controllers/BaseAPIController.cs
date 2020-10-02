@@ -35,7 +35,7 @@ namespace WebApplication.Controllers
 
         protected IActionResult GetCreatedActionResult<TEntity, TKey>(string actionName,
             TEntity createdObject)
-            where TEntity : Entity<TKey>
+            where TEntity : BaseEntity<TKey>
         {
             return CreatedAtAction(actionName,
                 new { id = createdObject.Id },
@@ -54,7 +54,12 @@ namespace WebApplication.Controllers
 
         protected IActionResult GetErrorResult()
         {
-            return BadRequest(new CustomActionResult(new CustomException(Constant.Exception_HasError)));
+            return GetErrorResult(Constant.Exception_HasError);
+        }
+
+        protected IActionResult GetErrorResult(string exceptionContentResult)
+        {
+            return BadRequest(new CustomActionResult(new CustomException(exceptionContentResult)));
         }
 
         #endregion /Actions
