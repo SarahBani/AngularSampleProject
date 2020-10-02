@@ -9,9 +9,6 @@ H:\Project\AngularSampleProject\AngularSampleProject\AngularSampleProject\obj\De
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.csprojAssemblyReference.cache
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.AssemblyInfoInputs.cache
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.AssemblyInfo.cs
-H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.csproj.CoreCompileInputs.cache
-H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.MvcApplicationPartsAssemblyInfo.cs
-H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.MvcApplicationPartsAssemblyInfo.cache
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.RazorAssemblyInfo.cache
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.RazorAssemblyInfo.cs
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.TagHelpers.input.cache
@@ -108,3 +105,7 @@ H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\ne
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\staticwebassets\WebApplication.StaticWebAssets.Manifest.cache
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\staticwebassets\WebApplication.StaticWebAssets.xml
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.genruntimeconfig.cache
+H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\Microsoft.EntityFrameworkCore.Design.dll
+H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.csproj.CoreCompileInputs.cache
+H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.MvcApplicationPartsAssemblyInfo.cs
+H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.MvcApplicationPartsAssemblyInfo.cache

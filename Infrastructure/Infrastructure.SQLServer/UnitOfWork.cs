@@ -1,4 +1,5 @@
-﻿using Core.DomainModel.Entities;
+﻿using Core.DomainModel;
+using Core.DomainModel.Entities;
 using Core.DomainServices;
 using System;
 using System.Threading.Tasks;
@@ -48,7 +49,7 @@ namespace Infrastructure.SQLServer
         {
             if (string.IsNullOrEmpty(this.TransactionName))
             {
-                throw new InvalidOperationException("No active transation");
+                throw new InvalidOperationException(Constant.Exception_NoActiveTransaction);
             }
             await this.MyDBContext.SaveChangesAsync();
             this.TransactionName = string.Empty;

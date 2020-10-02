@@ -20,17 +20,6 @@ namespace Core.DomainModel.Entities
         public DbSet<Branch> Branches { get; set; }
         public DbSet<Country> Countries { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    if (!optionsBuilder.IsConfigured)
-        //    {
-        //        optionsBuilder.UseSqlServer(Utility.GetConnectionString());
-        //        //"Provider=SQLOLEDB.1;Password=sa123;Persist Security Info=True;User ID=sa;Initial Catalog=AngularSample;Data Source=."
-        //        //"Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;User ID=sa;Initial Catalog=AngularSample;Data Source=."
-        //        //optionsBuilder.UseSqlServer(@"Server=.;Database=MyDataBase;Trusted_Connection=True;");
-        //    }
-        //}
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder); // after adding Identity this line is mandatory
