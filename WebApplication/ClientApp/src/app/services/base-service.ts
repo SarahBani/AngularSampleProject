@@ -14,7 +14,7 @@ export abstract class BaseService {
 
   constructor(private httpClient: HttpClient,
     @Inject('BASE_URL') private baseUrl: string,
-    private modalService: ModalService = null,
+    private modalService: ModalService,
     private exceptionHandlerService: ExceptionHandlerService = null) {
   }
 
@@ -109,17 +109,20 @@ export abstract class BaseService {
       //.toPromise()
       //.map(res => res.json().data )
       .pipe(map((response: ICustomActionResult) => {
-        console.warn('pipe');
         return response;
       }))
       .subscribe(result => {
-        console.warn('result');
-        console.warn(result);
-
+        console.log(result);
         if (result.isSuccessful) {
-          this.modalService.showSuccess(successMessage);
+          if (callback != null) {
+            console.log('callback != null');
+            callback.next();
+          }
+          else {
+            console.log('callback = null');
+            this.modalService.showSuccess(successMessage);
+          }
         }
-        callback.next();
       }, response => {
         console.warn('ererr');
           console.warn(response);
@@ -142,9 +145,13 @@ export abstract class BaseService {
       }))
       .subscribe(result => {
         if (result.isSuccessful) {
-          this.modalService.showSuccess(successMessage);
+          if (callback != null) {
+            callback.next();
+          }
+          else {
+            this.modalService.showSuccess(successMessage);
+          }
         }
-        callback.next();
       }, response => {
         this.exceptionHandlerService.showModalException(response);
       });
@@ -161,10 +168,15 @@ export abstract class BaseService {
         return response;
       }))
       .subscribe(result => {
+        console.log(result);
         if (result.isSuccessful) {
-          this.modalService.showSuccess(successMessage);
+          if (callback != null) {
+            callback.next();
+          }
+          else {
+            this.modalService.showSuccess(successMessage);
+          }
         }
-        callback.next();
       }, response => {
         this.exceptionHandlerService.showModalException(response);
       });

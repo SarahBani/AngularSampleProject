@@ -23,7 +23,7 @@ namespace WebApplication.Controllers
 
         #region Actions
 
-        protected IActionResult GetOKActionResult()
+        protected IActionResult GetOKResult()
         {
             return Ok(new CustomActionResult()); // Http status code 200
         }

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { IBank } from '../../models/IBank.model';
 import { BankService } from '../../services/bank-service';
 
@@ -11,14 +12,18 @@ import { BankService } from '../../services/bank-service';
 export class BankDetailComponent implements OnInit {
 
   public model: IBank;
+  private dataChanged: Subscription;
 
   constructor(private bankService: BankService,
     private route: ActivatedRoute,
     private router: Router) {
-    this.fillData();
   }
 
   ngOnInit(): void {
+    this.fillData();
+    this.dataChanged = this.bankService.dataChanged.subscribe(() => {
+      this.redirectBack();
+    });
   }
 
   fillData(): void {
@@ -31,16 +36,19 @@ export class BankDetailComponent implements OnInit {
   }
 
   onBack() {
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.redirectBack();
   }
 
   onDelete() {
     this.bankService.delete(this.model.id);
-    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   onEdit() {
     this.router.navigate(['edit'], { relativeTo: this.route });
+  }
+
+  redirectBack() {
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   redirectToBranches() {
@@ -48,6 +56,10 @@ export class BankDetailComponent implements OnInit {
       {
         state: { bank: this.model }
       });
+  }
+
+  ngOnDestroy(): void {
+    this.dataChanged.unsubscribe();
   }
 
 }

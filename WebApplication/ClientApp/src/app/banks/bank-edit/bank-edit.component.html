@@ -23,6 +23,9 @@
           </div>
         </div>
       </div>
+      <div class="row" *ngIf="uploadedImageUrl == null">
+        <img src="images/NoImage.png" class="img-response" />
+      </div>
       <p *ngIf="(f.controls.name != null && !f.controls.name.valid && f.controls.name.touched)"
          class="alert-danger">
         Please enter valid values!

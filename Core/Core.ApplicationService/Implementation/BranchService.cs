@@ -16,7 +16,7 @@ namespace Core.ApplicationService.Implementation
 
         #region Constructors
 
-        public BranchService(EntityService entityService)
+        public BranchService(IEntityService entityService)
             : base(entityService)
         {
         }

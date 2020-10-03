@@ -7,6 +7,7 @@ export class ExceptionHandlerService {
   constructor(private modalService: ModalService) { }
 
   showModalException(response: any): void {
+    alert('aaaaaa');
     this.modalService.showError(this.getExceptionMessage(response));
   }
 

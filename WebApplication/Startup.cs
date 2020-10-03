@@ -4,6 +4,7 @@ using DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -28,23 +29,10 @@ namespace WebApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            if (Configuration["Environment"] != "IntegrationTest")
-            {
-                MyWebRequest.Configure(this.Configuration);
-                string connectionString = Utility.GetConnectionString(this.Configuration);
-                services.AddDbContext<MyDataBaseContext>(options => options.UseSqlServer(connectionString));
-            }
-            else
-            {
-                var builder = new ConfigurationBuilder()
-                  .SetBasePath(Directory.GetCurrentDirectory())
-                     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-                IConfigurationRoot config = builder.Build();
-                MyWebRequest.Configure(config);
+            MyWebRequest.Configure(this.Configuration);
+            string connectionString = Utility.GetConnectionString(this.Configuration);
+            services.AddDbContext<MyDataBaseContext>(options => options.UseSqlServer(connectionString));
 
-                string connectionString = Utility.GetConnectionString(config);
-                services.AddDbContext<MyDataBaseContext>(options => options.UseSqlServer(connectionString));
-            }
             services.SetInjection();
 
             services.AddCors(options =>
@@ -61,6 +49,14 @@ namespace WebApplication
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+            //    .ConfigureApiBehaviorOptions(options =>
+            //    {
+            //        options.SuppressConsumesConstraintForFormFileParameters = true;
+            //        options.SuppressInferBindingSourcesForParameters = true;
+            //        options.SuppressModelStateInvalidFilter = true;
+            //        options.SuppressMapClientErrors = true;
+            //    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -120,5 +116,6 @@ namespace WebApplication
                 }
             });
         }
+
     }
 }

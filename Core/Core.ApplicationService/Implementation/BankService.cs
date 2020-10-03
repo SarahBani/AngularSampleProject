@@ -14,7 +14,7 @@ namespace Core.ApplicationService.Implementation
 
         #region Constructors
 
-        public BankService(EntityService entityService)
+        public BankService(IEntityService entityService)
             : base(entityService)
         {
         }

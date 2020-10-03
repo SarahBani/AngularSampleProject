@@ -38,8 +38,7 @@ namespace WebApplication.Controllers
         [HttpGet("ListAsync")]
         public async Task<IEnumerable<Bank>> GetListAsync()
         {
-            var banks = await this._bankService.GetAllAsync();
-            return banks.ToArray();
+            return await this._bankService.GetAllAsync();
         }
 
         [HttpGet("CountAsync")]
@@ -49,18 +48,14 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost("InsertAsync")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> InsertAsync([FromBody] Bank bank)
         {
-            if (!ModelState.IsValid)
-            {
-                return base.GetInvalidModelResult();
-            }
             var result = await this._bankService.InsertAsync(bank);
             if (result.IsSuccessful)
             {
-                return base.GetCreatedActionResult<Bank, int>("GetListAsync", bank);
+                return base.GetOKResult();
             }
             else
             {
@@ -84,7 +79,7 @@ namespace WebApplication.Controllers
             var result = await this._bankService.UpdateAsync(bank);
             if (result.IsSuccessful)
             {
-                return base.GetOKActionResult();
+                return base.GetOKResult();
             }
             else
             {
@@ -92,7 +87,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpPut("DeleteAsync")]
+        [HttpDelete("DeleteAsync/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteAsync([FromRoute] int id)
@@ -104,7 +99,7 @@ namespace WebApplication.Controllers
             var result = await this._bankService.DeleteAsync(id);
             if (result.IsSuccessful)
             {
-                return base.GetOKActionResult();
+                return base.GetOKResult();
             }
             else
             {

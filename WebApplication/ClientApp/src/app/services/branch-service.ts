@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { IBranch } from '../models/Ibranch.model';
 import { Observable, Subject } from 'rxjs';
 import { BaseService } from './base-service';
+import { ModalService } from './modal-service';
 
 @Injectable({ providedIn: 'root' })
 export class BranchService extends BaseService {
@@ -15,8 +16,9 @@ export class BranchService extends BaseService {
   public count: number;
 
   constructor(http: HttpClient,
-    @Inject('BASE_URL') baseUrl: string) {
-    super(http, baseUrl);
+    @Inject('BASE_URL') baseUrl: string,
+    modalService: ModalService) {
+    super(http, baseUrl, modalService);
   }
 
   changeBank(bankId: number): void {

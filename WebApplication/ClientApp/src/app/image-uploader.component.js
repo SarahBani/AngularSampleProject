@@ -19,6 +19,7 @@ var ImageUploaderComponent = /** @class */ (function () {
             else if (event.type === http_1.HttpEventType.Response) {
                 var actionResult = event.body;
                 _this.uploadedImageUrl = actionResult.content;
+                console.warn(actionResult.content);
             }
         }, function (error) {
             console.log(error);

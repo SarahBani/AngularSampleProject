@@ -18,7 +18,7 @@ namespace WebApplication.Controllers
             bool isSent = await SendMail();
             if (isSent)
             {
-                return base.GetOKActionResult();
+                return base.GetOKResult();
             }
             else
             {

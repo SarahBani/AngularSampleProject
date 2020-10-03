@@ -15,10 +15,10 @@ export class BankEditComponent extends ImageUploaderComponent implements OnInit 
 
   @ViewChild('f') myForm: NgForm;
   public model: IBank;
-  private id: number = -1;
+  private id: number;
   isSelected: boolean = false;
   private changesSaved: boolean = false;
-  private dataUpdated: Subscription;
+  private dataChanged: Subscription;
 
   constructor(private bankService: BankService,
     private route: ActivatedRoute,
@@ -28,7 +28,7 @@ export class BankEditComponent extends ImageUploaderComponent implements OnInit 
 
   ngOnInit(): void {
     this.initForm();
-    this.dataUpdated = this.bankService.dataUpdated.subscribe(() => {
+    this.dataChanged = this.bankService.dataChanged.subscribe(() => {
       this.changesSaved = true;
       this.myForm.reset();
       this.isSelected = false;
@@ -43,7 +43,7 @@ export class BankEditComponent extends ImageUploaderComponent implements OnInit 
         this.myForm.setValue({
           'name': bank.name,
         });
-        super.uploadedImageUrl = 'images/' + bank.logoUrl;
+        this.uploadedImageUrl = bank.logoUrl;
       }, error => console.error(error));
     }
   }
@@ -56,14 +56,9 @@ export class BankEditComponent extends ImageUploaderComponent implements OnInit 
     const bank: IBank = {
       id: this.id,
       name: form.value.name,
-      logoUrl: super.uploadedImageUrl
+      logoUrl: this.uploadedImageUrl
     };
-    if (this.id > 0) {
-      this.bankService.update(bank);
-    }
-    else {
-      this.bankService.insert(bank);
-    }
+    this.bankService.save(bank);
   }
 
   onDelete() {
@@ -87,7 +82,7 @@ export class BankEditComponent extends ImageUploaderComponent implements OnInit 
   }
 
   ngOnDestroy(): void {
-    this.dataUpdated.unsubscribe();
+    this.dataChanged.unsubscribe();
   }
 
 }

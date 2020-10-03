@@ -29,7 +29,7 @@ namespace Core.ApplicationService.Implementation
 
         #region Constructors
 
-        protected BaseService(EntityService entityService)
+        protected BaseService(IEntityService entityService)
             : base(entityService)
         {
         }
@@ -97,7 +97,7 @@ namespace Core.ApplicationService.Implementation
         {
             try
             {
-                return await GetTransactionResultAsync(() => 
+                return await GetTransactionResultAsync(() =>
                     this.Repository.InsertAsync(entity.TrimCharProperties<TEntity, TKey>()));
             }
             catch (Exception ex)

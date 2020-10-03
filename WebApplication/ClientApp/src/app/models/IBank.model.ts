@@ -1,5 +1,6 @@
 export interface IBank {
-    id: number;
-    name: string;
-    logoUrl: string;
+  id: number;
+  name: string;
+  grade?: number;
+  logoUrl: string;
 }

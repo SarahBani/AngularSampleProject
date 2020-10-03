@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Core.DomainModel.Entities
@@ -20,6 +22,23 @@ namespace Core.DomainModel.Entities
         public string LogoUrl { get; set; }
 
         public ICollection<Branch> Branches { get; set; }
+
+    }
+
+    internal class BankEntityTypeConfiguration : IEntityTypeConfiguration<Bank>
+    {
+
+        public void Configure(EntityTypeBuilder<Bank> builder)
+        {
+            builder.Property(q => q.Name)
+                .IsRequired()
+                .HasMaxLength(40);
+
+            builder.Property(q => q.Grade)
+                .HasColumnType("tinyint");
+
+            //.HasDefaultValueSql("getdate()");
+        }
 
     }
 }

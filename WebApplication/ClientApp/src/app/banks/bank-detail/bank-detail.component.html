@@ -1,7 +1,10 @@
 <div class="container text-center" *ngIf="model != null">
   <div class="row">
     <div class="col-12">
-      <img [src]="'images/' + model.logoUrl" class="img-response" width="300" alt="{{ model.name }}" />
+      <img [src]="model.logoUrl" class="img-response" width="300" alt="{{ model.name }}"
+           *ngIf="model.logoUrl != null" />
+      <img src="images/NoImage.png" class="img-response" width="300" alt="{{ model.name }}"
+           *ngIf="model.logoUrl == null" />
     </div>
   </div>
   <div class="row">

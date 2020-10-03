@@ -2,7 +2,6 @@
 //using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Core.DomainModel.Entities
 {
@@ -60,50 +59,6 @@ namespace Core.DomainModel.Entities
             //{
             //    entity.ToTable("RoleClaim");
             //});
-        }
-    }
-
-    internal class BankEntityTypeConfiguration : IEntityTypeConfiguration<Bank>
-    {
-        public void Configure(EntityTypeBuilder<Bank> builder)
-        {
-            builder.Property(q => q.Name)
-                .IsRequired()
-                .HasMaxLength(40);
-
-            builder.Property(q => q.Grade)
-                .HasColumnType("tinyint");
-
-            //.HasDefaultValueSql("getdate()");
-        }
-    }
-
-    internal class BranchEntityTypeConfiguration : IEntityTypeConfiguration<Branch>
-    {
-        public void Configure(EntityTypeBuilder<Branch> builder)
-        {
-            builder.Property(q => q.Name)
-                .IsRequired()
-                .HasMaxLength(60);
-
-            builder.Property(q => q.Code)
-                .IsRequired()
-                .HasMaxLength(10);
-
-            builder.HasOne(q => q.Bank)
-                .WithMany(q => q.Branches)
-                .HasForeignKey(q => q.BankId)
-                .HasConstraintName("FK_Branch_Bank");
-        }
-    }
-
-    internal class CountryEntityTypeConfiguration : IEntityTypeConfiguration<Country>
-    {
-        public void Configure(EntityTypeBuilder<Country> builder)
-        {
-            builder.Property(q => q.Name)
-                .IsRequired()
-                .HasMaxLength(30);
         }
     }
 

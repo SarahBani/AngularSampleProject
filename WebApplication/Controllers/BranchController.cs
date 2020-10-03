@@ -5,24 +5,34 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System;
 using Core.DomainModel.Entities;
+using Core.ApplicationService.Contracts;
 
 namespace WebApplication.Controllers
 {
     [Route("[controller]")]
     public class BranchController : BaseAPIController
     {
+        #region Properties
+
+        public IBranchService _branchService { get; set; }
+
+        #endregion /Properties
+
+        #region Constructors
+
+        public BranchController(IBranchService branchService)
+        {
+            this._branchService = branchService;
+        }
+
+        #endregion /Constructors
+
+        #region Actions
 
         [HttpGet("ItemAsync/{id}")]
         public async Task<Branch> GetItemAsync([FromRoute] int id)
         {
-            await Task.Run(() => { });
-            return new Branch
-            {
-                Id = id,
-                BankId = 2,
-                Name = "Branch2",
-                Code = GenerateCode()
-            };
+            return await this._branchService.GetByIdAsync(id);
         }
 
         [HttpGet("ListAsync/{id}")]
@@ -40,12 +50,19 @@ namespace WebApplication.Controllers
         }
 
         [HttpPost("InsertAsync")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> InsertAsync([FromBody] Branch branch)
         {
-            await Task.Run(() => { });
-            return base.GetCreatedActionResult<Branch, int>("GetListAsync", branch);
+            var result = await this._branchService.InsertAsync(branch);
+            if (result.IsSuccessful)
+            {
+                return base.GetOKResult();
+            }
+            else
+            {
+                return base.GetErrorResult(result.ExceptionContentResult);
+            }
         }
 
         [HttpPut("UpdateAsync")]
@@ -58,10 +75,10 @@ namespace WebApplication.Controllers
                 return base.GetInvalidRequestResult();
             }
             await Task.Run(() => { });
-            return base.GetOKActionResult();
+            return base.GetOKResult();
         }
 
-        [HttpPut("DeleteAsync")]
+        [HttpDelete("DeleteAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteAsync([FromRoute] int id)
@@ -71,10 +88,10 @@ namespace WebApplication.Controllers
                 return base.GetInvalidRequestResult();
             }
             await Task.Run(() => { });
-            return base.GetOKActionResult();
+            return base.GetOKResult();
         }
 
-        [HttpPut("DeleteByBankIdAsync")]
+        [HttpDelete("DeleteByBankIdAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteByBankIdAsync([FromRoute] int bankId)
@@ -84,8 +101,10 @@ namespace WebApplication.Controllers
                 return base.GetInvalidRequestResult();
             }
             await Task.Run(() => { });
-            return base.GetOKActionResult();
+            return base.GetOKResult();
         }
+
+        #endregion /Actions
 
         private IEnumerable<Branch> GetBranches(int bankId)
         {
@@ -101,7 +120,7 @@ namespace WebApplication.Controllers
 
         private string GenerateCode()
         {
-            string activationCode = System.Guid.NewGuid().ToString();
+            string activationCode = Guid.NewGuid().ToString();
             int length = 10; // Number of characters to generate
             return activationCode.Substring(0, length);
         }

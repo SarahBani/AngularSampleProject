@@ -24,6 +24,7 @@ export abstract class ImageUploaderComponent implements OnInit {
         else if (event.type === HttpEventType.Response) {
           let actionResult = <ICustomActionResult>event.body;
           this.uploadedImageUrl = actionResult.content;
+          console.warn(actionResult.content);
         }
       }, error => {
         console.log(error);
