@@ -23,7 +23,7 @@
       <ul class="dropdown-menu">
         <li *ngFor="let bank of banks" value="bank.id" (click)="onSelectBank(bank);"
             [ngClass]="selectedBankId == bank.id ? 'selected' : ''">
-          <img [src]="'/images/' + bank.logoUrl" alt="{{ bank.name }}" />
+          <img *ngIf="bank.logoUrl != null" [src]="bank.logoUrl" alt="{{ bank.name }}" />
           {{ bank.name }}
         </li>
       </ul>
