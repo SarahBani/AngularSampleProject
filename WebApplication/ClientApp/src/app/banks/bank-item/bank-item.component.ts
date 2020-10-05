@@ -16,7 +16,7 @@ export class BankItemComponent implements OnInit {
   public ngOnInit(): void {
   }
 
-  public onSelect(): void {
+  private onSelect(): void {
     this.bankService.select(this.model);
   }
 

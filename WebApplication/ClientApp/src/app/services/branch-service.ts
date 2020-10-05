@@ -24,46 +24,56 @@ export class BranchService extends BaseService implements OnDestroy {
     super(http, baseUrl, modalService, exceptionHandlerService);
   }
 
-  changeBank(bankId: number): void {
+  public changeBank(bankId: number): void {
     this.selectedBankChanged.next(bankId);
   }
 
-  select(branch: IBranch): void {
+  public select(branch: IBranch): void {
     this.selectedChanged.next(branch);
   }
 
-  getItem(id: number): Observable<IBranch> {
+  public getItem(id: number): Observable<IBranch> {
     return super.httpGetItem<IBranch>(id);
   }
 
-  getListByBankId(bankId: number): Observable<IBranch[]> {
-    return super.httpGet<IBranch[]>('ListAsync/' + bankId);
+  public getListByBankId(bankId: number): Observable<IBranch[]> {
+    return super.httpGet<IBranch[]>('ListAsync?bankId=' + bankId);
   }
 
-  getCountByBankId(bankId: number): Observable<number> {
-    return super.httpGet<number>('CountAsync/' + bankId);
+  public getCountByBankId(bankId: number): Observable<number> {
+    return super.httpGet<number>('CountAsync?bankId=' + bankId);
   }
 
-  insert(branch: IBranch): void {
-    super.httpPost('InsertAsync/', branch);
+  public save(branch: IBranch): void {
+    if (branch.id > 0) {
+      this.update(branch.id, branch);
+    }
+    else {
+      this.insert(branch);
+    }
   }
 
-  update(id: number, branch: IBranch): void {
-    super.httpPut('UpdateAsync/' + id, branch);
+  private insert(branch: IBranch): void {
+    super.httpPost('InsertAsync/', branch, this.dataChanged);
   }
 
-  delete(id: number): void {
+  private update(id: number, branch: IBranch): void {
+    super.httpPut('UpdateAsync/' + id, branch, this.dataChanged);
+  }
+
+  public delete(id: number): void {
     if (id > 0) {
       this.confirmDeleteSubscription = super.confirmDelete().subscribe((result: boolean) => {
         if (result) {
           super.httpDelete('DeleteAsync/' + id, this.dataChanged);
         }
+        this.confirmDeleteSubscription.unsubscribe();
       });
     }
   }
 
-  deleteByBankIdAsync(bankId: number): void {
-    super.httpDelete('DeleteByBankIdAsync/' + bankId);
+  public deleteByBankIdAsync(bankId: number): void {
+    super.httpDelete('DeleteByBankIdAsync?bankId=' + bankId);
   }
 
   public ngOnDestroy(): void {

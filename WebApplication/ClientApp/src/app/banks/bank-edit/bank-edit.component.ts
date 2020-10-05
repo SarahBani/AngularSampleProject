@@ -11,11 +11,12 @@ import { BankService } from '../../services/bank-service';
   templateUrl: './bank-edit.component.html',
   styleUrls: ['./bank-edit.component.css']
 })
-export class BankEditComponent extends ImageUploaderComponent implements OnInit, OnDestroy {
+export class BankEditComponent extends ImageUploaderComponent
+  implements OnInit, OnDestroy {
 
   @ViewChild('f') myForm: NgForm;
-  public model: IBank;
-  public id: number;
+  private model: IBank;
+  private id: number;
   private changesSaved: boolean = false;
   private dataChangedSubscription: Subscription;
 
@@ -35,7 +36,6 @@ export class BankEditComponent extends ImageUploaderComponent implements OnInit,
   }
 
   private initForm() {
-    console.log(this.id);
     if (this.route.snapshot.params["id"] != null) {
       this.id = +this.route.snapshot.params["id"];
       this.bankService.getItem(this.id).subscribe((bank) => {
@@ -56,7 +56,7 @@ export class BankEditComponent extends ImageUploaderComponent implements OnInit,
     return this.bankService.uploadLogo(file);
   }
 
-  public onSave(form: NgForm) {
+  private onSave(form: NgForm) {
     const bank: IBank = {
       id: this.id,
       name: form.value.name,
@@ -65,11 +65,11 @@ export class BankEditComponent extends ImageUploaderComponent implements OnInit,
     this.bankService.save(bank);
   }
 
-  public onDelete() {
+  private onDelete() {
     this.bankService.delete(this.id);
   }
 
-  public onCancel(): void {
+  private onCancel(): void {
     this.changesSaved = true;
     this.router.navigate(['../'], { relativeTo: this.route });
   }

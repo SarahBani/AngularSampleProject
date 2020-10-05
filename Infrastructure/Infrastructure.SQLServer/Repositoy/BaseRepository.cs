@@ -55,7 +55,7 @@ namespace Infrastructure.DataBase.Repositoy
             this.MyDBContext.Remove(entity);
         }
 
-        public virtual void Delete(Expression<Func<TEntity, bool>> filter = null)
+        public virtual void Delete(Expression<Func<TEntity, bool>> filter)
         {
             var entities = base.GetEnumerable(filter);
             this.MyDBContext.RemoveRange(entities);

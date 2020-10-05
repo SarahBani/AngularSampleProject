@@ -11,7 +11,7 @@ import { BankService } from '../../services/bank-service';
 })
 export class BankDetailComponent implements OnInit, OnDestroy {
 
-  public model: IBank;
+  private model: IBank;
   private dataChangedSubscription: Subscription;
 
   constructor(private bankService: BankService,
@@ -39,19 +39,19 @@ export class BankDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  public onBack(): void {
+  private onBack(): void {
     this.redirectBack();
   }
 
-  public onDelete(): void {
+  private onDelete(): void {
     this.bankService.delete(this.model.id);
   }
 
-  public onEdit(): void {
+  private onEdit(): void {
     this.router.navigate(['edit'], { relativeTo: this.route });
   }
 
-  public onBranches(): void {
+  private onBranches(): void {
     this.router.navigate(['/branches'],
       {
         state: { bank: this.model }

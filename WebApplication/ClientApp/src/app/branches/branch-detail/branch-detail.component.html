@@ -1,7 +1,10 @@
 <div class="container text-center" *ngIf="model != null">
   <div class="row">
-    <div class="col-8">
-      <h5>{{ model.name }}</h5>
+    <div class="col-4 text-right">
+      <b>Name: </b>
+    </div>
+    <div class="col-8 text-left">
+      <span>{{ model.name }}</span>
     </div>
   </div>
   <br />
@@ -13,6 +16,7 @@
       <span>{{ model.code }}</span>
     </div>
   </div>
+  <br />
   <div class="row">
     <div class="col-4 text-right">
       <b>Address: </b>

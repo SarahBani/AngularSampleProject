@@ -4,6 +4,7 @@ using Core.DomainService;
 using Core.DomainService.Repositoy;
 using System;
 using System.Diagnostics;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -110,7 +111,7 @@ namespace Core.ApplicationService.Implementation
         {
             try
             {
-                return await GetTransactionResultAsync(() => 
+                return await GetTransactionResultAsync(() =>
                     this.Repository.Update(entity.TrimCharProperties<TEntity, TKey>()));
             }
             catch (Exception ex)
@@ -136,6 +137,18 @@ namespace Core.ApplicationService.Implementation
             try
             {
                 return await GetTransactionResultAsync(() => this.Repository.Delete(id));
+            }
+            catch (Exception ex)
+            {
+                return GetTransactionException(ex);
+            }
+        }
+
+        public virtual async Task<TransactionResult> DeleteAsync(Expression<Func<TEntity, bool>> filter)
+        {
+            try
+            {
+                return await GetTransactionResultAsync(() => this.Repository.Delete(filter));
             }
             catch (Exception ex)
             {
