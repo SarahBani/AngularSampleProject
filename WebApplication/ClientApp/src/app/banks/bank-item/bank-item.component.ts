@@ -13,10 +13,10 @@ export class BankItemComponent implements OnInit {
 
   constructor(private bankService: BankService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  onSelect(): void {
+  public onSelect(): void {
     this.bankService.select(this.model);
   }
 

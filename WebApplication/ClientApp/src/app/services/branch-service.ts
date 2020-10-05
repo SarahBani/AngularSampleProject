@@ -1,24 +1,27 @@
-import { EventEmitter, Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IBranch } from '../models/Ibranch.model';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { BaseService } from './base-service';
 import { ModalService } from './modal-service';
+import { ExceptionHandlerService } from './exception-handler-service';
 
 @Injectable({ providedIn: 'root' })
-export class BranchService extends BaseService {
+export class BranchService extends BaseService implements OnDestroy {
 
   protected controllerName: string = 'Branch';
-
-  selectedBankChanged = new Subject<number>();
-  selectedChanged = new Subject<IBranch>();
-  saveCompleted = new EventEmitter();
   public count: number;
+
+  public selectedBankChanged = new Subject<number>();
+  public selectedChanged = new Subject<IBranch>();
+  public dataChanged = new Subject<void>();
+  private confirmDeleteSubscription: Subscription;
 
   constructor(http: HttpClient,
     @Inject('BASE_URL') baseUrl: string,
-    modalService: ModalService) {
-    super(http, baseUrl, modalService);
+    modalService: ModalService,
+    exceptionHandlerService: ExceptionHandlerService) {
+    super(http, baseUrl, modalService, exceptionHandlerService);
   }
 
   changeBank(bankId: number): void {
@@ -42,7 +45,7 @@ export class BranchService extends BaseService {
   }
 
   insert(branch: IBranch): void {
-    super.httpPost('InsertAsync', branch);
+    super.httpPost('InsertAsync/', branch);
   }
 
   update(id: number, branch: IBranch): void {
@@ -50,11 +53,21 @@ export class BranchService extends BaseService {
   }
 
   delete(id: number): void {
-    super.httpDelete('DeleteAsync/' + id);
+    if (id > 0) {
+      this.confirmDeleteSubscription = super.confirmDelete().subscribe((result: boolean) => {
+        if (result) {
+          super.httpDelete('DeleteAsync/' + id, this.dataChanged);
+        }
+      });
+    }
   }
 
   deleteByBankIdAsync(bankId: number): void {
     super.httpDelete('DeleteByBankIdAsync/' + bankId);
+  }
+
+  public ngOnDestroy(): void {
+    this.confirmDeleteSubscription.unsubscribe();
   }
 
 }

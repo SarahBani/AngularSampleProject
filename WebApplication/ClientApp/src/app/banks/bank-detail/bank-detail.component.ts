@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IBank } from '../../models/IBank.model';
@@ -9,57 +9,61 @@ import { BankService } from '../../services/bank-service';
   templateUrl: './bank-detail.component.html',
   styleUrls: ['./bank-detail.component.css']
 })
-export class BankDetailComponent implements OnInit {
+export class BankDetailComponent implements OnInit, OnDestroy {
 
   public model: IBank;
-  private dataChanged: Subscription;
+  private dataChangedSubscription: Subscription;
 
   constructor(private bankService: BankService,
     private route: ActivatedRoute,
     private router: Router) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.fillData();
-    this.dataChanged = this.bankService.dataChanged.subscribe(() => {
+    this.dataChangedSubscription = this.bankService.dataChanged.subscribe(() => {
       this.redirectBack();
     });
   }
 
-  fillData(): void {
+  private fillData(): void {
     this.route.params.subscribe((params: Params) => {
-      const id:number = +params['id'];
+      const id: number = +params['id'];
       this.bankService.getItem(id).subscribe((bank) => {
+        if (bank == null) {
+          this.router.navigate(['../'], { relativeTo: this.route });
+          return;
+        }
         this.model = bank;
       }, error => console.error(error));
     });
   }
 
-  onBack() {
+  public onBack(): void {
     this.redirectBack();
   }
 
-  onDelete() {
+  public onDelete(): void {
     this.bankService.delete(this.model.id);
   }
 
-  onEdit() {
+  public onEdit(): void {
     this.router.navigate(['edit'], { relativeTo: this.route });
   }
 
-  redirectBack() {
-    this.router.navigate(['../'], { relativeTo: this.route });
-  }
-
-  redirectToBranches() {
+  public onBranches(): void {
     this.router.navigate(['/branches'],
       {
         state: { bank: this.model }
       });
   }
 
-  ngOnDestroy(): void {
-    this.dataChanged.unsubscribe();
+  private redirectBack(): void {
+    this.router.navigate(['../'], { relativeTo: this.route });
+  }
+
+  public ngOnDestroy(): void {
+    this.dataChangedSubscription.unsubscribe();
   }
 
 }

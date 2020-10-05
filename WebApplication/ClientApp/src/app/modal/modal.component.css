@@ -1,0 +1,48 @@
+
+p.alert-danger {
+  border: 1px solid red;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+#myModalAlert .modal-dialog {
+  margin-top: 18px;
+  pointer-events: auto;
+}
+
+#myModalAlert button {
+  cursor: pointer;
+  padding: 1rem 1rem;
+  margin: -1rem -1rem -1rem auto;
+}
+
+#myModalAlert .alert-success, #myModalAlert .alert-success button {
+  color: #3c763d;
+}
+
+#myModalAlert .alert-info, #myModalAlert .alert-info button {
+  color: #31708f;
+}
+
+#myModalAlert .alert-warning, #myModalAlert .alert-warning button {
+  color: #8a6d3b;
+}
+
+#myModalAlert .alert-danger, #myModalAlert .alert-danger button {
+  color: #a94442;
+}
+
+#myModal .modal-header {
+  color: #CCC;
+  background: #343A40;
+}
+
+  #myModal .modal-header button {
+    color: #FFF;
+  }
+
+#myModal .modal-footer {
+  background: #CCC;
+  padding: 5px;
+  border-top: 1px solid #000;
+}

@@ -10,3 +10,11 @@ export enum ButtonState {
   OkCancel,
   YesNo
 }
+
+export enum Button {
+  Ok,
+  Cancel,
+  Yes,
+  No
+}
+
