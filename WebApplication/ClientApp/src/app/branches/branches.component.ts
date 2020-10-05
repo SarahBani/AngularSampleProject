@@ -11,7 +11,7 @@ import { BranchService } from '../services/branch-service';
 })
 export class BranchesComponent implements OnInit {
 
-  banks: IBank[] = [];
+public  banks: IBank[] = [];
   selectedBankId: number;
   selectedBankName: string = 'Select Bank';
   url: string = '/branches';

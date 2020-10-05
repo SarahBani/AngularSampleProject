@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { IBank } from '../../models/IBank.model';
@@ -9,35 +9,39 @@ import { BankService } from '../../services/bank-service';
   templateUrl: './bank-list.component.html',
   styleUrls: ['./bank-list.component.css']
 })
-export class BankListComponent implements OnInit {
+export class BankListComponent implements OnInit, OnDestroy {
 
   public banks: IBank[] = [];
-  private dataChanged: Subscription;
+  private dataChangedSubscription: Subscription;
 
   constructor(private bankService: BankService,
     private router: Router,
     private route: ActivatedRoute) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.fillList();
-    this.dataChanged = this.bankService.dataChanged.subscribe(() => {
+    this.dataChangedSubscription = this.bankService.dataChanged.subscribe(() => {
       this.fillList();
     });
   }
 
-  private fillList() {
+  private fillList(): void {
     this.bankService.getList().subscribe((banks) => {
       this.banks = banks;
     });
   }
 
-  onAdd(): void {
+  public onAdd(): void {
     this.router.navigate(['new'], { relativeTo: this.route });
   }
 
-  ngOnDestroy(): void {
-    this.dataChanged.unsubscribe();
+  public onRefresh(): void {
+    this.fillList();
+  }
+
+  public ngOnDestroy(): void {
+    this.dataChangedSubscription.unsubscribe();
   }
 
 }

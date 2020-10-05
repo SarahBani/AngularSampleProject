@@ -11,24 +11,29 @@ import { BranchService } from '../../services/branch-service';
 })
 export class BranchListComponent implements OnInit {
 
-  branches: IBranch[];
+  public branches: IBranch[];
+  private bankId: number;
   private changeBankSubscription: Subscription;
-  private updateSubscription: Subscription;
+  private dataChangedSubscription: Subscription;
 
   constructor(private branchService: BranchService,
     private router: Router,
     private route: ActivatedRoute) {
-    this.changeBankSubscription = this.branchService.selectedBankChanged.subscribe(
-      (bankId: number) => {
-        this.fillBranches(bankId);
-      }, error => console.error(error));
   }
 
   ngOnInit(): void {
+    this.dataChangedSubscription = this.branchService.dataChanged.subscribe(() => {
+      this.fillBranches();
+    });
+    this.changeBankSubscription = this.branchService.selectedBankChanged.subscribe(
+      (bankId: number) => {
+        this.bankId = bankId;
+        this.fillBranches();
+      }, error => console.error(error));
   }
 
-  fillBranches(bankId: number): void {
-    this.branchService.getListByBankId(bankId).subscribe((branches) => {
+  fillBranches(): void {
+    this.branchService.getListByBankId(this.bankId).subscribe((branches) => {
       this.branches = branches;
     }, error => console.error(error));
   }
@@ -39,6 +44,7 @@ export class BranchListComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.changeBankSubscription.unsubscribe();
+    this.dataChangedSubscription.unsubscribe();
   }
 
 }

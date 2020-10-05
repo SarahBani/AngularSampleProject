@@ -9,13 +9,13 @@ import { ExceptionHandlerService } from './exception-handler-service';
 export abstract class BaseService {
 
   protected abstract controllerName: string;
-
+  private const_confirmDelete: string = "Are you sure to delete this item?";
   public onUploadFinished = new Subject<string>();
 
   constructor(private httpClient: HttpClient,
     @Inject('BASE_URL') private baseUrl: string,
-    private modalService: ModalService,
-    private exceptionHandlerService: ExceptionHandlerService = null) {
+    protected modalService: ModalService,
+    private exceptionHandlerService: ExceptionHandlerService) {
   }
 
   private getInitialUrl(): string {
@@ -112,20 +112,20 @@ export abstract class BaseService {
         return response;
       }))
       .subscribe(result => {
-        console.log(result);
         if (result.isSuccessful) {
-          if (callback != null) {
-            console.log('callback != null');
-            callback.next();
-          }
-          else {
-            console.log('callback = null');
+          if (successMessage != '') {
             this.modalService.showSuccess(successMessage);
           }
+          if (callback != null) {
+            callback.next();
+          }
+        }
+        else {
+          this.modalService.showError(result.exceptionContentResult);
         }
       }, response => {
         console.warn('ererr');
-          console.warn(response);
+        console.warn(response);
         this.exceptionHandlerService.showModalException(response);
       });
   }
@@ -162,13 +162,10 @@ export abstract class BaseService {
     successMessage: string = ''): void {
     this.httpClient.delete<ICustomActionResult>(this.getInitialUrl() + remainedUrl,
       this.getHeaders())
-      //.toPromise()
-      //.map(res => res.json().data )
       .pipe(map((response: ICustomActionResult) => {
         return response;
       }))
       .subscribe(result => {
-        console.log(result);
         if (result.isSuccessful) {
           if (callback != null) {
             callback.next();
@@ -178,8 +175,13 @@ export abstract class BaseService {
           }
         }
       }, response => {
+          console.log(response);
         this.exceptionHandlerService.showModalException(response);
       });
+  }
+
+  protected confirmDelete(): Observable<boolean> {
+    return this.modalService.showConfirm(this.const_confirmDelete);
   }
 
   protected postFile(remainedUrl: string, fileToUpload: File): Observable<any> {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -9,10 +9,10 @@ import { ContactService } from '../services/contact-service';
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.css']
 })
-export class ContactComponent implements OnInit {
+export class ContactComponent implements OnInit, OnDestroy {
 
   @ViewChild('f') myForm: NgForm;
-  private messageSent: Subscription;
+  private messageSentSubscription: Subscription;
   private changesSaved: boolean = false;
 
   constructor(private contactService: ContactService,
@@ -21,9 +21,8 @@ export class ContactComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.messageSent = this.contactService.messageSentCompleted.subscribe(() => {
+    this.messageSentSubscription = this.contactService.messageSentCompleted.subscribe(() => {
       this.myForm.reset();
-      //this.router.navigate(['../'], { relativeTo: this.route });
     })
   }
 
@@ -40,7 +39,7 @@ export class ContactComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    this.messageSent.unsubscribe();
+    this.messageSentSubscription.unsubscribe();
   }
 
 }
