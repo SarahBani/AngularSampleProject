@@ -17,7 +17,7 @@ namespace Core.DomainService.Repositoy
 
         void Delete(TEntity entity);
 
-        void Delete(Expression<Func<TEntity, bool>> filter = null);
+        void Delete(Expression<Func<TEntity, bool>> filter);
 
     }
 }

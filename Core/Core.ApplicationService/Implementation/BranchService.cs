@@ -1,5 +1,6 @@
 ﻿using Core.ApplicationService.Contracts;
 using Core.DomainModel.Entities;
+using Core.DomainService;
 using Core.DomainService.Repositoy;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,10 +28,17 @@ namespace Core.ApplicationService.Implementation
 
         public async Task<IList<Branch>> GetListByBankIdAsync(int bankId)
         {
-            return await Task.Run(() =>
-            base.GetQueryableAsync().Result
-                .Where(q => q.BankId.Equals(bankId))
-                .ToList());
+            return (await base.GetEnumerableAsync(q => q.BankId.Equals(bankId))).ToList();
+        }
+
+        public async Task<int> GetCountByBankIdAsync(int bankId)
+        {
+            return (await base.GetEnumerableAsync(q => q.BankId.Equals(bankId))).Count();
+        }
+
+        public async Task<TransactionResult> DeleteByBankIdAsync(int bankId)
+        {
+            return await base.DeleteAsync(q => q.BankId.Equals(bankId));
         }
 
         #endregion /Methods

@@ -67,11 +67,7 @@ namespace WebApplication.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] Bank bank)
-        {
-            if (!ModelState.IsValid)
-            {
-                return base.GetInvalidModelResult();
-            }
+        {           
             if (id <= 0)
             {
                 return base.GetInvalidRequestResult();
@@ -114,20 +110,6 @@ namespace WebApplication.Controllers
         }
 
         #endregion /Actions
-
-        #region Methods
-
-        //private IEnumerable<Bank> GetBanks()
-        //{
-        //    return Enumerable.Range(1, 5).Select(index => new Bank
-        //    {
-        //        Id = index,
-        //        Name = $"Bank {index}",
-        //        LogoUrl = $"banks/{index}.png"
-        //    });
-        //}
-
-        #endregion /Methods
 
     }
 }

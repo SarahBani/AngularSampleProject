@@ -11,7 +11,7 @@ import { BranchService } from '../../services/branch-service';
 })
 export class BranchListComponent implements OnInit {
 
-  public branches: IBranch[];
+  private branches: IBranch[];
   private bankId: number;
   private changeBankSubscription: Subscription;
   private dataChangedSubscription: Subscription;
@@ -21,30 +21,41 @@ export class BranchListComponent implements OnInit {
     private route: ActivatedRoute) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.dataChangedSubscription = this.branchService.dataChanged.subscribe(() => {
-      this.fillBranches();
+      this.fillList();
     });
     this.changeBankSubscription = this.branchService.selectedBankChanged.subscribe(
       (bankId: number) => {
         this.bankId = bankId;
-        this.fillBranches();
+        this.fillList();
       }, error => console.error(error));
   }
 
-  fillBranches(): void {
+  private fillList(): void {
     this.branchService.getListByBankId(this.bankId).subscribe((branches) => {
       this.branches = branches;
     }, error => console.error(error));
   }
 
-  onClick(): void {
-    this.router.navigate(['new'], { relativeTo: this.route });
+  private onAdd(): void {
+    this.router.navigate(['new'], {
+      relativeTo: this.route,
+      state: { bankId: this.bankId }
+    });
   }
 
-  ngOnDestroy(): void {
-    this.changeBankSubscription.unsubscribe();
-    this.dataChangedSubscription.unsubscribe();
+  private onRefresh(): void {
+    this.fillList();
+  }
+
+  public ngOnDestroy(): void {
+    if (this.changeBankSubscription != null) {
+      this.changeBankSubscription.unsubscribe();
+    }
+    if (this.dataChangedSubscription != null) {
+      this.dataChangedSubscription.unsubscribe();
+    }
   }
 
 }

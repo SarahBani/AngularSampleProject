@@ -11,7 +11,7 @@ import { BranchService } from '../../services/branch-service';
 })
 export class BranchDetailComponent implements OnInit, OnDestroy {
 
-  public model: IBranch;
+  private model: IBranch;
   private dataChangedSubscription: Subscription;
 
   constructor(private branchService: BranchService,
@@ -19,40 +19,49 @@ export class BranchDetailComponent implements OnInit, OnDestroy {
     private router: Router) {
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.fillData();
     this.dataChangedSubscription = this.branchService.dataChanged.subscribe(() => {
       this.redirectBack();
     });
   }
 
-  fillData(): void {
+  private fillData(): void {
     this.route.params.subscribe((params: Params) => {
       const id: number = +params['id'];
       this.branchService.getItem(id).subscribe((branch) => {
+        if (branch == null) {
+          this.router.navigate(['../'], { relativeTo: this.route });
+          return;
+        }
         this.model = branch;
       }, error => console.error(error));
     });
   }
 
-  onBack(): void {
+  private onBack(): void {
     this.redirectBack();
   }
 
-  onDelete(): void {
+  private onDelete(): void {
     this.branchService.delete(this.model.id);
   }
 
-  onEdit(): void {
-    this.router.navigate(['edit'], { relativeTo: this.route });
+  private onEdit(): void {
+    this.router.navigate(['edit'], {
+      relativeTo: this.route,
+      state: { bankId: this.model.bankId }
+    });
   }
 
   redirectBack(): void {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
-  ngOnDestroy(): void {
-    this.dataChangedSubscription.unsubscribe();
+  public ngOnDestroy(): void {
+    if (this.dataChangedSubscription != null) {
+      this.dataChangedSubscription.unsubscribe();
+    }
   }
 
 }

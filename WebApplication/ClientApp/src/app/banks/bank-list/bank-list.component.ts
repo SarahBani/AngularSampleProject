@@ -11,7 +11,7 @@ import { BankService } from '../../services/bank-service';
 })
 export class BankListComponent implements OnInit, OnDestroy {
 
-  public banks: IBank[] = [];
+  private banks: IBank[] = [];
   private dataChangedSubscription: Subscription;
 
   constructor(private bankService: BankService,
@@ -32,11 +32,11 @@ export class BankListComponent implements OnInit, OnDestroy {
     });
   }
 
-  public onAdd(): void {
+  private onAdd(): void {
     this.router.navigate(['new'], { relativeTo: this.route });
   }
 
-  public onRefresh(): void {
+  private onRefresh(): void {
     this.fillList();
   }
 

@@ -7,7 +7,7 @@ import { ModalService } from './modal-service';
 import { ExceptionHandlerService } from './exception-handler-service';
 
 @Injectable({ providedIn: 'root' })
-export class BankService extends BaseService implements OnDestroy {
+export class BankService extends BaseService {
 
   protected controllerName: string = 'Bank';
   public selectedChanged = new Subject<IBank>();
@@ -68,9 +68,6 @@ export class BankService extends BaseService implements OnDestroy {
 
   public uploadLogo(file: File): Observable<any> {
     return super.postFile('UploadLogo/', file);
-  }
-
-  public ngOnDestroy(): void {
   }
 
 }
