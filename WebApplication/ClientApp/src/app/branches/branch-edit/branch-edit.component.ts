@@ -23,7 +23,6 @@ export class BranchEditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router) {
     this.setBankId();
-    this.checkBankId();
   }
 
   public ngOnInit(): void {
@@ -39,6 +38,10 @@ export class BranchEditComponent implements OnInit, OnDestroy {
     if (this.router.getCurrentNavigation() != null &&
       this.router.getCurrentNavigation().extras.state != null) {
       this.bankId = this.router.getCurrentNavigation().extras.state.bankId;
+    }
+    if (this.bankId == null) {
+      this.changesSaved = true;
+      this.router.navigate(['../'], { relativeTo: this.route });
     }
   }
 
@@ -58,14 +61,6 @@ export class BranchEditComponent implements OnInit, OnDestroy {
           'address': branch.address,
         });
       }, error => console.error(error));
-    }
-  }
-
-  private checkBankId(): void {
-    if (this.bankId == null) {
-      this.changesSaved = true;
-      this.router.navigate(['../'], { relativeTo: this.route });
-      return;
     }
   }
 
