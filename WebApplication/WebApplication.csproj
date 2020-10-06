@@ -69,6 +69,7 @@
 
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Helper\" />
     <Folder Include="Resources\Images\Banks\" />
   </ItemGroup>
 

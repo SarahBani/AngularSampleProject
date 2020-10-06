@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApplication.Models;
-using WebApplication.Common;
 using System;
 using Core.DomainModel;
+using Core.DomainService;
 
 namespace WebApplication.Controllers
 {
@@ -34,7 +34,7 @@ namespace WebApplication.Controllers
                 if (file.Length > 0)
                 {
                     DeletePreviousFile();
-                    this.FilePath = Helper.UploadImage(file, subFolderName);
+                    this.FilePath = Utility.UploadImage(file, subFolderName);
                     return Ok(new CustomActionResult(this.FilePath));
                 }
                 else
@@ -53,7 +53,7 @@ namespace WebApplication.Controllers
         {
             if (!string.IsNullOrEmpty(this.FilePath))
             {
-                Helper.DeleteFile(this.FilePath);
+                Utility.DeleteFile(this.FilePath);
             }
         }
 

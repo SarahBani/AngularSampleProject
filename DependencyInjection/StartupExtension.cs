@@ -16,6 +16,7 @@ namespace DependencyInjection
         {
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IEntityService, EntityService>();
+            services.AddScoped<IEmailService, EmailService>();
 
             services.AddScoped(typeof(IBaseRepository<Bank, int>), typeof(BankRepository));
             services.AddScoped(typeof(IBaseRepository<Branch, int>), typeof(BranchRepository));

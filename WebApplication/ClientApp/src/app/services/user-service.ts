@@ -1,5 +1,4 @@
 import { Injectable, EventEmitter } from "@angular/core";
-import { CounterService } from "./counter-service";
 
 @Injectable()
 export class UserService {
@@ -21,7 +20,7 @@ export class UserService {
 
     //usersChanged = new EventEmitter<void>();
 
-    constructor(private counterService: CounterService) { }
+    constructor() { }
 
     activate(index: number): void {
         //this.users[index].isActive = true;
@@ -29,7 +28,7 @@ export class UserService {
         this.activeUsers.push(item);
         //this.counterService.increase();
         //this.usersChanged.emit();
-        this.counterService.activate();
+        //this.counterService.activate();
         //this.usersChanged.emit();
     }
 
@@ -39,7 +38,7 @@ export class UserService {
         this.inactiveUsers.push(item);
         //this.counterService.increase();
         //this.usersChanged.emit();
-        this.counterService.deactivate();
+       // this.counterService.deactivate();
         //this.usersChanged.emit();
     }
 

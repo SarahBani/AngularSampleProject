@@ -109,3 +109,5 @@ H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\ne
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\staticwebassets\WebApplication.StaticWebAssets.Manifest.cache
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\staticwebassets\WebApplication.StaticWebAssets.xml
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.genruntimeconfig.cache
+H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Http.Features.dll
+H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\System.IO.Pipelines.dll
