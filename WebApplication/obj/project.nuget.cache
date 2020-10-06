@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "R55HRD+eX2lIeGWtBnd7rB3kHDNfSoI12AXlKFDD+dLVZrFjyFeXMAUXxAHgefkVMwNNRTagRydQxUr1bCw3Uw==",
+  "dgSpecHash": "w7IDguc+hED7hVfWLfRggr6Zxdyhd7LhT0XwIxVvCv9o4fgfktnLBVzz3gEp+OcS4Ua2GMGsS0qp1Qxm2P4loQ==",
   "success": true,
   "projectFilePath": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\WebApplication\\WebApplication.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Sarah\\.nuget\\packages\\bootstrap\\4.5.2\\bootstrap.4.5.2.nupkg.sha512",
     "C:\\Users\\Sarah\\.nuget\\packages\\jquery\\3.0.0\\jquery.3.0.0.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.aspnetcore.http.features\\3.1.8\\microsoft.aspnetcore.http.features.3.1.8.nupkg.sha512",
     "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.aspnetcore.nodeservices\\3.0.3\\microsoft.aspnetcore.nodeservices.3.0.3.nupkg.sha512",
     "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.aspnetcore.spaservices\\3.0.3\\microsoft.aspnetcore.spaservices.3.0.3.nupkg.sha512",
     "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.aspnetcore.spaservices.extensions\\3.0.3\\microsoft.aspnetcore.spaservices.extensions.3.0.3.nupkg.sha512",
@@ -100,6 +101,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.io.compression.zipfile\\4.3.0\\system.io.compression.zipfile.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.io.filesystem\\4.3.0\\system.io.filesystem.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.io.filesystem.primitives\\4.3.0\\system.io.filesystem.primitives.4.3.0.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\system.io.pipelines\\4.7.2\\system.io.pipelines.4.7.2.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.linq\\4.3.0\\system.linq.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.linq.expressions\\4.3.0\\system.linq.expressions.4.3.0.nupkg.sha512",
     "C:\\Users\\Sarah\\.nuget\\packages\\system.memory\\4.5.2\\system.memory.4.5.2.nupkg.sha512",

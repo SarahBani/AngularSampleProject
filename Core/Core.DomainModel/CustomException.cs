@@ -13,10 +13,7 @@ namespace Core.DomainModel
         ArithmeticOverflow = 8115,
 
         NoActiveTransaction,
-        InvalidOrderID,
-        OrderItemsNotExist,
-        InvalidOrderItemsProductType,
-        InvalidOrderItemsQuantity
+        SendEmailProblem,
     }
 
     public class CustomException : Exception
@@ -104,17 +101,8 @@ namespace Core.DomainModel
                     case ExceptionKey.NoActiveTransaction:
                         result = Constant.Exception_NoActiveTransaction;
                         break;
-                    case ExceptionKey.InvalidOrderID:
-                        result = Constant.Exception_InvalidOrderID;
-                        break;
-                    case ExceptionKey.OrderItemsNotExist:
-                        result = Constant.Exception_OrderItemsNotExist;
-                        break;
-                    case ExceptionKey.InvalidOrderItemsProductType:
-                        result = Constant.Exception_InvalidOrderItemsProductType;
-                        break;
-                    case ExceptionKey.InvalidOrderItemsQuantity:
-                        result = Constant.Exception_InvalidOrderItemsQuantity;
+                    case ExceptionKey.SendEmailProblem:
+                        result = Constant.Exception_SendEmailProblem;
                         break;
                     case ExceptionKey.NotDefined:
                     default:

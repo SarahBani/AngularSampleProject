@@ -1,10 +1,9 @@
 ﻿using Core.DomainModel.Settings;
-using Core.DomainService;
 using Microsoft.Extensions.Configuration;
 
-namespace WebApplication.Common
+namespace Core.DomainService
 {
-    public static class MyWebRequest
+    public static class WebRequestConfig
     {
 
         #region Properties

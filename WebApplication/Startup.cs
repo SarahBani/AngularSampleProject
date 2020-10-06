@@ -4,7 +4,6 @@ using DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -13,7 +12,6 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.IO;
-using WebApplication.Common;
 
 namespace WebApplication
 {
@@ -29,7 +27,7 @@ namespace WebApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            MyWebRequest.Configure(this.Configuration);
+            WebRequestConfig.Configure(this.Configuration);
             string connectionString = Utility.GetConnectionString(this.Configuration);
             services.AddDbContext<MyDataBaseContext>(options => options.UseSqlServer(connectionString));
 
