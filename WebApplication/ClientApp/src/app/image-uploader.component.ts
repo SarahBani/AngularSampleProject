@@ -1,18 +1,17 @@
 import { HttpEventType } from '@angular/common/http';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { BaseFormComponent } from './base-form.component';
 import { ICustomActionResult } from './models/ICustomActionResult.model';
 
-export abstract class ImageUploaderComponent implements OnInit {
+export abstract class ImageUploaderComponent extends BaseFormComponent implements OnInit {
 
-  public fileToUpload: File = null;
-  public isUploading: boolean = false;
-  public uploadedPercentage: number;
-  public uploadedImageUrl: string;
+  protected fileToUpload: File = null;
+  protected isUploading: boolean = false;
+  protected uploadedPercentage: number;
+  protected uploadedImageUrl: string;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
   public uploadImage(files: FileList) {
@@ -24,7 +23,6 @@ export abstract class ImageUploaderComponent implements OnInit {
         else if (event.type === HttpEventType.Response) {
           let actionResult = <ICustomActionResult>event.body;
           this.uploadedImageUrl = actionResult.content;
-          console.warn(actionResult.content);
         }
       }, error => {
         console.log(error);

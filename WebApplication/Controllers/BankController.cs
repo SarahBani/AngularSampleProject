@@ -31,7 +31,9 @@ namespace WebApplication.Controllers
         [HttpGet("ItemAsync/{id}")]
         public async Task<Bank> GetItemAsync([FromRoute] int id)
         {
-            return await this._bankService.GetByIdAsync(id);
+            var bank = await this._bankService.GetByIdAsync(id);
+            base.FilePath = bank?.LogoUrl ?? string.Empty;
+            return bank;
         }
 
         [HttpGet("ListAsync")]
@@ -54,6 +56,11 @@ namespace WebApplication.Controllers
             var result = await this._bankService.InsertAsync(bank);
             if (result.IsSuccessful)
             {
+                if (string.IsNullOrEmpty(bank.LogoUrl))
+                {
+                    base.DeletePreviousFile();
+                }
+                this.FilePath = string.Empty;
                 return base.GetOKResult();
             }
             else
@@ -66,7 +73,7 @@ namespace WebApplication.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] Bank bank)
-        {           
+        {
             if (id <= 0)
             {
                 return base.GetInvalidRequestResult();
@@ -74,6 +81,11 @@ namespace WebApplication.Controllers
             var result = await this._bankService.UpdateAsync(bank);
             if (result.IsSuccessful)
             {
+                if (string.IsNullOrEmpty(bank.LogoUrl))
+                {
+                    base.DeletePreviousFile();
+                }
+                this.FilePath = string.Empty;
                 return base.GetOKResult();
             }
             else
@@ -94,6 +106,7 @@ namespace WebApplication.Controllers
             var result = await this._bankService.DeleteAsync(id);
             if (result.IsSuccessful)
             {
+                base.DeletePreviousFile();
                 return base.GetOKResult();
             }
             else

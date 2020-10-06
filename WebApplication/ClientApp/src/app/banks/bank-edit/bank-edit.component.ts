@@ -17,7 +17,6 @@ export class BankEditComponent extends ImageUploaderComponent
   @ViewChild('f') myForm: NgForm;
   private model: IBank;
   private id: number;
-  private changesSaved: boolean = false;
   private dataChangedSubscription: Subscription;
 
   constructor(private bankService: BankService,
@@ -74,11 +73,8 @@ export class BankEditComponent extends ImageUploaderComponent
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 
-  public canDeactivate(): boolean | Observable<boolean> | Promise<boolean> {
-    if (!this.changesSaved) {
-      return confirm('Do you want to discard the changes?');
-    }
-    return this.changesSaved;
+  private onDeleteImage(): void {
+    this.uploadedImageUrl = null;
   }
 
   public ngOnDestroy(): void {

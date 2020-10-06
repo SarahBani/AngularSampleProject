@@ -19,7 +19,8 @@
         <div class="col-12 uploaded-image">
           <img [src]="uploadedImageUrl" class="img-response" />
           <div>
-            <img class="delete-image" src='/images/delete.png' alt="Remove" />
+            <img class="delete-image" src='/images/delete.png' alt="Delete Image"
+                 (click)="onDeleteImage()" />
           </div>
         </div>
       </div>

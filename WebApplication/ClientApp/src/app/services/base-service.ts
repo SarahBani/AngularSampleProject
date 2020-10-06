@@ -123,10 +123,10 @@ export abstract class BaseService {
         else {
           this.modalService.showError(result.exceptionContentResult);
         }
-      }, response => {
+      }, error => {
         console.warn('ererr');
-        console.warn(response);
-        this.exceptionHandlerService.showModalException(response);
+        console.warn(error);
+          this.exceptionHandlerService.showModalException(error);
       });
   }
 
@@ -152,8 +152,9 @@ export abstract class BaseService {
             this.modalService.showSuccess(successMessage);
           }
         }
-      }, response => {
-        this.exceptionHandlerService.showModalException(response);
+      }, error => {
+        console.warn(error);
+        this.exceptionHandlerService.showModalException(error);
       });
   }
 
@@ -174,9 +175,9 @@ export abstract class BaseService {
             this.modalService.showSuccess(successMessage);
           }
         }
-      }, response => {
-          console.log(response);
-        this.exceptionHandlerService.showModalException(response);
+      }, error => {
+        console.log(error);
+        this.exceptionHandlerService.showModalException(error);
       });
   }
 
