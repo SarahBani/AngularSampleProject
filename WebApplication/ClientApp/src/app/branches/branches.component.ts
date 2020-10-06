@@ -11,33 +11,34 @@ import { BranchService } from '../services/branch-service';
 })
 export class BranchesComponent implements OnInit {
 
-public  banks: IBank[] = [];
-  selectedBankId: number;
-  selectedBankName: string = 'Select Bank';
-  url: string = '/branches';
+  private banks: IBank[] = [];
+  private selectedBankId: number;
+  private selectedBankName: string = 'Select Bank';
+  private url: string = '/branches';
 
   constructor(private bankService: BankService,
     private branchService: BranchService,
     private route: ActivatedRoute,
     private router: Router) {
+    console.log(123);
     this.resetUrl();
     this.fillBanks();
     this.setSelectedBank();
   }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     if (this.selectedBankId != null) {
       this.branchService.changeBank(this.selectedBankId);
     }
   }
 
-  fillBanks(): void {
+  private fillBanks(): void {
     this.bankService.getList().subscribe((banks) => {
       this.banks = banks;
     });
   }
 
-  setSelectedBank(): void {
+  private setSelectedBank(): void {
     const state = this.router.getCurrentNavigation().extras.state;
     if (state != null && state.bank != null) {
       this.selectedBankId = state.bank.id;
@@ -45,14 +46,14 @@ public  banks: IBank[] = [];
     }
   }
 
-  onSelectBank(bank: IBank): void {
+  private onSelectBank(bank: IBank): void {
     this.resetUrl();
     this.selectedBankId = bank.id;
     this.selectedBankName = bank.name;
     this.branchService.changeBank(bank.id);
   }
 
-  resetUrl(): void {
+  private resetUrl(): void {
     if (this.router.url != this.url) {
       this.router.navigate(['/branches']);
     }

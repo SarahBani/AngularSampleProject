@@ -31,7 +31,7 @@ export class BranchEditComponent extends BaseFormComponent implements OnInit, On
     this.dataChangedSubscription = this.branchService.dataChanged.subscribe(() => {
       this.changesSaved = true;
       this.myForm.reset();
-      this.router.navigate(['../'], { relativeTo: this.route });
+      this.redirectBack();
     });
   }
 
@@ -42,7 +42,12 @@ export class BranchEditComponent extends BaseFormComponent implements OnInit, On
     }
     if (this.bankId == null) {
       this.changesSaved = true;
-      this.router.navigate(['../'], { relativeTo: this.route });
+      if (this.route.snapshot.params["id"] == null) {
+      this.redirectBack();
+      }
+      else {
+      this.redirectBack(2);
+      }
     }
   }
 
@@ -52,11 +57,11 @@ export class BranchEditComponent extends BaseFormComponent implements OnInit, On
       this.branchService.getItem(this.id).subscribe((branch) => {
         if (branch == null) {
           this.changesSaved = true;
-          this.router.navigate(['../../'], { relativeTo: this.route });
+          this.redirectBack(2);
           return;
         }
         this.bankId = branch.bankId;
-        this.myForm.form.patchValue({
+        this.myForm.form.setValue({
           'name': branch.name,
           'code': branch.code,
           'address': branch.address,
@@ -82,7 +87,12 @@ export class BranchEditComponent extends BaseFormComponent implements OnInit, On
 
   private onCancel(): void {
     this.changesSaved = true;
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.redirectBack();
+  }
+
+  private redirectBack(backLevelCount: number = 1): void {
+    const url: string = '../'.repeat(backLevelCount);
+    this.router.navigate([url], { relativeTo: this.route });
   }
 
   public ngOnDestroy(): void {

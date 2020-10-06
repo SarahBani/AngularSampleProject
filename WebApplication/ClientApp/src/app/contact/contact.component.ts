@@ -21,18 +21,18 @@ export class ContactComponent extends BaseFormComponent implements OnInit, OnDes
     super();
   }
 
-  ngOnInit(): void {
+ public ngOnInit(): void {
     this.messageSentSubscription = this.contactService.messageSentCompleted.subscribe(() => {
       this.myForm.reset();
     })
   }
 
-  onSend(): void {
+  private onSend(): void {
     this.changesSaved = true;
     this.contactService.send(this.myForm.value.email, this.myForm.value.message);
   }
 
-  ngOnDestroy(): void {
+ public ngOnDestroy(): void {
     this.messageSentSubscription.unsubscribe();
   }
 

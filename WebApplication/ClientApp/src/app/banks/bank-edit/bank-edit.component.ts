@@ -30,7 +30,7 @@ export class BankEditComponent extends ImageUploaderComponent
     this.dataChangedSubscription = this.bankService.dataChanged.subscribe(() => {
       this.changesSaved = true;
       this.myForm.reset();
-      this.router.navigate(['../'], { relativeTo: this.route });
+      this.redirectBack();
     });
   }
 
@@ -40,7 +40,7 @@ export class BankEditComponent extends ImageUploaderComponent
       this.bankService.getItem(this.id).subscribe((bank) => {
         if (bank == null) {
           this.changesSaved = true;
-          this.router.navigate(['../../'], { relativeTo: this.route });
+          this.redirectBack(2);
           return;
         }
         this.myForm.setValue({
@@ -70,11 +70,16 @@ export class BankEditComponent extends ImageUploaderComponent
 
   private onCancel(): void {
     this.changesSaved = true;
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.redirectBack();
   }
 
   private onDeleteImage(): void {
     this.uploadedImageUrl = null;
+  }
+
+  private redirectBack(backLevelCount: number = 1): void {
+    const url: string = '../'.repeat(backLevelCount);
+    this.router.navigate([url], { relativeTo: this.route });
   }
 
   public ngOnDestroy(): void {
