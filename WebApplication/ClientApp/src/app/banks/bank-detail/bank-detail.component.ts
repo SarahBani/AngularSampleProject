@@ -31,7 +31,7 @@ export class BankDetailComponent implements OnInit, OnDestroy {
       const id: number = +params['id'];
       this.bankService.getItem(id).subscribe((bank) => {
         if (bank == null) {
-          this.router.navigate(['../'], { relativeTo: this.route });
+          this.redirectBack();
           return;
         }
         this.model = bank;

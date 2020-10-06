@@ -31,7 +31,7 @@ export class BranchDetailComponent implements OnInit, OnDestroy {
       const id: number = +params['id'];
       this.branchService.getItem(id).subscribe((branch) => {
         if (branch == null) {
-          this.router.navigate(['../'], { relativeTo: this.route });
+          this.redirectBack();
           return;
         }
         this.model = branch;
@@ -54,7 +54,7 @@ export class BranchDetailComponent implements OnInit, OnDestroy {
     });
   }
 
-  redirectBack(): void {
+  private redirectBack(): void {
     this.router.navigate(['../'], { relativeTo: this.route });
   }
 

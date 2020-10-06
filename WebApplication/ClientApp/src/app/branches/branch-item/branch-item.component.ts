@@ -13,10 +13,10 @@ export class BranchItemComponent implements OnInit {
 
   constructor(private branchService: BranchService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  onSelect(): void {
+  private onSelect(): void {
     this.branchService.select(this.model);
   }
 
