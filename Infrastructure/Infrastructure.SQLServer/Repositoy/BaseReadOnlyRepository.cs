@@ -1,6 +1,7 @@
 ﻿using Core.DomainModel.Entities;
 using Core.DomainService;
 using Core.DomainService.Repositoy;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,12 @@ namespace Infrastructure.DataBase.Repositoy
 
         public virtual async Task<TEntity> GetByIdAsync(TKey id)
         {
-            return await this.MyDBContext.Set<TEntity>().FindAsync(id);
+            var entity = await this.MyDBContext.Set<TEntity>().FindAsync(id);
+            if (entity != null)
+            {
+                this.MyDBContext.Entry(entity).State = EntityState.Detached;
+            }
+            return entity;
         }
 
         public virtual int GetCount(Expression<Func<TEntity, bool>> filter = null)

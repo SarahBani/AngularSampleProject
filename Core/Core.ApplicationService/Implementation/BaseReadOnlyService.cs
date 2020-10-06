@@ -1,5 +1,4 @@
-﻿using Core.ApplicationService;
-using Core.DomainModel.Entities;
+﻿using Core.DomainModel.Entities;
 using Core.DomainService;
 using Core.DomainService.Repositoy;
 using System;

@@ -40,14 +40,15 @@
     <None Remove="ClientApp\src\app\services\base-service.ts" />
     <None Remove="ClientApp\src\app\services\contact-service.ts" />
     <None Remove="ClientApp\src\app\services\exception-handler-service.ts" />
-    <None Remove="ClientApp\src\app\services\file-upload-service.ts" />
     <None Remove="ClientApp\src\app\services\modal-service.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Remove="ClientApp\src\app\base-form.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\directives\tooltip.directive.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\image-uploader.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\Ibank.model.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\models\IBook.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\IBranch.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\IContact.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\ICustomActionResult.model.ts" />
@@ -59,9 +60,6 @@
     <TypeScriptCompile Update="ClientApp\src\app\services\base-service.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Update="ClientApp\src\app\services\file-upload-service.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
     <TypeScriptCompile Update="ClientApp\src\app\services\modal-service.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -71,6 +69,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Helper\" />
     <Folder Include="Resources\Images\Banks\" />
+    <Folder Include="Resources\Images\Temp\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -73,8 +73,7 @@ namespace Core.DomainService
         private static string GetUniqueFileName(string fileName)
         {
             string fullFileName = Path.GetFileName(fileName);
-            return $"{Path.GetFileNameWithoutExtension(fullFileName)}_" +
-                $"{ Guid.NewGuid().ToString().Substring(0, 4) + Path.GetExtension(fullFileName) }";
+            return $"{ Guid.NewGuid().ToString() + Path.GetExtension(fullFileName) }";
         }
 
         /// <summary>

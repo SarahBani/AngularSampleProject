@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { BaseFormComponent } from '../base-form.component';
 import { ContactService } from '../services/contact-service';
 
 @Component({
@@ -9,15 +10,15 @@ import { ContactService } from '../services/contact-service';
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.css']
 })
-export class ContactComponent implements OnInit, OnDestroy {
+export class ContactComponent extends BaseFormComponent implements OnInit, OnDestroy {
 
   @ViewChild('f') myForm: NgForm;
   private messageSentSubscription: Subscription;
-  private changesSaved: boolean = false;
 
   constructor(private contactService: ContactService,
     private route: ActivatedRoute,
     private router: Router) {
+    super();
   }
 
   ngOnInit(): void {
@@ -29,13 +30,6 @@ export class ContactComponent implements OnInit, OnDestroy {
   onSend(): void {
     this.changesSaved = true;
     this.contactService.send(this.myForm.value.email, this.myForm.value.message);
-  }
-
-  canDeactivate(): boolean | Observable<boolean> | Promise<boolean> {
-    if (!this.changesSaved) {
-      return confirm('Do you want to discard the changes?');
-    }
-    return this.changesSaved;
   }
 
   ngOnDestroy(): void {

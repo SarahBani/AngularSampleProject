@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription, Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { BaseFormComponent } from '../../base-form.component';
 import { IBranch } from '../../models/Ibranch.model';
 import { BranchService } from '../../services/branch-service';
 
@@ -10,18 +11,18 @@ import { BranchService } from '../../services/branch-service';
   templateUrl: './branch-edit.component.html',
   styleUrls: ['./branch-edit.component.css']
 })
-export class BranchEditComponent implements OnInit, OnDestroy {
+export class BranchEditComponent extends BaseFormComponent implements OnInit, OnDestroy {
 
   @ViewChild('f') myForm: NgForm;
   private model: IBranch;
   private id: number;
   private bankId: number;
-  private changesSaved: boolean = false;
   private dataChangedSubscription: Subscription;
 
   constructor(private branchService: BranchService,
     private route: ActivatedRoute,
     private router: Router) {
+    super();
     this.setBankId();
   }
 
@@ -82,13 +83,6 @@ export class BranchEditComponent implements OnInit, OnDestroy {
   private onCancel(): void {
     this.changesSaved = true;
     this.router.navigate(['../'], { relativeTo: this.route });
-  }
-
-  public canDeactivate(): boolean | Observable<boolean> | Promise<boolean> {
-    if (!this.changesSaved) {
-      return confirm('Do you want to discard the changes?');
-    }
-    return this.changesSaved;
   }
 
   public ngOnDestroy(): void {

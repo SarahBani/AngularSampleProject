@@ -9,3 +9,4 @@ H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainModel\obj\D
 H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainModel\obj\Debug\netcoreapp3.0\Core.DomainModel.dll
 H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainModel\obj\Debug\netcoreapp3.0\Core.DomainModel.pdb
 H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainModel\obj\Debug\netcoreapp3.0\Core.DomainModel.genruntimeconfig.cache
+H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainModel\obj\Debug\netcoreapp3.0\Core.DomainModel.csprojAssemblyReference.cache
