@@ -65,7 +65,7 @@ namespace WebApplication.Controllers
             }
             else
             {
-                return base.GetErrorResult(result.ExceptionContentResult);
+                return base.GetErrorResult(result);
             }
         }
 
@@ -90,7 +90,7 @@ namespace WebApplication.Controllers
             }
             else
             {
-                return base.GetErrorResult(result.ExceptionContentResult);
+                return base.GetErrorResult(result);
             }
         }
 
@@ -111,7 +111,7 @@ namespace WebApplication.Controllers
             }
             else
             {
-                return base.GetErrorResult(result.ExceptionContentResult);
+                return base.GetErrorResult(result);
             }
         }
 

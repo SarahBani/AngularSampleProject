@@ -1,7 +1,7 @@
 ﻿using Core.DomainModel;
 using Core.DomainModel.Entities;
+using Core.DomainService;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication.Models;
 
 namespace WebApplication.Controllers
 {
@@ -25,12 +25,12 @@ namespace WebApplication.Controllers
 
         protected IActionResult GetOKResult()
         {
-            return Ok(new CustomActionResult()); // Http status code 200
+            return Ok(new TransactionResult()); // Http status code 200
         }
 
         protected IActionResult GetActionResult<T>(T value)
         {
-            return Ok(new CustomActionResult(value));
+            return Ok(new TransactionResult(value));
         }
 
         protected IActionResult GetCreatedActionResult<TEntity, TKey>(string actionName,
@@ -44,22 +44,22 @@ namespace WebApplication.Controllers
 
         protected IActionResult GetInvalidModelResult()
         {
-            return BadRequest(new CustomActionResult(new CustomException(Constant.Exception_InvalidModelState), ModelState));
+            return GetErrorResult(new TransactionResult(new CustomException(Constant.Exception_InvalidModelState), ModelState));
         }
 
          protected IActionResult GetInvalidRequestResult()
         {
-            return BadRequest(new CustomActionResult(new CustomException(Constant.Exception_InvalidRequestData), ModelState));
+            return GetErrorResult(new TransactionResult(new CustomException(Constant.Exception_InvalidRequestData), ModelState));
         }
 
         protected IActionResult GetErrorResult()
         {
-            return GetErrorResult(Constant.Exception_HasError);
+            return GetErrorResult(new TransactionResult(Constant.Exception_HasError));
         }
 
-        protected IActionResult GetErrorResult(string exceptionContentResult)
+        protected IActionResult GetErrorResult(TransactionResult transactionResult)
         {
-            return BadRequest(new CustomActionResult(new CustomException(exceptionContentResult)));
+            return BadRequest(transactionResult);
         }
 
         #endregion /Actions

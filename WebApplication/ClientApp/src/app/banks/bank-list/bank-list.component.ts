@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { BaseLoadingComponent } from '../../base/base-loading.component';
 import { IBank } from '../../models/IBank.model';
 import { BankService } from '../../services/bank-service';
 
@@ -9,27 +10,37 @@ import { BankService } from '../../services/bank-service';
   templateUrl: './bank-list.component.html',
   styleUrls: ['./bank-list.component.css']
 })
-export class BankListComponent implements OnInit, OnDestroy {
+export class BankListComponent extends BaseLoadingComponent implements OnInit, OnDestroy {
 
   private banks: IBank[] = [];
-  private dataChangedSubscription: Subscription;
+  private operationCompletedSubscription: Subscription;
 
   constructor(private bankService: BankService,
     private router: Router,
     private route: ActivatedRoute) {
+    super();
   }
 
   public ngOnInit(): void {
+    this.subscribe();
     this.fillList();
-    this.dataChangedSubscription = this.bankService.dataChanged.subscribe(() => {
-      this.fillList();
-    });
+  }
+
+  private subscribe(): void {
+    this.operationCompletedSubscription = this.bankService.operationCompleted
+      .subscribe((hasSucceed: boolean) => {
+        if (hasSucceed) {
+          this.fillList();
+        }
+      });
   }
 
   private fillList(): void {
+    super.showLoader();
     this.bankService.getList().subscribe((banks) => {
       this.banks = banks;
-    });
+      super.hideLoader();
+    }, error => super.showError(error));
   }
 
   private onAdd(): void {
@@ -41,7 +52,7 @@ export class BankListComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.dataChangedSubscription.unsubscribe();
+    this.operationCompletedSubscription.unsubscribe();
   }
 
 }

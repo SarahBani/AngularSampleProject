@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { BaseFormComponent } from '../base-form.component';
+import { BaseFormComponent } from '../base/base-form.component';
 import { ContactService } from '../services/contact-service';
 
 @Component({
@@ -13,7 +13,7 @@ import { ContactService } from '../services/contact-service';
 export class ContactComponent extends BaseFormComponent implements OnInit, OnDestroy {
 
   @ViewChild('f') myForm: NgForm;
-  private messageSentSubscription: Subscription;
+  private emailSentSubscription: Subscription;
 
   constructor(private contactService: ContactService,
     private route: ActivatedRoute,
@@ -21,19 +21,27 @@ export class ContactComponent extends BaseFormComponent implements OnInit, OnDes
     super();
   }
 
- public ngOnInit(): void {
-    this.messageSentSubscription = this.contactService.messageSentCompleted.subscribe(() => {
-      this.myForm.reset();
+  public ngOnInit(): void {
+    this.subscribe();
+  }
+
+  private subscribe(): void {
+    this.emailSentSubscription = this.contactService.emailSentCompleted.subscribe((hasSent) => {
+      if (hasSent) {
+        this.changesSaved = true;
+        this.myForm.reset();
+      }
+      super.hideLoader();
     })
   }
 
   private onSend(): void {
-    this.changesSaved = true;
+    super.showLoader();
     this.contactService.send(this.myForm.value.email, this.myForm.value.message);
   }
 
- public ngOnDestroy(): void {
-    this.messageSentSubscription.unsubscribe();
+  public ngOnDestroy(): void {
+    this.emailSentSubscription.unsubscribe();
   }
 
 }

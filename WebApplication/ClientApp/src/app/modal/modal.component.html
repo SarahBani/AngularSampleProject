@@ -5,7 +5,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <strong class="modal-title">Modal Header</strong>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" (click)="onClose()">&times;</button>
       </div>
       <div class="modal-body">
         <p>Some text in the modal.</p>
@@ -20,9 +20,13 @@
           Cancel
         </button>
         <button id="btnYes" type="button" class="btn btn-danger" data-dismiss="modal"
-                (click)="onYes()">Yes</button>
+                (click)="onYes()">
+          Yes
+        </button>
         <button id="btnNo" type="button" class="btn btn-primary" data-dismiss="modal"
-                  (click)="onNo()">No</button>
+                (click)="onNo()">
+          No
+        </button>
       </div>
     </div>
 

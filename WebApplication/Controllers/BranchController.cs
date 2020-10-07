@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -58,7 +57,7 @@ namespace WebApplication.Controllers
             }
             else
             {
-                return base.GetErrorResult(result.ExceptionContentResult);
+                return base.GetErrorResult(result);
             }
         }
 
@@ -78,7 +77,7 @@ namespace WebApplication.Controllers
             }
             else
             {
-                return base.GetErrorResult(result.ExceptionContentResult);
+                return base.GetErrorResult(result);
             }
         }
 
@@ -98,7 +97,7 @@ namespace WebApplication.Controllers
             }
             else
             {
-                return base.GetErrorResult(result.ExceptionContentResult);
+                return base.GetErrorResult(result);
             }
         }
 
@@ -122,7 +121,7 @@ namespace WebApplication.Controllers
             }
             else
             {
-                return base.GetErrorResult(result.ExceptionContentResult);
+                return base.GetErrorResult(result);
             }
         }
 

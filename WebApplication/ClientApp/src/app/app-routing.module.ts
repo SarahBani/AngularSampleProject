@@ -42,7 +42,7 @@ import { CanDeactivateGuardService } from './services/can-deactivate-guard-servi
         ]
       },
       { path: 'about', component: AboutComponent },
-      { path: 'contact', component: ContactComponent },
+      { path: 'contact', component: ContactComponent, canDeactivate: [CanDeactivateGuardService] },
       { path: 'error-page', component: ErrorPageComponent },
       { path: 'not-found', component: PageNotFoundComponent },
       { path: 'access-denied', component: AccessDeniedComponent },

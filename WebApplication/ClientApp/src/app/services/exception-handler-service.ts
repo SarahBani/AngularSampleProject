@@ -15,7 +15,7 @@ export class ExceptionHandlerService {
       return response.message;
     }
     if (response.error.isSuccessful != null && !response.error.isSuccessful) {
-      const exceptionMessage: string = response.error.exceptionContentResult;
+      const exceptionMessage: string = response.error.customExceptionMessage;
       return exceptionMessage;
     }
     if (response.error.errors != null && Object.keys(response.error.errors).length > 0) {

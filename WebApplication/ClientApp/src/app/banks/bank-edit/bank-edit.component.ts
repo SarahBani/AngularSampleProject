@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { ImageUploaderComponent } from '../../image-uploader.component';
+import { ImageUploaderComponent } from '../../base/image-uploader.component';
 import { IBank } from '../../models/IBank.model';
 import { BankService } from '../../services/bank-service';
 
@@ -17,27 +17,39 @@ export class BankEditComponent extends ImageUploaderComponent
   @ViewChild('f') myForm: NgForm;
   private model: IBank;
   private id: number;
-  private dataChangedSubscription: Subscription;
+  private operationCompletedSubscription: Subscription;
 
   constructor(private bankService: BankService,
     private route: ActivatedRoute,
     private router: Router) {
-    super();
+    super(bankService);
   }
 
   public ngOnInit(): void {
+    this.subscribe();
     this.initForm();
-    this.dataChangedSubscription = this.bankService.dataChanged.subscribe(() => {
-      this.changesSaved = true;
-      this.myForm.reset();
-      this.redirectBack();
-    });
+  }
+
+  private subscribe(): void {
+    this.operationCompletedSubscription = this.bankService.operationCompleted
+      .subscribe((hasSucceed: boolean) => {
+        if (hasSucceed) {
+          this.changesSaved = true;
+          this.myForm.reset();
+          this.redirectBack();
+        }
+        else {
+          super.hideLoader();
+        }
+      })
   }
 
   private initForm() {
     if (this.route.snapshot.params["id"] != null) {
       this.id = +this.route.snapshot.params["id"];
-      this.bankService.getItem(this.id).subscribe((bank) => {
+      super.showLoader();
+      this.bankService.getItem(this.id).subscribe((bank: IBank) => {
+        super.hideLoader();
         if (bank == null) {
           this.changesSaved = true;
           this.redirectBack(2);
@@ -47,7 +59,7 @@ export class BankEditComponent extends ImageUploaderComponent
           'name': bank.name,
         });
         this.uploadedImageUrl = bank.logoUrl;
-      }, error => console.error(error));
+      }, error => super.showError(error));
     }
   }
 
@@ -56,6 +68,7 @@ export class BankEditComponent extends ImageUploaderComponent
   }
 
   private onSave(form: NgForm) {
+    super.showLoader();
     const bank: IBank = {
       id: this.id,
       name: form.value.name,
@@ -83,7 +96,7 @@ export class BankEditComponent extends ImageUploaderComponent
   }
 
   public ngOnDestroy(): void {
-    this.dataChangedSubscription.unsubscribe();
+    this.operationCompletedSubscription.unsubscribe();
   }
 
 }

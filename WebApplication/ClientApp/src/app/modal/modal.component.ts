@@ -11,23 +11,26 @@ export class ModalComponent implements OnInit {
 
   constructor(private modalService: ModalService) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  public onOK(): void {
+  private onOK(): void {
     this.modalService.onButtonClick(Button.Ok);
   }
 
-  public onCancel(): void {
+  private onCancel(): void {
     this.modalService.onButtonClick(Button.Cancel);
   }
 
-  public onYes(): void {
+  private onYes(): void {
     this.modalService.onButtonClick(Button.Yes);
   }
 
-  public onNo(): void {
+  private onNo(): void {
     this.modalService.onButtonClick(Button.No);
+  }
+
+  private onClose(): void {   
   }
 
 }

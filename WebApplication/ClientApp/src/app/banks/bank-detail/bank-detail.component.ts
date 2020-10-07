@@ -1,48 +1,60 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { BaseLoadingComponent } from '../../base/base-loading.component';
 import { IBank } from '../../models/IBank.model';
 import { BankService } from '../../services/bank-service';
+import { ILoaderService } from '../../services/ILoader-service';
 
 @Component({
   selector: 'app-bank-detail',
   templateUrl: './bank-detail.component.html',
   styleUrls: ['./bank-detail.component.css']
 })
-export class BankDetailComponent implements OnInit, OnDestroy {
+export class BankDetailComponent extends BaseLoadingComponent implements OnInit, OnDestroy {
 
   private model: IBank;
-  private dataChangedSubscription: Subscription;
+  private operationCompletedSubscription: Subscription;
 
   constructor(private bankService: BankService,
     private route: ActivatedRoute,
     private router: Router) {
+    super(bankService);
   }
 
   public ngOnInit(): void {
+    this.subscribe();
     this.fillData();
-    this.dataChangedSubscription = this.bankService.dataChanged.subscribe(() => {
-      this.redirectBack();
-    });
+  }
+
+  private subscribe(): void {
+    this.operationCompletedSubscription = this.bankService.operationCompleted
+      .subscribe((hasSucceed: boolean) => { // When delete button pressed
+        super.hideLoader();
+        if (hasSucceed) {
+          this.redirectBack();
+        }
+      });
   }
 
   private fillData(): void {
+    super.showLoader();
     this.route.params.subscribe((params: Params) => {
       const id: number = +params['id'];
-      this.bankService.getItem(id).subscribe((bank) => {
+      this.bankService.getItem(id).subscribe((bank: IBank) => {
+        super.hideLoader();
         if (bank == null) {
           this.redirectBack();
           return;
         }
         this.model = bank;
-      }, error => console.error(error));
+      }, error => super.showError(error));
     });
   }
 
   private onBack(): void {
     this.redirectBack();
   }
-
   private onDelete(): void {
     this.bankService.delete(this.model.id);
   }
@@ -63,7 +75,7 @@ export class BankDetailComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.dataChangedSubscription.unsubscribe();
+    this.operationCompletedSubscription.unsubscribe();
   }
 
 }

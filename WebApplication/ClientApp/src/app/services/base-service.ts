@@ -1,7 +1,7 @@
-import { Inject, Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpEventType, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Inject } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { ICustomActionResult } from '../models/ICustomActionResult.model';
 import { ModalService } from './modal-service';
 import { ExceptionHandlerService } from './exception-handler-service';
@@ -10,7 +10,7 @@ export abstract class BaseService {
 
   protected abstract controllerName: string;
   private const_confirmDelete: string = "Are you sure to delete this item?";
-  public onUploadFinished = new Subject<string>();
+  public onUploadFinished: Subject<string> = new Subject<string>();
 
   constructor(private httpClient: HttpClient,
     @Inject('BASE_URL') private baseUrl: string,
@@ -98,87 +98,38 @@ export abstract class BaseService {
     //this.handleError(e)
   }
 
-  protected httpPost<T>(remainedUrl: string,
-    body: T,
-    callback: Subject<void> = null,
-    successMessage: string = ''): void {
-    this.httpClient.post<ICustomActionResult>(
+  protected httpPost<T>(remainedUrl: string, body: T): Observable<ICustomActionResult> {
+    return this.httpClient.post<ICustomActionResult>(
       this.getInitialUrl() + remainedUrl,
       body,
       this.getHeaders())
-      //.toPromise()
-      //.map(res => res.json().data )
       .pipe(map((response: ICustomActionResult) => {
         return response;
-      }))
-      .subscribe(result => {
-        if (result.isSuccessful) {
-          if (successMessage != '') {
-            this.modalService.showSuccess(successMessage);
-          }
-          if (callback != null) {
-            callback.next();
-          }
-        }
-        else {
-          this.modalService.showError(result.exceptionContentResult);
-        }
-      }, error => {
-        console.warn('ererr');
-        console.warn(error);
-          this.exceptionHandlerService.showModalException(error);
-      });
+      }));
   }
 
-  protected httpPut<T>(remainedUrl: string,
-    body: T,
-    callback: Subject<void> = null,
-    //callback: () => void,
-    successMessage: string = ''): void {
-    this.httpClient.put<ICustomActionResult>(this.getInitialUrl() + remainedUrl,
+  //protected httpPut<T>(remainedUrl: string,
+  //  body: T,
+  //  callback: Subject<void> = null,
+  //  //callback: () => void,
+  //  successMessage: string = '')
+  protected httpPut<T>(remainedUrl: string, body: T): Observable<ICustomActionResult> {
+    return this.httpClient.put<ICustomActionResult>(this.getInitialUrl() + remainedUrl,
       body,
       this.getHeaders())
       //.toPromise()
       //.map(res => res.json().data )
       .pipe(map((response: ICustomActionResult) => {
         return response;
-      }))
-      .subscribe(result => {
-        if (result.isSuccessful) {
-          if (callback != null) {
-            callback.next();
-          }
-          else {
-            this.modalService.showSuccess(successMessage);
-          }
-        }
-      }, error => {
-        console.warn(error);
-        this.exceptionHandlerService.showModalException(error);
-      });
+      }));
   }
 
-  protected httpDelete(remainedUrl: string,
-    callback: Subject<any> = null,
-    successMessage: string = ''): void {
-    this.httpClient.delete<ICustomActionResult>(this.getInitialUrl() + remainedUrl,
+  protected httpDelete(remainedUrl: string): Observable<ICustomActionResult> {
+    return this.httpClient.delete<ICustomActionResult>(this.getInitialUrl() + remainedUrl,
       this.getHeaders())
       .pipe(map((response: ICustomActionResult) => {
         return response;
-      }))
-      .subscribe(result => {
-        if (result.isSuccessful) {
-          if (callback != null) {
-            callback.next();
-          }
-          else {
-            this.modalService.showSuccess(successMessage);
-          }
-        }
-      }, error => {
-        console.log(error);
-        this.exceptionHandlerService.showModalException(error);
-      });
+      }));
   }
 
   protected confirmDelete(): Observable<boolean> {
@@ -192,20 +143,16 @@ export abstract class BaseService {
       reportProgress: true,
       observe: 'events'
     });
+  }
 
-    //  .pipe(map((response) => {
-    //    return true;
-    //  }))
-    //  //.pipe(catchError((error) => {
-    //  //  //(error: HttpErrorResponse) => {
-    //  //  //this.handleError(e)
-    //  //  return false;
-    //  //}))
-    //  .subscribe(result => {
-    //  }, response => {
-    //      console.log(response);
-    //   // this.exceptionHandlerService.showModalException(response);
-    //  });
+  protected abstract onSuccess(result): void;
+
+  protected abstract onError(result): void;
+
+  protected showError(error): void {
+    console.warn('showError');
+    console.error(error);
+    this.exceptionHandlerService.showModalException(error);
   }
 
 }

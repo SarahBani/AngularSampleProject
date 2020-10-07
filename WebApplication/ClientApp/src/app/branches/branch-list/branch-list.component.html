@@ -6,7 +6,10 @@
     </div>
   </div>
 </div>
+
 <div *ngIf="bankId!= null">
   <button class="btn btn-primary" (click)="onAdd()">Add</button>
   <button class="btn btn-success" (click)="onRefresh()">Refresh</button>
 </div>
+
+<app-spinner *ngIf="isLoading"></app-spinner>
