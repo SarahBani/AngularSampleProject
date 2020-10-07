@@ -40,11 +40,13 @@
     <None Remove="ClientApp\src\app\services\base-service.ts" />
     <None Remove="ClientApp\src\app\services\contact-service.ts" />
     <None Remove="ClientApp\src\app\services\exception-handler-service.ts" />
+    <None Remove="ClientApp\src\app\services\ILoader-service.ts" />
     <None Remove="ClientApp\src\app\services\modal-service.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Remove="ClientApp\src\app\base-form.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\base-loading.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\directives\tooltip.directive.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\image-uploader.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\Ibank.model.ts" />
@@ -58,6 +60,9 @@
 
   <ItemGroup>
     <TypeScriptCompile Update="ClientApp\src\app\services\base-service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Update="ClientApp\src\app\services\ILoader-service.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Update="ClientApp\src\app\services\modal-service.ts">

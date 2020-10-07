@@ -35,11 +35,11 @@ namespace WebApplication.Controllers
                 {
                     DeletePreviousFile();
                     this.FilePath = Utility.UploadImage(file, subFolderName);
-                    return Ok(new CustomActionResult(this.FilePath));
+                    return Ok(new TransactionResult(this.FilePath));
                 }
                 else
                 {
-                    return BadRequest(new CustomActionResult(new CustomException(Constant.Exception_EmptyFile)));
+                    return BadRequest(new TransactionResult(new CustomException(Constant.Exception_EmptyFile)));
                 }
             }
             catch (Exception ex)

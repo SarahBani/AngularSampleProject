@@ -1,8 +1,8 @@
 import { HttpEventType } from '@angular/common/http';
 import { OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ICustomActionResult } from '../models/ICustomActionResult.model';
 import { BaseFormComponent } from './base-form.component';
-import { ICustomActionResult } from './models/ICustomActionResult.model';
 
 export abstract class ImageUploaderComponent extends BaseFormComponent implements OnInit {
 

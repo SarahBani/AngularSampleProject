@@ -10,7 +10,8 @@ import { BaseService } from './base-service';
 export class ContactService extends BaseService {
 
   protected controllerName: string = 'Contact';
-  public messageSentCompleted: Subject<void> = new Subject();
+  private const_SuccessMessage: string = 'Your message has been sent.';
+  public emailSentCompleted: Subject<boolean> = new Subject();
 
   constructor(http: HttpClient,
     @Inject('BASE_URL') baseUrl: string,
@@ -24,10 +25,28 @@ export class ContactService extends BaseService {
       email: email,
       message: message
     };
-    super.httpPost<IContact>('SendAsync',
-      contact,
-      this.messageSentCompleted,
-      'Your message has been sent.');
+    super.httpPost<IContact>('SendAsync', contact)
+      .subscribe(result => {
+        this.onSuccess(result);
+      }, error => {
+        this.onError(error);
+      });
+  }
+
+  protected onSuccess(result): void {
+    if (result.isSuccessful) {
+      this.emailSentCompleted.next(true);
+      this.modalService.showSuccess(this.const_SuccessMessage);
+    }
+    else {
+      this.emailSentCompleted.next(false);
+      this.modalService.showError(result.customExceptionMessage);
+    }
+  }
+
+  protected onError(error): void {
+    super.showError(error);
+    this.emailSentCompleted.next(false);
   }
 
 }

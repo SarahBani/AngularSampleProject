@@ -1,4 +1,5 @@
 ﻿using Core.DomainModel;
+using System;
 
 namespace Core.DomainService
 {
@@ -9,32 +10,35 @@ namespace Core.DomainService
 
         public bool IsSuccessful { get; private set; }
 
-        public string ExceptionContentResult { get; private set; }
-
-        public ExceptionKey ExceptionKey { get; private set; }
-
         public object Content { get; private set; }
+
+        /// <summary>
+        /// the exception we show the user
+        /// </summary>
+        public string CustomExceptionMessage { get; private set; }
+
+        /// <summary>
+        /// the real exception
+        /// </summary>
+        public ExceptionContent ExceptionContent { get; private set; }
 
         #endregion /Properties
 
         #region Constructors
 
-        public TransactionResult()
+        public TransactionResult(object content = null)
         {
             this.IsSuccessful = true;
-            this.ExceptionContentResult = string.Empty;
-        }
-
-        public TransactionResult(object content) : this()
-        {
             this.Content = content;
+            this.CustomExceptionMessage = string.Empty;
         }
 
-        public TransactionResult(CustomException exception)
+        public TransactionResult(CustomException exception, object content = null)
         {
             this.IsSuccessful = false;
-            this.ExceptionContentResult = exception.CustomMessage;
-            this.ExceptionKey = exception.ExceptionKey;
+            this.Content = content;
+            this.CustomExceptionMessage = exception.CustomMessage;
+            this.ExceptionContent = exception.Content;
         }
 
         #endregion /Constructors

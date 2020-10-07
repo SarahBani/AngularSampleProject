@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 
 namespace Core.DomainModel
 {
@@ -21,9 +22,9 @@ namespace Core.DomainModel
 
         #region Properties
 
-        public ExceptionKey ExceptionKey { get; private set; }
-
         public string CustomMessage { get; private set; }
+
+        public ExceptionContent Content { get; private set; }
 
         #endregion /Properties
 
@@ -31,27 +32,20 @@ namespace Core.DomainModel
 
         public CustomException(Exception exception)
         {
-            Exception innerException = null;
-            if (exception.InnerException != null)
-            {
-                innerException = exception.InnerException;
-            }
-            else
-            {
-                innerException = exception;
-            }
-            this.CustomMessage = GetMessage(innerException);
+            var baseException = exception.GetBaseException();
+            this.CustomMessage = GetMessage(exception);
+            this.Content = new ExceptionContent(baseException.Message,
+                baseException.Source,
+                baseException.StackTrace);
         }
 
         public CustomException(ExceptionKey exceptionKey, params object[] args)
         {
-            this.ExceptionKey = exceptionKey;
-            this.CustomMessage = string.Format(GetMessage(null), args);
+            this.CustomMessage = string.Format(GetMessage(exceptionKey), args);
         }
 
         public CustomException(string message)
         {
-            this.ExceptionKey = ExceptionKey.NotDefined;
             this.CustomMessage = message;
         }
 
@@ -59,59 +53,44 @@ namespace Core.DomainModel
 
         #region Methods
 
-        private string GetMessage(Exception innerException)
+        private string GetMessage(Exception baseException)
         {
-            string result = string.Empty;
-
-            if (innerException != null)
+            if (baseException is SqlException)
             {
-                result = innerException.Message;
+                ExceptionKey exceptionKey = (ExceptionKey)(baseException as SqlException).Number;
 
-                //if (innerException.GetBaseException() is SqlException)
-                //{
-                //    this.ExceptionKey = (ExceptionKey)(innerException.GetBaseException() as SqlException).Number;
-                //}
-
-                switch (this.ExceptionKey)
+                switch (exceptionKey)
                 {
                     case ExceptionKey.TimeoutExpired:
-                        result = Constant.Exception_sql_TimeoutExpired;
-                        break;
+                        return Constant.Exception_sql_TimeoutExpired;
                     case ExceptionKey.HasForeignKey:
-                        result = Constant.Exception_sql_HasDepandantInfo;
-                        break;
+                        return Constant.Exception_sql_HasDepandantInfo;
                     case ExceptionKey.HasDuplicateInfo:
-                        result = Constant.Exception_sql_HasDuplicateInfo;
-                        break;
+                        return Constant.Exception_sql_HasDuplicateInfo;
                     case ExceptionKey.KeyAlreadyExsits:
-                        result = Constant.Exception_sql_KeyAlreadyExsits;
-                        break;
+                        return Constant.Exception_sql_KeyAlreadyExsits;
                     case ExceptionKey.ArithmeticOverflow:
-                        result = Constant.Exception_sql_ArithmeticOverflow;
-                        break;
+                        return Constant.Exception_sql_ArithmeticOverflow;
                     default:
-                        result = Constant.Exception_HasError;
-                        break;
+                        return Constant.Exception_HasError;
                 }
             }
-            else
-            {
-                switch (this.ExceptionKey)
-                {
-                    case ExceptionKey.NoActiveTransaction:
-                        result = Constant.Exception_NoActiveTransaction;
-                        break;
-                    case ExceptionKey.SendEmailProblem:
-                        result = Constant.Exception_SendEmailProblem;
-                        break;
-                    case ExceptionKey.NotDefined:
-                    default:
-                        result = Constant.Exception_HasError;
-                        break;
-                }
-            }
+            return Constant.Exception_HasError;
 
-            return result;
+        }
+
+        private string GetMessage(ExceptionKey exceptionKey)
+        {
+            switch (exceptionKey)
+            {
+                case ExceptionKey.NoActiveTransaction:
+                    return Constant.Exception_NoActiveTransaction;
+                case ExceptionKey.SendEmailProblem:
+                    return Constant.Exception_SendEmailProblem;
+                case ExceptionKey.NotDefined:
+                default:
+                    return Constant.Exception_HasError;
+            }
         }
 
         #endregion /Methods

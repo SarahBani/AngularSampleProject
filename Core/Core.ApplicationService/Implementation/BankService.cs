@@ -37,7 +37,10 @@ namespace Core.ApplicationService.Implementation
                 string prevLogoUrl = await this.GetLogoUrl(bank.Id); // need to wait in order not to delete the new logo
                 base.BeginTransaction();
                 this.Repository.Update(bank.TrimCharProperties<Bank, int>());
-                 DeleteLogoFile(prevLogoUrl); 
+                if (bank.LogoUrl != prevLogoUrl)
+                {
+                    DeleteLogoFile(prevLogoUrl);
+                }
                 return await CommitTransactionAsync();
             }
             catch (Exception ex)

@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { BaseLoadingComponent } from '../../base/base-loading.component';
 import { IBranch } from '../../models/Ibranch.model';
 import { BranchService } from '../../services/branch-service';
 
@@ -9,33 +10,44 @@ import { BranchService } from '../../services/branch-service';
   templateUrl: './branch-detail.component.html',
   styleUrls: ['./branch-detail.component.css']
 })
-export class BranchDetailComponent implements OnInit, OnDestroy {
+export class BranchDetailComponent extends BaseLoadingComponent implements OnInit, OnDestroy {
 
   private model: IBranch;
-  private dataChangedSubscription: Subscription;
+  private operationCompletedSubscription: Subscription;
 
   constructor(private branchService: BranchService,
     private route: ActivatedRoute,
     private router: Router) {
+    super(branchService);
   }
 
   public ngOnInit(): void {
+    this.subscribe();
     this.fillData();
-    this.dataChangedSubscription = this.branchService.dataChanged.subscribe(() => {
-      this.redirectBack();
-    });
+  }
+
+  private subscribe(): void {
+    this.operationCompletedSubscription = this.branchService.operationCompleted
+      .subscribe((hasSucceed: boolean) => { // When delete button pressed
+        super.hideLoader();
+        if (hasSucceed) {
+          this.redirectBack();
+        }
+      });
   }
 
   private fillData(): void {
+    super.showLoader();
     this.route.params.subscribe((params: Params) => {
       const id: number = +params['id'];
-      this.branchService.getItem(id).subscribe((branch) => {
+      this.branchService.getItem(id).subscribe((branch: IBranch) => {
+        super.hideLoader();
         if (branch == null) {
           this.redirectBack();
           return;
         }
         this.model = branch;
-      }, error => console.error(error));
+      }, error => super.showError(error));
     });
   }
 
@@ -59,8 +71,8 @@ export class BranchDetailComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    if (this.dataChangedSubscription != null) {
-      this.dataChangedSubscription.unsubscribe();
+    if (this.operationCompletedSubscription != null) {
+      this.operationCompletedSubscription.unsubscribe();
     }
   }
 

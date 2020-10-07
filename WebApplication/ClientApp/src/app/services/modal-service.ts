@@ -11,7 +11,7 @@ declare var $: any;
 export class ModalService {
 
   private currentModalAlertState: AlertState;
-  private onModalButtonClicked = new Subject<Button>();
+  private onModalButtonClicked: Subject<Button> = new Subject<Button>();
 
   constructor() {
   }

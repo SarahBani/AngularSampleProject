@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { BaseLoadingComponent } from '../../base/base-loading.component';
 import { IBranch } from '../../models/IBranch.model';
 import { BranchService } from '../../services/branch-service';
 
@@ -9,33 +10,43 @@ import { BranchService } from '../../services/branch-service';
   templateUrl: './branch-list.component.html',
   styleUrls: ['./branch-list.component.css']
 })
-export class BranchListComponent implements OnInit {
+export class BranchListComponent extends BaseLoadingComponent implements OnInit, OnDestroy {
 
   private branches: IBranch[];
   private bankId: number;
   private changeBankSubscription: Subscription;
-  private dataChangedSubscription: Subscription;
+  private operationCompletedSubscription: Subscription;
 
   constructor(private branchService: BranchService,
     private router: Router,
     private route: ActivatedRoute) {
+    super();
   }
 
   public ngOnInit(): void {
-    this.dataChangedSubscription = this.branchService.dataChanged.subscribe(() => {
-      this.fillList();
-    });
+    this.subscribe();
+  }
+
+  private subscribe(): void {
     this.changeBankSubscription = this.branchService.selectedBankChanged.subscribe(
       (bankId: number) => {
         this.bankId = bankId;
         this.fillList();
-      }, error => console.error(error));
+      });
+    this.operationCompletedSubscription = this.branchService.operationCompleted
+      .subscribe((hasSucceed: boolean) => {
+        if (hasSucceed) {
+          this.fillList();
+        }
+      });
   }
 
   private fillList(): void {
+    super.showLoader();
     this.branchService.getListByBankId(this.bankId).subscribe((branches) => {
       this.branches = branches;
-    }, error => console.error(error));
+      super.hideLoader();
+    }, error => super.showError(error));
   }
 
   private onAdd(): void {
@@ -53,8 +64,8 @@ export class BranchListComponent implements OnInit {
     if (this.changeBankSubscription != null) {
       this.changeBankSubscription.unsubscribe();
     }
-    if (this.dataChangedSubscription != null) {
-      this.dataChangedSubscription.unsubscribe();
+    if (this.operationCompletedSubscription != null) {
+      this.operationCompletedSubscription.unsubscribe();
     }
   }
 

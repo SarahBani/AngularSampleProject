@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { BaseFormComponent } from '../../base-form.component';
+import { BaseFormComponent } from '../../base/base-form.component';
 import { IBranch } from '../../models/Ibranch.model';
 import { BranchService } from '../../services/branch-service';
 
@@ -17,22 +17,32 @@ export class BranchEditComponent extends BaseFormComponent implements OnInit, On
   private model: IBranch;
   private id: number;
   private bankId: number;
-  private dataChangedSubscription: Subscription;
+  private operationCompletedSubscription: Subscription;
 
   constructor(private branchService: BranchService,
     private route: ActivatedRoute,
     private router: Router) {
-    super();
+    super(branchService);
     this.setBankId();
   }
 
   public ngOnInit(): void {
+    this.subscribe();
     this.initForm();
-    this.dataChangedSubscription = this.branchService.dataChanged.subscribe(() => {
-      this.changesSaved = true;
-      this.myForm.reset();
-      this.redirectBack();
-    });
+  }
+
+  private subscribe(): void {
+    this.operationCompletedSubscription = this.branchService.operationCompleted
+      .subscribe((hasSucceed: boolean) => {
+        if (hasSucceed) {
+          this.changesSaved = true;
+          this.myForm.reset();
+          this.redirectBack();
+        }
+        else {
+          super.hideLoader();
+        }
+      });
   }
 
   private setBankId(): void {
@@ -43,10 +53,10 @@ export class BranchEditComponent extends BaseFormComponent implements OnInit, On
     if (this.bankId == null) {
       this.changesSaved = true;
       if (this.route.snapshot.params["id"] == null) {
-      this.redirectBack();
+        this.redirectBack();
       }
       else {
-      this.redirectBack(2);
+        this.redirectBack(2);
       }
     }
   }
@@ -54,7 +64,9 @@ export class BranchEditComponent extends BaseFormComponent implements OnInit, On
   private initForm() {
     if (this.route.snapshot.params["id"] != null) {
       this.id = +this.route.snapshot.params["id"];
-      this.branchService.getItem(this.id).subscribe((branch) => {
+      super.showLoader();
+      this.branchService.getItem(this.id).subscribe((branch: IBranch) => {
+        super.hideLoader();
         if (branch == null) {
           this.changesSaved = true;
           this.redirectBack(2);
@@ -66,11 +78,12 @@ export class BranchEditComponent extends BaseFormComponent implements OnInit, On
           'code': branch.code,
           'address': branch.address,
         });
-      }, error => console.error(error));
+      }, error => super.showError(error));
     }
   }
 
   private onSave(form: NgForm) {
+    super.showLoader();
     const branch: IBranch = {
       id: this.id,
       bankId: this.bankId,
@@ -96,8 +109,8 @@ export class BranchEditComponent extends BaseFormComponent implements OnInit, On
   }
 
   public ngOnDestroy(): void {
-    if (this.dataChangedSubscription != null) {
-      this.dataChangedSubscription.unsubscribe();
+    if (this.operationCompletedSubscription != null) {
+      this.operationCompletedSubscription.unsubscribe();
     }
   }
 
