@@ -3,14 +3,16 @@ using Core.DomainModel.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Core.DomainModel.Migrations
 {
     [DbContext(typeof(MyDataBaseContext))]
-    partial class MyDataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20201008095201_add city table & relation")]
+    partial class addcitytablerelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -47,6 +47,18 @@
   <ItemGroup>
     <TypeScriptCompile Remove="ClientApp\src\app\base-form.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\base-loading.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\books\book-detail\bank-detail.component.spec.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\books\book-detail\bank-detail.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\books\book-edit\bank-edit.component.spec.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\books\book-edit\bank-edit.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\books\book-item\bank-item.component.spec.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\books\book-item\bank-item.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\books\book-list\bank-list.component.spec.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\books\book-list\bank-list.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\books\banks.component.spec.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\books\banks.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\books\select-book\select-bank.component.spec.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\books\select-book\select-bank.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\directives\tooltip.directive.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\image-uploader.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\Ibank.model.ts" />
@@ -55,6 +67,7 @@
     <TypeScriptCompile Remove="ClientApp\src\app\models\IContact.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\ICustomActionResult.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\services\bank-service.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\services\book-service.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\services\branch-service.ts" />
   </ItemGroup>
 

@@ -14,7 +14,7 @@ namespace Core.DomainModel.Entities
     {
 
         [Required(ErrorMessage = "Name is required!")]
-        [StringLength(40, ErrorMessage = "Name can't be longer than 40 characters!")]
+        [StringLength(40, ErrorMessage = "Name cannot be longer than 40 characters!")]
         public string Name { get; set; }
 
         public Grade? Grade { get; set; }
@@ -36,6 +36,12 @@ namespace Core.DomainModel.Entities
 
             builder.Property(q => q.Grade)
                 .HasColumnType("tinyint");
+                        
+            builder.HasMany(q => q.Branches)
+                .WithOne(q => q.Bank)
+                .HasForeignKey(q => q.BankId)
+                .HasConstraintName("FK_Branch_Bank")
+                .OnDelete(DeleteBehavior.NoAction); // disable cascade delete
 
             //.HasDefaultValueSql("getdate()");
         }
