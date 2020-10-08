@@ -3,26 +3,26 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { ImageUploaderComponent } from '../../base/image-uploader.component';
-import { IBank } from '../../models/IBank.model';
-import { BankService } from '../../services/bank-service';
+import { IBook } from '../../models/IBook.model';
+import { BookService } from '../../services/book-service';
 
 @Component({
-  selector: 'app-bank-edit',
-  templateUrl: './bank-edit.component.html',
-  styleUrls: ['./bank-edit.component.css']
+  selector: 'app-book-edit',
+  templateUrl: './book-edit.component.html',
+  styleUrls: ['./book-edit.component.css']
 })
-export class BankEditComponent extends ImageUploaderComponent
+export class BookEditComponent extends ImageUploaderComponent
   implements OnInit, OnDestroy {
 
   @ViewChild('f') myForm: NgForm;
-  private model: IBank;
+  private model: IBook;
   private id: number;
   private operationCompletedSubscription: Subscription;
 
-  constructor(private bankService: BankService,
+  constructor(private bookService: BookService,
     private route: ActivatedRoute,
     private router: Router) {
-    super(bankService);
+    super(bookService);
   }
 
   public ngOnInit(): void {
@@ -31,7 +31,7 @@ export class BankEditComponent extends ImageUploaderComponent
   }
 
   private subscribe(): void {
-    this.operationCompletedSubscription = this.bankService.operationCompleted
+    this.operationCompletedSubscription = this.bookService.operationCompleted
       .subscribe((hasSucceed: boolean) => {
         if (hasSucceed) {
           this.changesSaved = true;
@@ -48,37 +48,43 @@ export class BankEditComponent extends ImageUploaderComponent
     if (this.route.snapshot.params["id"] != null) {
       this.id = +this.route.snapshot.params["id"];
       super.showLoader();
-      this.bankService.getItem(this.id).subscribe((bank: IBank) => {
+      this.bookService.getItem(this.id).subscribe((book: IBook) => {
         super.hideLoader();
-        if (bank == null) {
+        if (book == null) {
           this.changesSaved = true;
           this.redirectBack(2);
           return;
         }
         this.myForm.setValue({
-          'name': bank.name,
+          'name': book.name,
+          'author': book.author,
+          'translator': book.translator,
+          'summary': book.summary
         });
-        this.uploadedImageUrl = bank.logoUrl;
+        this.uploadedImageUrl = book.coverImageUrl;
       }, error => super.showError(error));
     }
   }
 
   protected getUploadFile(file: File): Observable<any> {
-    return this.bankService.uploadLogo(file);
+    return this.bookService.uploadCoverImage(file);
   }
 
   private onSave(form: NgForm) {
     super.showLoader();
-    const bank: IBank = {
+    const book: IBook = {
       id: this.id,
       name: form.value.name,
-      logoUrl: this.uploadedImageUrl
+      author: form.value.author,
+      translator: form.value.translator,
+      coverImageUrl: this.uploadedImageUrl,
+      summary: form.value.summary
     };
-    this.bankService.save(bank);
+    this.bookService.save(book);
   }
 
   private onDelete() {
-    this.bankService.delete(this.id);
+    this.bookService.delete(this.id);
   }
 
   private onCancel(): void {

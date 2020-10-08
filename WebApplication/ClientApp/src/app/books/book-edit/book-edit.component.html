@@ -6,12 +6,20 @@
         <input type="text" id="name" name="name" class="form-control" ngModel required />
       </div>
       <div class="form-group">
-        <label for="uploadedImageUrl">Logo: </label>
+        <label for="name">Author: </label>
+        <input type="text" id="author" name="author" class="form-control" ngModel required />
+      </div>
+      <div class="form-group">
+        <label for="name">Translator: </label>
+        <input type="text" id="translator" name="translator" class="form-control" ngModel />
+      </div>
+      <div class="form-group">
+        <label for="uploadedImageUrl">Cover Image: </label>
         <input type="file" id="uploadedImageUrl" class="form-control-file border"
                accept="image/*" (change)="uploadImage($event.target.files)">
       </div>
       <div class="row" *ngIf="uploadedPercentage!=null">
-        <div class="col-12" >
+        <div class="col-12">
           <progress id="file" value="{{ uploadedPercentage }}" max="100"></progress>
           <small class="align-top"> {{ uploadedPercentage }}%</small>
         </div>
@@ -28,10 +36,11 @@
       <div class="row" *ngIf="uploadedImageUrl == null">
         <img src="images/NoImage.png" class="img-response" />
       </div>
-      <p *ngIf="(f.controls.name != null && !f.controls.name.valid && f.controls.name.touched)"
-         class="alert-danger">
-        Please enter valid values!
-      </p>
+
+      <div class="form-group">
+        <label for="name">Summary: </label>
+        <textarea id="summary" name="summary"  rows="10" class="form-control" ngModel ></textarea>      
+      </div>
       <div class="row">
         <div class="col-12">
           <button class="btn btn-primary" type="reset">Clear</button>

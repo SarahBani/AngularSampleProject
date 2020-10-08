@@ -7,13 +7,18 @@ import { TooltipModule } from 'ng2-tooltip-directive';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { BanksComponent } from './banks/banks.component';
 import { BankListComponent } from './banks/bank-list/bank-list.component';
 import { BankItemComponent } from './banks/bank-item/bank-item.component';
 import { BankDetailComponent } from './banks/bank-detail/bank-detail.component';
 import { BankEditComponent } from './banks/bank-edit/bank-edit.component';
 import { SelectBankComponent } from './banks/select-bank/select-bank.component';
+import { BooksComponent } from './books/books.component';
+import { BookListComponent } from './books/book-list/book-list.component';
+import { BookItemComponent } from './books/book-item/book-item.component';
+import { BookDetailComponent } from './books/book-detail/book-detail.component';
+import { BookEditComponent } from './books/book-edit/book-edit.component';
+import { SelectBookComponent } from './books/select-book/select-book.component';
 import { BranchesComponent } from './branches/branches.component';
 import { BranchListComponent } from './branches/branch-list/branch-list.component';
 import { BranchDetailComponent } from './branches/branch-detail/branch-detail.component';
@@ -33,19 +38,25 @@ import { TooltipDirective } from './directives/tooltip.directive';
 import { FooterComponent } from './footer/footer.component';
 import { ModalComponent } from './modal/modal.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { AuthInterceptorService } from './services/auth-interceptor-service';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    FetchDataComponent,
     BanksComponent,
     BankListComponent,
     BankItemComponent,
     BankDetailComponent,
     BankEditComponent,
     SelectBankComponent,
+    BooksComponent,
+    BookListComponent,
+    BookItemComponent,
+    BookDetailComponent,
+    BookEditComponent,
+    SelectBookComponent,
     BranchesComponent,
     BranchDetailComponent,
     BranchEditComponent,
@@ -70,7 +81,11 @@ import { SpinnerComponent } from './spinner/spinner.component';
     AppRoutingModule,
     TooltipModule
   ],
-  providers: [AuthService, AuthGuardService, CanDeactivateGuardService],
+  providers: [AuthService, AuthGuardService, CanDeactivateGuardService,
+    //{
+    //  provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true
+    //}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
