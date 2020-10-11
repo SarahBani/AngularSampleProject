@@ -8,8 +8,15 @@
   <li><em>Onion Architecture</em></li>
   <li><em>SQL Server</em></li>
   <li><em>Entity Framework</em></li>
+  <li><strong>MongoDB</strong></li>
 </ul>
 
 <p>
   It is under construction...
+</p>
+
+<p>
+  <b>Note:</b>
+  The project should be seperated into Microservices in order to use both SQL Server and
+  MongoDB objects, but it didn't just for making the solution simpler.
 </p>
