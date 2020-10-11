@@ -8,7 +8,7 @@
   <li><em>Onion Architecture</em></li>
   <li><em>SQL Server</em></li>
   <li><em>Entity Framework</em></li>
-  <li><strong>MongoDB</strong></li>
+  <li><strong>MongoDB 4.4.1</strong></li>
 </ul>
 
 <p>
