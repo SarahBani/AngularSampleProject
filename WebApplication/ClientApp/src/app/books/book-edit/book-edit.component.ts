@@ -59,6 +59,7 @@ export class BookEditComponent extends ImageUploaderComponent
           'name': book.name,
           'author': book.author,
           'translator': book.translator,
+          'genre': book.genre,
           'summary': book.summary
         });
         this.uploadedImageUrl = book.coverImageUrl;
@@ -77,6 +78,7 @@ export class BookEditComponent extends ImageUploaderComponent
       name: form.value.name,
       author: form.value.author,
       translator: form.value.translator,
+      genre: form.value.genre,
       coverImageUrl: this.uploadedImageUrl,
       summary: form.value.summary
     };

@@ -15,8 +15,6 @@ namespace Core.ApplicationService.Implementation
 
         #region Properties
 
-        protected IEntityService EntityService { get; set; }
-
         protected TRepository Repository { get; private set; }
 
         #endregion /Properties

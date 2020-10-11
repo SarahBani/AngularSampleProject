@@ -4,6 +4,10 @@
   border: 1px solid #404040;
 }
 
+  .summary p {
+    white-space: pre-line;
+  }
+
 details {
   color: #404040;
 }

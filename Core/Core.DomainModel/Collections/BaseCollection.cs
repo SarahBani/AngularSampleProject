@@ -1,6 +1,5 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System.ComponentModel.DataAnnotations;
 
 namespace Core.DomainModel.Collections
 {
@@ -9,7 +8,6 @@ namespace Core.DomainModel.Collections
 
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        [Required]
         public string Id { get; set; }
            
     }

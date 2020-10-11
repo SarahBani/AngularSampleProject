@@ -22,10 +22,17 @@
       <b>Translator: </b><span>{{ model.translator }}</span>
     </div>
   </div>
+  <div class="row" *ngIf="model.genre != null">
+    <div class="col-12">
+      <b>Genre: </b><span>{{ model.genre }}</span>
+    </div>
+  </div>
+  <br />
   <div class="row summary" *ngIf="model.summary != null">
     <div class="col-12">
       <p>
-        <b>Summary: </b>{{ (!isFullSummaryDisplayed? shortSummary : model.summary) }}
+        <b>Summary: </b>
+        {{ (!isFullSummaryDisplayed? shortSummary : model.summary) }}
         <details *ngIf="model.summary != shortSummary" (click)="onSummaryClick()">
           <summary>
             <small>

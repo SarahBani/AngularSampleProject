@@ -3,6 +3,7 @@ export interface IBook {
   name: string;
   author: string;
   translator: string;
+  genre: string;
   coverImageUrl: string;
   summary: string;
 }

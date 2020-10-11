@@ -28,7 +28,7 @@ namespace WebApplication.Controllers
 
         #region Actions
 
-        [HttpGet("ItemAsync/{id}")]
+        [HttpGet("ItemAsync/{id:length(24)}")]
         public async Task<Book> GetItemAsync([FromRoute] string id)
         {
             return await this._bookService.GetByIdAsync(id);
@@ -66,7 +66,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpPut("UpdateAsync/{id}")]
+        [HttpPut("UpdateAsync/{id:length(24)}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateAsync([FromRoute] string id, [FromBody] Book book)
@@ -91,7 +91,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpDelete("DeleteAsync/{id}")]
+        [HttpDelete("DeleteAsync/{id:length(24)}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteAsync([FromRoute] string id)

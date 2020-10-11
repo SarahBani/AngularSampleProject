@@ -55,6 +55,9 @@ namespace Core.DomainService
             var directoryRelativePath = Path.Combine("Resources", resourceFolderPath);
             var directoryFullPath = Path.Combine(Directory.GetCurrentDirectory(), directoryRelativePath);
             string fileName = GetUniqueFileName(file.FileName);
+            if (!Directory.Exists(directoryFullPath)) {
+                Directory.CreateDirectory(directoryFullPath);
+            }
             var fileFullPath = Path.Combine(directoryFullPath, fileName);
             using (var stream = new FileStream(fileFullPath, FileMode.Create))
             {

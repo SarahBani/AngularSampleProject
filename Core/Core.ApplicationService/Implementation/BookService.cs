@@ -32,13 +32,12 @@ namespace Core.ApplicationService.Implementation
             try
             {
                 string prevCoverImageUrl = await this.GetCoverImageUrl(book.Id); // need to wait in order not to delete the new logo
-                base.BeginTransaction();
                 await base.Repository.UpdateAsync(book.Id, book.TrimCharCollectionProperties<Book>());
                 if (book.CoverImageUrl != prevCoverImageUrl)
                 {
                     DeleteLogoFile(prevCoverImageUrl);
                 }
-                return await CommitTransactionAsync();
+                return new TransactionResult();
             }
             catch (Exception ex)
             {
@@ -51,10 +50,9 @@ namespace Core.ApplicationService.Implementation
             try
             {
                 string prevCoverImageUrl = await this.GetCoverImageUrl(id); // need to wait in order not to delete the new logo
-                base.BeginTransaction();
                 await base.Repository.DeleteAsync(id);
                 DeleteLogoFile(prevCoverImageUrl);
-                return await CommitTransactionAsync();
+                return new TransactionResult();
             }
             catch (Exception ex)
             {

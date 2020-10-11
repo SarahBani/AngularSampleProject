@@ -3,10 +3,7 @@ using Core.DomainModel.Collections;
 using Core.DomainService;
 using Core.DomainService.Repositoy;
 using System;
-using System.Diagnostics;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace Core.ApplicationService.Implementation
@@ -17,14 +14,6 @@ namespace Core.ApplicationService.Implementation
     {
 
         #region Properties
-        protected string MethodName
-        {
-            get
-            {
-                StackFrame frame = new StackTrace().GetFrame(1);
-                return frame.GetMethod().Name;
-            }
-        }
 
         #endregion /Properties
 
@@ -38,51 +27,14 @@ namespace Core.ApplicationService.Implementation
 
         #region Methods
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        protected async Task<TransactionResult> GetTransactionResultAsync(Action action)
+        protected async Task<TransactionResult> GetTransactionResultAsync(Func<Task> actionAsync)
         {
-            BeginTransaction();
-            action();
-            return await CommitTransactionAsync();
+            await actionAsync();
+            return new TransactionResult();
         }
 
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        protected void BeginTransaction()
-        {
-            if (!base.EntityService.UnitOfWork.HasTransaction())
-            {
-                base.EntityService.UnitOfWork.BeginTransaction(GetCallerMethod());
-            }
-        }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        protected async Task<TransactionResult> CommitTransactionAsync(object content = null)
-        {
-            if (base.EntityService.UnitOfWork.GetTransactionName().Equals(GetCallerMethod()))
-            {
-                await base.EntityService.UnitOfWork.Commit();
-            }
-            return new TransactionResult(content);
-        }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
-        private string GetCallerMethod()
-        {
-            int intSkipFrames = 0;
-            while (new StackFrame(intSkipFrames).GetMethod().GetMethodImplementationFlags() == MethodImplAttributes.NoInlining ||
-                   new StackFrame(intSkipFrames).GetMethod().GetRealMethod() == null ||
-                   !new StackFrame(intSkipFrames).GetMethod().GetBaseDeclaringType().IsAssignedGenericType(typeof(BaseService<,,>))) // This line is added for preventing mistakes in tests
-            {
-                intSkipFrames++;
-            }
-            var method = new StackTrace(new StackFrame(intSkipFrames)).GetFrame(0).GetMethod().GetRealMethod();
-            return method.ReflectedType.Name + "." + method.Name;
-        }
-
-        [MethodImpl(MethodImplOptions.NoInlining)]
         protected TransactionResult GetTransactionException(Exception exception)
         {
-            base.EntityService.UnitOfWork.RollBack();
             if (exception is CustomException)
             {
                 return new TransactionResult(exception as CustomException);
@@ -97,7 +49,7 @@ namespace Core.ApplicationService.Implementation
         {
             try
             {
-                return await GetTransactionResultAsync(() =>
+                return await GetTransactionResultAsync(() =>        
                     this.Repository.InsertAsync(collection.TrimCharCollectionProperties()));
             }
             catch (Exception ex)
@@ -111,7 +63,7 @@ namespace Core.ApplicationService.Implementation
             try
             {
                 return await GetTransactionResultAsync(() =>
-                    this.Repository.UpdateAsync(collection.Id, collection.TrimCharCollectionProperties()));
+                     this.Repository.UpdateAsync(collection.Id, collection.TrimCharCollectionProperties()));
             }
             catch (Exception ex)
             {
@@ -123,7 +75,8 @@ namespace Core.ApplicationService.Implementation
         {
             try
             {
-                return await GetTransactionResultAsync(() => this.Repository.DeleteAsync(collection.Id));
+                return await GetTransactionResultAsync(() =>
+                    this.Repository.DeleteAsync(collection.Id));
             }
             catch (Exception ex)
             {
@@ -135,7 +88,8 @@ namespace Core.ApplicationService.Implementation
         {
             try
             {
-                return await GetTransactionResultAsync(() => this.Repository.DeleteAsync(id));
+                return await GetTransactionResultAsync(() =>
+                    this.Repository.DeleteAsync(id));
             }
             catch (Exception ex)
             {
@@ -147,7 +101,8 @@ namespace Core.ApplicationService.Implementation
         {
             try
             {
-                return await GetTransactionResultAsync(() => this.Repository.DeleteAsync(filter));
+                return await GetTransactionResultAsync(() =>
+                    this.Repository.DeleteAsync(filter));
             }
             catch (Exception ex)
             {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Core.DomainService
 {
@@ -99,15 +100,19 @@ namespace Core.DomainService
         public static TEntity TrimCharProperties<TEntity, TKey>(this TEntity entity)
             where TEntity : BaseEntity<TKey>
         {
-            var type = typeof(BaseEntity<TKey>);
+            var type = typeof(TEntity);
             var properties = type.GetProperties()
              .Where(q => q.PropertyType == typeof(string) ||
                          q.PropertyType == typeof(char)); // Obtain all string & char properties
 
             foreach (var prop in properties) // Loop through properties
             {
+                object propertyValue = prop.GetValue(entity);
+                if ((propertyValue ?? string.Empty).ToString() == string.Empty)
+                {
+                    continue;
+                }
                 Type propertyType = prop.PropertyType;
-                object propertyValue = Convert.ChangeType(prop, propertyType);
                 var newPropValue = Convert.ChangeType(propertyValue.ToString().Trim(), propertyType);
                 prop.SetValue(entity, newPropValue);
             }
@@ -117,15 +122,19 @@ namespace Core.DomainService
         public static TCollection TrimCharCollectionProperties<TCollection>(this TCollection collection)
            where TCollection : BaseCollection
         {
-            var type = typeof(BaseCollection);
+            var type = typeof(TCollection);
             var properties = type.GetProperties()
              .Where(q => q.PropertyType == typeof(string) ||
                          q.PropertyType == typeof(char)); // Obtain all string & char properties
 
             foreach (var prop in properties) // Loop through properties
             {
+                object propertyValue = prop.GetValue(collection);
+                if ((propertyValue ?? string.Empty).ToString() == string.Empty)
+                {
+                    continue;
+                }
                 Type propertyType = prop.PropertyType;
-                object propertyValue = Convert.ChangeType(prop, propertyType);
                 var newPropValue = Convert.ChangeType(propertyValue.ToString().Trim(), propertyType);
                 prop.SetValue(collection, newPropValue);
             }
