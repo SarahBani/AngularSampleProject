@@ -72,6 +72,10 @@
             "Microsoft.Extensions.Configuration.Binder": {
               "target": "Package",
               "version": "[3.1.8, )"
+            },
+            "MongoDB.Bson": {
+              "target": "Package",
+              "version": "[2.11.2, )"
             }
           },
           "imports": [
@@ -141,6 +145,10 @@
             "Microsoft.Extensions.Configuration.Abstractions": {
               "target": "Package",
               "version": "[3.1.8, )"
+            },
+            "MongoDB.Driver.Core": {
+              "target": "Package",
+              "version": "[2.11.2, )"
             },
             "System.Drawing.Common": {
               "target": "Package",

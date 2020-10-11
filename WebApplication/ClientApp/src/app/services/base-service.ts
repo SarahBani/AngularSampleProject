@@ -33,7 +33,7 @@ export abstract class BaseService {
     };
   }
 
-  protected httpGetItem<T>(id: number): Observable<T> {
+  protected httpGetItem<T>(id: any): Observable<T> {
     return this.httpGet('ItemAsync/' + id);
   }
 

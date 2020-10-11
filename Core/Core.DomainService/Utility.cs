@@ -11,6 +11,14 @@ using System.Text;
 using Core.DomainModel.Settings;
 using Microsoft.AspNetCore.Http;
 using System.Drawing;
+using Newtonsoft.Json;
+using Core.DomainModel.Entities;
+using System.Threading.Tasks;
+using MongoDB.Driver;
+using System.Collections.Generic;
+using System.Threading;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Core.DomainService
 {
@@ -23,15 +31,10 @@ namespace Core.DomainService
         }
 
         public static T GetApplicationSettingSecion<T>(IConfiguration config)
-            where T : class, ISetting
-        {
-            return config.GetSection(typeof(T).Name).Get<T>();
-        }
+            where T : class, ISetting => config.GetSection(typeof(T).Name).Get<T>();
 
-        public static string GetApplicationSetting(IConfiguration config, string key)
-        {
-            return config.GetSection(key).Value;
-        }
+        public static string GetApplicationSetting(IConfiguration config, string key) =>
+            config.GetSection(key).Value;
 
         public static Expression<Func<T, K>> GetRelatedPropertyExpression<T, K>(string property)
         {
@@ -52,6 +55,9 @@ namespace Core.DomainService
             var directoryRelativePath = Path.Combine("Resources", resourceFolderPath);
             var directoryFullPath = Path.Combine(Directory.GetCurrentDirectory(), directoryRelativePath);
             string fileName = GetUniqueFileName(file.FileName);
+            if (!Directory.Exists(directoryFullPath)) {
+                Directory.CreateDirectory(directoryFullPath);
+            }
             var fileFullPath = Path.Combine(directoryFullPath, fileName);
             using (var stream = new FileStream(fileFullPath, FileMode.Create))
             {
@@ -267,11 +273,71 @@ namespace Core.DomainService
             {
                 Host = webSiteEmail.Host,
                 Port = webSiteEmail.Port,
-                UseDefaultCredentials =false,
+                UseDefaultCredentials = false,
                 Credentials = new NetworkCredential(webSiteEmail.Username, webSiteEmail.Password),
                 EnableSsl = true
             };
         }
 
+        public static string Pluralize(string text)
+        {
+            if (text.EndsWith("s") ||
+                text.EndsWith("ch") ||
+                text.EndsWith("sh") ||
+                text.EndsWith("x") ||
+                text.EndsWith("z"))
+            {
+                return $"{text}es";
+            }
+            if (text.EndsWith("f") ||
+              text.EndsWith("fe"))
+            {
+                return $"{text}ves";
+            }
+            if (text.EndsWith("ay") ||
+                text.EndsWith("ey") ||
+                text.EndsWith("iy") ||
+                text.EndsWith("oy") ||
+                text.EndsWith("uy"))
+            {
+                return $"{text}s";
+            }
+            if (text.EndsWith("y"))
+            {
+                return $"{text}ies";
+            }
+            if (text.EndsWith("ao") ||
+               text.EndsWith("eo") ||
+               text.EndsWith("io") ||
+               text.EndsWith("oo") ||
+               text.EndsWith("uo"))
+            {
+                return $"{text}s";
+            }
+            if (text.EndsWith("o"))
+            {
+                return $"{text}es";
+            }
+            return $"{text}s";
+        }
+
+        public static TEntity Clone<TEntity, TKey>(this TEntity source)
+            where TEntity : BaseEntity<TKey>
+        {
+            var serialized = JsonConvert.SerializeObject(source);
+            return JsonConvert.DeserializeObject<TEntity>(serialized);
+        }
+
+        public static Task<IList<TSource>> ToIListAsync<TSource>(this IQueryable<TSource> source, 
+            CancellationToken cancellationToken = default) =>
+            source.ToListAsync(cancellationToken)
+                 .ContinueWith<IList<TSource>>(q => q.Result, TaskContinuationOptions.ExecuteSynchronously);
+
+        public static Task<IList<TDocument>> ToIListAsync<TDocument>(this IAsyncCursorSource<TDocument> source, 
+            CancellationToken cancellationToken = default) => 
+            source.ToListAsync(cancellationToken)
+                    .ContinueWith<IList<TDocument>>(q => q.Result, TaskContinuationOptions.ExecuteSynchronously);
+
     }
+
 }

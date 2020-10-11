@@ -17,6 +17,7 @@ namespace Core.ApplicationService.Implementation
     {
 
         #region Properties
+
         protected string MethodName
         {
             get

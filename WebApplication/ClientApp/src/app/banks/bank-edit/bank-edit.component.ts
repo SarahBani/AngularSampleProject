@@ -86,10 +86,6 @@ export class BankEditComponent extends ImageUploaderComponent
     this.redirectBack();
   }
 
-  private onDeleteImage(): void {
-    this.uploadedImageUrl = null;
-  }
-
   private redirectBack(backLevelCount: number = 1): void {
     const url: string = '../'.repeat(backLevelCount);
     this.router.navigate([url], { relativeTo: this.route });

@@ -21,25 +21,30 @@ var ImageUploaderComponent = /** @class */ (function (_super) {
     function ImageUploaderComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.fileToUpload = null;
-        _this.isUploading = false;
         return _this;
     }
     ImageUploaderComponent.prototype.ngOnInit = function () {
     };
     ImageUploaderComponent.prototype.uploadImage = function (files) {
         var _this = this;
+        if (files.length == 0) {
+            return;
+        }
         this.getUploadFile(files.item(0))
             .subscribe(function (event) {
             if (event.type === http_1.HttpEventType.UploadProgress) {
                 _this.uploadedPercentage = Math.round(100 * event.loaded / event.total);
+                console.log(_this.uploadedPercentage);
             }
             else if (event.type === http_1.HttpEventType.Response) {
                 var actionResult = event.body;
                 _this.uploadedImageUrl = actionResult.content;
             }
-        }, function (error) {
-            console.log(error);
-        });
+        }, function (error) { return _super.prototype.showError.call(_this, error); });
+    };
+    ImageUploaderComponent.prototype.onDeleteImage = function () {
+        this.uploadedImageUrl = null;
+        this.uploadedPercentage = null;
     };
     return ImageUploaderComponent;
 }(base_form_component_1.BaseFormComponent));

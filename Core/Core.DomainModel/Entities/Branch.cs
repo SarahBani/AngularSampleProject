@@ -11,11 +11,11 @@ namespace Core.DomainModel.Entities
         public int BankId { get; set; }
 
         [Required(ErrorMessage = "Name is required!")]
-        [StringLength(60, ErrorMessage = "Name can't be longer than 60 characters!")]
+        [StringLength(60, ErrorMessage = "Name cannot be longer than 60 characters!")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Code is required!")]
-        [StringLength(10, ErrorMessage = "Code can't be longer than 10 characters!")]
+        [StringLength(10, ErrorMessage = "Code cannot be longer than 10 characters!")]
         public string Code { get; set; }
 
         public string Address { get; set; }
@@ -36,10 +36,11 @@ namespace Core.DomainModel.Entities
                 .IsRequired()
                 .HasMaxLength(10);
 
-            builder.HasOne(q => q.Bank)
-                .WithMany(q => q.Branches)
-                .HasForeignKey(q => q.BankId)
-                .HasConstraintName("FK_Branch_Bank");
+            // it can be here or the equivalent in bank configure
+            //builder.HasOne(q => q.Bank)
+            //    .WithMany(q => q.Branches)
+            //    .HasForeignKey(q => q.BankId)
+            //    .HasConstraintName("FK_Branch_Bank");
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Core.DomainModel.Entities
@@ -8,8 +9,12 @@ namespace Core.DomainModel.Entities
     {
 
         [Required(ErrorMessage = "Name is required!")]
-        [StringLength(30, ErrorMessage = "Name can't be longer than 30 characters!")]
+        [StringLength(40, ErrorMessage = "Name cannot be longer than 40 characters!")]
         public string Name { get; set; }
+
+        public string FlagUrl { get; set; }
+
+        public ICollection<City> Cities { get; set; }
 
     }
 
@@ -20,7 +25,12 @@ namespace Core.DomainModel.Entities
         {
             builder.Property(q => q.Name)
                 .IsRequired()
-                .HasMaxLength(30);
+                .HasMaxLength(40);
+
+            builder.HasMany(q => q.Cities)
+                .WithOne(q => q.Country)
+                .HasForeignKey(q => q.CountryId)
+                .HasConstraintName("FK_City_Country");
         }
 
     }

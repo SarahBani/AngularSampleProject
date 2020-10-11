@@ -1,0 +1,65 @@
+<div class="container text-center" *ngIf="model != null">
+  <div class="row">
+    <div class="col-12">
+      <img [src]="model.coverImageUrl" class="img-response" width="300" alt="{{ model.name }}"
+           *ngIf="model.coverImageUrl != null" />
+      <img src="images/NoImage.png" class="img-response" width="300" alt="{{ model.name }}"
+           *ngIf="model.coverImageUrl == null" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <h4>{{ model.name }}</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <b>Author: </b><span>{{ model.author }}</span>
+    </div>
+  </div>
+  <div class="row" *ngIf="model.translator != null">
+    <div class="col-12">
+      <b>Translator: </b><span>{{ model.translator }}</span>
+    </div>
+  </div>
+  <div class="row" *ngIf="model.genre != null">
+    <div class="col-12">
+      <b>Genre: </b><span>{{ model.genre }}</span>
+    </div>
+  </div>
+  <br />
+  <div class="row summary" *ngIf="model.summary != null">
+    <div class="col-12">
+      <p>
+        <b>Summary: </b>
+        {{ (!isFullSummaryDisplayed? shortSummary : model.summary) }}
+        <details *ngIf="model.summary != shortSummary" (click)="onSummaryClick()">
+          <summary>
+            <small>
+              Read {{ (!isFullSummaryDisplayed? "more" : "less") }}
+            </small>
+          </summary>
+        </details>
+      </p>
+    </div>
+  </div>
+  <br />
+
+  <div class="row">
+    <div class="col-12">
+
+      <div class="btn-group">
+        <button class="btn btn-primary" style="cursor:pointer" (click)="onBack()">Back</button>
+        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" appDropDown>
+          Manage<span class="caret"></span>
+        </button>
+        <div class=" dropdown-menu">
+          <a class="dropdown-item" style="cursor:pointer" (click)="onEdit()">Edit</a>
+          <a class="dropdown-item" style="cursor:pointer" (click)="onDelete()">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-spinner *ngIf="isLoading"></app-spinner>

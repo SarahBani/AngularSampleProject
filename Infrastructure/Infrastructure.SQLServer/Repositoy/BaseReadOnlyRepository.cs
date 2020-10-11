@@ -33,12 +33,7 @@ namespace Infrastructure.DataBase.Repositoy
 
         public virtual TEntity GetById(TKey id)
         {
-            return GetSingle(q => q.Id.Equals(id));
-        }
-
-        public virtual async Task<TEntity> GetByIdAsync(TKey id)
-        {
-            var entity = await this.MyDBContext.Set<TEntity>().FindAsync(id);
+            var entity = this.MyDBContext.Set<TEntity>().Find(id);
             if (entity != null)
             {
                 this.MyDBContext.Entry(entity).State = EntityState.Detached;
@@ -46,61 +41,42 @@ namespace Infrastructure.DataBase.Repositoy
             return entity;
         }
 
-        public virtual int GetCount(Expression<Func<TEntity, bool>> filter = null)
-        {
-            return GetQueryable().Count(filter);
-        }
+        public virtual Task<TEntity> GetByIdAsync(TKey id) =>
+            this.MyDBContext.Set<TEntity>().FindAsync(id).AsTask()
+                 .ContinueWith(q =>
+                 {
+                     if (q.Result != null)
+                     {
+                         this.MyDBContext.Entry(q.Result).State = EntityState.Detached;
+                     }
+                     return q.Result;
+                 });
 
-        public virtual async Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null)
-        {
-            return await Task.Run(() => this.MyDBContext.Set<TEntity>()
-                .Count(filter));
-        }
+        public virtual int GetCount(Expression<Func<TEntity, bool>> filter = null) =>
+            GetQueryable().Count(filter);
 
-        public virtual TEntity GetSingle(Expression<Func<TEntity, bool>> filter)
-        {
-            return GetQueryable().Where(filter).SingleOrDefault();
-        }
+        public virtual Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null) =>
+            this.MyDBContext.Set<TEntity>().CountAsync(filter);
 
-        public virtual async Task<TEntity> GetSingleAsync(Expression<Func<TEntity, bool>> filter)
-        {
-            return await Task.Run(() => this.MyDBContext.Set<TEntity>()
+        public virtual TEntity GetSingle(Expression<Func<TEntity, bool>> filter) =>
+            GetQueryable().Where(filter).SingleOrDefault();
+
+        public virtual Task<TEntity> GetSingleAsync(Expression<Func<TEntity, bool>> filter) =>
+            this.MyDBContext.Set<TEntity>()
                 .Where(filter)
-                .SingleOrDefault());
-        }
+                .SingleOrDefaultAsync();
 
-        public virtual IQueryable<TEntity> GetQueryable()
-        {
-            return this.MyDBContext.Set<TEntity>().AsQueryable();
-        }
-
-        public virtual async Task<IQueryable<TEntity>> GetQueryableAsync()
-        {
-            return await Task.Run(() => this.MyDBContext.Set<TEntity>().AsQueryable());
-        }
+        public virtual IQueryable<TEntity> GetQueryable() =>
+            this.MyDBContext.Set<TEntity>().AsQueryable();
 
         public virtual IEnumerable<TEntity> GetEnumerable(
             Expression<Func<TEntity, bool>> filter = null,
             IList<Sort> sorts = null,
-            Page page = null)
-        {
-            return GetQueryable()
+            Page page = null) =>
+            GetQueryable()
                 .Where(filter)
                 .SetOrder(sorts)
                 .SetPage(page);
-        }
-
-        public virtual async Task<IEnumerable<TEntity>> GetEnumerableAsync(
-            Expression<Func<TEntity, bool>> filter = null,
-            IList<Sort> sorts = null,
-            Page page = null)
-        {
-            return await Task.Run(() =>
-            this.MyDBContext.Set<TEntity>()
-                .Where(filter)
-                .SetOrder(sorts)
-                .SetPage(page));
-        }
 
         #endregion /Methods
 

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "3yWjpUBgvTUhpMUTETu2cRxsQ2065jItoCb4gRRu9Kj00FO30ByQFYwefNrRsRKcLZGqJgXmnsJRX9lGl6t1DQ==",
+  "dgSpecHash": "X2j1AyyBEHewO3WicIbLurGhfb7mTVEspBssPWaPuCSZe9ajS07ZZ6pZ31pw6AZw/kIK5+GOhCx6WLWjRs99Ug==",
   "success": true,
   "projectFilePath": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\Core\\Core.DomainModel\\Core.DomainModel.csproj",
   "expectedPackageFiles": [
@@ -38,6 +38,7 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\mongodb.bson\\2.11.2\\mongodb.bson.2.11.2.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\newtonsoft.json\\10.0.1\\newtonsoft.json.10.0.1.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

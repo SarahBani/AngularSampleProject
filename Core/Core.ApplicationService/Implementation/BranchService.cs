@@ -2,6 +2,7 @@
 using Core.DomainModel.Entities;
 using Core.DomainService;
 using Core.DomainService.Repositoy;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,20 +27,14 @@ namespace Core.ApplicationService.Implementation
 
         #region Methods
 
-        public async Task<IList<Branch>> GetListByBankIdAsync(int bankId)
-        {
-            return (await base.GetEnumerableAsync(q => q.BankId.Equals(bankId))).ToList();
-        }
+        public Task<IList<Branch>> GetListByBankIdAsync(int bankId) =>
+            base.GetQueryable().Where(q => q.BankId.Equals(bankId)).ToIListAsync();
 
-        public async Task<int> GetCountByBankIdAsync(int bankId)
-        {
-            return (await base.GetEnumerableAsync(q => q.BankId.Equals(bankId))).Count();
-        }
+        public Task<int> GetCountByBankIdAsync(int bankId) =>
+             base.GetQueryable().CountAsync(q => q.BankId.Equals(bankId));
 
-        public async Task<TransactionResult> DeleteByBankIdAsync(int bankId)
-        {
-            return await base.DeleteAsync(q => q.BankId.Equals(bankId));
-        }
+        public Task<TransactionResult> DeleteByBankIdAsync(int bankId) =>
+             base.DeleteAsync(q => q.BankId.Equals(bankId));
 
         #endregion /Methods
 

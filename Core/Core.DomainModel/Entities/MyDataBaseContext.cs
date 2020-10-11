@@ -17,6 +17,7 @@ namespace Core.DomainModel.Entities
 
         public DbSet<Bank> Banks { get; set; }
         public DbSet<Branch> Branches { get; set; }
+        public DbSet<Country> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -30,6 +31,7 @@ namespace Core.DomainModel.Entities
             }
 
             modelBuilder.ApplyConfiguration(new CountryEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new CityEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BankEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BranchEntityTypeConfiguration());
             //modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());

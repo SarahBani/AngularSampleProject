@@ -71,6 +71,28 @@ namespace Core.DomainModel.Migrations
                     b.ToTable("Branch");
                 });
 
+            modelBuilder.Entity("Core.DomainModel.Entities.City", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<short>("CountryId")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("City");
+                });
+
             modelBuilder.Entity("Core.DomainModel.Entities.Country", b =>
                 {
                     b.Property<short>("Id")
@@ -78,10 +100,13 @@ namespace Core.DomainModel.Migrations
                         .HasColumnType("smallint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("FlagUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
+                        .HasColumnType("nvarchar(40)")
+                        .HasMaxLength(40);
 
                     b.HasKey("Id");
 
@@ -94,6 +119,16 @@ namespace Core.DomainModel.Migrations
                         .WithMany("Branches")
                         .HasForeignKey("BankId")
                         .HasConstraintName("FK_Branch_Bank")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.DomainModel.Entities.City", b =>
+                {
+                    b.HasOne("Core.DomainModel.Entities.Country", "Country")
+                        .WithMany("Cities")
+                        .HasForeignKey("CountryId")
+                        .HasConstraintName("FK_City_Country")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -3,9 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { BanksComponent } from './banks/banks.component';
-import { SelectBankComponent } from './banks/select-bank/select-bank.component';
-import { BankEditComponent } from './banks/bank-edit/bank-edit.component';
 import { BankDetailComponent } from './banks/bank-detail/bank-detail.component';
+import { BankEditComponent } from './banks/bank-edit/bank-edit.component';
+import { SelectBankComponent } from './banks/select-bank/select-bank.component';
+import { BooksComponent } from './books/books.component';
+import { BookDetailComponent } from './books/book-detail/book-detail.component';
+import { BookEditComponent } from './books/book-edit/book-edit.component';
+import { SelectBookComponent } from './books/select-book/select-book.component';
 import { BranchesComponent } from './branches/branches.component';
 import { BranchEditComponent } from './branches/branch-edit/branch-edit.component';
 import { BranchDetailComponent } from './branches/branch-detail/branch-detail.component';
@@ -30,6 +34,15 @@ import { CanDeactivateGuardService } from './services/can-deactivate-guard-servi
           { path: 'new', component: BankEditComponent, canDeactivate: [CanDeactivateGuardService] },
           { path: ':id', component: BankDetailComponent },
           { path: ':id/edit', component: BankEditComponent, canDeactivate: [CanDeactivateGuardService] },
+        ]
+      },
+      {
+        path: 'books', component: BooksComponent,
+        children: [
+          { path: '', component: SelectBookComponent },
+          { path: 'new', component: BookEditComponent, canDeactivate: [CanDeactivateGuardService] },
+          { path: ':id', component: BookDetailComponent },
+          { path: ':id/edit', component: BookEditComponent, canDeactivate: [CanDeactivateGuardService] },
         ]
       },
       {

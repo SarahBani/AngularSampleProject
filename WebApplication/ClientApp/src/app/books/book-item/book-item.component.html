@@ -1,0 +1,10 @@
+<a [routerLink]="[model.id]"
+   [routerLinkActive]="['active']"
+   class="list-group-item clearfix">
+  <strong class="list-group-item-heading">{{ model.name }}</strong>
+  <span> - {{ model.author }}</span>
+  <span class="float-right">
+    <img src="{{ model.coverImageUrl }}" alt="{{ model.name }}" class="img-responsive"
+       style="max-height:50px" *ngIf="model.coverImageUrl" />
+  </span>
+</a>

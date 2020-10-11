@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <form (ngSubmit)="onSave(f)" #f="ngForm">
+        <div class="form-group">
+          <label for="name">Name: </label>
+          <input type="text" id="name" name="name" class="form-control" ngModel required />
+        </div>
+        <div class="form-group">
+          <label for="author">Author: </label>
+          <input type="text" id="author" name="author" class="form-control" ngModel required />
+        </div>
+        <div class="form-group">
+          <label for="translator">Translator: </label>
+          <input type="text" id="translator" name="translator" class="form-control" ngModel />
+        </div>
+        <div class="form-group">
+          <label for="genre">Genre: </label>
+          <input type="text" id="genre" name="genre" class="form-control" ngModel />
+        </div>
+        <div class="form-group">
+          <label for="uploadedImageUrl">Cover Image: </label>
+          <input type="file" id="uploadedImageUrl" class="form-control-file border"
+                 accept="image/*" (change)="uploadImage($event.target.files)">
+        </div>
+        <div class="row" *ngIf="uploadedPercentage != null">
+          <div class="col-12">
+            <progress id="file" value="{{ uploadedPercentage }}" max="100"></progress>
+            <small class="align-top"> {{ uploadedPercentage }}%</small>
+          </div>
+        </div>
+        <div class="row" *ngIf="uploadedImageUrl != null">
+          <div class="col-12 uploaded-image">
+            <img [src]="uploadedImageUrl" class="img-response" />
+            <div>
+              <img class="delete-image" src='/images/delete.png' alt="Delete Image"
+                   (click)="onDeleteImage()" />
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="uploadedImageUrl == null">
+          <img src="images/NoImage.png" class="img-response" />
+        </div>
+
+        <div class="form-group">
+          <label for="summary">Summary: </label>
+          <textarea id="summary" name="summary" rows="10" class="form-control" ngModel></textarea>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <button class="btn btn-primary" type="reset">Clear</button>
+            <button class="btn btn-success" type="submit" [disabled]="!f.valid || (uploadedPercentage != null && uploadedPercentage < 100)">Save</button>
+            <button class="btn btn-danger" type="button" [disabled]="id == null" (click)="onDelete()">Delete</button>
+            <button class="btn btn-warning" type="button" (click)="onCancel()">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<app-spinner *ngIf="isLoading"></app-spinner>

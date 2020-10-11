@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { BaseLoadingComponent } from '../../base/base-loading.component';
 import { IBank } from '../../models/IBank.model';
 import { BankService } from '../../services/bank-service';
-import { ILoaderService } from '../../services/ILoader-service';
 
 @Component({
   selector: 'app-bank-detail',

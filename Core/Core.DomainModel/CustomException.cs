@@ -33,7 +33,7 @@ namespace Core.DomainModel
         public CustomException(Exception exception)
         {
             var baseException = exception.GetBaseException();
-            this.CustomMessage = GetMessage(exception);
+            this.CustomMessage = GetMessage(baseException);
             this.Content = new ExceptionContent(baseException.Message,
                 baseException.Source,
                 baseException.StackTrace);
