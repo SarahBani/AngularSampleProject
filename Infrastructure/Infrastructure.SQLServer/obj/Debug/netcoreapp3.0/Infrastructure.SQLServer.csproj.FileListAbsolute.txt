@@ -1,3 +1,6 @@
+H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\bin\Debug\netcoreapp3.0\snappy32.dll
+H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\bin\Debug\netcoreapp3.0\snappy64.dll
+H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\bin\Debug\netcoreapp3.0\libzstd.dll
 H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\bin\Debug\netcoreapp3.0\Infrastructure.SQLServer.deps.json
 H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\bin\Debug\netcoreapp3.0\Infrastructure.SQLServer.dll
 H:\Project\AngularSampleProject\AngularSampleProject\Infrastructure\Infrastructure.SQLServer\bin\Debug\netcoreapp3.0\Infrastructure.SQLServer.pdb

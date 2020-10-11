@@ -1,62 +1,96 @@
-﻿using Core.DomainModel.Entities;
+﻿using Core.DomainModel;
+using Core.DomainModel.Entities;
 using Core.DomainService;
+using MongoDB.Driver;
 using System;
 using System.Threading.Tasks;
 
-namespace Infrastructure.DataBase
+namespace Infrastructure.MongoDB
 {
-    //public class UnitOfWork : IUnitOfWork
-    //{
+    public class UnitOfWork //: IUnitOfWork
+    {
 
-    //    public string TransactionName { get; private set; }
+        #region Properties
 
-    //    public MyDataBaseContext MyDBContext { get; set; }
+        private string _transactionName;
 
-    //    public UnitOfWork(MyDataBaseContext dbContext)
-    //    {
-    //        this.MyDBContext = dbContext;
-    //    }
+        private MongoClient _client;
 
-    //    ~UnitOfWork()
-    //    {
-    //        Dispose();
-    //    }
+        private IClientSessionHandle _session;
 
-    //    public void Dispose()
-    //    {
-    //        if (this.MyDBContext != null)
-    //        {
-    //            this.MyDBContext.Dispose();
-    //        }
-    //        GC.SuppressFinalize(this);
-    //    }
+        #endregion /Properties
 
-    //    public string GetTransactionName()
-    //    {
-    //        return this.TransactionName;
-    //    }
+        #region Constructors
 
-    //    public void BeginTransaction(string transactionName)
-    //    {
-    //        if (string.IsNullOrEmpty(this.TransactionName))
-    //        {
-    //            this.TransactionName = transactionName;
-    //        }
-    //    }
+        public UnitOfWork(MongoClient client)
+        {
+            this._client = client;
+        }
 
-    //    public async Task Commit()
-    //    {
-    //        if (string.IsNullOrEmpty(this.TransactionName))
-    //        {
-    //            throw new InvalidOperationException("No active transation");
-    //        }
-    //        await this.MyDBContext.SaveChangesAsync();
-    //        this.TransactionName = string.Empty;
-    //    }
+        #endregion /Constructors
 
-    //    public void RollBack()
-    //    {
-    //    }
+        #region Destructors
 
-    //}
+        ~UnitOfWork()
+        {
+            Dispose();
+        }
+
+        #endregion /Destructors
+
+        #region Methods
+
+        public string GetTransactionName() => this._transactionName;
+
+        public bool HasTransaction() => !string.IsNullOrEmpty(this._transactionName);
+
+        public async Task BeginTransaction(string transactionName)
+        {
+            if (string.IsNullOrEmpty(this._transactionName))
+            {
+                this._transactionName = transactionName;
+            }
+            this._session = await this._client.StartSessionAsync();
+            this._session.StartTransaction();
+        }
+
+        public async Task CommitAsync()
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(this._transactionName))
+                {
+                    throw new CustomException(ExceptionKey.NoActiveTransaction);
+                }
+                await this._session.CommitTransactionAsync();
+                this._transactionName = string.Empty;
+            }
+            finally
+            {
+                this._session.Dispose();
+            }
+        }
+
+        public async Task RollBack()
+        {
+            if (string.IsNullOrEmpty(this._transactionName))
+            {
+                throw new CustomException(ExceptionKey.NoActiveTransaction);
+            }
+            await this._session.AbortTransactionAsync();
+            this._transactionName = string.Empty;
+        }
+
+        public void Dispose()
+        {
+            if (this._session != null)
+            {
+                this._session.Dispose();
+            }
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion /Methods
+
+    }
 }

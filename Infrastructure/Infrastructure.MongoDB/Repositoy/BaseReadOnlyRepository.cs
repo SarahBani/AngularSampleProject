@@ -1,108 +1,84 @@
-﻿//using Core.DomainModel.Entities;
-//using Core.DomainService;
-//using Core.DomainService.Repositoy;
-//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Linq.Expressions;
-//using System.Threading.Tasks;
+﻿using Core.DomainModel;
+using Core.DomainModel.Collections;
+using Core.DomainService;
+using Core.DomainService.Repositoy;
+using MongoDB.Driver;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
-//namespace Infrastructure.MongoDB.Repositoy
-//{
-//    public abstract class ReadOnlyRepository<TEntity, TKey> : IReadOnlyRepository<TEntity, TKey>
-//        where TEntity : Entity<TKey>
-//    {
+namespace Infrastructure.DataBase.Repositoy
+{
+    public abstract class BaseReadOnlyRepository<TCollection> : IBaseReadOnlyMongoDBRepository<TCollection>
+        where TCollection : BaseCollection
+    {
 
-//        #region Properties
+        #region Properties
 
-//        //   protected readonly MyDataBaseContext MyDBContext;
+        protected readonly IMongoCollection<TCollection> Collection;
 
-//        #endregion /Properties
+        #endregion /Properties
 
-//        #region Constructors
+        #region Constructors
 
-//        //public ReadOnlyRepository(MyDataBaseContext dbContext)
-//        //{
-//        //    this.MyDBContext = dbContext;
-//        //}
+        public BaseReadOnlyRepository(IMongoDBDatabaseSettings settings)
+        {
+            var client = new MongoClient(settings.ConnectionString);
+            var database = client.GetDatabase(settings.DatabaseName);
 
-//        #endregion /Constructors
+            this.Collection = database.GetCollection<TCollection>(GetCollectionName());
+        }
 
-//        #region Methods
+        #endregion /Constructors
 
-//        public virtual TEntity GetById(TKey id)
-//        {
-//            return GetSingle(q => q.Id.Equals(id));
-//        }
+        #region Methods
+        protected virtual string GetCollectionName()
+        {
+            string typeName = typeof(TCollection).Name;
+            return Utility.Pluralize(typeName);
+        }
 
-//        public virtual async Task<TEntity> GetByIdAsync(TKey id)
-//        {
-//            throw new NotImplementedException();
-//            // return await this.MyDBContext.Set<TEntity>().FindAsync(id);
-//        }
+        public TCollection GetById(string id) =>
+           this.Collection.Find(q => q.Id.Equals(id)).FirstOrDefault();
 
-//        public virtual int GetCount(Expression<Func<TEntity, bool>> filter = null)
-//        {
-//            return GetQueryable().Count(filter);
-//        }
+        public Task<TCollection> GetByIdAsync(string id) =>
+            this.Collection.Find(q => q.Id.Equals(id)).FirstOrDefaultAsync();
 
-//        public virtual async Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null)
-//        {
-//            throw new NotImplementedException();
-//            //return await Task.Run(() => this.MyDBContext.Set<TEntity>()
-//            //.Count(filter));
-//        }
+        public virtual IList<TCollection> GetAll() =>
+            this.Collection.Find(FilterDefinition<TCollection>.Empty).ToList();
 
-//        public virtual TEntity GetSingle(Expression<Func<TEntity, bool>> filter)
-//        {
-//            return GetQueryable().Where(filter).SingleOrDefault();
-//        }
+        public virtual Task<IList<TCollection>> GetAllAsync() =>
+            this.Collection.Find(FilterDefinition<TCollection>.Empty).ToIListAsync();
 
-//        public virtual async Task<TEntity> GetSingleAsync(Expression<Func<TEntity, bool>> filter)
-//        {
-//            throw new NotImplementedException();
-//            //return await Task.Run(() => this.MyDBContext.Set<TEntity>()
-//            //    .Where(filter)
-//            //    .SingleOrDefault());
-//        }
+        public long GetCount(Expression<Func<TCollection, bool>> filter) =>
+            this.Collection.CountDocuments(filter);
 
-//        public virtual IQueryable<TEntity> GetQueryable()
-//        {
-//            throw new NotImplementedException();
-//            //return this.MyDBContext.Set<TEntity>().AsQueryable();
-//        }
+        public Task<long> GetCountAsync(Expression<Func<TCollection, bool>> filter) =>
+             this.Collection.CountDocumentsAsync(filter);
 
-//        public virtual async Task<IQueryable<TEntity>> GetQueryableAsync()
-//        {
-//            throw new NotImplementedException();
-//            //return await Task.Run(() => this.MyDBContext.Set<TEntity>().AsQueryable());
-//        }
+        public virtual TCollection GetSingle(Expression<Func<TCollection, bool>> filter) =>
+            this.Collection.Find(filter).SingleOrDefault();
 
-//        public virtual IEnumerable<TEntity> GetEnumerable(
-//            Expression<Func<TEntity, bool>> filter = null,
-//            IList<Sort> sorts = null,
-//            Page page = null)
-//        {
-//            return GetQueryable()
-//                .Where(filter)
-//                .SetOrder(sorts)
-//                .SetPage(page);
-//        }
+        public virtual Task<TCollection> GetSingleAsync(Expression<Func<TCollection, bool>> filter) =>
+            this.Collection.Find(filter).SingleOrDefaultAsync();
 
-//        public virtual async Task<IEnumerable<TEntity>> GetEnumerableAsync(
-//            Expression<Func<TEntity, bool>> filter = null,
-//            IList<Sort> sorts = null,
-//            Page page = null)
-//        {
-//            throw new NotImplementedException();
-//            //return await Task.Run(() =>
-//            //this.MyDBContext.Set<TEntity>()
-//            //    .Where(filter)
-//            //    .SetOrder(sorts)
-//            //    .SetPage(page));
-//        }
+        public virtual IQueryable<TCollection> GetQueryable() => this.Collection.AsQueryable();
 
-//        #endregion /Methods
+        public virtual IEnumerable<TCollection> GetEnumerable(Expression<Func<TCollection, bool>> filter) =>
+               this.Collection.Find(filter).ToEnumerable();
 
-//    }
-//}
+        //public virtual IEnumerable<TCollection> GetEnumerable(
+        //    Expression<Func<TCollection, bool>> filter = null,
+        //    IList<Sort> sorts = null,
+        //    Page page = null) =>
+        //    GetQueryable()
+        //        .Where(filter)
+        //        .SetOrder(sorts)
+        //        .SetPage(page);
+
+        #endregion /Methods
+
+    }
+}

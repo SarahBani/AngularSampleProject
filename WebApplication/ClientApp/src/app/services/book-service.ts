@@ -27,7 +27,7 @@ export class BookService extends BaseService implements ILoaderService{
     this.selectedChanged.next(book);
   }
 
-  public getItem(id: number): Observable<IBook> {
+  public getItem(id: string): Observable<IBook> {
     return super.httpGetItem<IBook>(id);
   }
 
@@ -40,7 +40,7 @@ export class BookService extends BaseService implements ILoaderService{
   }
 
   public save(book: IBook): void {
-    if (book.id > 0) {
+    if (book.id != null) {
       this.update(book.id, book);
     }
     else {
@@ -57,7 +57,7 @@ export class BookService extends BaseService implements ILoaderService{
       });
   }
 
-  private update(id: number, book: IBook): void {
+  private update(id: string, book: IBook): void {
     super.httpPut('UpdateAsync/' + id, book)
       .subscribe(result => {
         this.onSuccess(result);
@@ -66,8 +66,8 @@ export class BookService extends BaseService implements ILoaderService{
       });
   }
 
-  public delete(id: number): void {
-    if (id > 0) {
+  public delete(id: string): void {
+    if (id != null) {
       this.confirmDeleteSubscription = super.confirmDelete().subscribe((result: boolean) => {
         if (result) {
           this.changeLoaderStatus.next(true);
@@ -81,7 +81,7 @@ export class BookService extends BaseService implements ILoaderService{
     }
   }
 
-  private doDelete(id: number): void {
+  private doDelete(id: string): void {
     super.httpDelete('DeleteAsync/' + id)
       .subscribe(result => {
         this.onSuccess(result);

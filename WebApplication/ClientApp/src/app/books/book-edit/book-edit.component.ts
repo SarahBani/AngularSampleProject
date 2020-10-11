@@ -16,7 +16,7 @@ export class BookEditComponent extends ImageUploaderComponent
 
   @ViewChild('f') myForm: NgForm;
   private model: IBook;
-  private id: number;
+  private id: string;
   private operationCompletedSubscription: Subscription;
 
   constructor(private bookService: BookService,
@@ -46,7 +46,7 @@ export class BookEditComponent extends ImageUploaderComponent
 
   private initForm() {
     if (this.route.snapshot.params["id"] != null) {
-      this.id = +this.route.snapshot.params["id"];
+      this.id = this.route.snapshot.params["id"];
       super.showLoader();
       this.bookService.getItem(this.id).subscribe((book: IBook) => {
         super.hideLoader();

@@ -26,15 +26,10 @@ namespace Infrastructure.DataBase.Repositoy
 
         #region Methods
 
-        public virtual void Insert(TEntity entity)
-        {
-            this.MyDBContext.Add(entity);
-        }
+        public virtual void Insert(TEntity entity) => this.MyDBContext.Add(entity);
 
-        public virtual async Task InsertAsync(TEntity entity)
-        {
-            await this.MyDBContext.AddAsync(entity);
-        }
+        public virtual  Task InsertAsync(TEntity entity) =>
+             this.MyDBContext.AddAsync(entity).AsTask();
 
         public virtual void Update(TEntity entity)
         {

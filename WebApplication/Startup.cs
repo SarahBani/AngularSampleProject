@@ -12,6 +12,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.IO;
+using Core.DomainModel;
 
 namespace WebApplication
 {
@@ -30,6 +31,7 @@ namespace WebApplication
             WebRequestConfig.Configure(this.Configuration);
             string connectionString = Utility.GetConnectionString(this.Configuration);
             services.AddDbContext<MyDataBaseContext>(options => options.UseSqlServer(connectionString));
+            services.Configure<MongoDBDatabaseSettings>(Configuration.GetSection(nameof(MongoDBDatabaseSettings)));
 
             services.SetInjection();
 

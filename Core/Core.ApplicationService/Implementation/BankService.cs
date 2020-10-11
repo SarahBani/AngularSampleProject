@@ -25,10 +25,7 @@ namespace Core.ApplicationService.Implementation
 
         #region Methods
 
-        public async Task<int> GetCountAsync()
-        {
-            return await base.GetCountAsync();
-        }
+        public async Task<int> GetCountAsync() => await base.GetCountAsync();
 
         public override async Task<TransactionResult> UpdateAsync(Bank bank)
         {
@@ -73,10 +70,7 @@ namespace Core.ApplicationService.Implementation
             }
         }
 
-        private async Task<string> GetLogoUrl(int id)
-        {
-            return (await base.GetByIdAsync(id)).LogoUrl;
-        }
+        private async Task<string> GetLogoUrl(int id) => (await base.GetByIdAsync(id)).LogoUrl;
 
         #endregion /Methods
 

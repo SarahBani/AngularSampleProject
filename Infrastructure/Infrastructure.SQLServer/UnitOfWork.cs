@@ -37,15 +37,9 @@ namespace Infrastructure.SQLServer
 
         #region Methods
 
-        public string GetTransactionName()
-        {
-            return this._transactionName;
-        }
+        public string GetTransactionName() => this._transactionName;
 
-        public bool HasTransaction()
-        {
-            return !string.IsNullOrEmpty(this._transactionName);
-        }
+        public bool HasTransaction() => !string.IsNullOrEmpty(this._transactionName);
 
         public void BeginTransaction(string transactionName)
         {

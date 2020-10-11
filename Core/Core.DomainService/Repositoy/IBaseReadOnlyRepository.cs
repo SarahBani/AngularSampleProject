@@ -17,12 +17,12 @@ namespace Core.DomainService.Repositoy
 
         Task<TEntity> GetSingleAsync(Expression<Func<TEntity, bool>> filter);
 
-        Task<IQueryable<TEntity>> GetQueryableAsync();
+        IQueryable<TEntity> GetQueryable();
 
-        Task<IEnumerable<TEntity>> GetEnumerableAsync(
-             Expression<Func<TEntity, bool>> filter = null,
-             IList<Sort> sorts = null,
-             Page page = null);
+        IEnumerable<TEntity> GetEnumerable(Expression<Func<TEntity, bool>> filter = null,
+              IList<Sort> sorts = null,
+              Page page = null);
 
     }
+
 }

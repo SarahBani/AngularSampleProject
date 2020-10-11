@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { BaseLoadingComponent } from '../../base/base-loading.component';
 import { IBook } from '../../models/IBook.model';
 import { BookService } from '../../services/book-service';
-import { ILoaderService } from '../../services/ILoader-service';
 
 @Component({
   selector: 'app-book-detail',
@@ -14,6 +13,8 @@ import { ILoaderService } from '../../services/ILoader-service';
 export class BookDetailComponent extends BaseLoadingComponent implements OnInit, OnDestroy {
 
   private model: IBook;
+  private shortSummary: string;
+  private isFullSummaryDisplayed: boolean = false;
   private operationCompletedSubscription: Subscription;
 
   constructor(private bookService: BookService,
@@ -40,7 +41,7 @@ export class BookDetailComponent extends BaseLoadingComponent implements OnInit,
   private fillData(): void {
     super.showLoader();
     this.route.params.subscribe((params: Params) => {
-      const id: number = +params['id'];
+      const id: string = params['id'];
       this.bookService.getItem(id).subscribe((book: IBook) => {
         super.hideLoader();
         if (book == null) {
@@ -48,8 +49,23 @@ export class BookDetailComponent extends BaseLoadingComponent implements OnInit,
           return;
         }
         this.model = book;
+        this.setShortSummary();
       }, error => super.showError(error));
     });
+  }
+
+  private setShortSummary() {
+    const summary = this.model.summary;
+    if (summary != null && summary.length > 100) {
+      this.shortSummary = summary.substring(0, 100) + ' ...';
+    }
+    else {
+      this.shortSummary = summary;
+    }
+  }
+
+  private onSummaryClick() {
+    this.isFullSummaryDisplayed = !this.isFullSummaryDisplayed;
   }
 
   private onBack(): void {

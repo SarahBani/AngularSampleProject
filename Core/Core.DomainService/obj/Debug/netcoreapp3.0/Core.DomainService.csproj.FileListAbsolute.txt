@@ -1,3 +1,6 @@
+H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainService\bin\Debug\netcoreapp3.0\snappy32.dll
+H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainService\bin\Debug\netcoreapp3.0\snappy64.dll
+H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainService\bin\Debug\netcoreapp3.0\libzstd.dll
 H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainService\bin\Debug\netcoreapp3.0\Core.DomainService.deps.json
 H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainService\bin\Debug\netcoreapp3.0\Core.DomainService.dll
 H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainService\bin\Debug\netcoreapp3.0\Core.DomainService.pdb
@@ -6,7 +9,7 @@ H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainService\bin
 H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainService\obj\Debug\netcoreapp3.0\Core.DomainService.csprojAssemblyReference.cache
 H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainService\obj\Debug\netcoreapp3.0\Core.DomainService.AssemblyInfoInputs.cache
 H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainService\obj\Debug\netcoreapp3.0\Core.DomainService.AssemblyInfo.cs
+H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainService\obj\Debug\netcoreapp3.0\Core.DomainService.csproj.CoreCompileInputs.cache
 H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainService\obj\Debug\netcoreapp3.0\Core.DomainService.csproj.CopyComplete
 H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainService\obj\Debug\netcoreapp3.0\Core.DomainService.dll
 H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainService\obj\Debug\netcoreapp3.0\Core.DomainService.pdb
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainService\obj\Debug\netcoreapp3.0\Core.DomainService.csproj.CoreCompileInputs.cache

@@ -17,6 +17,7 @@ export class BookItemComponent implements OnInit {
   }
 
   private onSelect(): void {
+    console.log(this.model);
     this.bookService.select(this.model);
   }
 

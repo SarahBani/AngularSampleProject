@@ -1,67 +1,59 @@
-﻿//using Core.DomainModel.Entities;
-//using Core.DomainService.Repositoy;
-////using Microsoft.EntityFrameworkCore;
-//using System;
-//using System.Linq.Expressions;
-//using System.Threading.Tasks;
+﻿using Core.DomainModel;
+using Core.DomainModel.Collections;
+using Core.DomainService.Repositoy;
+using MongoDB.Driver;
+using System;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
-//namespace Infrastructure.MongoDB.Repositoy
-//{
-//    public abstract class Repository<TEntity, TKey> : ReadOnlyRepository<TEntity, TKey>, IBaseRepository<TEntity, TKey>
-//        where TEntity : BaseEntity<TKey>
-//    {
+namespace Infrastructure.DataBase.Repositoy
+{
+    public abstract class BaseRepository<TCollection> : BaseReadOnlyRepository<TCollection>,
+        IBaseMongoDBRepository<TCollection>
+           where TCollection : BaseCollection
+    {
 
-//        #region Properties
+        #region Properties
 
-//        #endregion /Properties
+        #endregion /Properties
 
-//        #region Constructors
+        #region Constructors
 
-//        //public Repository(MyDataBaseContext dbContext)
-//        //    : base(dbContext)
-//        //{
-//        //}
+        public BaseRepository(IMongoDBDatabaseSettings settings) : base(settings)
+        {
+        }
 
-//        #endregion /Constructors
+        #endregion /Constructors
 
-//        #region Methods
+        #region Methods
 
-//        public virtual void Insert(TEntity entity)
-//        {
-//           // this.MyDBContext.Add(entity);
-//        }
+        public virtual void Insert(TCollection collection) => base.Collection.InsertOne(collection);
 
-//        public virtual async Task InsertAsync(TEntity entity)
-//        {
-//           // await this.MyDBContext.AddAsync(entity);
-//        }
+        public virtual Task InsertAsync(TCollection collection) =>
+             this.Collection.InsertOneAsync(collection);
 
-//        public virtual void Update(TEntity entity)
-//        {
-//            //this.MyDBContext.Attach(entity);
-//            //this.MyDBContext.Entry(entity).State = EntityState.Modified;
-//        }
+        public virtual void Update(string id, TCollection collection) =>
+          this.Collection.ReplaceOne(GetIdFilterDefinition(id), collection);
 
-//        public virtual void Delete(TKey id)
-//        {
-//            var entity = Activator.CreateInstance<TEntity>();
-//            entity.Id = id;
-//            Delete(entity);
-//        }
+        public virtual Task UpdateAsync(string id, TCollection collection) =>
+           this.Collection.ReplaceOneAsync(GetIdFilterDefinition(id), collection);
 
-//        public virtual void Delete(TEntity entity)
-//        {
-//            //this.MyDBContext.Attach(entity);
-//            //this.MyDBContext.Remove(entity);
-//        }
+        public virtual void Delete(string id) =>
+            this.Collection.DeleteOne(GetIdFilterDefinition(id));
 
-//        public virtual void Delete(Expression<Func<TEntity, bool>> filter = null)
-//        {
-//            //var entities = base.GetEnumerable(filter);
-//            //this.MyDBContext.RemoveRange(entities);
-//        }
+        public virtual Task DeleteAsync(string id) =>
+            this.Collection.DeleteOneAsync(GetIdFilterDefinition(id));
 
-//        #endregion /Methods
+        public virtual void Delete(Expression<Func<TCollection, bool>> filter) =>
+            this.Collection.DeleteManyAsync(filter);
 
-//    }
-//}
+        public virtual Task DeleteAsync(Expression<Func<TCollection, bool>> filter) =>
+           this.Collection.DeleteManyAsync(filter);
+
+        private FilterDefinition<TCollection> GetIdFilterDefinition(string id) =>
+            (FilterDefinition<TCollection>)(q => q.Id.Equals(id));
+
+        #endregion /Methods
+
+    }
+}
