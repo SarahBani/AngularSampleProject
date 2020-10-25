@@ -9,6 +9,8 @@
   <li><strong>SPA</strong></li>  
   <li><strong>Restful Web API</strong></li>
   <li><strong>Bootstrap 4.5.2</strong></li>
+  <li><strong>HTML 5</strong></li>
+  <li><strong>CSS 3</strong></li>
   <li><strong>jQuery</strong></li>
   <li><strong>SQL Server</strong></li>
   <li><strong>Entity Framework Core</strong></li>
