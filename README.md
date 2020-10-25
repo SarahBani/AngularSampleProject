@@ -21,6 +21,6 @@
 
 <p>
   <b>Note:</b>
-  The project should be seperated into Microservices in order to use both SQL Server and
-  MongoDB objects, but it didn't just for making the solution simpler.
+  The project should be seperated into Microservices in order to use both SQL Server Entities and
+  MongoDB Collections, but it didn't just for making the solution simpler.
 </p>
