@@ -3,6 +3,7 @@
 </p>
 <ul>
   <li><em>.NET Core Version 3.0</em></li>
+  <li><em>C#.NET</em></li>
   <li><strong>Angular version 10.1.2</strong></li>
   <li><em>Onion Architecture</em></li>
   <li><em>SPA</em></li>  
