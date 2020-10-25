@@ -9,7 +9,7 @@
   <li><em>Bootstrap 4.5.2</em></li>
   <li><em>Onion Architecture</em></li>
   <li><em>SQL Server</em></li>
-  <li><em>Entity Framework</em></li>
+  <li><em>Entity Framework Core</em></li>
   <li><strong>MongoDB 4.4.1</strong></li>
 </ul>
 
