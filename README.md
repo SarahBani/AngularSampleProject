@@ -5,12 +5,12 @@
   <li><strong>.NET Core Version 3.0</strong></li>
   <li><strong>C#.NET</strong></li>
   <li><strong>Angular version 10.1.2</strong></li>
-  <li><em>Onion Architecture</em></li>
-  <li><em>SPA</em></li>  
-  <li><em>Restful Web API</em></li>
+  <li><strong>Onion Architecture</strong></li>
+  <li><strong>SPA</strong></li>  
+  <li><strong>Restful Web API</strong></li>
   <li><strong>Bootstrap 4.5.2</strong></li>
-  <li><em>jQuery</em></li>
-  <li><em>SQL Server</em></li>
+  <li><strong>jQuery</strong></li>
+  <li><strong>SQL Server</strong></li>
   <li><strong>Entity Framework Core</strong></li>
   <li><strong>MongoDB 4.4.1</strong></li>
 </ul>
