@@ -46,6 +46,38 @@
           <label for="summary">Summary: </label>
           <textarea id="summary" name="summary" rows="10" class="form-control" ngModel></textarea>
         </div>
+
+        <section [formGroup]="commentsFormGroup">
+          <fieldset formArrayName="comments">
+            <!--<legend>Comments</legend>-->
+            <div class="row">
+              <div class="col-12">
+                <strong>Comments</strong>
+                <button class="btn btn-success float-right" type="button" (click)="newComment()">+</button>
+              </div>
+            </div>
+            <div *ngFor="let commentCtrl of getCommentsControls(); let i = index;" [formGroupName]="i">
+              <input type="hidden" formControlName="createdDateTime" />
+              <div class="row">
+                <div class="col-12">
+                  <input type="text" class="form-control" formControlName="writer" placeholder="Writer" required />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <textarea class="form-control" formControlName="comment" rows="5" placeholder="Comment" required></textarea>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-2">
+                  <button type="button" class="btn btn-danger" (click)="deleteComment(i)">X</button>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </section>
+        <br />
+
         <div class="row">
           <div class="col-12">
             <button class="btn btn-primary" type="reset">Clear</button>

@@ -19,6 +19,8 @@ namespace Core.DomainModel.Entities
         public DbSet<Branch> Branches { get; set; }
         public DbSet<Country> Cities { get; set; }
         public DbSet<Country> Countries { get; set; }
+        public DbSet<Hotel> Hotels { get; set; }
+        public DbSet<Room> Rooms { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,6 +36,8 @@ namespace Core.DomainModel.Entities
             modelBuilder.ApplyConfiguration(new CityEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BankEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new BranchEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new HotelEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new RoomEntityTypeConfiguration());
             //modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
             //modelBuilder.ApplyConfiguration(new RoleEntityTypeConfiguration());
 

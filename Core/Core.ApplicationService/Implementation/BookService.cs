@@ -3,6 +3,7 @@ using Core.DomainModel.Collections;
 using Core.DomainService;
 using Core.DomainService.Repositoy;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Core.ApplicationService.Implementation
@@ -25,12 +26,19 @@ namespace Core.ApplicationService.Implementation
 
         #region Methods
 
-        public Task<long> GetCountAsync()=>base.GetCountAsync();
+        public Task<long> GetCountAsync() => base.GetCountAsync();
+
+        public override async Task<TransactionResult> InsertAsync(Book book)
+        {
+            SetCommentsCreatedDateTime(book);
+            return await base.InsertAsync(book);
+        }
 
         public override async Task<TransactionResult> UpdateAsync(Book book)
         {
             try
             {
+                SetCommentsCreatedDateTime(book);
                 string prevCoverImageUrl = await this.GetCoverImageUrl(book.Id); // need to wait in order not to delete the new logo
                 await base.Repository.UpdateAsync(book.Id, book.TrimCharCollectionProperties<Book>());
                 if (book.CoverImageUrl != prevCoverImageUrl)
@@ -71,6 +79,14 @@ namespace Core.ApplicationService.Implementation
         private async Task<string> GetCoverImageUrl(string id) =>
             (await base.GetByIdAsync(id)).CoverImageUrl;
 
+        private void SetCommentsCreatedDateTime(Book book)
+        {
+            foreach (var bookComment in book.Comments
+                .Where(q => q.CreatedDateTime.Equals(DateTime.MinValue)))
+            {
+                bookComment.CreatedDateTime = DateTime.Now;
+            }
+        }
 
         #endregion /Methods
 

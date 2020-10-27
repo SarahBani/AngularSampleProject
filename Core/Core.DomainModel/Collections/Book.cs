@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.DomainModel.Collections
 {
@@ -24,6 +25,8 @@ namespace Core.DomainModel.Collections
         public string CoverImageUrl { get; set; }
 
         public string Summary { get; set; }
+
+        public ICollection<BookComment> Comments { get; set; }
 
     }
 }

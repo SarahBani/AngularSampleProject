@@ -17,18 +17,18 @@
       <b>Author: </b><span>{{ model.author }}</span>
     </div>
   </div>
-  <div class="row" *ngIf="model.translator != null">
+  <div class="row" *ngIf="!!model.translator">
     <div class="col-12">
       <b>Translator: </b><span>{{ model.translator }}</span>
     </div>
   </div>
-  <div class="row" *ngIf="model.genre != null">
+  <div class="row" *ngIf="!!model.genre">
     <div class="col-12">
       <b>Genre: </b><span>{{ model.genre }}</span>
     </div>
   </div>
   <br />
-  <div class="row summary" *ngIf="model.summary != null">
+  <div class="row summary" *ngIf="!!model.summary">
     <div class="col-12">
       <p>
         <b>Summary: </b>
@@ -54,11 +54,23 @@
           Manage<span class="caret"></span>
         </button>
         <div class=" dropdown-menu">
+          <a class="dropdown-item" style="cursor:pointer" (click)="onNewComment()">Add Comment</a>
+          <div class="dropdown-divider"></div>
           <a class="dropdown-item" style="cursor:pointer" (click)="onEdit()">Edit</a>
           <a class="dropdown-item" style="cursor:pointer" (click)="onDelete()">Delete</a>
         </div>
       </div>
+
     </div>
+  </div>
+  <br />
+
+  <div class="row comments" *ngIf="!!model.comments">
+    <b>Comments</b>
+    <section class="col-12" *ngFor="let comment of model.comments">
+      "<em>{{ comment.comment }}</em>"
+       <span>-{{ comment.writer }}</span>
+    </section>
   </div>
 </div>
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Core.DomainModel.Entities
@@ -15,6 +16,8 @@ namespace Core.DomainModel.Entities
         public string Name { get; set; }
 
         public virtual Country Country { get; set; }
+
+        public ICollection<Hotel> Hotels { get; set; }
 
     }
 

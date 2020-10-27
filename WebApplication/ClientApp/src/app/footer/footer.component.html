@@ -9,28 +9,31 @@
           <h5>Site Map</h5>
         </div>
          <div class="row">
-          <ul class="col-2 list-unstyled">
-            <li [routerLinkActive]="['link-active']"
-                [routerLinkActiveOptions]="{ exact: true }">
-              <a class="nav-link" [routerLink]="['/']">
-                Home
-              </a>
-            </li>
-            <li class="nav-item" [routerLinkActive]="['link-active']">
-              <a class="nav-link" [routerLink]="['/banks']">Banks</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]="['link-active']">
-              <a class="nav-link" [routerLink]="['/branches']">Branches</a>
-            </li>
-          </ul>
-          <ul class="col-2 list-unstyled">
-            <li class="nav-item" [routerLinkActive]="['link-active']">
-              <a class="nav-link" [routerLink]="['/about']">About Us</a>
-            </li>
-            <li class="nav-item" [routerLinkActive]="['link-active']">
-              <a class="nav-link" [routerLink]="['/contact']">Contact Us</a>
-            </li>
-          </ul>
+           <ul class="col-2 list-unstyled">
+             <li [routerLinkActive]="['link-active']"
+                 [routerLinkActiveOptions]="{ exact: true }">
+               <a class="nav-link" [routerLink]="['/']">
+                 Home
+               </a>
+             </li>
+             <li class="nav-item" [routerLinkActive]="['link-active']">
+               <a class="nav-link" [routerLink]="['/banks']">Banks</a>
+             </li>
+             <li class="nav-item" [routerLinkActive]="['link-active']">
+               <a class="nav-link" [routerLink]="['/branches']">Branches</a>
+             </li>
+           </ul>
+           <ul class="col-2 list-unstyled">
+             <li class="nav-item" [routerLinkActive]="['link-active']">
+               <a class="nav-link" [routerLink]="['/books']">Books</a>
+             </li>
+             <li class="nav-item" [routerLinkActive]="['link-active']">
+               <a class="nav-link" [routerLink]="['/about']">About Us</a>
+             </li>
+             <li class="nav-item" [routerLinkActive]="['link-active']">
+               <a class="nav-link" [routerLink]="['/contact']">Contact Us</a>
+             </li>
+           </ul>
         </div>
       </div>
     </div>

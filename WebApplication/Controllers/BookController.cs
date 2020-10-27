@@ -33,6 +33,7 @@ namespace WebApplication.Controllers
         {
             return await this._bookService.GetByIdAsync(id);
         }
+
         [HttpGet("ListAsync")]
         public async Task<IEnumerable<Book>> GetListAsync()
         {
