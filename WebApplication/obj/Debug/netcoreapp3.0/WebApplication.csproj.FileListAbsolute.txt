@@ -123,3 +123,4 @@ H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\ne
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.dll
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.pdb
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.genruntimeconfig.cache
+H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\App_Data\MongoDB-ExportFile.json

@@ -79,6 +79,10 @@ export class BookDetailComponent extends BaseLoadingComponent implements OnInit,
     this.router.navigate(['edit'], { relativeTo: this.route });
   }
 
+  public onNewComment(): void {
+    
+  }
+
   private redirectBack(): void {
     this.router.navigate(['../'], { relativeTo: this.route });
   }

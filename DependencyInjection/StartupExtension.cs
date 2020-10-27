@@ -22,10 +22,14 @@ namespace DependencyInjection
             services.AddScoped<IEntityService, EntityService>();
             services.AddScoped<IEmailService, EmailService>();
 
+            services.AddScoped(typeof(IBaseRepository<City, long>), typeof(CityRepository));
+            services.AddScoped(typeof(IBaseRepository<Country, short>), typeof(CountryRepository));
             services.AddScoped(typeof(IBaseRepository<Bank, int>), typeof(BankRepository));
             services.AddScoped(typeof(IBaseMongoDBRepository<Book>), typeof(BookRepository));
             services.AddScoped(typeof(IBaseRepository<Branch, int>), typeof(BranchRepository));
 
+            services.AddScoped(typeof(ICityService), typeof(CityService));
+            services.AddScoped(typeof(ICountryService), typeof(CountryService));
             services.AddScoped(typeof(IBankService), typeof(BankService));
             services.AddScoped(typeof(IBookService), typeof(BookService));
             services.AddScoped(typeof(IBranchService), typeof(BranchService));

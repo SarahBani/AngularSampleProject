@@ -11,3 +11,23 @@
 details {
   color: #404040;
 }
+
+.comments {
+  text-align: left;
+  background-color: #C6FFEC;
+  border: 1px solid #404040;
+  padding: 5px;
+}
+
+  .comments b {
+    padding: 5px;
+  }
+
+  .comments section {
+    padding: 5px;
+  }
+
+  .comments span {
+    color: darkred;
+    font-weight: 700;
+  }

@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { ImageUploaderComponent } from '../../base/image-uploader.component';
-import { IBook } from '../../models/IBook.model';
+import { IBook, IBookComment } from '../../models/IBook.model';
 import { BookService } from '../../services/book-service';
 
 @Component({
@@ -15,6 +15,8 @@ export class BookEditComponent extends ImageUploaderComponent
   implements OnInit, OnDestroy {
 
   @ViewChild('f') myForm: NgForm;
+  // private myFormGroup: FormGroup;
+  private commentsFormGroup: FormGroup;
   private model: IBook;
   private id: string;
   private operationCompletedSubscription: Subscription;
@@ -45,6 +47,7 @@ export class BookEditComponent extends ImageUploaderComponent
   }
 
   private initForm() {
+    let comments = new FormArray([]);
     if (this.route.snapshot.params["id"] != null) {
       this.id = this.route.snapshot.params["id"];
       super.showLoader();
@@ -62,13 +65,52 @@ export class BookEditComponent extends ImageUploaderComponent
           'genre': book.genre,
           'summary': book.summary
         });
+
+        if (book.comments != null) {
+          book.comments.forEach(function (comment: IBookComment) {
+            comments.push(this.getCommentFormControl(comment.writer, comment.comment, comment.createdDateTime));
+          }.bind(this));
+        }
+
+        //this.myFormGroup = new FormGroup({
+        //  'name': new FormControl(name, [Validators.required]),
+        //  'description': new FormControl(description),
+        //  'comments': comments,
+        //});
+
         this.uploadedImageUrl = book.coverImageUrl;
       }, error => super.showError(error));
     }
+
+    this.commentsFormGroup = new FormGroup({
+      'comments': comments,
+    });
   }
 
   protected getUploadFile(file: File): Observable<any> {
     return this.bookService.uploadCoverImage(file);
+  }
+
+  getCommentsControls(): AbstractControl[] {
+    return (this.commentsFormGroup.get('comments') as FormArray).controls;
+  }
+
+  newComment(): void {
+    const comments: FormArray = (this.commentsFormGroup.get('comments') as FormArray);
+    comments.push(this.getCommentFormControl());
+  }
+
+  getCommentFormControl(writer: string = '', comment: string = '', createdDateTime: Date = null) {
+    return new FormGroup({
+      'writer': new FormControl(writer, [Validators.required, Validators.maxLength(100)]),
+      'comment': new FormControl(comment, [Validators.required]),
+      'createdDateTime': new FormControl(createdDateTime),
+    });
+  }
+
+  deleteComment(index: number): void {
+    let comments: FormArray = (this.commentsFormGroup.get('comments') as FormArray);
+    comments.removeAt(index);
   }
 
   private onSave(form: NgForm) {
@@ -80,9 +122,21 @@ export class BookEditComponent extends ImageUploaderComponent
       translator: form.value.translator,
       genre: form.value.genre,
       coverImageUrl: this.uploadedImageUrl,
-      summary: form.value.summary
+      summary: form.value.summary,
+      comments: this.getComments()
     };
     this.bookService.save(book);
+  }
+
+  private getComments(): IBookComment[] {
+    const commentsArray: FormArray = (this.commentsFormGroup.get('comments') as FormArray);
+    let comments = commentsArray.value;
+    comments.forEach(function (comment: IBookComment) {
+      if (comment.createdDateTime == null) {
+        comment.createdDateTime = new Date('0001-01-01T00:00:00Z');
+      }
+    });
+    return comments;
   }
 
   private onDelete() {

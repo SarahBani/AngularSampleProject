@@ -6,4 +6,10 @@ export interface IBook {
   genre: string;
   coverImageUrl: string;
   summary: string;
+  comments: IBookComment[];
+}
+export interface IBookComment {
+  writer: string,
+  comment: string,
+  createdDateTime: Date
 }
