@@ -65,7 +65,7 @@
   </div>
   <br />
 
-  <div class="row comments" *ngIf="!!model.comments">
+  <div class="row comments" *ngIf="!!model.comments && model.comments.length > 0">
     <b>Comments</b>
     <section class="col-12" *ngFor="let comment of model.comments">
       "<em>{{ comment.comment }}</em>"

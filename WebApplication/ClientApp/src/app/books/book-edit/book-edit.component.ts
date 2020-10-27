@@ -14,9 +14,7 @@ import { BookService } from '../../services/book-service';
 export class BookEditComponent extends ImageUploaderComponent
   implements OnInit, OnDestroy {
 
-  @ViewChild('f') myForm: NgForm;
-  // private myFormGroup: FormGroup;
-  private commentsFormGroup: FormGroup;
+  private myFormGroup: FormGroup;
   private model: IBook;
   private id: string;
   private operationCompletedSubscription: Subscription;
@@ -28,8 +26,8 @@ export class BookEditComponent extends ImageUploaderComponent
   }
 
   public ngOnInit(): void {
-    this.subscribe();
     this.initForm();
+    this.subscribe();
   }
 
   private subscribe(): void {
@@ -37,7 +35,7 @@ export class BookEditComponent extends ImageUploaderComponent
       .subscribe((hasSucceed: boolean) => {
         if (hasSucceed) {
           this.changesSaved = true;
-          this.myForm.reset();
+          this.myFormGroup.reset();
           this.redirectBack();
         }
         else {
@@ -47,7 +45,6 @@ export class BookEditComponent extends ImageUploaderComponent
   }
 
   private initForm() {
-    let comments = new FormArray([]);
     if (this.route.snapshot.params["id"] != null) {
       this.id = this.route.snapshot.params["id"];
       super.showLoader();
@@ -58,32 +55,41 @@ export class BookEditComponent extends ImageUploaderComponent
           this.redirectBack(2);
           return;
         }
-        this.myForm.setValue({
-          'name': book.name,
-          'author': book.author,
-          'translator': book.translator,
-          'genre': book.genre,
-          'summary': book.summary
-        });
-
-        if (book.comments != null) {
-          book.comments.forEach(function (comment: IBookComment) {
-            comments.push(this.getCommentFormControl(comment.writer, comment.comment, comment.createdDateTime));
-          }.bind(this));
-        }
-
-        //this.myFormGroup = new FormGroup({
-        //  'name': new FormControl(name, [Validators.required]),
-        //  'description': new FormControl(description),
-        //  'comments': comments,
-        //});
-
+        this.myFormGroup = this.getFormGroup(book);
         this.uploadedImageUrl = book.coverImageUrl;
       }, error => super.showError(error));
     }
+    else {
+      this.myFormGroup = this.getFormGroup();
+    }
+  }
 
-    this.commentsFormGroup = new FormGroup({
-      'comments': comments,
+  private getFormGroup(book: IBook = null): FormGroup {
+    return new FormGroup({
+      'name': new FormControl(book?.name ?? ''),
+      'author': new FormControl(book?.author ?? ''),
+      'translator': new FormControl(book?.translator ?? ''),
+      'genre': new FormControl(book?.genre ?? ''),
+      'summary': new FormControl(book?.summary ?? ''),
+      'comments': this.getCommentsFormArray(book)
+    });
+  }
+
+  private getCommentsFormArray(book: IBook): FormArray {
+    let formArray: FormArray = new FormArray([]);
+    if (book?.comments != null) {
+      book.comments.forEach(function (comment: IBookComment) {
+        formArray.push(this.getCommentFormGroup(comment));
+      }.bind(this));
+    }
+    return formArray;
+  }
+
+  private getCommentFormGroup(bookComment: IBookComment = null) {
+    return new FormGroup({
+      'writer': new FormControl(bookComment?.writer, [Validators.required, Validators.maxLength(100)]),
+      'comment': new FormControl(bookComment?.comment , [Validators.required]),
+      'createdDateTime': new FormControl(bookComment?.createdDateTime),
     });
   }
 
@@ -91,45 +97,38 @@ export class BookEditComponent extends ImageUploaderComponent
     return this.bookService.uploadCoverImage(file);
   }
 
-  getCommentsControls(): AbstractControl[] {
-    return (this.commentsFormGroup.get('comments') as FormArray).controls;
+  private getCommentsControls(): AbstractControl[] {
+    return (this.myFormGroup.get('comments') as FormArray).controls;
   }
 
-  newComment(): void {
-    const comments: FormArray = (this.commentsFormGroup.get('comments') as FormArray);
-    comments.push(this.getCommentFormControl());
+  private newComment(): void {
+    const comments: FormArray = (this.myFormGroup.get('comments') as FormArray);
+    comments.push(this.getCommentFormGroup());
   }
 
-  getCommentFormControl(writer: string = '', comment: string = '', createdDateTime: Date = null) {
-    return new FormGroup({
-      'writer': new FormControl(writer, [Validators.required, Validators.maxLength(100)]),
-      'comment': new FormControl(comment, [Validators.required]),
-      'createdDateTime': new FormControl(createdDateTime),
-    });
-  }
-
-  deleteComment(index: number): void {
-    let comments: FormArray = (this.commentsFormGroup.get('comments') as FormArray);
+  private deleteComment(index: number): void {
+    let comments: FormArray = (this.myFormGroup.get('comments') as FormArray);
     comments.removeAt(index);
   }
 
   private onSave(form: NgForm) {
     super.showLoader();
+    const formValues: IBook = this.myFormGroup.value;
     const book: IBook = {
       id: this.id,
-      name: form.value.name,
-      author: form.value.author,
-      translator: form.value.translator,
-      genre: form.value.genre,
+      name: formValues.name,
+      author: formValues.author,
+      translator: formValues.translator,
+      genre: formValues.genre,
       coverImageUrl: this.uploadedImageUrl,
-      summary: form.value.summary,
+      summary: formValues.summary,
       comments: this.getComments()
     };
     this.bookService.save(book);
   }
 
   private getComments(): IBookComment[] {
-    const commentsArray: FormArray = (this.commentsFormGroup.get('comments') as FormArray);
+    const commentsArray: FormArray = (this.myFormGroup.get('comments') as FormArray);
     let comments = commentsArray.value;
     comments.forEach(function (comment: IBookComment) {
       if (comment.createdDateTime == null) {
