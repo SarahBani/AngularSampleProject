@@ -13,7 +13,6 @@ export class BranchService extends BaseService implements ILoaderService {
   protected controllerName: string = 'Branch';
   public count: number;
   public selectedBankChanged: Subject<number> = new Subject<number>();
-  public selectedChanged: Subject<IBranch> = new Subject<IBranch>();
   public operationCompleted: Subject<boolean> = new Subject<boolean>();
   private confirmDeleteSubscription: Subscription;
   public changeLoaderStatus: Subject<boolean> = new Subject<boolean>();
@@ -27,10 +26,6 @@ export class BranchService extends BaseService implements ILoaderService {
 
   public changeBank(bankId: number): void {
     this.selectedBankChanged.next(bankId);
-  }
-
-  public select(branch: IBranch): void {
-    this.selectedChanged.next(branch);
   }
 
   public getItem(id: number): Observable<IBranch> {

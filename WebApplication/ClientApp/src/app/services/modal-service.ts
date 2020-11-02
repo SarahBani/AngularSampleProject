@@ -1,6 +1,6 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { Observable, Subject, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { AlertState, Button } from '../models/Enums';
 import { ButtonState } from '../models/Enums';
 
@@ -12,6 +12,7 @@ export class ModalService {
 
   private currentModalAlertState: AlertState;
   private onModalButtonClicked: Subject<Button> = new Subject<Button>();
+  private onModalResult: Subject<any> = new Subject<any>();
 
   constructor() {
   }
@@ -31,7 +32,6 @@ export class ModalService {
     this.showModalAlert(message, 'Error!');
   }
 
-
   public showConfirm(message: string): Observable<boolean> {
     this.showModal(message, 'Confirm', ButtonState.YesNo);
     return this.onModalButtonClicked
@@ -46,7 +46,7 @@ export class ModalService {
           case Button.No:
             return false;
         }
-      }));;
+      }));
   }
 
   private setClasses(alertState: AlertState): void {
@@ -114,8 +114,50 @@ export class ModalService {
     //$('.toast').toast('show');
   }
 
-  public onButtonClick(btn: Button): void {
+  //private showModalContainer(componentHtml: string,
+  //  caption: string,
+  //  buttons: ButtonState): void {
+  //  $('#myModalContainer').modal();                   // initialized with defaults
+  //  $('#myModalContainer').modal({ keyboard: false });   // initialized with no keyboard
+  //  $('#myModalContainer .modal-title').text(caption);
+  //  $('#myModalContainer .modal-body').html(componentHtml);
+
+  //  $('#myModalContainer').modal('show');
+  //}
+
+  public showModalContainer(caption: string): Observable<any> {
+    var modalContainer = $('#myModalContainer');
+    modalContainer.modal({ backdrop: 'static', keyboard: false }); // initialized with no keyboard
+    modalContainer.find('.modal-title').text(caption);
+    modalContainer.find('.modal-header .close').remove();
+    modalContainer.modal('show');
+
+    //modalContainer.find('.modal-header .close').on('click', function (e) {
+    //});
+
+    //modalContainer.on('hide.bs.modal', function (e) {
+    //  console.warn(e);
+    //  e.preventDefault();
+    //  e.stopPropagation();
+    //  return false
+    //});
+
+    //modalContainer.on('hidden.bs.modal', function (e) {
+    //  //this.onModalResult.next(null);
+    //});
+
+    return this.onModalResult
+      .pipe(tap((result: any) => {
+        modalContainer.modal('hide');
+      }));
+  }
+
+  public buttonClick(btn: Button): void {
     this.onModalButtonClicked.next(btn);
+  }
+
+  public passResult<T>(result: T): void {
+    this.onModalResult.next(result);
   }
 
 }

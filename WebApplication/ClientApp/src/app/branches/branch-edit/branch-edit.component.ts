@@ -82,14 +82,14 @@ export class BranchEditComponent extends BaseFormComponent implements OnInit, On
     }
   }
 
-  private onSave(form: NgForm) {
+  private onSave() {
     super.showLoader();
     const branch: IBranch = {
       id: this.id,
       bankId: this.bankId,
-      name: form.value.name,
-      code: form.value.code,
-      address: form.value.address
+      name: this.myForm.value.name,
+      code: this.myForm.value.code,
+      address: this.myForm.value.address
     };
     this.branchService.save(branch);
   }

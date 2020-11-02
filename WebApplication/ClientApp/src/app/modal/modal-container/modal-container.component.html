@@ -1,0 +1,17 @@
+<div class="modal fade" id="myModalContainer" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <strong class="modal-title">Modal Header</strong>
+        <button type="button" class="close" data-dismiss="modal" (click)="onClose()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <!--<ng-container></ng-container>-->
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+
+  </div>
+</div>

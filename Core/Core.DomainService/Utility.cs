@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
 
 namespace Core.DomainService
 {
@@ -337,6 +338,48 @@ namespace Core.DomainService
             CancellationToken cancellationToken = default) => 
             source.ToListAsync(cancellationToken)
                     .ContinueWith<IList<TDocument>>(q => q.Result, TaskContinuationOptions.ExecuteSynchronously);
+
+        public static bool IsCollection(Type type)
+        {
+            return type.IsGenericType &&
+                   type.GetGenericTypeDefinition() == typeof(ICollection<>);
+        }
+
+        public static void TrimCharProperties(Type type, object obj)
+        {
+            var properties = type.GetProperties()
+                .Where(q => q.PropertyType == typeof(string) ||
+                            q.PropertyType == typeof(char)); // Obtain all string & char properties
+
+            foreach (var prop in properties) // Loop through properties
+            {
+                object propertyValue = prop.GetValue(obj);
+                if ((propertyValue ?? string.Empty).ToString() == string.Empty)
+                {
+                    continue;
+                }
+                Type propertyType = prop.PropertyType;
+                var newPropValue = Convert.ChangeType(propertyValue.ToString().Trim(), propertyType);
+                prop.SetValue(obj, newPropValue);
+            }
+        }
+
+        public static void TrimCharNestedProperties(Type type, object obj)
+        {           
+            var properties = type.GetProperties()
+                 .Where(q => IsCollection(q.PropertyType));
+            foreach (var prop in properties)
+            {
+                var nestedType = prop.PropertyType.GenericTypeArguments[0];
+                foreach (var propertyValue in prop.GetValue(obj) as ICollection)
+                {
+                    TrimCharProperties(nestedType, propertyValue);
+                    TrimCharNestedProperties(nestedType, propertyValue);
+                }
+
+            }
+        }
+
 
     }
 

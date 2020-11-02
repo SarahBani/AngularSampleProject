@@ -69,9 +69,13 @@
     <b>Comments</b>
     <section class="col-12" *ngFor="let comment of model.comments">
       "<em>{{ comment.comment }}</em>"
-       <span>-{{ comment.writer }}</span>
+      <span>-{{ comment.writer }}</span>
     </section>
   </div>
 </div>
+<br />
+
+<!--<ng-container></ng-container>-->
+<app-modal-container #newComment></app-modal-container>
 
 <app-spinner *ngIf="isLoading"></app-spinner>

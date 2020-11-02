@@ -67,11 +67,11 @@ export class BankEditComponent extends ImageUploaderComponent
     return this.bankService.uploadLogo(file);
   }
 
-  private onSave(form: NgForm) {
+  private onSave() {
     super.showLoader();
     const bank: IBank = {
       id: this.id,
-      name: form.value.name,
+      name: this.myForm.value.name,
       logoUrl: this.uploadedImageUrl
     };
     this.bankService.save(bank);

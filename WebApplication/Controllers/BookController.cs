@@ -92,6 +92,26 @@ namespace WebApplication.Controllers
             }
         }
 
+        [HttpPut("InsertCommentAsync/{id:length(24)}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> InsertCommentAsync([FromRoute] string id, [FromBody] BookComment bookComment)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return base.GetInvalidRequestResult();
+            }
+            var result = await this._bookService.InsertCommentAsync(id, bookComment);
+            if (result.IsSuccessful)
+            {
+                return base.GetOKResult();
+            }
+            else
+            {
+                return base.GetErrorResult(result);
+            }
+        }
+
         [HttpDelete("DeleteAsync/{id:length(24)}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

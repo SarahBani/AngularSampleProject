@@ -50,7 +50,7 @@ namespace Core.ApplicationService.Implementation
             try
             {
                 return await GetTransactionResultAsync(() =>        
-                    this.Repository.InsertAsync(collection.TrimCharCollectionProperties()));
+                    this.Repository.InsertAsync(collection.TrimCharProperties()));
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace Core.ApplicationService.Implementation
             try
             {
                 return await GetTransactionResultAsync(() =>
-                     this.Repository.UpdateAsync(collection.Id, collection.TrimCharCollectionProperties()));
+                     this.Repository.UpdateAsync(collection.Id, collection.TrimCharProperties()));
             }
             catch (Exception ex)
             {

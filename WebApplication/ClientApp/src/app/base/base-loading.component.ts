@@ -11,7 +11,7 @@ export abstract class BaseLoadingComponent implements OnDestroy {
   constructor(loaderService: ILoaderService = null) { 
     if (loaderService != null) {
       // this constructor is useful for components which have delete button
-      // loader apears not after pressing delete button
+      // loader appears not after pressing delete button
       // but after confirm delete
       this.changeLoaderStatueSubscription = loaderService.changeLoaderStatus
         .subscribe((status: boolean) => {

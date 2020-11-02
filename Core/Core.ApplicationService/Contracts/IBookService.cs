@@ -17,6 +17,8 @@ namespace Core.ApplicationService.Contracts
 
         Task<TransactionResult> UpdateAsync(Book book);
 
+        Task<TransactionResult> InsertCommentAsync(string id, BookComment bookComment);
+
         Task<TransactionResult> DeleteAsync(string id);
 
     }

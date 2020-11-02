@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Core.DomainModel.Collections
 {
-   public class BookComment
+    public class BookComment
     {
 
         [Required(ErrorMessage = "Writer is required!")]

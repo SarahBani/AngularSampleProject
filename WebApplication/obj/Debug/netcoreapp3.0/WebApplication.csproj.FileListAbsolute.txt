@@ -11,6 +11,7 @@ H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\ne
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\libzstd.dll
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\appsettings.Development.json
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\appsettings.json
+H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\App_Data\MongoDB-ExportFile.json
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\Properties\launchSettings.json
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\WebApplication.exe
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\WebApplication.deps.json
@@ -123,4 +124,3 @@ H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\ne
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.dll
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.pdb
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.genruntimeconfig.cache
-H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\App_Data\MongoDB-ExportFile.json

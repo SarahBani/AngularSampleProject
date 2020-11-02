@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IBook } from '../../models/IBook.model';
-import { BookService } from '../../services/book-service';
 
 @Component({
   selector: 'app-book-item',
@@ -11,14 +10,9 @@ export class BookItemComponent implements OnInit {
 
   @Input() model: IBook;
 
-  constructor(private bookService: BookService) { }
+  constructor() { }
 
   public ngOnInit(): void {
-  }
-
-  private onSelect(): void {
-    console.log(this.model);
-    this.bookService.select(this.model);
   }
 
 }

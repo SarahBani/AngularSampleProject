@@ -11,7 +11,6 @@ import { ILoaderService } from './ILoader-service';
 export class BankService extends BaseService implements ILoaderService{
 
   protected controllerName: string = 'Bank';
-  public selectedChanged: Subject<IBank> = new Subject<IBank>();
   public operationCompleted: Subject<boolean> = new Subject<boolean>();
   private confirmDeleteSubscription: Subscription;
   public changeLoaderStatus: Subject<boolean> = new Subject<boolean>();
@@ -22,10 +21,6 @@ export class BankService extends BaseService implements ILoaderService{
     modalService: ModalService,
     exceptionHandlerService: ExceptionHandlerService) {
     super(http, baseUrl, modalService, exceptionHandlerService);
-  }
-
-  public select(bank: IBank): void {
-    this.selectedChanged.next(bank);
   }
 
   public getItem(id: number): Observable<IBank> {

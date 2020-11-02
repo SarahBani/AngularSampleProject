@@ -9,7 +9,7 @@ var BaseLoadingComponent = /** @class */ (function () {
         this.counter = 0;
         if (loaderService != null) {
             // this constructor is useful for components which have delete button
-            // loader apears not after pressing delete button
+            // loader appears not after pressing delete button
             // but after confirm delete
             this.changeLoaderStatueSubscription = loaderService.changeLoaderStatus
                 .subscribe(function (status) {

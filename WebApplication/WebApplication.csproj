@@ -40,13 +40,14 @@
     <None Remove="ClientApp\src\app\services\base-service.ts" />
     <None Remove="ClientApp\src\app\services\contact-service.ts" />
     <None Remove="ClientApp\src\app\services\exception-handler-service.ts" />
-    <None Remove="ClientApp\src\app\services\ILoader-service.ts" />
+    <None Remove="ClientApp\src\app\services\Iloader-service.ts" />
     <None Remove="ClientApp\src\app\services\modal-service.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Remove="ClientApp\src\app\base-form.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\base-loading.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\base\base-modal.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\books\book-detail\bank-detail.component.spec.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\books\book-detail\bank-detail.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\books\book-edit\bank-edit.component.spec.ts" />
@@ -77,9 +78,6 @@
     <TypeScriptCompile Update="ClientApp\src\app\services\base-service.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
-    <TypeScriptCompile Update="ClientApp\src\app\services\ILoader-service.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
     <TypeScriptCompile Update="ClientApp\src\app\services\modal-service.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -95,6 +93,12 @@
     <ProjectReference Include="..\Core\Core.ApplicationService\Core.ApplicationService.csproj" />
     <ProjectReference Include="..\Core\Core.DomainModel\Core.DomainModel.csproj" />
     <ProjectReference Include="..\DependencyInjection\DependencyInjection.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ClientApp\src\app\base\base-modal - Copy.component.js">
+      <DependentUpon>base-modal.component.js</DependentUpon>
+    </None>
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

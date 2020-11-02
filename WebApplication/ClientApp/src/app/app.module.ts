@@ -39,6 +39,8 @@ import { FooterComponent } from './footer/footer.component';
 import { ModalComponent } from './modal/modal.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { AuthInterceptorService } from './services/auth-interceptor-service';
+import { CommentNewComponent } from './books/comment-new/comment-new.component';
+import { ModalContainerComponent } from './modal/modal-container/modal-container.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +74,8 @@ import { AuthInterceptorService } from './services/auth-interceptor-service';
     FooterComponent,
     ModalComponent,
     SpinnerComponent,
+    CommentNewComponent,
+    ModalContainerComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

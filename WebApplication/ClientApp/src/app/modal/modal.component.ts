@@ -15,19 +15,19 @@ export class ModalComponent implements OnInit {
   }
 
   private onOK(): void {
-    this.modalService.onButtonClick(Button.Ok);
+    this.modalService.buttonClick(Button.Ok);
   }
 
   private onCancel(): void {
-    this.modalService.onButtonClick(Button.Cancel);
+    this.modalService.buttonClick(Button.Cancel);
   }
 
   private onYes(): void {
-    this.modalService.onButtonClick(Button.Yes);
+    this.modalService.buttonClick(Button.Yes);
   }
 
   private onNo(): void {
-    this.modalService.onButtonClick(Button.No);
+    this.modalService.buttonClick(Button.No);
   }
 
   private onClose(): void {   

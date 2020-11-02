@@ -111,7 +111,7 @@ export class BookEditComponent extends ImageUploaderComponent
     comments.removeAt(index);
   }
 
-  private onSave(form: NgForm) {
+  private onSave() {
     super.showLoader();
     const formValues: IBook = this.myFormGroup.value;
     const book: IBook = {

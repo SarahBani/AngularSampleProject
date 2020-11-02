@@ -7,7 +7,10 @@
   </div>
 </div>
 
-<button class="btn btn-primary" (click)="onAdd()">Add</button>
-<button class="btn btn-success" (click)="onRefresh()">Refresh</button>
+<div>
+  <button class="btn btn-primary" (click)="onAdd()">Add</button>
+  <button class="btn btn-success" (click)="onRefresh()">Refresh</button>
+</div>
+<br />
 
 <app-spinner *ngIf="isLoading"></app-spinner>

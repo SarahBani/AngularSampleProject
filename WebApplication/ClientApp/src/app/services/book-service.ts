@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IBook } from '../models/Ibook.model';
+import { IBook, IBookComment } from '../models/Ibook.model';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { BaseService } from './base-service';
 import { ModalService } from './modal-service';
@@ -8,10 +8,9 @@ import { ExceptionHandlerService } from './exception-handler-service';
 import { ILoaderService } from './ILoader-service';
 
 @Injectable({ providedIn: 'root' })
-export class BookService extends BaseService implements ILoaderService{
+export class BookService extends BaseService implements ILoaderService {
 
   protected controllerName: string = 'Book';
-  public selectedChanged: Subject<IBook> = new Subject<IBook>();
   public operationCompleted: Subject<boolean> = new Subject<boolean>();
   private confirmDeleteSubscription: Subscription;
   public changeLoaderStatus: Subject<boolean> = new Subject<boolean>();
@@ -21,10 +20,6 @@ export class BookService extends BaseService implements ILoaderService{
     modalService: ModalService,
     exceptionHandlerService: ExceptionHandlerService) {
     super(http, baseUrl, modalService, exceptionHandlerService);
-  }
-
-  public select(book: IBook): void {
-    this.selectedChanged.next(book);
   }
 
   public getItem(id: string): Observable<IBook> {
@@ -59,6 +54,15 @@ export class BookService extends BaseService implements ILoaderService{
 
   private update(id: string, book: IBook): void {
     super.httpPut('UpdateAsync/' + id, book)
+      .subscribe(result => {
+        this.onSuccess(result);
+      }, error => {
+        this.onError(error);
+      });
+  }
+
+  public insertComment(id: string, bookComment: IBookComment): void {
+    super.httpPut<IBookComment>('InsertCommentAsync/' + id, bookComment)
       .subscribe(result => {
         this.onSuccess(result);
       }, error => {

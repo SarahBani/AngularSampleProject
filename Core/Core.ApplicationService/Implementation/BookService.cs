@@ -3,6 +3,7 @@ using Core.DomainModel.Collections;
 using Core.DomainService;
 using Core.DomainService.Repositoy;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -40,11 +41,33 @@ namespace Core.ApplicationService.Implementation
             {
                 SetCommentsCreatedDateTime(book);
                 string prevCoverImageUrl = await this.GetCoverImageUrl(book.Id); // need to wait in order not to delete the new logo
-                await base.Repository.UpdateAsync(book.Id, book.TrimCharCollectionProperties<Book>());
+                await base.Repository.UpdateAsync(book.Id, book.TrimCharProperties());
                 if (book.CoverImageUrl != prevCoverImageUrl)
                 {
                     DeleteLogoFile(prevCoverImageUrl);
                 }
+                return new TransactionResult();
+            }
+            catch (Exception ex)
+            {
+                return GetTransactionException(ex);
+            }
+        }
+
+        public async Task<TransactionResult> InsertCommentAsync(string id, BookComment bookComment)
+        {
+            try
+            {
+                SetCommentsCreatedDateTime(bookComment);
+                var book = await GetByIdAsync(id);
+                var comments = book.Comments;
+                if (comments == null)
+                {
+                    comments = new List<BookComment>();
+                }
+                Utility.TrimCharProperties(typeof(BookComment), bookComment);
+                comments.Add(bookComment);
+                await base.Repository.UpdateAsync(book.Id, book);
                 return new TransactionResult();
             }
             catch (Exception ex)
@@ -84,8 +107,13 @@ namespace Core.ApplicationService.Implementation
             foreach (var bookComment in book.Comments
                 .Where(q => q.CreatedDateTime.Equals(DateTime.MinValue)))
             {
-                bookComment.CreatedDateTime = DateTime.Now;
+                SetCommentsCreatedDateTime(bookComment);
             }
+        }
+
+        private void SetCommentsCreatedDateTime(BookComment bookComment)
+        {
+            bookComment.CreatedDateTime = DateTime.Now;
         }
 
         #endregion /Methods

@@ -20,6 +20,7 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { CanDeactivateGuardService } from './services/can-deactivate-guard-service';
+import { CommentNewComponent } from './books/comment-new/comment-new.component';
 
 @NgModule({
   declarations: [],
@@ -41,7 +42,12 @@ import { CanDeactivateGuardService } from './services/can-deactivate-guard-servi
         children: [
           { path: '', component: SelectBookComponent },
           { path: 'new', component: BookEditComponent, canDeactivate: [CanDeactivateGuardService] },
-          { path: ':id', component: BookDetailComponent },
+          {
+            path: ':id', component: BookDetailComponent,
+            children: [
+              { path: 'new-comment', component: CommentNewComponent },
+            ]
+          },
           { path: ':id/edit', component: BookEditComponent, canDeactivate: [CanDeactivateGuardService] },
         ]
       },

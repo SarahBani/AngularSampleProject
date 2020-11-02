@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { BaseLoadingComponent } from '../../base/base-loading.component';
 import { IBook } from '../../models/IBook.model';
 import { BookService } from '../../services/book-service';
+import { ModalService } from '../../services/modal-service';
 
 @Component({
   selector: 'app-book-detail',
@@ -16,16 +17,23 @@ export class BookDetailComponent extends BaseLoadingComponent implements OnInit,
   private shortSummary: string;
   private isFullSummaryDisplayed: boolean = false;
   private operationCompletedSubscription: Subscription;
+  //public modalClosed: Subject<void> = new Subject<void>();
+
+  // @ViewChild('newComment') newComment;
 
   constructor(private bookService: BookService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private modalService: ModalService) {
     super(bookService);
   }
 
   public ngOnInit(): void {
     this.subscribe();
     this.fillData();
+    if (window.location.href.endsWith('new-comment')) {
+      this.onNewComment();
+    }
   }
 
   private subscribe(): void {
@@ -79,8 +87,31 @@ export class BookDetailComponent extends BaseLoadingComponent implements OnInit,
     this.router.navigate(['edit'], { relativeTo: this.route });
   }
 
-  public onNewComment(): void {
-    
+  private onNewComment(): void {
+    // this.newComment.createComponent(CommentNewComponent);
+    this.router.navigate(['new-comment'], { relativeTo: this.route });
+    var modalContainerResult = this.modalService.showModalContainer('New Comment');
+    modalContainerResult.subscribe((result: any) => {
+      if (result != null) {
+        this.refreshComments();
+      }
+      this.router.navigate(['./'], { relativeTo: this.route });
+    });
+  }
+
+  private refreshComments(): void {
+    super.showLoader();
+    this.route.params.subscribe((params: Params) => {
+      const id: string = params['id'];
+      this.bookService.getItem(id).subscribe((book: IBook) => {
+        super.hideLoader();
+        if (book == null) {
+          this.redirectBack();
+          return;
+        }
+        this.model.comments = book.comments;
+      }, error => super.showError(error));
+    });
   }
 
   private redirectBack(): void {

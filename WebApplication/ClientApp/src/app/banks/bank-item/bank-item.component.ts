@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IBank } from '../../models/IBank.model';
-import { BankService } from '../../services/bank-service';
 
 @Component({
   selector: 'app-bank-item',
@@ -11,13 +10,9 @@ export class BankItemComponent implements OnInit {
 
   @Input() model: IBank;
 
-  constructor(private bankService: BankService) { }
+  constructor() { }
 
   public ngOnInit(): void {
-  }
-
-  private onSelect(): void {
-    this.bankService.select(this.model);
   }
 
 }
