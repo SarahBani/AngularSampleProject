@@ -33,7 +33,7 @@ namespace WebApplication.Controllers
         {
             return await this._bookService.GetByIdAsync(id);
         }
-
+                
         [HttpGet("ListAsync")]
         public async Task<IEnumerable<Book>> GetListAsync()
         {
@@ -45,8 +45,8 @@ namespace WebApplication.Controllers
         {
             return await this._bookService.GetCountAsync();
         }
-
-        [HttpPost("InsertAsync")]
+       
+        [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> InsertAsync([FromBody] Book book)
@@ -67,7 +67,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpPut("UpdateAsync/{id:length(24)}")]
+        [HttpPut("[action]/{id:length(24)}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateAsync([FromRoute] string id, [FromBody] Book book)
@@ -92,7 +92,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpPut("InsertCommentAsync/{id:length(24)}")]
+        [HttpPut("[action]/{id:length(24)}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> InsertCommentAsync([FromRoute] string id, [FromBody] BookComment bookComment)
@@ -112,7 +112,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpDelete("DeleteAsync/{id:length(24)}")]
+        [HttpDelete("[action]/{id:length(24)}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteAsync([FromRoute] string id)
@@ -133,8 +133,8 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpPost("UploadCoverImage"), DisableRequestSizeLimit]
-        public IActionResult UploadLogo()
+        [HttpPost("[action]"), DisableRequestSizeLimit]
+        public IActionResult UploadCoverImage()
         {
             return base.UploadImage("Books");
         }

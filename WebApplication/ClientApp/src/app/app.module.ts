@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TooltipModule } from 'ng2-tooltip-directive';
+//import { ApolloModule } from 'apollo-angular';
+import { HttpLinkModule } from 'apollo-angular-link-http';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -41,6 +43,13 @@ import { SpinnerComponent } from './spinner/spinner.component';
 import { AuthInterceptorService } from './services/auth-interceptor-service';
 import { CommentNewComponent } from './books/comment-new/comment-new.component';
 import { ModalContainerComponent } from './modal/modal-container/modal-container.component';
+import { HotelsComponent } from './hotels/hotels.component';
+import { HotelListComponent } from './hotels/hotel-list/hotel-list.component';
+import { HotelDetailComponent } from './hotels/hotel-detail/hotel-detail.component';
+import { HotelItemComponent } from './hotels/hotel-item/hotel-item.component';
+import { HotelEditComponent } from './hotels/hotel-edit/hotel-edit.component';
+import { SelectHotelComponent } from './hotels/select-hotel/select-hotel.component';
+import { GraphQLModule } from './graphql.module';
 
 @NgModule({
   declarations: [
@@ -76,6 +85,12 @@ import { ModalContainerComponent } from './modal/modal-container/modal-container
     SpinnerComponent,
     CommentNewComponent,
     ModalContainerComponent,
+    HotelsComponent,
+    HotelListComponent,
+    HotelDetailComponent,
+    HotelItemComponent,
+    HotelEditComponent,
+    SelectHotelComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -83,7 +98,10 @@ import { ModalContainerComponent } from './modal/modal-container/modal-container
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    TooltipModule
+    TooltipModule,
+    //ApolloModule,
+    //HttpLinkModule,
+    //GraphQLModule
   ],
   providers: [AuthService, AuthGuardService, CanDeactivateGuardService,
     //{

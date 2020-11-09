@@ -88,17 +88,72 @@ namespace Core.DomainModel.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CountryId");
+                    b.HasIndex("CountryId", "Name")
+                        .IsUnique();
 
                     b.ToTable("City");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            CountryId = (short)1,
+                            Name = "Tehran"
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            CountryId = (short)1,
+                            Name = "Shiraz"
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            CountryId = (short)1,
+                            Name = "Isfahan"
+                        },
+                        new
+                        {
+                            Id = 4L,
+                            CountryId = (short)1,
+                            Name = "Tabriz"
+                        },
+                        new
+                        {
+                            Id = 5L,
+                            CountryId = (short)1,
+                            Name = "Yazd"
+                        },
+                        new
+                        {
+                            Id = 6L,
+                            CountryId = (short)1,
+                            Name = "Kish"
+                        },
+                        new
+                        {
+                            Id = 7L,
+                            CountryId = (short)1,
+                            Name = "Mashhad"
+                        },
+                        new
+                        {
+                            Id = 8L,
+                            CountryId = (short)2,
+                            Name = "Istanbul"
+                        },
+                        new
+                        {
+                            Id = 9L,
+                            CountryId = (short)2,
+                            Name = "Izmir"
+                        });
                 });
 
             modelBuilder.Entity("Core.DomainModel.Entities.Country", b =>
                 {
                     b.Property<short>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("smallint");
 
                     b.Property<string>("FlagUrl")
                         .HasColumnType("nvarchar(max)");
@@ -110,7 +165,191 @@ namespace Core.DomainModel.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Country");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = (short)1,
+                            FlagUrl = "",
+                            Name = "Iran"
+                        },
+                        new
+                        {
+                            Id = (short)2,
+                            FlagUrl = "images\\countries\\Turkey.png",
+                            Name = "Turkey"
+                        },
+                        new
+                        {
+                            Id = (short)3,
+                            FlagUrl = "images\\countries\\UK.png",
+                            Name = "the UK"
+                        },
+                        new
+                        {
+                            Id = (short)4,
+                            FlagUrl = "images\\countries\\USA.png",
+                            Name = "the USA"
+                        },
+                        new
+                        {
+                            Id = (short)5,
+                            FlagUrl = "images\\countries\\Canada.png",
+                            Name = "Canada"
+                        },
+                        new
+                        {
+                            Id = (short)6,
+                            FlagUrl = "images\\countries\\Australia.png",
+                            Name = "Australia"
+                        },
+                        new
+                        {
+                            Id = (short)7,
+                            FlagUrl = "images\\countries\\Germany.png",
+                            Name = "Germany"
+                        },
+                        new
+                        {
+                            Id = (short)8,
+                            FlagUrl = "images\\countries\\Netherlands.png",
+                            Name = "the Netherlands"
+                        },
+                        new
+                        {
+                            Id = (short)9,
+                            FlagUrl = "images\\countries\\Switzerland.png",
+                            Name = "Switzerland"
+                        },
+                        new
+                        {
+                            Id = (short)10,
+                            FlagUrl = "images\\countries\\France.png",
+                            Name = "France"
+                        },
+                        new
+                        {
+                            Id = (short)11,
+                            FlagUrl = "images\\countries\\Italy.png",
+                            Name = "Italy"
+                        },
+                        new
+                        {
+                            Id = (short)12,
+                            FlagUrl = "",
+                            Name = "Spain"
+                        },
+                        new
+                        {
+                            Id = (short)13,
+                            FlagUrl = "images\\countries\\Sweden.png",
+                            Name = "Sweden"
+                        },
+                        new
+                        {
+                            Id = (short)14,
+                            FlagUrl = "",
+                            Name = "Norway"
+                        },
+                        new
+                        {
+                            Id = (short)15,
+                            FlagUrl = "images\\countries\\Austria.png",
+                            Name = "Austria"
+                        },
+                        new
+                        {
+                            Id = (short)16,
+                            FlagUrl = "",
+                            Name = "Denmark"
+                        },
+                        new
+                        {
+                            Id = (short)17,
+                            FlagUrl = "images\\countries\\Hungary.png",
+                            Name = "Hungary"
+                        },
+                        new
+                        {
+                            Id = (short)18,
+                            FlagUrl = "",
+                            Name = "Poland"
+                        },
+                        new
+                        {
+                            Id = (short)19,
+                            FlagUrl = "",
+                            Name = "Finland"
+                        },
+                        new
+                        {
+                            Id = (short)30,
+                            FlagUrl = "",
+                            Name = "UAE"
+                        });
+                });
+
+            modelBuilder.Entity("Core.DomainModel.Entities.Hotel", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("CityId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<byte>("Stars")
+                        .HasColumnType("tinyint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.ToTable("Hotel");
+                });
+
+            modelBuilder.Entity("Core.DomainModel.Entities.HotelRoom", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte>("Capacity")
+                        .HasColumnType("tinyint");
+
+                    b.Property<string>("Facilities")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("HotelId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<short>("Number")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HotelId");
+
+                    b.ToTable("HotelRoom");
                 });
 
             modelBuilder.Entity("Core.DomainModel.Entities.Branch", b =>
@@ -129,6 +368,26 @@ namespace Core.DomainModel.Migrations
                         .WithMany("Cities")
                         .HasForeignKey("CountryId")
                         .HasConstraintName("FK_City_Country")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.DomainModel.Entities.Hotel", b =>
+                {
+                    b.HasOne("Core.DomainModel.Entities.City", "City")
+                        .WithMany("Hotels")
+                        .HasForeignKey("CityId")
+                        .HasConstraintName("FK_Hotel_City")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.DomainModel.Entities.HotelRoom", b =>
+                {
+                    b.HasOne("Core.DomainModel.Entities.Hotel", "Hotel")
+                        .WithMany("HotelRooms")
+                        .HasForeignKey("HotelId")
+                        .HasConstraintName("FK_HotelRoom_Hotel")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

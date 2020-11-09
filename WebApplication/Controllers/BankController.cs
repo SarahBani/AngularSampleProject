@@ -48,7 +48,7 @@ namespace WebApplication.Controllers
             return await this._bankService.GetCountAsync();
         }
 
-        [HttpPost("InsertAsync")]
+        [HttpPost("[action]")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> InsertAsync([FromBody] Bank bank)
@@ -69,7 +69,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpPut("UpdateAsync/{id}")]
+        [HttpPut("[action]/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] Bank bank)
@@ -94,7 +94,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpDelete("DeleteAsync/{id}")]
+        [HttpDelete("[action]/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteAsync([FromRoute] int id)
@@ -115,7 +115,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpPost("UploadLogo"), DisableRequestSizeLimit]
+        [HttpPost("[action]"), DisableRequestSizeLimit]
         public IActionResult UploadLogo()
         {
             return base.UploadImage("Banks");

@@ -2,7 +2,7 @@
 
 namespace Core.DomainService.Repositoy
 {
-    public interface ICountryRepository : IBaseRepository<Country, short>
+    public interface ICountryRepository : IBaseReadOnlyRepository<Country, short>
     {
 
     }

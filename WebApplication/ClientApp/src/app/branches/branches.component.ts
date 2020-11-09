@@ -10,7 +10,7 @@ import { BranchService } from '../services/branch-service';
   templateUrl: './branches.component.html',
   styleUrls: ['./branches.component.css']
 })
-export class BranchesComponent extends BaseLoadingComponent  implements OnInit {
+export class BranchesComponent extends BaseLoadingComponent implements OnInit {
 
   private banks: IBank[] = [];
   private selectedBankId: number;
@@ -35,7 +35,7 @@ export class BranchesComponent extends BaseLoadingComponent  implements OnInit {
 
   private fillBanks(): void {
     super.showLoader();
-    this.bankService.getList().subscribe((banks) => {
+    this.bankService.getList().subscribe((banks: IBank[]) => {
       this.banks = banks;
       super.hideLoader();
     }, error => super.showError(error));

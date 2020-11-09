@@ -11,7 +11,7 @@
                accept="image/*" (change)="uploadImage($event.target.files)">
       </div>
       <div class="row" *ngIf="uploadedPercentage!=null">
-        <div class="col-12" >
+        <div class="col-12">
           <progress id="file" value="{{ uploadedPercentage }}" max="100"></progress>
           <small class="align-top"> {{ uploadedPercentage }}%</small>
         </div>
@@ -43,5 +43,6 @@
     </form>
   </div>
 </div>
+<br />
 
 <app-spinner *ngIf="isLoading"></app-spinner>

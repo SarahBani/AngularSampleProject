@@ -21,6 +21,10 @@ import { ContactComponent } from './contact/contact.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { CanDeactivateGuardService } from './services/can-deactivate-guard-service';
 import { CommentNewComponent } from './books/comment-new/comment-new.component';
+import { HotelsComponent } from './hotels/hotels.component';
+import { SelectHotelComponent } from './hotels/select-hotel/select-hotel.component';
+import { HotelEditComponent } from './hotels/hotel-edit/hotel-edit.component';
+import { HotelDetailComponent } from './hotels/hotel-detail/hotel-detail.component';
 
 @NgModule({
   declarations: [],
@@ -58,6 +62,15 @@ import { CommentNewComponent } from './books/comment-new/comment-new.component';
           { path: 'new', component: BranchEditComponent, canDeactivate: [CanDeactivateGuardService] },
           { path: ':id', component: BranchDetailComponent, pathMatch: 'full' },
           { path: ':id/edit', component: BranchEditComponent, canDeactivate: [CanDeactivateGuardService] },
+        ]
+      },
+      {
+        path: 'hotels', component: HotelsComponent,
+        children: [
+          { path: '', component: SelectHotelComponent },
+          { path: 'new', component: HotelEditComponent, canDeactivate: [CanDeactivateGuardService] },
+          { path: ':id', component: HotelDetailComponent, pathMatch: 'full' },
+          { path: ':id/edit', component: HotelEditComponent, canDeactivate: [CanDeactivateGuardService] },
         ]
       },
       { path: 'about', component: AboutComponent },

@@ -22,7 +22,7 @@ namespace Core.DomainModel.Entities
 
         public virtual City City { get; set; }
 
-        public ICollection<Room> Rooms { get; set; }
+        public ICollection<HotelRoom> HotelRooms { get; set; }
 
     }
     internal class HotelEntityTypeConfiguration : IEntityTypeConfiguration<Hotel>
@@ -42,10 +42,10 @@ namespace Core.DomainModel.Entities
                 .HasForeignKey(q => q.CityId)
                 .HasConstraintName("FK_Hotel_City");
 
-            builder.HasMany(q => q.Rooms)
+            builder.HasMany(q => q.HotelRooms)
                 .WithOne(q => q.Hotel)
                 .HasForeignKey(q => q.HotelId)
-                .HasConstraintName("FK_Room_Hotel");
+                .HasConstraintName("FK_HotelRoom_Hotel");
         }
 
     }

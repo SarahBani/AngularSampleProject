@@ -15,9 +15,12 @@
     ],
     "lib": [
       "es2017",
-      "dom"
+      "dom",
+      "esnext.asynciterable"
     ],
-    "types": [ "jquery" ]
-    //"types": [ "jquery", "bootstrap", "signalr" ]
+    "types": [
+      "jquery"
+    ],
+    "allowSyntheticDefaultImports": true
   }
 }

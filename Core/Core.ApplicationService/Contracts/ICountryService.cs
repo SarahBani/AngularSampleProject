@@ -14,11 +14,5 @@ namespace Core.ApplicationService.Contracts
 
         Task<IList<Country>> GetAllAsync();
 
-        Task<TransactionResult> InsertAsync(Country country);
-
-        Task<TransactionResult> UpdateAsync(Country country);
-
-        Task<TransactionResult> DeleteAsync(short id);
-
     }
 }

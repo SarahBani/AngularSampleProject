@@ -2,7 +2,7 @@
 
 namespace Core.DomainService.Repositoy
 {
-    public interface ICityRepository : IBaseRepository<City, long>
+    public interface ICityRepository : IBaseReadOnlyRepository<City, long>
     {
 
     }

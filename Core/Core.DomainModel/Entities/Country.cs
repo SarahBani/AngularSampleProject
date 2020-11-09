@@ -23,9 +23,15 @@ namespace Core.DomainModel.Entities
 
         public void Configure(EntityTypeBuilder<Country> builder)
         {
+            builder.Property(q => q.Id)
+                .ValueGeneratedNever();
+
             builder.Property(q => q.Name)
                 .IsRequired()
                 .HasMaxLength(40);
+
+            builder.HasIndex(q => q.Name)
+                .IsUnique();
 
             builder.HasMany(q => q.Cities)
                 .WithOne(q => q.Country)

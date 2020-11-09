@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Core.ApplicationService.Implementation
 {
-    public class CityService : BaseService<ICityRepository, City, long>, ICityService
+    public class CityService : BaseReadOnlyService<ICityRepository, City, long>, ICityService
     {
 
         #region Properties
@@ -33,9 +33,6 @@ namespace Core.ApplicationService.Implementation
 
         public Task<int> GetCountByCountryIdAsync(short countryId) =>
              base.GetQueryable().CountAsync(q => q.CountryId.Equals(countryId));
-
-        public Task<TransactionResult> DeleteByCountryIdAsync(short countryId) =>
-             base.DeleteAsync(q => q.CountryId.Equals(countryId));
 
         #endregion /Methods
 

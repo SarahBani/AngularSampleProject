@@ -4,7 +4,7 @@ using Infrastructure.DataBase.Repositoy;
 
 namespace Infrastructure.DataBase.Repository
 {
-    public class CountryRepository : BaseRepository<Country, short>, ICountryRepository
+    public class CountryRepository : BaseReadOnlyRepository<Country, short>, ICountryRepository
     {
         public CountryRepository(MyDataBaseContext dbContext)
             : base(dbContext)

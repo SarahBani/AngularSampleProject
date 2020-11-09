@@ -14,13 +14,5 @@ namespace Core.ApplicationService.Contracts
 
         Task<int> GetCountByCountryIdAsync(short countryId);
 
-        Task<TransactionResult> InsertAsync(City city);
-
-        Task<TransactionResult> UpdateAsync(City city);
-
-        Task<TransactionResult> DeleteAsync(long id);
-
-        Task<TransactionResult> DeleteByCountryIdAsync(short countryId);
-
     }
 }

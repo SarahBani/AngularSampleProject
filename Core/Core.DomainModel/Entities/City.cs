@@ -26,9 +26,18 @@ namespace Core.DomainModel.Entities
 
         public void Configure(EntityTypeBuilder<City> builder)
         {
+            //builder
+            //    .Property(q => q.Id)
+            //    .UseIdentityColumn()
+            //    .ValueGeneratedOnAdd(); 
+
             builder.Property(q => q.Name)
                 .IsRequired()
                 .HasMaxLength(50);
+
+            builder
+                .HasIndex(q => new { q.CountryId, q.Name })
+                .IsUnique();
         }
 
     }

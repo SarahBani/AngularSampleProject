@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <form [formGroup]="myFormGroup" (ngSubmit)="onSave()"  *ngIf="myFormGroup!=null">
+      <form [formGroup]="myFormGroup" (ngSubmit)="onSave()" *ngIf="myFormGroup!=null">
         <div class="form-group">
           <label for="name">Name: </label>
           <input type="text" id="name" class="form-control" formControlName="name" required />
@@ -87,5 +87,6 @@
     </div>
   </div>
 </div>
+<br />
 
 <app-spinner *ngIf="isLoading"></app-spinner>

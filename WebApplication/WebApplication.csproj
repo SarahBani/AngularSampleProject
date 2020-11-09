@@ -16,6 +16,12 @@
 
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="4.5.2" />
+    <PackageReference Include="GraphiQL" Version="2.0.0" />
+    <PackageReference Include="GraphQL" Version="3.1.3" />
+    <PackageReference Include="GraphQL.Server.Transports.AspNetCore" Version="4.2.1" />
+    <PackageReference Include="GraphQL.Server.Transports.AspNetCore.SystemTextJson" Version="4.2.1" />
+    <PackageReference Include="GraphQL.Server.Transports.WebSockets" Version="4.2.1" />
+    <PackageReference Include="GraphQL.Server.Ui.Playground" Version="4.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.8">
       <PrivateAssets>all</PrivateAssets>
@@ -25,6 +31,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Splat" Version="9.6.1" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
 
@@ -69,9 +76,12 @@
     <TypeScriptCompile Remove="ClientApp\src\app\models\IContact.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\ICountry.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\ICustomActionResult.model.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\models\IHotel.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\services\bank-service.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\services\book-service.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\services\branch-service.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\services\country-service.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\services\hotel-service.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -87,6 +97,7 @@
     <Folder Include="Helper\" />
     <Folder Include="Resources\Images\Banks\" />
     <Folder Include="Resources\Images\Temp\" />
+    <Folder Include="wwwroot\images\countries\" />
   </ItemGroup>
 
   <ItemGroup>

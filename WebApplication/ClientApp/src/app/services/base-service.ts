@@ -12,7 +12,7 @@ export abstract class BaseService {
   private const_confirmDelete: string = "Are you sure to delete this item?";
   public onUploadFinished: Subject<string> = new Subject<string>();
 
-  constructor(private httpClient: HttpClient,
+  constructor(protected httpClient: HttpClient,
     @Inject('BASE_URL') private baseUrl: string,
     protected modalService: ModalService,
     private exceptionHandlerService: ExceptionHandlerService) {

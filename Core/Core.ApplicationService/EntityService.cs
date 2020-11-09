@@ -16,13 +16,49 @@ namespace Core.ApplicationService
 
         #region Repositories
 
+        public ICityRepository CityRepository { get; private set; }
+
+        public ICountryRepository CountryRepository { get; private set; }
+
         public IBankRepository BankRepository { get; private set; }
 
         public IBranchRepository BranchRepository { get; private set; }
 
+        public IHotelRepository HotelRepository { get; private set; }
+
+        public IHotelRoomRepository HotelRoomRepository { get; private set; }
+
         #endregion /Repositories
 
         #region Services
+
+        private ICityService _cityService;
+        public ICityService CityService
+        {
+            get
+            {
+                if (_cityService == null)
+                {
+                    _cityService = new CityService(this);
+
+                }
+                return _cityService;
+            }
+        }
+
+        private ICountryService _countryService;
+        public ICountryService CountryService
+        {
+            get
+            {
+                if (_countryService == null)
+                {
+                    _countryService = new CountryService(this);
+
+                }
+                return _countryService;
+            }
+        }
 
         private IBankService _bankService;
         public IBankService BankService
@@ -52,18 +88,54 @@ namespace Core.ApplicationService
             }
         }
 
+        private IHotelService _hotelService;
+        public IHotelService HotelService
+        {
+            get
+            {
+                if (_hotelService == null)
+                {
+                    _hotelService = new HotelService(this);
+
+                }
+                return _hotelService;
+            }
+        }
+
+        private IHotelRoomService _hotelRoomService;
+        public IHotelRoomService HotelRoomService
+        {
+            get
+            {
+                if (_hotelRoomService == null)
+                {
+                    _hotelRoomService = new HotelRoomService(this);
+
+                }
+                return _hotelRoomService;
+            }
+        }
+
         #endregion /Repositories
 
         #endregion /Properties
 
         #region Constructors
 
-        public EntityService(IBaseRepository<Bank, int> bankRepository,
+        public EntityService(IBaseReadOnlyRepository<City, long> cityRepository,
+                             IBaseReadOnlyRepository<Country, short> countryRepository, 
+                             IBaseRepository<Bank, int> bankRepository,
                              IBaseRepository<Branch, int> branchRepository,
+                             IBaseRepository<Hotel, long> hotelRepository,
+                             IBaseRepository<HotelRoom, long> hotelRoomRepository,
                              IUnitOfWork unitOfWork)
         {
+            this.CityRepository = (cityRepository as ICityRepository);
+            this.CountryRepository = (countryRepository as ICountryRepository);
             this.BankRepository = (bankRepository as IBankRepository);
             this.BranchRepository = (branchRepository as IBranchRepository);
+            this.HotelRepository = (hotelRepository as IHotelRepository);
+            this.HotelRoomRepository = (hotelRoomRepository as IHotelRoomRepository);
 
             this.UnitOfWork = unitOfWork;
         }
