@@ -31,55 +31,55 @@ import { HotelDetailComponent } from './hotels/hotel-detail/hotel-detail.compone
   imports: [
     CommonModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      {
+    { path: '', component: HomeComponent, pathMatch: 'full' },
+    {
         path: 'banks', component: BanksComponent,
         children: [
-          { path: '', component: SelectBankComponent },
-          { path: 'new', component: BankEditComponent, canDeactivate: [CanDeactivateGuardService] },
-          { path: ':id', component: BankDetailComponent },
-          { path: ':id/edit', component: BankEditComponent, canDeactivate: [CanDeactivateGuardService] },
+            { path: '', component: SelectBankComponent },
+            { path: 'new', component: BankEditComponent, canDeactivate: [CanDeactivateGuardService] },
+            { path: ':id', component: BankDetailComponent },
+            { path: ':id/edit', component: BankEditComponent, canDeactivate: [CanDeactivateGuardService] },
         ]
-      },
-      {
+    },
+    {
         path: 'books', component: BooksComponent,
         children: [
-          { path: '', component: SelectBookComponent },
-          { path: 'new', component: BookEditComponent, canDeactivate: [CanDeactivateGuardService] },
-          {
-            path: ':id', component: BookDetailComponent,
-            children: [
-              { path: 'new-comment', component: CommentNewComponent },
-            ]
-          },
-          { path: ':id/edit', component: BookEditComponent, canDeactivate: [CanDeactivateGuardService] },
+            { path: '', component: SelectBookComponent },
+            { path: 'new', component: BookEditComponent, canDeactivate: [CanDeactivateGuardService] },
+            {
+                path: ':id', component: BookDetailComponent,
+                children: [
+                    { path: 'new-comment', component: CommentNewComponent },
+                ]
+            },
+            { path: ':id/edit', component: BookEditComponent, canDeactivate: [CanDeactivateGuardService] },
         ]
-      },
-      {
+    },
+    {
         path: 'branches', component: BranchesComponent,
         children: [
-          { path: '', component: SelectBranchComponent },
-          { path: 'new', component: BranchEditComponent, canDeactivate: [CanDeactivateGuardService] },
-          { path: ':id', component: BranchDetailComponent, pathMatch: 'full' },
-          { path: ':id/edit', component: BranchEditComponent, canDeactivate: [CanDeactivateGuardService] },
+            { path: '', component: SelectBranchComponent },
+            { path: 'new', component: BranchEditComponent, canDeactivate: [CanDeactivateGuardService] },
+            { path: ':id', component: BranchDetailComponent, pathMatch: 'full' },
+            { path: ':id/edit', component: BranchEditComponent, canDeactivate: [CanDeactivateGuardService] },
         ]
-      },
-      {
+    },
+    {
         path: 'hotels', component: HotelsComponent,
         children: [
-          { path: '', component: SelectHotelComponent },
-          { path: 'new', component: HotelEditComponent, canDeactivate: [CanDeactivateGuardService] },
-          { path: ':id', component: HotelDetailComponent, pathMatch: 'full' },
-          { path: ':id/edit', component: HotelEditComponent, canDeactivate: [CanDeactivateGuardService] },
+            { path: '', component: SelectHotelComponent },
+            { path: 'new', component: HotelEditComponent, canDeactivate: [CanDeactivateGuardService] },
+            { path: ':id', component: HotelDetailComponent, pathMatch: 'full' },
+            { path: ':id/edit', component: HotelEditComponent, canDeactivate: [CanDeactivateGuardService] },
         ]
-      },
-      { path: 'about', component: AboutComponent },
-      { path: 'contact', component: ContactComponent, canDeactivate: [CanDeactivateGuardService] },
-      { path: 'error-page', component: ErrorPageComponent },
-      { path: 'not-found', component: PageNotFoundComponent },
-      { path: 'access-denied', component: AccessDeniedComponent },
-      { path: '**', redirectTo: 'not-found' }
-    ])
+    },
+    { path: 'about', component: AboutComponent },
+    { path: 'contact', component: ContactComponent, canDeactivate: [CanDeactivateGuardService] },
+    { path: 'error-page', component: ErrorPageComponent },
+    { path: 'not-found', component: PageNotFoundComponent },
+    { path: 'access-denied', component: AccessDeniedComponent },
+    { path: '**', redirectTo: 'not-found' }
+], { relativeLinkResolution: 'legacy' })
   ],
   exports: [RouterModule]
 })

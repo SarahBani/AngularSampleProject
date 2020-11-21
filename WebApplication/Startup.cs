@@ -54,13 +54,13 @@ namespace WebApplication
 
             services.AddSingleton<IDocumentWriter, DocumentWriter>();
             services.AddSingleton<IDocumentExecuter, DocumentExecuter2>();
-            services.AddScoped<HotelQuery>();
+            services.AddScoped<GraphQuery>();
             services.AddScoped<HotelType>();
             services.AddScoped<HotelRoomType>();
             services.AddScoped<CityType>();
             services.AddScoped<CountryType>();
             //services.AddScoped<HotelSchema>();
-            services.AddScoped<ISchema, HotelSchema>();
+            services.AddScoped<ISchema, GraphSchema>();
 
             //services.AddSingleton<HotelQuery>();
 

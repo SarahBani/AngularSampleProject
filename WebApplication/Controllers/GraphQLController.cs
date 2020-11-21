@@ -31,7 +31,7 @@ namespace WebApplication.Controllers
         #region Actions
 
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody] HotelQuery query)
+        public async Task<IActionResult> PostAsync([FromBody] GraphQuery query)
         {
             var result = await _executer.ExecuteAsync(_ =>
             {

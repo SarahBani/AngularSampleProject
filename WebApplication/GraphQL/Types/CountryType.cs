@@ -12,7 +12,8 @@ namespace UserInterface.GraphQL.Types
 
             Field(q => q.Id);
             Field(q => q.Name);
-            Field(q => q.FlagUrl, nullable: true);            
+            Field(q => q.FlagUrl, nullable: true);
+            Field<ListGraphType<CityType>>("cities", "list of cities");
         }
 
     }

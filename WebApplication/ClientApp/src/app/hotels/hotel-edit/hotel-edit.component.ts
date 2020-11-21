@@ -6,8 +6,11 @@ import { BaseFormComponent } from '../../base/base-form.component';
 import { ICity } from '../../models/ICity.model';
 import { ICountry } from '../../models/ICountry.model';
 import { IHotel } from '../../models/IHotel.model';
-import { CountryService } from '../../services/country-service';
+import { LocationService } from '../../services/location-service';
 import { HotelService } from '../../services/hotel-service';
+
+declare var jquery: any;
+declare var $: any;
 
 @Component({
   selector: 'app-hotel-edit',
@@ -26,11 +29,11 @@ export class HotelEditComponent extends BaseFormComponent
   private selectedCountryName: string = '---';
   private selectedCityId: number;
   private selectedCityName: string = '---';
+  private stars: number;
   private operationCompletedSubscription: Subscription;
 
   constructor(private hotelService: HotelService,
-    private countryService: CountryService,
-    // private cityService: CityService,
+    private locationService: LocationService,
     private route: ActivatedRoute,
     private router: Router) {
     super(hotelService);
@@ -57,9 +60,7 @@ export class HotelEditComponent extends BaseFormComponent
 
   private initForm() {
     this.fillCountries();
-   // this.setSelectedCountry();
-    //this.fillCities();
-    //this.setSelectedCity();
+    $('.starrr').starrr();
 
     if (this.route.snapshot.params["id"] != null) {
       this.id = +this.route.snapshot.params["id"];
@@ -73,7 +74,12 @@ export class HotelEditComponent extends BaseFormComponent
         }
         this.myForm.setValue({
           'name': hotel.name,
-          'stars': hotel.stars,
+          'address': hotel.address,
+        });
+        //hotel.cityId
+        this.stars = hotel.stars;
+        $('.starrr').starrr({
+          rating: this.stars
         });
       }, error => super.showError(error));
     }
@@ -81,31 +87,51 @@ export class HotelEditComponent extends BaseFormComponent
 
   private fillCountries(): void {
     super.showLoader();
-    this.countryService.getList().subscribe((countries: ICountry[]) => {
+    this.locationService.getCountryList().subscribe((countries: ICountry[]) => {
       this.countries = countries;
       super.hideLoader();
     }, error => super.showError(error));
   }
 
   private onSelectCountry(country: ICountry): void {
-    this.selectedCountryId = country.id;
-    this.selectedCountryName = country.name;
-   // this.branchService.changeCountry(bank.id);
+    if (country != null) {
+      this.selectedCountryId = country.id;
+      this.selectedCountryName = country.name;
+      this.cities = country.cities;
+    } else {
+      this.selectedCountryId = 0;
+      this.selectedCountryName = '---';
+    }
+    this.onSelectCity(null);
   }
 
-  private onSave() {
+  private onSelectCity(city: ICity): void {
+    if (city != null) {
+      this.selectedCityId = city.id;
+      this.selectedCityName = city.name;
+    } else {
+      this.selectedCityId = 0;
+      this.selectedCityName = '---';
+    }
+  }
+
+  private onClear(): void {
+    this.onSelectCountry(null);
+  }
+
+  private onSave(): void {
     super.showLoader();
     const hotel: IHotel = {
       id: this.id,
       name: this.myForm.value.name,
-      cityId: this.myForm.value.cityId,
-      stars: this.myForm.value.stars,
+      cityId: this.selectedCityId,
+      stars: this.stars,
       address: this.myForm.value.address
     };
     this.hotelService.save(hotel);
   }
 
-  private onDelete() {
+  private onDelete(): void {
     this.hotelService.delete(this.id);
   }
 

@@ -141,3 +141,4 @@ H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\ne
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.MvcApplicationPartsAssemblyInfo.cs
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.MvcApplicationPartsAssemblyInfo.cache
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\GraphQL.Server.Transports.WebSockets.dll
+H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\libman.json

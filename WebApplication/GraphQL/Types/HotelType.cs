@@ -14,8 +14,8 @@ namespace UserInterface.GraphQL.Types
             Field(q => q.Name).Description("The name of the hotel");
             Field(q => q.Stars);
             Field(q => q.Address, nullable: true);
-            //Field<CityType>(nameof(Hotel.City));
-            //Field<CountryType>(nameof(Hotel.City.Country));
+            Field<CityType>(nameof(Hotel.City));
+            Field<CountryType>(nameof(Hotel.City.Country));
         }
 
     }

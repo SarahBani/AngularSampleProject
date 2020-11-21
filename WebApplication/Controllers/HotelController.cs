@@ -117,7 +117,7 @@ namespace WebApplication.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] HotelQuery query)
+        public async Task<IActionResult> Post([FromBody] GraphQuery query)
         {
             var result = await _executer.ExecuteAsync(_ =>
             {
