@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs'
 import { ModalService } from './modal-service';
 import { ExceptionHandlerService } from './exception-handler-service';
-import { Apollo } from 'apollo-angular';
+//import { Apollo } from 'apollo-angular';
 import gql from "graphql-tag";
 
 export abstract class BaseGraphQLService {
@@ -10,7 +10,7 @@ export abstract class BaseGraphQLService {
   private const_confirmDelete: string = "Are you sure to delete this item?";
   public onUploadFinished: Subject<string> = new Subject<string>();
 
-  constructor(private apollo: Apollo,
+  constructor(//private apollo: Apollo,
     private httpClient: HttpClient,
     protected modalService: ModalService,
     private exceptionHandlerService: ExceptionHandlerService) {
@@ -41,13 +41,13 @@ export abstract class BaseGraphQLService {
 
   protected httpPost(query: string): Observable<any> {
     console.log(gql`query QueryContent { ${query} }`);
-    //return this.httpClient.post('graphql', gql`query QueryContent { ${query} }`, this.getHeaders());
-    this.apollo.watchQuery({
-      query: gql`query QueryContent { ${query} }`
-    });
-    return this.apollo.query({
-      query: gql`query QueryContent { ${query} }`
-    });
+    return this.httpClient.post('graphql', `query QueryContent { ${query} }`, this.getHeaders());
+    //this.apollo.watchQuery({
+    //  query: gql`query QueryContent { ${query} }`
+    //});
+    //return this.apollo.query({
+    //  query: gql`query QueryContent { ${query} }`
+    //});
   }
 
   protected confirmDelete(): Observable<boolean> {

@@ -7,10 +7,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseGraphQLService = void 0;
 var http_1 = require("@angular/common/http");
 var rxjs_1 = require("rxjs");
+//import { Apollo } from 'apollo-angular';
 var graphql_tag_1 = require("graphql-tag");
 var BaseGraphQLService = /** @class */ (function () {
-    function BaseGraphQLService(apollo, httpClient, modalService, exceptionHandlerService) {
-        this.apollo = apollo;
+    function BaseGraphQLService(//private apollo: Apollo,
+    httpClient, modalService, exceptionHandlerService) {
         this.httpClient = httpClient;
         this.modalService = modalService;
         this.exceptionHandlerService = exceptionHandlerService;
@@ -36,13 +37,13 @@ var BaseGraphQLService = /** @class */ (function () {
     //}
     BaseGraphQLService.prototype.httpPost = function (query) {
         console.log(graphql_tag_1.default(templateObject_1 || (templateObject_1 = __makeTemplateObject(["query QueryContent { ", " }"], ["query QueryContent { ", " }"])), query));
-        //return this.httpClient.post('graphql', gql`query QueryContent { ${query} }`, this.getHeaders());
-        this.apollo.watchQuery({
-            query: graphql_tag_1.default(templateObject_2 || (templateObject_2 = __makeTemplateObject(["query QueryContent { ", " }"], ["query QueryContent { ", " }"])), query)
-        });
-        return this.apollo.query({
-            query: graphql_tag_1.default(templateObject_3 || (templateObject_3 = __makeTemplateObject(["query QueryContent { ", " }"], ["query QueryContent { ", " }"])), query)
-        });
+        return this.httpClient.post('graphql', "query QueryContent { " + query + " }", this.getHeaders());
+        //this.apollo.watchQuery({
+        //  query: gql`query QueryContent { ${query} }`
+        //});
+        //return this.apollo.query({
+        //  query: gql`query QueryContent { ${query} }`
+        //});
     };
     BaseGraphQLService.prototype.confirmDelete = function () {
         return this.modalService.showConfirm(this.const_confirmDelete);
@@ -55,5 +56,5 @@ var BaseGraphQLService = /** @class */ (function () {
     return BaseGraphQLService;
 }());
 exports.BaseGraphQLService = BaseGraphQLService;
-var templateObject_1, templateObject_2, templateObject_3;
+var templateObject_1;
 //# sourceMappingURL=base-graphql_service.js.map
