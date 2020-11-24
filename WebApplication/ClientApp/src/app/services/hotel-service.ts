@@ -7,61 +7,54 @@ import { ModalService } from './modal-service';
 import { ExceptionHandlerService } from './exception-handler-service';
 import { ILoaderService } from './ILoader-service';
 import { map } from 'rxjs/operators';
+import { BaseGraphQLService } from './base-graphql_service';
+import { Apollo } from 'apollo-angular';
 
 @Injectable({ providedIn: 'root' })
-export class HotelService extends BaseService implements ILoaderService {
+export class HotelService extends BaseGraphQLService implements ILoaderService {
 
-  protected controllerName: string = 'Hotel';
   public operationCompleted: Subject<boolean> = new Subject<boolean>();
   private confirmDeleteSubscription: Subscription;
   public changeLoaderStatus: Subject<boolean> = new Subject<boolean>();
 
-  constructor(http: HttpClient,
-    @Inject('BASE_URL') baseUrl: string,
+  constructor(apollo: Apollo,
+    http: HttpClient,
     modalService: ModalService,
     exceptionHandlerService: ExceptionHandlerService) {
-    super(http, baseUrl, modalService, exceptionHandlerService);
+    super(apollo, http, modalService, exceptionHandlerService);
   }
 
   public getItem(id: number): Observable<IHotel> {
-    return super.httpGetItem<IHotel>(id);
-  }
-
-  public getList()//: Observable<IHotel[]>
-  {
-    //return super.httpGetAll<IHotel>();
-    //const query = `?query=
-    //{
-    //  posts (id:10){
-    //    id
-    //    title
-    //    body
-    //    userId
-    //    comment {
-    //      id
-    //      email
-    //      body
-    //      name
-    //      postId
-    //    }
-    //  }
-    //}`;
-    const query = `?query=
-    {
-      hotels {
+    const query = `
+      hotel {
         id
         name
       }
-    }`;
-    return this.httpClient.get < { data, extensions }>(`graphql/query=${query}`)
+    `;
+    return super.httpPost(query)
       .pipe(map((response) => {
-        return response.data.hotels;
+        return response.data.hotel;
       }));
   }
 
-  public getCount(): Observable<number> {
-    return super.httpGetCount();
+  public getList(): Observable<IHotel[]> {
+    const query = `
+      hotels {
+        id
+        name,
+        stars,
+        address
+      }
+    `;
+    return super.httpPost(query)
+      .pipe(map((response) => {
+        return response.data.countries;
+      }));
   }
+
+  //public getCount(): Observable<number> {
+  //  return super.httpGetCount();
+  //}
 
   public save(hotel: IHotel): void {
     if (hotel.id > 0) {
@@ -73,16 +66,40 @@ export class HotelService extends BaseService implements ILoaderService {
   }
 
   private insert(hotel: IHotel): void {
-    super.httpPost<IHotel>('InsertAsync', hotel)
-      .subscribe(result => {
-        this.onSuccess(result);
-      }, error => {
-        this.onError(error);
-      });
+    //const mutation = `createHotel ($hotel : hotel!){  
+    //  createHotel(hotel : $hotel){  
+    //    name,
+    //    cityId,
+    //    stars,
+    //    address      
+    //  }  
+    //}`;
+    const mutation = ` 
+      createHotel(hotel: ` + hotel + `)
+        {
+          isSuccessful
+          customExceptionMessage
+        }    
+      }
+    `;
+    super.httpPost(mutation)
+      .pipe(map((response) => {
+        return response.data;
+      }));
   }
 
   private update(id: number, hotel: IHotel): void {
-    super.httpPut('UpdateAsync/' + id, hotel)
+    const mutation = `
+      updateHotel ($hotel : hotel!){  
+        updateHotel(hotel : $hotel){  
+          name,
+          cityId,
+          stars,
+          address      
+        }  
+      }
+    `;
+    super.httpPost(mutation)
       .subscribe(result => {
         this.onSuccess(result);
       }, error => {
@@ -106,7 +123,13 @@ export class HotelService extends BaseService implements ILoaderService {
   }
 
   private doDelete(id: number): void {
-    super.httpDelete('DeleteAsync/' + id)
+    const mutation = `
+    deleteHotel ($id : id!){  
+      deleteHotel(id : $id){       
+      }  
+    }
+    `;
+    super.httpPost(mutation)
       .subscribe(result => {
         this.onSuccess(result);
       }, error => {

@@ -8,7 +8,7 @@ namespace UserInterface.GraphQL.Types
 
         public CityType()
         {
-            Name = "City";
+            Name = nameof(City);
 
             Field(q => q.Id);
             Field(q => q.Name);

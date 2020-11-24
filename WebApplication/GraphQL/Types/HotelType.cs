@@ -8,10 +8,11 @@ namespace UserInterface.GraphQL.Types
 
         public HotelType()
         {
-            Name = "Hotel";
+            Name = nameof(Hotel);
 
             Field(q => q.Id);
             Field(q => q.Name).Description("The name of the hotel");
+            Field(q => q.CityId);
             Field(q => q.Stars);
             Field(q => q.Address, nullable: true);
             Field<CityType>(nameof(Hotel.City));

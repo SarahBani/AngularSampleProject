@@ -25,7 +25,7 @@ namespace Core.ApplicationService.Implementation
 
         #region Methods
 
-        public async Task<int> GetCountAsync() => await base.GetCountAsync();
+        public Task<int> GetCountAsync() => base.GetCountAsync();
 
         public override async Task<TransactionResult> UpdateAsync(Bank bank)
         {

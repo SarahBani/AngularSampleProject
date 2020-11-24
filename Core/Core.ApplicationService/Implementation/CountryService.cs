@@ -3,6 +3,8 @@ using Core.DomainModel.Entities;
 using Core.DomainService;
 using Core.DomainService.Repositoy;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Core.ApplicationService.Implementation
@@ -25,7 +27,10 @@ namespace Core.ApplicationService.Implementation
 
         #region Methods
 
-        public async Task<int> GetCountAsync() => await base.GetCountAsync();
+        public override Task<IList<Country>> GetAllAsync() =>
+            base.GetQueryable().OrderBy(q => q.Name).ToIListAsync();
+
+        public Task<int> GetCountAsync() => base.GetCountAsync();
 
         #endregion /Methods
 

@@ -7,21 +7,22 @@ import { ExceptionHandlerService } from './exception-handler-service';
 import { ILoaderService } from './ILoader-service';
 import { map } from 'rxjs/operators';
 import { BaseGraphQLService } from './base-graphql_service';
+import { Apollo } from 'apollo-angular';
 
 @Injectable({ providedIn: 'root' })
 export class LocationService extends BaseGraphQLService implements ILoaderService {
 
   public changeLoaderStatus: Subject<boolean> = new Subject<boolean>();
 
-  constructor(http: HttpClient,
+  constructor(apollo: Apollo,
+    http: HttpClient,
     modalService: ModalService,
     exceptionHandlerService: ExceptionHandlerService) {
-    super(http, modalService, exceptionHandlerService);
+    super(apollo, http, modalService, exceptionHandlerService);
   }
 
   public getCountryItem(id: number): Observable<ICountry> {
-    const query = `?query=
-    {
+    const query = `
       country {
         id
         name
@@ -31,16 +32,15 @@ export class LocationService extends BaseGraphQLService implements ILoaderServic
           name
         }
       }
-    }`;
-    return super.httpGet(query)
+    `;
+    return super.httpPost(query)
       .pipe(map((response) => {
         return response.data.country;
       }));
   }
 
   public getCountryList(): Observable<ICountry[]> {
-    const query = `?query=
-    {
+    const query = `
       countries {
         id
         name
@@ -50,15 +50,11 @@ export class LocationService extends BaseGraphQLService implements ILoaderServic
           name
         }
       }
-    }`;
-    return super.httpGet(query)
+    `;
+    return super.httpPost(query)
       .pipe(map((response) => {
         return response.data.countries;
       }));
-  }
-
-  protected onError(error): void {
-    super.showError(error);
   }
 
 }

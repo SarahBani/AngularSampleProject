@@ -252,6 +252,18 @@
           "Microsoft.AspNetCore.App"
         ]
       },
+      "GraphQL.Server.Ui.GraphiQL/4.3.1": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.0/GraphQL.Server.Ui.GraphiQL.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/GraphQL.Server.Ui.GraphiQL.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "GraphQL.Server.Ui.Playground/4.2.1": {
         "type": "package",
         "compile": {
@@ -2994,6 +3006,23 @@
         "lib/netcoreapp3.1/GraphQL.Server.Transports.WebSockets.xml",
         "lib/netstandard2.0/GraphQL.Server.Transports.WebSockets.dll",
         "lib/netstandard2.0/GraphQL.Server.Transports.WebSockets.xml"
+      ]
+    },
+    "GraphQL.Server.Ui.GraphiQL/4.3.1": {
+      "sha512": "09f93JHVs8fH9A9/LLFx4/QI2bQ+tXh2/1bj+0heCxB6deTFTpxy9mc0le3anHhQZvTze7Wd0fAv7hg2DzXiRw==",
+      "type": "package",
+      "path": "graphql.server.ui.graphiql/4.3.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "graphql.server.ui.graphiql.4.3.1.nupkg.sha512",
+        "graphql.server.ui.graphiql.nuspec",
+        "lib/netcoreapp3.0/GraphQL.Server.Ui.GraphiQL.dll",
+        "lib/netcoreapp3.0/GraphQL.Server.Ui.GraphiQL.xml",
+        "lib/netcoreapp3.1/GraphQL.Server.Ui.GraphiQL.dll",
+        "lib/netcoreapp3.1/GraphQL.Server.Ui.GraphiQL.xml",
+        "lib/netstandard2.0/GraphQL.Server.Ui.GraphiQL.dll",
+        "lib/netstandard2.0/GraphQL.Server.Ui.GraphiQL.xml"
       ]
     },
     "GraphQL.Server.Ui.Playground/4.2.1": {
@@ -8810,6 +8839,7 @@
       "GraphQL.Server.Transports.AspNetCore >= 4.2.1",
       "GraphQL.Server.Transports.AspNetCore.SystemTextJson >= 4.2.1",
       "GraphQL.Server.Transports.WebSockets >= 4.2.1",
+      "GraphQL.Server.Ui.GraphiQL >= 4.3.1",
       "GraphQL.Server.Ui.Playground >= 4.2.1",
       "GraphiQL >= 2.0.0",
       "Microsoft.AspNetCore.SpaServices.Extensions >= 3.0.3",
@@ -8886,6 +8916,10 @@
           "GraphQL.Server.Transports.WebSockets": {
             "target": "Package",
             "version": "[4.2.1, )"
+          },
+          "GraphQL.Server.Ui.GraphiQL": {
+            "target": "Package",
+            "version": "[4.3.1, )"
           },
           "GraphQL.Server.Ui.Playground": {
             "target": "Package",

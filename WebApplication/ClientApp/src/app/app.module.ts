@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TooltipModule } from 'ng2-tooltip-directive';
-//import { ApolloModule } from 'apollo-angular';
-import { HttpLinkModule } from 'apollo-angular-link-http';
+import { ApolloModule, APOLLO_OPTIONS } from "apollo-angular";
+import { HttpLinkModule, HttpLink } from "apollo-angular-link-http";
+import { InMemoryCache } from "apollo-cache-inmemory";
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -99,11 +100,23 @@ import { GraphQLModule } from './graphql.module';
     ReactiveFormsModule,
     AppRoutingModule,
     TooltipModule,
-    //ApolloModule,
-    //HttpLinkModule,
-    //GraphQLModule
+    ApolloModule,
+    HttpLinkModule,
+    GraphQLModule
   ],
   providers: [AuthService, AuthGuardService, CanDeactivateGuardService,
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory: (httpLink: HttpLink) => {
+        return {
+          cache: new InMemoryCache(),
+          link: httpLink.create({
+            uri: 'https://api.example.com/graphql'
+          })
+        }
+      },
+      deps: [HttpLink]
+    }
     //{
     //  provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true
     //}

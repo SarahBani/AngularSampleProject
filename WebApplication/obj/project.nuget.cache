@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "laFahISFMnj1i5zpJ/FtsXowrkDDs/EekZIfHEoVWU38+Byh2qpF0MU1QeRY597j4qrRN47z5O5sxPraOF2NIw==",
+  "dgSpecHash": "jP49XSHmtWO8vF+qNJeu0R5EdWOLnIlBROCwFRY6zZaBxByRoY9u6d0AJZaJn/21djHTM1tLeSsWb6nV6+iZ+g==",
   "success": true,
   "projectFilePath": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\WebApplication\\WebApplication.csproj",
   "expectedPackageFiles": [
@@ -15,6 +15,7 @@
     "C:\\Users\\Sarah\\.nuget\\packages\\graphql.server.transports.aspnetcore.systemtextjson\\4.2.1\\graphql.server.transports.aspnetcore.systemtextjson.4.2.1.nupkg.sha512",
     "C:\\Users\\Sarah\\.nuget\\packages\\graphql.server.transports.subscriptions.abstractions\\4.2.1\\graphql.server.transports.subscriptions.abstractions.4.2.1.nupkg.sha512",
     "C:\\Users\\Sarah\\.nuget\\packages\\graphql.server.transports.websockets\\4.2.1\\graphql.server.transports.websockets.4.2.1.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\graphql.server.ui.graphiql\\4.3.1\\graphql.server.ui.graphiql.4.3.1.nupkg.sha512",
     "C:\\Users\\Sarah\\.nuget\\packages\\graphql.server.ui.playground\\4.2.1\\graphql.server.ui.playground.4.2.1.nupkg.sha512",
     "C:\\Users\\Sarah\\.nuget\\packages\\graphql.systemtextjson\\3.1.3\\graphql.systemtextjson.3.1.3.nupkg.sha512",
     "C:\\Users\\Sarah\\.nuget\\packages\\jquery\\3.0.0\\jquery.3.0.0.nupkg.sha512",

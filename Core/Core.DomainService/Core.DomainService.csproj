@@ -55,4 +55,28 @@
     <Content Remove="C:\Users\Sarah\.nuget\packages\mongodb.driver.core\2.11.2\build\../runtimes/win/native/libzstd.dll" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="C:\Users\Sarah\.nuget\packages\mongodb.driver.core\2.11.2\build\../runtimes/win/native/libzstd.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\Sarah\.nuget\packages\mongodb.driver.core\2.11.2\build\../runtimes/win/native/snappy32.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\Sarah\.nuget\packages\mongodb.driver.core\2.11.2\build\../runtimes/win/native/snappy64.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\Sarah\.nuget\packages\mongodb.driver.core\2.11.2\build\../runtimes/win/native/libzstd.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\Sarah\.nuget\packages\mongodb.driver.core\2.11.2\build\../runtimes/win/native/snappy32.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\Sarah\.nuget\packages\mongodb.driver.core\2.11.2\build\../runtimes/win/native/snappy64.dll" />
+  </ItemGroup>
+
 </Project>

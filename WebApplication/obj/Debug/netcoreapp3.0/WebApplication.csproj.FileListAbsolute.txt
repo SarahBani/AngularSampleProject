@@ -137,8 +137,9 @@ H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\ne
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\GraphQL.Server.Transports.Subscriptions.Abstractions.dll
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\GraphQL.SystemTextJson.dll
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\Splat.dll
+H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\GraphQL.Server.Transports.WebSockets.dll
+H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\libman.json
+H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\GraphQL.Server.Ui.GraphiQL.dll
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.csproj.CoreCompileInputs.cache
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.MvcApplicationPartsAssemblyInfo.cs
 H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\obj\Debug\netcoreapp3.0\WebApplication.MvcApplicationPartsAssemblyInfo.cache
-H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\GraphQL.Server.Transports.WebSockets.dll
-H:\Project\AngularSampleProject\AngularSampleProject\WebApplication\bin\Debug\netcoreapp3.0\libman.json

@@ -11,14 +11,14 @@ namespace Core.DomainModel.Migrations
                 columns: new[] { "Id", "FlagUrl", "Name" },
                 values: new object[,]
                 {
-                    { (short)1, "", "Iran" },
-                    { (short)18, "", "Poland" },
+                    { (short)1, "images\\countries\\Iran.png", "Iran" },
+                    { (short)18, "images\\countries\\Poland.png", "Poland" },
                     { (short)17, "images\\countries\\Hungary.png", "Hungary" },
-                    { (short)16, "", "Denmark" },
+                    { (short)16, "images\\countries\\Denmark.png", "Denmark" },
                     { (short)15, "images\\countries\\Austria.png", "Austria" },
-                    { (short)14, "", "Norway" },
+                    { (short)14, "images\\countries\\Norway.png", "Norway" },
                     { (short)13, "images\\countries\\Sweden.png", "Sweden" },
-                    { (short)12, "", "Spain" },
+                    { (short)12, "images\\countries\\Spain.png", "Spain" },
                     { (short)11, "images\\countries\\Italy.png", "Italy" },
                     { (short)10, "images\\countries\\France.png", "France" },
                     { (short)9, "images\\countries\\Switzerland.png", "Switzerland" },
@@ -29,8 +29,8 @@ namespace Core.DomainModel.Migrations
                     { (short)4, "images\\countries\\USA.png", "the USA" },
                     { (short)3, "images\\countries\\UK.png", "the UK" },
                     { (short)2, "images\\countries\\Turkey.png", "Turkey" },
-                    { (short)19, "", "Finland" },
-                    { (short)30, "", "UAE" }
+                    { (short)19, "images\\countries\\Finland.png", "Finland" },
+                    { (short)30, "images\\countries\\UAE.png", "UAE" }
                 });
 
             migrationBuilder.InsertData(
@@ -46,7 +46,11 @@ namespace Core.DomainModel.Migrations
                     { 6L, (short)1, "Kish" },
                     { 7L, (short)1, "Mashhad" },
                     { 8L, (short)2, "Istanbul" },
-                    { 9L, (short)2, "Izmir" }
+                    { 9L, (short)2, "Izmir" },
+
+                    { 10L, (short)3, "London" },
+
+                    { 11L, (short)4, "New York" },
                 });
         }
 

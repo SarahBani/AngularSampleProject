@@ -8,12 +8,12 @@ namespace UserInterface.GraphQL.Types
 
         public CountryType()
         {
-            Name = "Country";
+            Name = nameof(Country);
 
             Field(q => q.Id);
             Field(q => q.Name);
             Field(q => q.FlagUrl, nullable: true);
-            Field<ListGraphType<CityType>>("cities", "list of cities");
+            Field<ListGraphType<CityType>>(nameof(Country.Cities).ToLower(), "list of cities");
         }
 
     }

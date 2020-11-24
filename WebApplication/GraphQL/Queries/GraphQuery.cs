@@ -6,17 +6,6 @@ using UserInterface.GraphQL.Types;
 
 namespace UserInterface.GraphQL.Queries
 {
-
-    class HelloWorldQuery : ObjectGraphType
-    {
-        public HelloWorldQuery()
-        {
-            Field<StringGraphType>(
-                name: "hello",
-                resolve: context => "world"
-            );
-        }
-    }
     public class GraphQuery : ObjectGraphType
     {
 

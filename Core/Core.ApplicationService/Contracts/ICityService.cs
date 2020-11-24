@@ -10,6 +10,8 @@ namespace Core.ApplicationService.Contracts
 
         Task<City> GetByIdAsync(long id);
 
+        Task<IList<City>> GetAllAsync();
+
         Task<IList<City>> GetListByCountryIdAsync(short countryId);
 
         Task<int> GetCountByCountryIdAsync(short countryId);

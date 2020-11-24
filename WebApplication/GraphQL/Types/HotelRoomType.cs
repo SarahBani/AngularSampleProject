@@ -8,7 +8,7 @@ namespace UserInterface.GraphQL.Types
 
         public HotelRoomType()
         {
-            Name = "HotelRoom";
+            Name = nameof(HotelRoom);
 
             Field(q => q.Id);
             Field(q => q.Name).Description("The name of the hotel room");

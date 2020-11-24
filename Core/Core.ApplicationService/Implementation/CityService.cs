@@ -29,7 +29,9 @@ namespace Core.ApplicationService.Implementation
         #region Methods
 
         public Task<IList<City>> GetListByCountryIdAsync(short countryId) =>
-            base.GetQueryable().Where(q => q.CountryId.Equals(countryId)).ToIListAsync();
+            base.GetQueryable().Where(q => q.CountryId.Equals(countryId))
+                .OrderBy(q=>q.Name)
+                .ToIListAsync();
 
         public Task<int> GetCountByCountryIdAsync(short countryId) =>
              base.GetQueryable().CountAsync(q => q.CountryId.Equals(countryId));

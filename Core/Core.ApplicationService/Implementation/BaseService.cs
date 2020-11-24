@@ -41,11 +41,11 @@ namespace Core.ApplicationService.Implementation
         #region Methods
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        protected async Task<TransactionResult> GetTransactionResultAsync(Action action)
+        protected Task<TransactionResult> GetTransactionResultAsync(Action action)
         {
             BeginTransaction();
             action();
-            return await CommitTransactionAsync();
+            return CommitTransactionAsync();
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]

@@ -24,11 +24,6 @@ using GraphQL.Server.Ui.Playground;
 using GraphQL.Types;
 using UserInterface;
 using GraphQL.NewtonsoftJson;
-using Newtonsoft.Json;
-using System.Threading.Tasks;
-using Splat;
-using System.Reflection;
-using GraphQL.Utilities;
 
 namespace WebApplication
 {
@@ -54,22 +49,19 @@ namespace WebApplication
 
             services.AddSingleton<IDocumentWriter, DocumentWriter>();
             services.AddSingleton<IDocumentExecuter, DocumentExecuter2>();
-            services.AddScoped<GraphQuery>();
             services.AddScoped<HotelType>();
             services.AddScoped<HotelRoomType>();
             services.AddScoped<CityType>();
             services.AddScoped<CountryType>();
-            //services.AddScoped<HotelSchema>();
+            services.AddScoped<HotelInputType>();
+            services.AddScoped<GraphQuery>();
+            services.AddScoped<GraphMutation>();
+            //services.AddScoped<GraphSchema>();
             services.AddScoped<ISchema, GraphSchema>();
-
-            //services.AddSingleton<HotelQuery>();
-
-            //services.AddSingleton<ISchema, HotelSchema>();
-            //services.AddGraphQL();
 
             services.AddGraphQL(options =>
             {
-                
+
                 options.EnableMetrics = true;
             })
             .AddErrorInfoProvider(opt =>
@@ -79,6 +71,7 @@ namespace WebApplication
             .AddSystemTextJson()
            .AddGraphTypes(ServiceLifetime.Transient)
             .AddDataLoader();
+
 
             //     services.AddScoped<IServiceProvider>(
             //    s => new FuncServiceProvider(
@@ -97,35 +90,13 @@ namespace WebApplication
             //services.AddSingleton<ReservationGraphqlClient>();
             ////***</ My services >*** 
             ///
-            //          services.AddSingleton<ISchema>(
-            //s => new HotelSchema(new FuncDependencyResolver(type => (IGraphType)s.GetRequiredService(type))));
 
-            //***< GraphQL Services >*** 
-            //services.AddScoped<IDependencyResolver>(x =>
-            //    new FuncDependencyResolver(x.GetRequiredService));
 
-            //services.AddGraphQL(x =>
-            //{
-            //    x.ExposeExceptions = true; //set true only in dev mode.
-            //})
-            //    .AddGraphTypes(ServiceLifetime.Scoped)
-            //    .AddUserContextBuilder(httpContext => httpContext.User)
-            //    .AddDataLoader();
-
-            //***</ GraphQL Services >*** 
-
-            // services.AddTransient<IDependencyResolver>(x => new FuncDependencyResolver(x.GetRequiredService));
             //services.AddTransient<HotelSchema>();
             //services.AddGraphQL(o => o.ExposeExceptions = true)
             //        .AddGraphTypes(ServiceLifetime.Transient);
             services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
             services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
-
-            //services.AddGraphQL()
-            //        .AddWebSockets()
-            //        .AddGraphTypes(Assembly.GetAssembly(typeof(HotelSchema)));
-
-
 
             services.AddCors(options =>
             {
@@ -135,7 +106,7 @@ namespace WebApplication
                     .AllowAnyHeader()
                     .AllowCredentials());
             });
-            services.AddControllersWithViews();
+            services.AddControllers();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -186,24 +157,16 @@ namespace WebApplication
                 RequestPath = new PathString("/Resources")
             });
 
+            // comment the following code if u want to run from GraphQLController
             // add http for Schema at default url http://*DOMAIN*/graphql
-            app.UseGraphQL<ISchema>();
-           // app.UseGraphQL<ISchema>("/graphql");
-            //app.UseGraphQL<HotelSchema>();
-            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions()); //to explorer API navigate http://*DOMAIN*/ui/playground
+            // app.UseGraphQL<ISchema>(); 
+            //app.UseGraphQL<ISchema>("/graphql");
+            //app.UseGraphQL<GraphSchema>();
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapGraphQl<HotelSchema>();
-            //});
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapGet("/", async context =>
-            //    {
-            //        await Task.Run(() => context.Response.Redirect("/hotel/graphql", permanent: true));
-            //    });
-            //});
+            app.UseGraphiQLServer(); // to explorer API navigate http://*DOMAIN*/ui/graphiql
+            //app.UseGraphiQl("/graphql");
 
+            //app.UseGraphQLPlayground(new GraphQLPlaygroundOptions()); //to explorer API navigate http://*DOMAIN*/ui/playground
 
             app.UseEndpoints(endpoints =>
             {
@@ -236,35 +199,6 @@ namespace WebApplication
         //        x.CreateMap<HotelRoom, RoomModel>();
         //    });
         //}
-
-        private async void sss()
-        {
-            /* Schema first approach */
-            var schemaFirst = Schema.For(@"
-                type Query {
-                    hello: String
-                }
-            ");
-
-            /* Code first approach */
-            var codeFirst = new Schema { Query = new HelloWorldQuery() };
-
-            var schemaFirstJson = await schemaFirst.ExecuteAsync(_ =>
-            {
-                _.Query = "{ hello }";
-                _.Root = new { Hello = "world" };
-            });
-
-            var codeFirstJson = await codeFirst.ExecuteAsync(_ =>
-            {
-                _.Query = "{ hello }";
-            });
-
-            Console.WriteLine("\nSchema First Approach\n");
-            Console.WriteLine(schemaFirstJson);
-            Console.WriteLine("\nCode First Approach\n");
-            Console.WriteLine(codeFirstJson);
-        }
 
     }
 }
