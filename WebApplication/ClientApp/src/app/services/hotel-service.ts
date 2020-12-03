@@ -8,7 +8,8 @@ import { ExceptionHandlerService } from './exception-handler-service';
 import { ILoaderService } from './ILoader-service';
 import { map } from 'rxjs/operators';
 import { BaseGraphQLService } from './base-graphql_service';
-//import { Apollo } from 'apollo-angular';
+import { Apollo } from 'apollo-angular';
+//import { HttpLink } from 'apollo-angular-link-http';
 
 @Injectable({ providedIn: 'root' })
 export class HotelService extends BaseGraphQLService implements ILoaderService {
@@ -17,12 +18,11 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
   private confirmDeleteSubscription: Subscription;
   public changeLoaderStatus: Subject<boolean> = new Subject<boolean>();
 
-  constructor(//apollo: Apollo,
+  constructor(apollo: Apollo,
     http: HttpClient,
     modalService: ModalService,
     exceptionHandlerService: ExceptionHandlerService) {
-    super(//apollo,
-      http, modalService, exceptionHandlerService);
+    super(apollo, http, modalService, exceptionHandlerService);
   }
 
   public getItem(id: number): Observable<IHotel> {
