@@ -8,7 +8,7 @@ import { IBranch } from '../../models/Ibranch.model';
 })
 export class BranchItemComponent implements OnInit {
 
-  @Input() model: IBranch;
+  @Input() private model: IBranch;
 
   constructor() { }
 

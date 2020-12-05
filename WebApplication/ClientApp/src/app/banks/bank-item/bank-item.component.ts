@@ -8,7 +8,7 @@ import { IBank } from '../../models/IBank.model';
 })
 export class BankItemComponent implements OnInit {
 
-  @Input() model: IBank;
+  @Input() private model: IBank;
 
   constructor() { }
 

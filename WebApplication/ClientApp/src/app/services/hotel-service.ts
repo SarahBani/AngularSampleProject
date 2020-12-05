@@ -24,45 +24,43 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
     super(apollo, http, modalService, exceptionHandlerService);
   }
 
-  public getItem(id: number): Observable<IHotel> {
+  public getList(): Observable<IHotel[]> {
     const query = `
-      hotel {
+      hotels {
         id
-        name
+        name,
+        stars,
+        city {
+          name
+          country
+          {
+            name
+          }
+        }
       }
     `;
     return super.httpPost(query)
       .pipe(map((response) => {
-        return response.data.hotel;
+        //console.log(response.loading);
+        //console.log(response.error);
+        return response?.data?.hotels;
       }));
   }
 
-  public getList(){
+  public getItem(id: number): Observable<IHotel> {
     const query = `
-      hotels {
+      hotel {
         id
         name,
         stars,
         address
       }
     `;
-    super.httpPost(query);
-  }
-
-  //public getList(): Observable<IHotel[]> {
-  //  const query = `
-  //    hotels {
-  //      id
-  //      name,
-  //      stars,
-  //      address
-  //    }
-  //  `;
-  //  return super.httpPost(query)
-  //    .pipe(map((response) => {
-  //      return response.data.countries;
-  //    }));
-  //}
+    return super.httpPost(query)
+      .pipe(map((response) => {
+        return response.data.hotel;
+      }));
+  }   
 
   //public getCount(): Observable<number> {
   //  return super.httpGetCount();

@@ -15,7 +15,13 @@ namespace UserInterface.GraphQL.Types
             Field(q => q.CityId);
             Field(q => q.Stars);
             Field(q => q.Address, nullable: true);
-            Field<CityType>(nameof(Hotel.City));
+            Field(
+           name: nameof(Hotel.City),
+           type: typeof(CityType),
+           resolve: context => context.Source.City
+       );
+
+            //Field<CityType>(nameof(Hotel.City));
             Field<CountryType>(nameof(Hotel.City.Country));
         }
 

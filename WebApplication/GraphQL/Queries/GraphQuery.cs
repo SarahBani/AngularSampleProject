@@ -49,7 +49,7 @@ namespace UserInterface.GraphQL.Queries
                }),
                resolve: context =>
                {
-                 long  hotelId = context.GetArgument<long>("id");
+                   long hotelId = context.GetArgument<long>("id");
                    return this._hotelService.GetByIdAsync(hotelId);
                }
            );
@@ -108,12 +108,12 @@ namespace UserInterface.GraphQL.Queries
             Field<CityType>(name: "city", "Returns a single City",
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<LongGraphType>>
                 {
-                    Name = "id",
+                    Name = "cityId",
                     Description = "City Id"
                 }),
                 resolve: context =>
                 {
-                    cityId = context.GetArgument<long>("id");
+                    cityId = context.GetArgument<long>("cityId");
                     return this._cityService.GetByIdAsync(cityId);
                 }
             );

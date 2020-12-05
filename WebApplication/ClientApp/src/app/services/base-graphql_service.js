@@ -43,17 +43,8 @@ var BaseGraphQLService = /** @class */ (function () {
         //const client = new ApolloClient({
         //  uri: "http://localhost:4200/graphql" 
         //});
-        var sss = this.apollo.query({
-            query: apollo_angular_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["query GraphQLRequest \n      {\n        hotels {\n                id\n                name\n              }\n      }"], ["query GraphQLRequest \n      {\n        hotels {\n                id\n                name\n              }\n      }"])))
-        }).subscribe(function (result) {
-            var _a;
-            console.log(result);
-            console.log('333333333333');
-            console.log((_a = result === null || result === void 0 ? void 0 : result.data) === null || _a === void 0 ? void 0 : _a.hotels);
-            console.log(result.loading);
-            console.log(result.error);
-        }, function (error) {
-            console.log(error);
+        return this.apollo.query({
+            query: apollo_angular_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["query GraphQLRequest \n      { ", " }"], ["query GraphQLRequest \n      { ", " }"])), query)
         });
         //this.apollo.watchQuery({
         //  query: gql`
@@ -70,29 +61,10 @@ var BaseGraphQLService = /** @class */ (function () {
         //    console.log(  result.loading);
         //    console.log(  result.error);
         //  });
-        return;
-        //console.log(gql`query GraphQLRequest { ${query} }`);
-        //    const My_QUERY = gql`
-        //  query GraphQLRequest {
-        //    countries {
-        //        id
-        //        name
-        //        flagUrl,
-        //        cities {
-        //          id,
-        //          name
-        //        }
-        //      }
-        //  }
-        //`;
         //this.query = this.apollo.watchQuery({      
         //  query: My_QUERY,
         //  variables: {}
         //});
-        //this.query.valueChanges.subscribe(result => {
-        //  console.log( result.data );
-        //});
-        //return this.httpClient.post('graphql', `query GraphQLRequest { ${query} }`, this.getHeaders());
         //this.apollo.watchQuery({
         //  query: gql`query GraphQLRequest { ${query} }`
         //});

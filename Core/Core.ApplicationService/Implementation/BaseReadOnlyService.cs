@@ -52,7 +52,7 @@ namespace Core.ApplicationService.Implementation
         public virtual Task<TEntity> GetSingleAsync(Expression<Func<TEntity, bool>> filter) =>
              this.Repository.GetSingleAsync(filter);
 
-        protected IQueryable<TEntity> GetQueryable() =>
+        public virtual IQueryable<TEntity> GetQueryable() =>
              this.Repository.GetQueryable();
 
         protected IEnumerable<TEntity> GetEnumerable(

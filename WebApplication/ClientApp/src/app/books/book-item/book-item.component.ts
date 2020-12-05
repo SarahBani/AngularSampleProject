@@ -8,7 +8,7 @@ import { IBook } from '../../models/IBook.model';
 })
 export class BookItemComponent implements OnInit {
 
-  @Input() model: IBook;
+  @Input() private model: IBook;
 
   constructor() { }
 

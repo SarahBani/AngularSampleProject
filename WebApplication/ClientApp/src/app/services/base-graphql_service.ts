@@ -48,10 +48,6 @@ export abstract class BaseGraphQLService {
   //protected httpGetCount(): Observable<number> {
   //  return this.httpGet<number>('CountAsync');
   //}
-
-  //protected httpGet(query: string): Observable<{ data, extensions }> {
-  //  return this.httpClient.get<{ data, extensions }>(`graphql/query=GraphQLRequest ${query}`);
-  //}
   private query: QueryRef<any>;
   
   protected httpPost(query: string): Observable<any> {
@@ -59,23 +55,10 @@ export abstract class BaseGraphQLService {
     //const client = new ApolloClient({
     //  uri: "http://localhost:4200/graphql" 
     //});
-   var sss = this.apollo.query({
-     query: gql`query GraphQLRequest 
-      {
-        hotels {
-                id
-                name
-              }
-      }`
-   }).subscribe((result: any) => {
-     console.log(result);
-     console.log('333333333333');
-     console.log(result?.data?.hotels);
-     console.log(result.loading);
-     console.log(result.error);
-   }, error => {
-     console.log(error);
-   });
+    return this.apollo.query({
+      query: gql`query GraphQLRequest 
+      { ${query} }`
+    });
 
     //this.apollo.watchQuery({
     //  query: gql`
@@ -93,34 +76,12 @@ export abstract class BaseGraphQLService {
     //    console.log(  result.error);
     //  });
 
-    return;
-
-
-    //console.log(gql`query GraphQLRequest { ${query} }`);
-//    const My_QUERY = gql`
-//  query GraphQLRequest {
-//    countries {
-//        id
-//        name
-//        flagUrl,
-//        cities {
-//          id,
-//          name
-//        }
-//      }
-//  }
-//`;
 
     //this.query = this.apollo.watchQuery({      
     //  query: My_QUERY,
     //  variables: {}
     //});
-
-    //this.query.valueChanges.subscribe(result => {
-    //  console.log( result.data );
-    //});
     
-    //return this.httpClient.post('graphql', `query GraphQLRequest { ${query} }`, this.getHeaders());
     //this.apollo.watchQuery({
     //  query: gql`query GraphQLRequest { ${query} }`
     //});

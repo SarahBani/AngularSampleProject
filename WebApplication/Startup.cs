@@ -129,8 +129,8 @@ namespace WebApplication
 
             // comment the following code if u want to run from GraphQLController
             // add http for Schema at default url http://*DOMAIN*/graphql
-            //app.UseGraphQL<ISchema>();
-            app.UseGraphQL<ISchema>("/graphql");
+            app.UseGraphQL<ISchema>();
+            //app.UseGraphQL<ISchema>("/graphql");
 
             app.UseGraphiQLServer(); // to explorer API navigate http://*DOMAIN*/ui/graphiql
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions()); //to explorer API navigate http://*DOMAIN*/ui/playground

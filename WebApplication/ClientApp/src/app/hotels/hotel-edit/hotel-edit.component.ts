@@ -9,7 +9,6 @@ import { IHotel } from '../../models/IHotel.model';
 import { LocationService } from '../../services/location-service';
 import { HotelService } from '../../services/hotel-service';
 
-declare var jquery: any;
 declare var $: any;
 
 @Component({
