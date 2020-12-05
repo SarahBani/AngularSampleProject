@@ -447,7 +447,7 @@
           }
         }
       },
-      "MongoDB.Bson/2.11.2": {
+      "MongoDB.Bson/2.11.5": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/MongoDB.Bson.dll": {}
@@ -2881,10 +2881,10 @@
         "version.txt"
       ]
     },
-    "MongoDB.Bson/2.11.2": {
-      "sha512": "7vJoaUKPPnW6Ej0r4UHV8DeYD0/SKk/73WlDfc5JMRJRjTj3jRUtGIXwpaFYq3wT8MRHmLwbM/KvkEAb7deHRw==",
+    "MongoDB.Bson/2.11.5": {
+      "sha512": "OWsEN7ktxFKcynAMdv08TE5wkL1kkyWJUv+zhO3H3HcK+S4AU52AnxoyVmVSdPk5OWYoTtzbeCOIdmZV2dk5zg==",
       "type": "package",
-      "path": "mongodb.bson/2.11.2",
+      "path": "mongodb.bson/2.11.5",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -2895,7 +2895,7 @@
         "lib/netstandard1.5/MongoDB.Bson.xml",
         "lib/netstandard2.0/MongoDB.Bson.dll",
         "lib/netstandard2.0/MongoDB.Bson.xml",
-        "mongodb.bson.2.11.2.nupkg.sha512",
+        "mongodb.bson.2.11.5.nupkg.sha512",
         "mongodb.bson.nuspec",
         "packageIcon.png"
       ]
@@ -7271,7 +7271,7 @@
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.8",
       "Microsoft.Extensions.Configuration.Abstractions >= 3.1.8",
       "Microsoft.Extensions.Configuration.Binder >= 3.1.8",
-      "MongoDB.Bson >= 2.11.2"
+      "MongoDB.Bson >= 2.11.5"
     ]
   },
   "packageFolders": {
@@ -7349,7 +7349,7 @@
           },
           "MongoDB.Bson": {
             "target": "Package",
-            "version": "[2.11.2, )"
+            "version": "[2.11.5, )"
           }
         },
         "imports": [

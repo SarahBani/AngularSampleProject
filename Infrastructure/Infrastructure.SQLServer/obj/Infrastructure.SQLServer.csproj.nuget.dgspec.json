@@ -75,7 +75,7 @@
             },
             "MongoDB.Bson": {
               "target": "Package",
-              "version": "[2.11.2, )"
+              "version": "[2.11.5, )"
             }
           },
           "imports": [
@@ -148,7 +148,7 @@
             },
             "MongoDB.Driver.Core": {
               "target": "Package",
-              "version": "[2.11.2, )"
+              "version": "[2.11.5, )"
             },
             "System.Drawing.Common": {
               "target": "Package",

@@ -39,21 +39,66 @@ var BaseGraphQLService = /** @class */ (function () {
             responseType: 'json'
         };
     };
-    //protected httpGetCount(): Observable<number> {
-    //  return this.httpGet<number>('CountAsync');
-    //}
-    //protected httpGet(query: string): Observable<{ data, extensions }> {
-    //  return this.httpClient.get<{ data, extensions }>(`graphql/query=QueryContent ${query}`);
-    //}
     BaseGraphQLService.prototype.httpPost = function (query) {
-        console.log(apollo_angular_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["query QueryContent { ", " }"], ["query QueryContent { ", " }"])), query));
-        //return this.httpClient.post('graphql', `query QueryContent { ${query} }`, this.getHeaders());
-        //this.apollo.watchQuery({
-        //  query: gql`query QueryContent { ${query} }`
+        //const client = new ApolloClient({
+        //  uri: "http://localhost:4200/graphql" 
         //});
-        return this.apollo.query({
-            query: apollo_angular_1.gql(templateObject_2 || (templateObject_2 = __makeTemplateObject(["query QueryContent { ", " }"], ["query QueryContent { ", " }"])), query)
+        var sss = this.apollo.query({
+            query: apollo_angular_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["query GraphQLRequest \n      {\n        hotels {\n                id\n                name\n              }\n      }"], ["query GraphQLRequest \n      {\n        hotels {\n                id\n                name\n              }\n      }"])))
+        }).subscribe(function (result) {
+            var _a;
+            console.log(result);
+            console.log('333333333333');
+            console.log((_a = result === null || result === void 0 ? void 0 : result.data) === null || _a === void 0 ? void 0 : _a.hotels);
+            console.log(result.loading);
+            console.log(result.error);
+        }, function (error) {
+            console.log(error);
         });
+        //this.apollo.watchQuery({
+        //  query: gql`
+        //      {
+        //        hotels {
+        //            id
+        //            name
+        //          }
+        //      }
+        //    `,
+        //  })
+        //  .valueChanges.subscribe((result: any) => {
+        //    console.log( result?.data?.rates);
+        //    console.log(  result.loading);
+        //    console.log(  result.error);
+        //  });
+        return;
+        //console.log(gql`query GraphQLRequest { ${query} }`);
+        //    const My_QUERY = gql`
+        //  query GraphQLRequest {
+        //    countries {
+        //        id
+        //        name
+        //        flagUrl,
+        //        cities {
+        //          id,
+        //          name
+        //        }
+        //      }
+        //  }
+        //`;
+        //this.query = this.apollo.watchQuery({      
+        //  query: My_QUERY,
+        //  variables: {}
+        //});
+        //this.query.valueChanges.subscribe(result => {
+        //  console.log( result.data );
+        //});
+        //return this.httpClient.post('graphql', `query GraphQLRequest { ${query} }`, this.getHeaders());
+        //this.apollo.watchQuery({
+        //  query: gql`query GraphQLRequest { ${query} }`
+        //});
+        //return this.apollo.query({
+        //  query: gql`query GraphQLRequest { ${query} }`
+        //});
     };
     BaseGraphQLService.prototype.confirmDelete = function () {
         return this.modalService.showConfirm(this.const_confirmDelete);
@@ -66,5 +111,5 @@ var BaseGraphQLService = /** @class */ (function () {
     return BaseGraphQLService;
 }());
 exports.BaseGraphQLService = BaseGraphQLService;
-var templateObject_1, templateObject_2;
+var templateObject_1;
 //# sourceMappingURL=base-graphql_service.js.map

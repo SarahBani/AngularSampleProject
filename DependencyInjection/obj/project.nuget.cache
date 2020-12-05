@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "aMA3MtavXpJoxeS+lR8hSysnkHnOvdVUwqo5GYq1KyVKHrvAGDHCV2F2dFdPVA9mdgprohOnL8Q/QQL2Vu4iww==",
+  "dgSpecHash": "aIR7j+tb4qWdeOQL/hwQyOR7dDir9wE10djRx9SQqduHI6hc7o5I2jbxa+zlmCoFWiC1L5VQI1hIC209FVS7uw==",
   "success": true,
   "projectFilePath": "H:\\Project\\AngularSampleProject\\AngularSampleProject\\DependencyInjection\\DependencyInjection.csproj",
   "expectedPackageFiles": [
@@ -39,9 +39,9 @@
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
     "C:\\Users\\Sarah\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
-    "C:\\Users\\Sarah\\.nuget\\packages\\mongodb.bson\\2.11.2\\mongodb.bson.2.11.2.nupkg.sha512",
-    "C:\\Users\\Sarah\\.nuget\\packages\\mongodb.driver\\2.11.2\\mongodb.driver.2.11.2.nupkg.sha512",
-    "C:\\Users\\Sarah\\.nuget\\packages\\mongodb.driver.core\\2.11.2\\mongodb.driver.core.2.11.2.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\mongodb.bson\\2.11.5\\mongodb.bson.2.11.5.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\mongodb.driver\\2.11.5\\mongodb.driver.2.11.5.nupkg.sha512",
+    "C:\\Users\\Sarah\\.nuget\\packages\\mongodb.driver.core\\2.11.5\\mongodb.driver.core.2.11.5.nupkg.sha512",
     "C:\\Users\\Sarah\\.nuget\\packages\\mongodb.libmongocrypt\\1.0.0\\mongodb.libmongocrypt.1.0.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\newtonsoft.json\\10.0.1\\newtonsoft.json.10.0.1.nupkg.sha512",

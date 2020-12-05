@@ -46,7 +46,7 @@ namespace WebApplication.Controllers
             return await this._branchService.GetCountByBankIdAsync(bankId);
         }
 
-        [HttpPost("[action]")]
+        [HttpPost("InsertAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> InsertAsync([FromBody] Branch branch)
@@ -62,7 +62,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpPut("[action]/{id}")]
+        [HttpPut("UpdateAsync/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateAsync([FromRoute] int id, [FromBody] Branch branch)
@@ -82,7 +82,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpDelete("[action]/{id}")]
+        [HttpDelete("DeleteAsync/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteAsync([FromRoute] int id)
@@ -102,7 +102,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpDelete("[action]")]
+        [HttpDelete("DeleteByBankIdAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteByBankIdAsync([FromQuery] int bankId)

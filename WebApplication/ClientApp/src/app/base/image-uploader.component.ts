@@ -1,9 +1,10 @@
 import { HttpEventType } from '@angular/common/http';
-import { OnInit } from '@angular/core';
+import { OnInit, Directive } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICustomActionResult } from '../models/ICustomActionResult.model';
 import { BaseFormComponent } from './base-form.component';
 
+@Directive()
 export abstract class ImageUploaderComponent extends BaseFormComponent implements OnInit {
 
   protected fileToUpload: File = null;

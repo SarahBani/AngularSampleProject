@@ -27,7 +27,7 @@ namespace WebApplication.Controllers
 
         #region Actions
 
-        [HttpPost("[action]")]
+        [HttpPost("SendAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> SendAsync([FromBody] Contact contact)

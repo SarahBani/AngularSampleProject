@@ -23,7 +23,8 @@ export abstract class BaseService {
   }
 
   private getHeaders(): {
-    headers?: HttpHeaders; responseType: 'json';
+    headers?: HttpHeaders;
+    responseType: 'json';
   } {
     return {
       headers: new HttpHeaders({

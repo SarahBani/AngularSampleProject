@@ -46,7 +46,7 @@ namespace WebApplication.Controllers
             return await this._bookService.GetCountAsync();
         }
        
-        [HttpPost("[action]")]
+        [HttpPost("InsertAsync")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> InsertAsync([FromBody] Book book)
@@ -67,7 +67,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpPut("[action]/{id:length(24)}")]
+        [HttpPut("UpdateAsync/{id:length(24)}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateAsync([FromRoute] string id, [FromBody] Book book)
@@ -92,7 +92,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpPut("[action]/{id:length(24)}")]
+        [HttpPut("InsertCommentAsync/{id:length(24)}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> InsertCommentAsync([FromRoute] string id, [FromBody] BookComment bookComment)
@@ -112,7 +112,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpDelete("[action]/{id:length(24)}")]
+        [HttpDelete("DeleteAsync/{id:length(24)}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> DeleteAsync([FromRoute] string id)
@@ -133,7 +133,7 @@ namespace WebApplication.Controllers
             }
         }
 
-        [HttpPost("[action]"), DisableRequestSizeLimit]
+        [HttpPost("UploadCoverImage"), DisableRequestSizeLimit]
         public IActionResult UploadCoverImage()
         {
             return base.UploadImage("Books");

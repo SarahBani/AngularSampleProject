@@ -13,7 +13,7 @@ using GraphQL.Validation.Complexity;
 using static GraphQL.Execution.ExecutionHelper;
 using ExecutionContext = GraphQL.Execution.ExecutionContext;
 
-namespace UserInterface
+namespace UserInterface.GraphQL
 {
     /// <summary>
         /// <inheritdoc cref="IDocumentExecuter"/>

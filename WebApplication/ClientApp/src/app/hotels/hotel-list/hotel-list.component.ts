@@ -37,10 +37,11 @@ export class HotelListComponent extends BaseLoadingComponent implements OnInit, 
 
   private fillList(): void {
     super.showLoader();
-    this.hotelService.getList().subscribe((hotels) => {
-      this.hotels = hotels;
-      super.hideLoader();
-    }, error => super.showError(error));
+    this.hotelService.getList();
+    //this.hotelService.getList().subscribe((hotels) => {
+    //  this.hotels = hotels;
+    //  super.hideLoader();
+    //}, error => super.showError(error));
   }
 
   private onAdd(): void {

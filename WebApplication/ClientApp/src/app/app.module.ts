@@ -3,9 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TooltipModule } from 'ng2-tooltip-directive';
-//import { APOLLO_OPTIONS } from 'apollo-angular';
-//import { HttpLink } from 'apollo-angular/http';
-//import { InMemoryCache } from '@apollo/client/core';
+import { APOLLO_OPTIONS } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular/http';
+import { InMemoryCache } from '@apollo/client/core';
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -101,18 +101,18 @@ import { SelectHotelComponent } from './hotels/select-hotel/select-hotel.compone
     TooltipModule,
   ],
   providers: [AuthService, AuthGuardService, CanDeactivateGuardService,
-    //{
-    //  provide: APOLLO_OPTIONS,
-    //  useFactory: (httpLink: HttpLink) => {
-    //    return {
-    //      cache: new InMemoryCache(),
-    //      link: httpLink.create({
-    //        uri: '/graphql'
-    //      })
-    //    }
-    //  },
-    //  deps: [HttpLink]
-    //}
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory: (httpLink: HttpLink) => {
+        return {
+          cache: new InMemoryCache(),
+          link: httpLink.create({
+            uri: 'http://localhost:4200/graphql'
+          }),
+        };
+      },
+      deps: [HttpLink],
+    },    
     //{
     //  provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true
     //}

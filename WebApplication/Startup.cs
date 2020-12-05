@@ -13,7 +13,6 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.IO;
 using Core.DomainModel;
-using GraphiQl;
 using UserInterface.GraphQL.Schemas;
 using UserInterface.GraphQL.Queries;
 using UserInterface.GraphQL.Types;
@@ -22,7 +21,6 @@ using GraphQL;
 using GraphQL.Server;
 using GraphQL.Server.Ui.Playground;
 using GraphQL.Types;
-using UserInterface;
 using GraphQL.NewtonsoftJson;
 
 namespace WebApplication
@@ -48,7 +46,7 @@ namespace WebApplication
             services.SetInjection();
 
             services.AddSingleton<IDocumentWriter, DocumentWriter>();
-            services.AddSingleton<IDocumentExecuter, DocumentExecuter2>();
+            services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
             services.AddScoped<HotelType>();
             services.AddScoped<HotelRoomType>();
             services.AddScoped<CityType>();
@@ -61,7 +59,6 @@ namespace WebApplication
 
             services.AddGraphQL(options =>
             {
-
                 options.EnableMetrics = true;
             })
             .AddErrorInfoProvider(opt =>
@@ -69,32 +66,9 @@ namespace WebApplication
                 opt.ExposeExceptionStackTrace = true;
             })
             .AddSystemTextJson()
-           .AddGraphTypes(ServiceLifetime.Transient)
+            .AddGraphTypes(ServiceLifetime.Scoped)
             .AddDataLoader();
 
-
-            //     services.AddScoped<IServiceProvider>(
-            //    s => new FuncServiceProvider(
-            //        s.GetRequiredService<HotelSchema>()  
-            //    )
-            //);
-
-            //services.AddGraphQL(options =>
-            //{
-            //    options.EndPoint = "/graphql";
-            //});
-
-            ////***< My services >*** 
-            //services.AddHttpClient<ReservationHttpGraphqlClient>(x => x.BaseAddress = new Uri(Configuration["GraphQlEndpoint"]));
-            //services.AddSingleton(t => new GraphQLClient(Configuration["GraphQlEndpoint"]));
-            //services.AddSingleton<ReservationGraphqlClient>();
-            ////***</ My services >*** 
-            ///
-
-
-            //services.AddTransient<HotelSchema>();
-            //services.AddGraphQL(o => o.ExposeExceptions = true)
-            //        .AddGraphTypes(ServiceLifetime.Transient);
             services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
             services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
 
@@ -134,17 +108,13 @@ namespace WebApplication
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+                app.UseSpaStaticFiles();
             }
 
             dbContext.Database.EnsureCreated();
             //dbContext.Database.Migrate();
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            if (!env.IsDevelopment())
-            {
-                app.UseSpaStaticFiles();
-            }
 
             app.UseRouting();
             app.UseCorsMiddleware();
@@ -159,14 +129,15 @@ namespace WebApplication
 
             // comment the following code if u want to run from GraphQLController
             // add http for Schema at default url http://*DOMAIN*/graphql
-            // app.UseGraphQL<ISchema>(); 
-            //app.UseGraphQL<ISchema>("/graphql");
-            //app.UseGraphQL<GraphSchema>();
+            //app.UseGraphQL<ISchema>();
+            app.UseGraphQL<ISchema>("/graphql");
 
             app.UseGraphiQLServer(); // to explorer API navigate http://*DOMAIN*/ui/graphiql
-            //app.UseGraphiQl("/graphql");
-
-            //app.UseGraphQLPlayground(new GraphQLPlaygroundOptions()); //to explorer API navigate http://*DOMAIN*/ui/playground
+            app.UseGraphQLPlayground(new GraphQLPlaygroundOptions()); //to explorer API navigate http://*DOMAIN*/ui/playground
+            //app.UseGraphQLPlayground(new GraphQLPlaygroundOptions
+            //{
+            //    GraphQLEndPoint = "/graphql"  // default GraphQL endpoint  
+            //});
 
             app.UseEndpoints(endpoints =>
             {
@@ -190,15 +161,5 @@ namespace WebApplication
                 }
             });
         }
-
-        //private static void InitializeMapper()
-        //{
-        //    Mapper.Initialize(x =>
-        //    {
-        //        x.CreateMap<Hotel, GuestModel>();
-        //        x.CreateMap<HotelRoom, RoomModel>();
-        //    });
-        //}
-
     }
 }

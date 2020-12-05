@@ -2,13 +2,12 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IHotel } from '../models/Ihotel.model';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { BaseService } from './base-service';
 import { ModalService } from './modal-service';
 import { ExceptionHandlerService } from './exception-handler-service';
 import { ILoaderService } from './ILoader-service';
 import { map } from 'rxjs/operators';
 import { BaseGraphQLService } from './base-graphql_service';
-import { Apollo } from 'apollo-angular';
+import { Apollo, QueryRef, gql } from 'apollo-angular';
 //import { HttpLink } from 'apollo-angular-link-http';
 
 @Injectable({ providedIn: 'root' })
@@ -38,7 +37,7 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
       }));
   }
 
-  public getList(): Observable<IHotel[]> {
+  public getList(){
     const query = `
       hotels {
         id
@@ -47,11 +46,23 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
         address
       }
     `;
-    return super.httpPost(query)
-      .pipe(map((response) => {
-        return response.data.countries;
-      }));
+    super.httpPost(query);
   }
+
+  //public getList(): Observable<IHotel[]> {
+  //  const query = `
+  //    hotels {
+  //      id
+  //      name,
+  //      stars,
+  //      address
+  //    }
+  //  `;
+  //  return super.httpPost(query)
+  //    .pipe(map((response) => {
+  //      return response.data.countries;
+  //    }));
+  //}
 
   //public getCount(): Observable<number> {
   //  return super.httpGetCount();
