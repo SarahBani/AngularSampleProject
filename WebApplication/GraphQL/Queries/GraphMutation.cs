@@ -57,7 +57,7 @@ namespace UserInterface.GraphQL.Queries
                     return this._hotelService.InsertAsync(hotel);
                 });
             Field<TransactionResultType>(
-                "editHotel",
+                "updateHotel",
                 "Update an existing Hotel",
                 arguments: new QueryArguments(
                     new QueryArgument<NonNullGraphType<HotelInputType>> { Name = "hotel" }

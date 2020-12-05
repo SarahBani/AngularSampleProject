@@ -1,0 +1,9 @@
+.fa-star {
+  color: #343A40; /*565C63*/
+  text-shadow: 0 0 1px #343A40, 0 0 1px #343A40, 0 0 1px #343A40, 0 0 1px #343A40;
+}
+
+.checked {
+  color: #FFD119;
+  text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
+}

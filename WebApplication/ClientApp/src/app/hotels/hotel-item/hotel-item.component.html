@@ -3,5 +3,9 @@
    class="list-group-item clearfix">
   <strong class="list-group-item-heading">{{ model.name }}</strong>
   <em> {{ model.city?.name }} - {{ model.city?.country?.name }}</em>
-  <div id="stars{{ model.id }}" class='starrr float-right'></div>
+  <!--<div id="stars{{ model.id }}" class='starrr float-right'></div>-->
+  <div class='float-right'>
+    <span *ngFor="let item of [].constructor(5); let i = index" class="fa fa-star{{ model.stars > i ? ' checked' : ''}}">
+    </span>
+  </div>
 </a>

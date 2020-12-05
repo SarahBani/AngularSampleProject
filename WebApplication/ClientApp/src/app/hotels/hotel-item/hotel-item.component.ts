@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IHotel } from '../../models/IHotel.model';
 
-declare var $: any;
-
 @Component({
   selector: 'app-hotel-item',
   templateUrl: './hotel-item.component.html',
@@ -14,13 +12,14 @@ export class HotelItemComponent implements OnInit {
 
   constructor() { }
 
-  public  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  public ngAfterViewInit(): void {
-    $('#stars' + this.model.id).starrr({
-      rating: this.model.stars
-    });
-  }
+  //public ngAfterViewInit(): void {
+  //  $('#stars' + this.model.id).starrr({
+  //    rating: this.model.stars,
+  //    readOnly: true
+  //  });
+  //}
 
 }

@@ -14,11 +14,8 @@ var apollo_angular_1 = require("apollo-angular");
 //import { HttpLink } from 'apollo-angular-link-http';
 //import { gql } from 'graphql-tag';
 var BaseGraphQLService = /** @class */ (function () {
-    function BaseGraphQLService(apollo, httpClient, modalService, exceptionHandlerService
-    //, private httpLink: HttpLink
-    ) {
+    function BaseGraphQLService(apollo, modalService, exceptionHandlerService) {
         this.apollo = apollo;
-        this.httpClient = httpClient;
         this.modalService = modalService;
         this.exceptionHandlerService = exceptionHandlerService;
         this.const_confirmDelete = "Are you sure to delete this item?";
@@ -28,9 +25,6 @@ var BaseGraphQLService = /** @class */ (function () {
         //  cache: new InMemoryCache()
         //})
     }
-    //private getInitialUrl(): string {
-    //  return this.baseUrl + this.controllerName + '/';
-    //}
     BaseGraphQLService.prototype.getHeaders = function () {
         return {
             headers: new http_1.HttpHeaders({
@@ -72,6 +66,14 @@ var BaseGraphQLService = /** @class */ (function () {
         //  query: gql`query GraphQLRequest { ${query} }`
         //});
     };
+    BaseGraphQLService.prototype.applyMutation = function (mutation) {
+        //const client = new ApolloClient({
+        //  uri: "http://localhost:4200/graphql" 
+        //});
+        return this.apollo.query({
+            query: apollo_angular_1.gql(templateObject_2 || (templateObject_2 = __makeTemplateObject(["query GraphQLRequest \n      { ", " }"], ["query GraphQLRequest \n      { ", " }"])), mutation)
+        });
+    };
     BaseGraphQLService.prototype.confirmDelete = function () {
         return this.modalService.showConfirm(this.const_confirmDelete);
     };
@@ -83,5 +85,5 @@ var BaseGraphQLService = /** @class */ (function () {
     return BaseGraphQLService;
 }());
 exports.BaseGraphQLService = BaseGraphQLService;
-var templateObject_1;
+var templateObject_1, templateObject_2;
 //# sourceMappingURL=base-graphql_service.js.map

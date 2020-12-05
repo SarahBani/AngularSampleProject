@@ -30,6 +30,9 @@ namespace Core.ApplicationService.Implementation
         public override Task<IList<Hotel>> GetAllAsync() =>
             base.GetQueryable().Include(q => q.City).Include(q => q.City.Country).ToIListAsync();
 
+        public override Task<Hotel> GetByIdAsync(long id) =>
+           base.GetQueryable().Include(q => q.City).Include(q => q.City.Country).SingleAsync(q=>q.Id == id);
+
         public Task<int> GetCountAsync() => base.GetQueryable().CountAsync();
 
         public Task<IList<Hotel>> GetListByCityIdAsync(long cityId) =>

@@ -43,12 +43,14 @@ export class HotelDetailComponent extends BaseLoadingComponent implements OnInit
     this.route.params.subscribe((params: Params) => {
       const id: number = +params['id'];
       this.hotelService.getItem(id).subscribe((hotel: IHotel) => {
+        console.log(hotel);
         super.hideLoader();
         if (hotel == null) {
           this.redirectBack();
           return;
         }
         this.model = hotel;
+        console.warn(this.model);
       }, error => super.showError(error));
     });
   }

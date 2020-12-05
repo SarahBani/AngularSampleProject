@@ -75,7 +75,14 @@ export class HotelEditComponent extends BaseFormComponent
           'name': hotel.name,
           'address': hotel.address,
         });
-        //hotel.cityId
+
+        const country = this.countries.filter(q => q.id === hotel.city.country.id)[0];
+        this.onSelectCountry(country);
+        this.onSelectCity(hotel.city);
+        //this.selectedCountryId = hotel.country.id;
+        //this.selectedCountryName = hotel.country.name;
+        //this.selectedCityId = hotel.city.id;
+        //this.selectedCityName = hotel.city.name;
         this.stars = hotel.stars;
         $('.starrr').starrr({
           rating: this.stars
@@ -93,6 +100,7 @@ export class HotelEditComponent extends BaseFormComponent
   }
 
   private onSelectCountry(country: ICountry): void {
+    console.warn(country);
     if (country != null) {
       this.selectedCountryId = country.id;
       this.selectedCountryName = country.name;

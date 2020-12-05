@@ -1,5 +1,4 @@
-import { Inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { IHotel } from '../models/Ihotel.model';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { ModalService } from './modal-service';
@@ -7,8 +6,7 @@ import { ExceptionHandlerService } from './exception-handler-service';
 import { ILoaderService } from './ILoader-service';
 import { map } from 'rxjs/operators';
 import { BaseGraphQLService } from './base-graphql_service';
-import { Apollo, QueryRef, gql } from 'apollo-angular';
-//import { HttpLink } from 'apollo-angular-link-http';
+import { Apollo } from 'apollo-angular';
 
 @Injectable({ providedIn: 'root' })
 export class HotelService extends BaseGraphQLService implements ILoaderService {
@@ -18,18 +16,17 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
   public changeLoaderStatus: Subject<boolean> = new Subject<boolean>();
 
   constructor(apollo: Apollo,
-    http: HttpClient,
     modalService: ModalService,
     exceptionHandlerService: ExceptionHandlerService) {
-    super(apollo, http, modalService, exceptionHandlerService);
+    super(apollo, modalService, exceptionHandlerService);
   }
 
   public getList(): Observable<IHotel[]> {
     const query = `
       hotels {
         id
-        name,
-        stars,
+        name
+        stars
         city {
           name
           country
@@ -49,11 +46,21 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
 
   public getItem(id: number): Observable<IHotel> {
     const query = `
-      hotel {
+      hotel(id: ${ id }) {
         id
-        name,
-        stars,
+        name
+        stars
         address
+        city
+        {
+          id
+          name
+          country
+          {
+            id
+            name
+          }
+        }
       }
     `;
     return super.httpPost(query)
@@ -85,7 +92,7 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
     //  }  
     //}`;
     const mutation = ` 
-      createHotel(hotel: ` + hotel + `)
+      createHotel(hotel: ${ hotel })
         {
           isSuccessful
           customExceptionMessage
@@ -99,15 +106,23 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
   }
 
   private update(id: number, hotel: IHotel): void {
+    //const mutation = `
+    //  updateHotel ($hotel : hotel!){  
+    //    updateHotel(hotel : $hotel){  
+    //      name,
+    //      cityId,
+    //      stars,
+    //      address      
+    //    }  
+    //  }
+    //`;
     const mutation = `
-      updateHotel ($hotel : hotel!){  
-        updateHotel(hotel : $hotel){  
+        updateHotel(hotel : ${ hotel }) {  
           name,
           cityId,
           stars,
           address      
         }  
-      }
     `;
     super.httpPost(mutation)
       .subscribe(result => {

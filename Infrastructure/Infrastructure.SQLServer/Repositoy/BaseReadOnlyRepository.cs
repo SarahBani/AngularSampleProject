@@ -66,7 +66,7 @@ namespace Infrastructure.DataBase.Repositoy
                 .Where(filter)
                 .SingleOrDefaultAsync();
 
-        protected IQueryable<TEntity> GetQueryable() =>
+        public IQueryable<TEntity> GetQueryable() =>
             this.MyDBContext.Set<TEntity>().AsQueryable();
 
         public virtual IEnumerable<TEntity> GetEnumerable(

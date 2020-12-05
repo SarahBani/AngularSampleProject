@@ -5,6 +5,23 @@
       <h4>{{ model.name }}</h4>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-12">
+      <span *ngFor="let item of [].constructor(5); let i = index" class="fa fa-star{{ model.stars > i ? ' checked' : ''}}"></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <span>{{ model.city?.country?.name }} - {{ model.city?.name }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <address>{{ model.address }}</address>
+    </div>
+  </div>
   <br />
 
   <div class="row">
@@ -16,6 +33,7 @@
           Manage<span class="caret"></span>
         </button>
         <div class=" dropdown-menu">
+          <a class="dropdown-item" style="cursor:pointer" (click)="onPictures()">Pictures</a>
           <a class="dropdown-item" style="cursor:pointer" (click)="onRooms()">Rooms</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" style="cursor:pointer" (click)="onEdit()">Edit</a>

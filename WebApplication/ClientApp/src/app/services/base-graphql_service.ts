@@ -1,9 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs'
 import { ModalService } from './modal-service';
 import { ExceptionHandlerService } from './exception-handler-service';
 import { Apollo, QueryRef, gql } from 'apollo-angular';
-import graphql from 'graphql-tag'
 //import gql from 'graphql-tag';
 
 //import { Apollo, gql } from 'apollo-angular';
@@ -17,10 +16,8 @@ export abstract class BaseGraphQLService {
   public onUploadFinished: Subject<string> = new Subject<string>();
 
   constructor(private apollo: Apollo,
-    private httpClient: HttpClient,
     protected modalService: ModalService,
     private exceptionHandlerService: ExceptionHandlerService
-   //, private httpLink: HttpLink
   ) {
 
     //this.apollo.create({
@@ -28,10 +25,6 @@ export abstract class BaseGraphQLService {
     //  cache: new InMemoryCache()
     //})
   }
-
-  //private getInitialUrl(): string {
-  //  return this.baseUrl + this.controllerName + '/';
-  //}
 
   private getHeaders(): {
     headers?: HttpHeaders;
@@ -88,6 +81,17 @@ export abstract class BaseGraphQLService {
     //return this.apollo.query({
     //  query: gql`query GraphQLRequest { ${query} }`
     //});
+  }
+
+  protected applyMutation(mutation: string): Observable<any> {
+
+    //const client = new ApolloClient({
+    //  uri: "http://localhost:4200/graphql" 
+    //});
+    return this.apollo.query({
+      query: gql`query GraphQLRequest 
+      { ${mutation} }`
+    });
   }
 
   protected confirmDelete(): Observable<boolean> {

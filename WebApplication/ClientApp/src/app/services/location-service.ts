@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { ICountry } from '../models/ICountry.model';
 import { Observable, Subject } from 'rxjs';
 import { ModalService } from './modal-service';
@@ -8,7 +7,6 @@ import { ILoaderService } from './ILoader-service';
 import { map } from 'rxjs/operators';
 import { BaseGraphQLService } from './base-graphql_service';
 import { Apollo } from 'apollo-angular';
-//import { HttpLink } from 'apollo-angular-link-http';
 
 @Injectable({ providedIn: 'root' })
 export class LocationService extends BaseGraphQLService implements ILoaderService {
@@ -16,14 +14,10 @@ export class LocationService extends BaseGraphQLService implements ILoaderServic
   public changeLoaderStatus: Subject<boolean> = new Subject<boolean>();
 
   constructor(apollo: Apollo,
-    http: HttpClient,
     modalService: ModalService,
     exceptionHandlerService: ExceptionHandlerService
-    //,httpLink: HttpLink
   ) {
-    super(apollo, http, modalService, exceptionHandlerService
-      //, httpLink
-    );
+    super(apollo, modalService, exceptionHandlerService);
   }
 
   public getCountryItem(id: number): Observable<ICountry> {
