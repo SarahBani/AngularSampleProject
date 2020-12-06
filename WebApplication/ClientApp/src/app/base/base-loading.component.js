@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseLoadingComponent = void 0;
+// TODO: Add Angular decorator.
 var BaseLoadingComponent = /** @class */ (function () {
     function BaseLoadingComponent(loaderService) {
         var _this = this;
@@ -11,7 +12,7 @@ var BaseLoadingComponent = /** @class */ (function () {
             // this constructor is useful for components which have delete button
             // loader appears not after pressing delete button
             // but after confirm delete
-            this.changeLoaderStatueSubscription = loaderService.changeLoaderStatus
+            this.changeLoaderStatusSubscription = loaderService.changeLoaderStatus
                 .subscribe(function (status) {
                 if (status) {
                     _this.showLoader();
@@ -36,12 +37,13 @@ var BaseLoadingComponent = /** @class */ (function () {
     };
     BaseLoadingComponent.prototype.showError = function (error) {
         console.warn('BaseLoadingComponent - showError');
-        console.error(error);
+        var JsonErr = JSON.stringify(error);
+        console.error(JsonErr);
         this.hideLoader();
     };
     BaseLoadingComponent.prototype.ngOnDestroy = function () {
-        if (this.changeLoaderStatueSubscription != null) {
-            this.changeLoaderStatueSubscription.unsubscribe();
+        if (this.changeLoaderStatusSubscription != null) {
+            this.changeLoaderStatusSubscription.unsubscribe();
         }
     };
     return BaseLoadingComponent;

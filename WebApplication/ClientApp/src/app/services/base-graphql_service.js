@@ -5,73 +5,36 @@ var __makeTemplateObject = (this && this.__makeTemplateObject) || function (cook
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseGraphQLService = void 0;
-var http_1 = require("@angular/common/http");
 var rxjs_1 = require("rxjs");
 var apollo_angular_1 = require("apollo-angular");
-//import gql from 'graphql-tag';
-//import { Apollo, gql } from 'apollo-angular';
-//import { ApolloClient,InMemoryCache } from '@apollo/client';
-//import { HttpLink } from 'apollo-angular-link-http';
-//import { gql } from 'graphql-tag';
 var BaseGraphQLService = /** @class */ (function () {
-    function BaseGraphQLService(apollo, modalService, exceptionHandlerService) {
+    function BaseGraphQLService(apollo, modalService, exceptionHandlerService, useCache) {
+        if (useCache === void 0) { useCache = true; }
         this.apollo = apollo;
         this.modalService = modalService;
         this.exceptionHandlerService = exceptionHandlerService;
+        this.useCache = useCache;
         this.const_confirmDelete = "Are you sure to delete this item?";
         this.onUploadFinished = new rxjs_1.Subject();
-        //this.apollo.create({
-        // // link: this.httpLink.create({ uri: 'https://localhost:4200/graphql' }),
-        //  cache: new InMemoryCache()
-        //})
     }
-    BaseGraphQLService.prototype.getHeaders = function () {
-        return {
-            headers: new http_1.HttpHeaders({
-                'Content-Type': 'application/json; charset=utf-8'
-            }),
-            responseType: 'json'
-        };
-    };
-    BaseGraphQLService.prototype.httpPost = function (query) {
+    //protected httpGetCount(): Observable<number> {
+    //  return this.httpGet<number>('CountAsync');
+    //}
+    //private query: QueryRef<any>;
+    BaseGraphQLService.prototype.requestQuery = function (name, query, variables) {
+        if (variables === void 0) { variables = {}; }
         //const client = new ApolloClient({
         //  uri: "http://localhost:4200/graphql" 
         //});
         return this.apollo.query({
-            query: apollo_angular_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["query GraphQLRequest \n      { ", " }"], ["query GraphQLRequest \n      { ", " }"])), query)
+            query: apollo_angular_1.gql(templateObject_1 || (templateObject_1 = __makeTemplateObject(["query ", " { ", " }"], ["query ", " { ", " }"])), name, query),
+            fetchPolicy: (this.useCache ? "network-only" : "no-cache"),
+            variables: variables
         });
-        //this.apollo.watchQuery({
-        //  query: gql`
-        //      {
-        //        hotels {
-        //            id
-        //            name
-        //          }
-        //      }
-        //    `,
-        //  })
-        //  .valueChanges.subscribe((result: any) => {
-        //    console.log( result?.data?.rates);
-        //    console.log(  result.loading);
-        //    console.log(  result.error);
-        //  });
-        //this.query = this.apollo.watchQuery({      
-        //  query: My_QUERY,
-        //  variables: {}
-        //});
-        //this.apollo.watchQuery({
-        //  query: gql`query GraphQLRequest { ${query} }`
-        //});
-        //return this.apollo.query({
-        //  query: gql`query GraphQLRequest { ${query} }`
-        //});
     };
-    BaseGraphQLService.prototype.applyMutation = function (mutation) {
-        //const client = new ApolloClient({
-        //  uri: "http://localhost:4200/graphql" 
-        //});
-        return this.apollo.query({
-            query: apollo_angular_1.gql(templateObject_2 || (templateObject_2 = __makeTemplateObject(["query GraphQLRequest \n      { ", " }"], ["query GraphQLRequest \n      { ", " }"])), mutation)
+    BaseGraphQLService.prototype.requestMutation = function (name, mutation) {
+        return this.apollo.mutate({
+            mutation: apollo_angular_1.gql(templateObject_2 || (templateObject_2 = __makeTemplateObject(["mutation ", " { ", " }"], ["mutation ", " { ", " }"])), name, mutation)
         });
     };
     BaseGraphQLService.prototype.confirmDelete = function () {

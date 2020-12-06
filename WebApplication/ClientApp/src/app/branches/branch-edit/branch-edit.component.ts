@@ -14,7 +14,6 @@ import { BranchService } from '../../services/branch-service';
 export class BranchEditComponent extends BaseFormComponent implements OnInit, OnDestroy {
 
   @ViewChild('f') myForm: NgForm;
-  private model: IBranch;
   private id: number;
   private bankId: number;
   private operationCompletedSubscription: Subscription;

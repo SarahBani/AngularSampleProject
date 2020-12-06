@@ -15,6 +15,7 @@ export class HotelDetailComponent extends BaseLoadingComponent implements OnInit
 
   private model: IHotel;
   private operationCompletedSubscription: Subscription;
+  private querySubscription: Subscription;
 
   constructor(private hotelService: HotelService,
     private route: ActivatedRoute,
@@ -42,22 +43,36 @@ export class HotelDetailComponent extends BaseLoadingComponent implements OnInit
     super.showLoader();
     this.route.params.subscribe((params: Params) => {
       const id: number = +params['id'];
-      this.hotelService.getItem(id).subscribe((hotel: IHotel) => {
-        console.log(hotel);
+      this.querySubscription = this.hotelService.getItem(id).subscribe((hotel: IHotel) => {
         super.hideLoader();
         if (hotel == null) {
           this.redirectBack();
           return;
         }
         this.model = hotel;
-        console.warn(this.model);
-      }, error => super.showError(error));
+      }, error => {
+        if (error.graphQLErrors[0].extensions.code === "INVALID_OPERATION") {
+          this.onBack();
+        }
+        else {
+          super.showError(error);
+        }
+      });
     });
+  }
+
+  private onPhotos(): void {
+
+  }
+
+  private onRooms(): void {
+
   }
 
   private onBack(): void {
     this.redirectBack();
   }
+
   private onDelete(): void {
     this.hotelService.delete(this.model.id);
   }
@@ -72,6 +87,7 @@ export class HotelDetailComponent extends BaseLoadingComponent implements OnInit
 
   public ngOnDestroy(): void {
     this.operationCompletedSubscription.unsubscribe();
+    this.querySubscription.unsubscribe();
   }
 
 }

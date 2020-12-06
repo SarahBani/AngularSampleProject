@@ -20,7 +20,6 @@ export class HotelEditComponent extends BaseFormComponent
   implements OnInit, OnDestroy {
 
   @ViewChild('f') myForm: NgForm;
-  private model: IHotel;
   private id: number;
   private countries: ICountry[] = [];
   private cities: ICity[] = [];
@@ -28,7 +27,6 @@ export class HotelEditComponent extends BaseFormComponent
   private selectedCountryName: string = '---';
   private selectedCityId: number;
   private selectedCityName: string = '---';
-  private stars: number;
   private operationCompletedSubscription: Subscription;
 
   constructor(private hotelService: HotelService,
@@ -57,9 +55,8 @@ export class HotelEditComponent extends BaseFormComponent
       })
   }
 
-  private initForm() {
-    this.fillCountries();
-    $('.starrr').starrr();
+  private async initForm() {
+    await this.fillCountries();
 
     if (this.route.snapshot.params["id"] != null) {
       this.id = +this.route.snapshot.params["id"];
@@ -75,32 +72,39 @@ export class HotelEditComponent extends BaseFormComponent
           'name': hotel.name,
           'address': hotel.address,
         });
-
         const country = this.countries.filter(q => q.id === hotel.city.country.id)[0];
         this.onSelectCountry(country);
         this.onSelectCity(hotel.city);
-        //this.selectedCountryId = hotel.country.id;
-        //this.selectedCountryName = hotel.country.name;
-        //this.selectedCityId = hotel.city.id;
-        //this.selectedCityName = hotel.city.name;
-        this.stars = hotel.stars;
-        $('.starrr').starrr({
-          rating: this.stars
-        });
+        const stars = hotel.stars;
+        this.setStars(stars);
       }, error => super.showError(error));
+    }
+    else {
+      this.setStars();
     }
   }
 
-  private fillCountries(): void {
+  private async fillCountries() {
     super.showLoader();
-    this.locationService.getCountryList().subscribe((countries: ICountry[]) => {
-      this.countries = countries;
-      super.hideLoader();
-    }, error => super.showError(error));
+    await this.locationService.getCountryList()
+      .toPromise()
+      .then((countries) => {
+        this.countries = countries;
+        super.hideLoader();
+      })
+      .catch(error => super.showError(error));
+    //var countries = await this.locationService.getCountryList().toPromise()
+    //  .catch(error => super.showError(error));
+    //if (countries) {
+    //  this.countries = countries;
+    //  super.hideLoader();
+    //}
+    //else {
+    //  super.hideLoader();
+    //}
   }
 
   private onSelectCountry(country: ICountry): void {
-    console.warn(country);
     if (country != null) {
       this.selectedCountryId = country.id;
       this.selectedCountryName = country.name;
@@ -122,20 +126,29 @@ export class HotelEditComponent extends BaseFormComponent
     }
   }
 
+  private setStars(stars: number = 0) {
+    $('.starrr').starrr({
+      rating: stars,
+      //change: function (e, value) {
+      //  console.log(value);
+      //}
+    });
+    //$('.starrr').on('starrr:change', function (e, value) {
+    //})
+  }
+
   private onClear(): void {
     this.onSelectCountry(null);
   }
 
   private onSave(): void {
+    const stars = $('.starrr>.fa-star').length;
     super.showLoader();
-    const hotel: IHotel = {
-      id: this.id,
-      name: this.myForm.value.name,
-      cityId: this.selectedCityId,
-      stars: this.stars,
-      address: this.myForm.value.address
-    };
-    this.hotelService.save(hotel);
+    this.hotelService.save(this.id,
+      this.myForm.value.name,
+      this.selectedCityId,
+      stars,
+      this.myForm.value.address);
   }
 
   private onDelete(): void {

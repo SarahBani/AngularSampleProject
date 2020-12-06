@@ -15,7 +15,6 @@ export class BankEditComponent extends ImageUploaderComponent
   implements OnInit, OnDestroy {
 
   @ViewChild('f') myForm: NgForm;
-  private model: IBank;
   private id: number;
   private operationCompletedSubscription: Subscription;
 

@@ -6,7 +6,7 @@ import { ExceptionHandlerService } from './exception-handler-service';
 import { ILoaderService } from './ILoader-service';
 import { map } from 'rxjs/operators';
 import { BaseGraphQLService } from './base-graphql_service';
-import { Apollo } from 'apollo-angular';
+import { Apollo, gql } from 'apollo-angular';
 
 @Injectable({ providedIn: 'root' })
 export class HotelService extends BaseGraphQLService implements ILoaderService {
@@ -18,7 +18,7 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
   constructor(apollo: Apollo,
     modalService: ModalService,
     exceptionHandlerService: ExceptionHandlerService) {
-    super(apollo, modalService, exceptionHandlerService);
+    super(apollo, modalService, exceptionHandlerService, false);
   }
 
   public getList(): Observable<IHotel[]> {
@@ -34,19 +34,16 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
             name
           }
         }
-      }
-    `;
-    return super.httpPost(query)
-      .pipe(map((response) => {
-        //console.log(response.loading);
-        //console.log(response.error);
-        return response?.data?.hotels;
+      }`;
+    return super.requestQuery('Hotels', query)
+      .pipe(map(({ data }) => {
+        return data?.hotels;
       }));
   }
 
   public getItem(id: number): Observable<IHotel> {
     const query = `
-      hotel(id: ${ id }) {
+      hotel(id: ${id}) {
         id
         name
         stars
@@ -61,70 +58,68 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
             name
           }
         }
-      }
-    `;
-    return super.httpPost(query)
-      .pipe(map((response) => {
-        return response.data.hotel;
+      }`;
+    return super.requestQuery('Hotel', query)
+      .pipe(map(({ data }) => {
+        return data?.hotel;
       }));
-  }   
+  }
 
   //public getCount(): Observable<number> {
   //  return super.httpGetCount();
   //}
 
-  public save(hotel: IHotel): void {
-    if (hotel.id > 0) {
-      this.update(hotel.id, hotel);
+  public save(id: number,
+    name: string,
+    cityId: number,
+    stars: number,
+    address: string): void {
+    if (id > 0) {
+      this.update(id, name, cityId, stars, address);
     }
     else {
-      this.insert(hotel);
+      this.insert(name, cityId, stars, address);
     }
   }
 
-  private insert(hotel: IHotel): void {
-    //const mutation = `createHotel ($hotel : hotel!){  
-    //  createHotel(hotel : $hotel){  
-    //    name,
-    //    cityId,
-    //    stars,
-    //    address      
-    //  }  
-    //}`;
-    const mutation = ` 
-      createHotel(hotel: ${ hotel })
+  private insert(
+    name: string,
+    cityId: number,
+    stars: number,
+    address: string): void {
+    const mutation = `
+      createHotel(hotel: { name: "${name}", cityId: ${cityId}, stars: ${stars}, address: "${address}"})
+      {
+        isSuccessful
+        customExceptionMessage
+      }`;
+
+    super.requestMutation('CreateHotel', mutation)
+      .pipe(map(({ data }) => {
+        return data?.createHotel;
+      }))
+      .subscribe(result => {
+        this.onSuccess(result);
+      }, error => {
+        this.onError(error);
+      });
+  }
+
+  private update(id: number,
+    name: string,
+    cityId: number,
+    stars: number,
+    address: string): void {
+    const mutation = `
+        editHotel(hotel : { id: ${id}, name: "${name}", cityId: ${cityId}, stars: ${stars}, address: "${address}"})
         {
           isSuccessful
           customExceptionMessage
-        }    
-      }
-    `;
-    super.httpPost(mutation)
-      .pipe(map((response) => {
-        return response.data;
-      }));
-  }
-
-  private update(id: number, hotel: IHotel): void {
-    //const mutation = `
-    //  updateHotel ($hotel : hotel!){  
-    //    updateHotel(hotel : $hotel){  
-    //      name,
-    //      cityId,
-    //      stars,
-    //      address      
-    //    }  
-    //  }
-    //`;
-    const mutation = `
-        updateHotel(hotel : ${ hotel }) {  
-          name,
-          cityId,
-          stars,
-          address      
-        }  
-    `;
-    super.httpPost(mutation)
+        }`;
+    super.requestMutation('EditHotel', mutation)
+      .pipe(map(({ data }) => {
+        return data?.editHotel;
+      }))
       .subscribe(result => {
         this.onSuccess(result);
       }, error => {
@@ -149,12 +144,14 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
 
   private doDelete(id: number): void {
     const mutation = `
-    deleteHotel ($id : id!){  
-      deleteHotel(id : $id){       
-      }  
-    }
-    `;
-    super.httpPost(mutation)
+      removeHotel(id : ${id}) {
+          isSuccessful
+          customExceptionMessage
+      }}`;
+    super.requestMutation('RemoveHotel', mutation)
+      .pipe(map(({ data }) => {
+        return data?.removeHotel;
+      }))
       .subscribe(result => {
         this.onSuccess(result);
       }, error => {

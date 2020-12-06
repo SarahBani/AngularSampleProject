@@ -15,7 +15,6 @@ export class BookEditComponent extends ImageUploaderComponent
   implements OnInit, OnDestroy {
 
   private myFormGroup: FormGroup;
-  private model: IBook;
   private id: string;
   private operationCompletedSubscription: Subscription;
 

@@ -14,6 +14,7 @@ export class HotelListComponent extends BaseLoadingComponent implements OnInit, 
 
   private hotels: IHotel[] = [];
   private operationCompletedSubscription: Subscription;
+  private querySubscription: Subscription;
 
   constructor(private hotelService: HotelService,
     private router: Router,
@@ -37,7 +38,7 @@ export class HotelListComponent extends BaseLoadingComponent implements OnInit, 
 
   private fillList(): void {
     super.showLoader();
-    this.hotelService.getList().subscribe((hotels) => {
+    this.querySubscription = this.hotelService.getList().subscribe((hotels) => {
       this.hotels = hotels;
       super.hideLoader();
     }, error => super.showError(error));
@@ -53,6 +54,7 @@ export class HotelListComponent extends BaseLoadingComponent implements OnInit, 
 
   public ngOnDestroy(): void {
     this.operationCompletedSubscription.unsubscribe();
+    this.querySubscription.unsubscribe();
   }
 
 }

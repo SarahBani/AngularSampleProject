@@ -5,6 +5,6 @@ export interface IHotel {
   name: string;
   cityId: number;
   stars: number;
-  address?: string;
-  city: ICity;
+  address: string;
+  city?: ICity;
 }

@@ -45,12 +45,26 @@ namespace Core.DomainModel.Migrations
                     { 5L, (short)1, "Yazd" },
                     { 6L, (short)1, "Kish" },
                     { 7L, (short)1, "Mashhad" },
-                    { 8L, (short)2, "Istanbul" },
-                    { 9L, (short)2, "Izmir" },
 
-                    { 10L, (short)3, "London" },
+                    { 10L, (short)2, "Istanbul" },
+                    { 11L, (short)2, "Antalya" },
+                    { 12L, (short)2, "Ankara" },
+                    { 13L, (short)2, "Izmir" },
+                    { 14L, (short)2, "kusadasi" },
 
-                    { 11L, (short)4, "New York" },
+                    { 30L, (short)3, "London" },
+                    { 31L, (short)3, "Manchester" },
+
+                    { 40L, (short)4, "New York" },
+                    { 41L, (short)4, "Los Angeles" },
+                    { 42L, (short)4, "Chicago" },
+                    { 43L, (short)4, "Washington" },
+
+                    { 50L, (short)5, "Torento" },
+                    { 51L, (short)5, "Vancouver" },
+
+                    { 60L, (short)6, "Sydney" },
+                    { 61L, (short)6, "Melbourn" },
                 });
         }
 

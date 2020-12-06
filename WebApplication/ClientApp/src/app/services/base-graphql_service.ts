@@ -1,96 +1,38 @@
-import { HttpHeaders } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs'
 import { ModalService } from './modal-service';
 import { ExceptionHandlerService } from './exception-handler-service';
-import { Apollo, QueryRef, gql } from 'apollo-angular';
-//import gql from 'graphql-tag';
-
-//import { Apollo, gql } from 'apollo-angular';
-//import { ApolloClient,InMemoryCache } from '@apollo/client';
-//import { HttpLink } from 'apollo-angular-link-http';
-//import { gql } from 'graphql-tag';
+import { Apollo, gql } from 'apollo-angular';
 
 export abstract class BaseGraphQLService {
 
   private const_confirmDelete: string = "Are you sure to delete this item?";
   public onUploadFinished: Subject<string> = new Subject<string>();
 
-  constructor(private apollo: Apollo,
+  constructor(protected apollo: Apollo,
     protected modalService: ModalService,
-    private exceptionHandlerService: ExceptionHandlerService
-  ) {
-
-    //this.apollo.create({
-    // // link: this.httpLink.create({ uri: 'https://localhost:4200/graphql' }),
-    //  cache: new InMemoryCache()
-    //})
-  }
-
-  private getHeaders(): {
-    headers?: HttpHeaders;
-    responseType: 'json';
-  } {
-    return {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json; charset=utf-8'
-      }),
-      responseType: 'json'
-    };
+    private exceptionHandlerService: ExceptionHandlerService,
+    private useCache: boolean = true) {
   }
 
   //protected httpGetCount(): Observable<number> {
   //  return this.httpGet<number>('CountAsync');
   //}
-  private query: QueryRef<any>;
-  
-  protected httpPost(query: string): Observable<any> {
+  //private query: QueryRef<any>;
 
+  protected requestQuery(name: string, query: string, variables = {}): Observable<any> {
     //const client = new ApolloClient({
     //  uri: "http://localhost:4200/graphql" 
     //});
     return this.apollo.query({
-      query: gql`query GraphQLRequest 
-      { ${query} }`
-    });
-
-    //this.apollo.watchQuery({
-    //  query: gql`
-    //      {
-    //        hotels {
-    //            id
-    //            name
-    //          }
-    //      }
-    //    `,
-    //  })
-    //  .valueChanges.subscribe((result: any) => {
-    //    console.log( result?.data?.rates);
-    //    console.log(  result.loading);
-    //    console.log(  result.error);
-    //  });
-
-
-    //this.query = this.apollo.watchQuery({      
-    //  query: My_QUERY,
-    //  variables: {}
-    //});
-    
-    //this.apollo.watchQuery({
-    //  query: gql`query GraphQLRequest { ${query} }`
-    //});
-    //return this.apollo.query({
-    //  query: gql`query GraphQLRequest { ${query} }`
-    //});
+      query: gql`query ${name} { ${query} }`,
+      fetchPolicy: (this.useCache ? "network-only" : "no-cache"),
+      variables: variables
+    })
   }
 
-  protected applyMutation(mutation: string): Observable<any> {
-
-    //const client = new ApolloClient({
-    //  uri: "http://localhost:4200/graphql" 
-    //});
-    return this.apollo.query({
-      query: gql`query GraphQLRequest 
-      { ${mutation} }`
+  protected requestMutation(name: string, mutation: string): Observable<any> {
+    return this.apollo.mutate({
+      mutation: gql`mutation ${name} { ${mutation} }`
     });
   }
 

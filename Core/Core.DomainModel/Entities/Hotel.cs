@@ -16,6 +16,7 @@ namespace Core.DomainModel.Entities
         public long CityId { get; set; }
 
         [Required(ErrorMessage = "Stars is required!")]
+        [Range(minimum: 0, maximum: 5)]
         public byte Stars { get; set; }
 
         public string Address { get; set; }

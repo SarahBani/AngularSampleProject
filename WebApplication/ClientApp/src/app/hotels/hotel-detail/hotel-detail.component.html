@@ -17,7 +17,7 @@
       <span>{{ model.city?.country?.name }} - {{ model.city?.name }}</span>
     </div>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="model.address">
     <div class="col-12">
       <address>{{ model.address }}</address>
     </div>
@@ -33,7 +33,7 @@
           Manage<span class="caret"></span>
         </button>
         <div class=" dropdown-menu">
-          <a class="dropdown-item" style="cursor:pointer" (click)="onPictures()">Pictures</a>
+          <a class="dropdown-item" style="cursor:pointer" (click)="onPhotos()">Pictures</a>
           <a class="dropdown-item" style="cursor:pointer" (click)="onRooms()">Rooms</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" style="cursor:pointer" (click)="onEdit()">Edit</a>
