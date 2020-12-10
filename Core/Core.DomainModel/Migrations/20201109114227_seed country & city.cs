@@ -62,158 +62,74 @@ namespace Core.DomainModel.Migrations
 
                     { 50L, (short)5, "Torento" },
                     { 51L, (short)5, "Vancouver" },
+                    { 52L, (short)5, "Montreal" },
 
                     { 60L, (short)6, "Sydney" },
                     { 61L, (short)6, "Melbourn" },
+
+                    { 70L, (short)7, "Munich" },
+                    { 71L, (short)7, "Hamburg" },
+                    { 72L, (short)7, "Berlin" },
+                    { 73L, (short)7, "Cologne" },
+                    { 74L, (short)7, "Frankfurt" },
+
+                    { 80L, (short)8, "Amsterdam" },
+                    { 81L, (short)8, "Rotterdam" },
+
+                    { 90L, (short)9, "Zurich" },
+                    { 91L, (short)9, "Lausanne" },
+                    { 92L, (short)9, "Geneva" },
+                    { 93L, (short)9, "Basel" },
+                    { 94L, (short)9, "Bern" },
+
+                    { 100L, (short)10, "Paris" },
+                    { 101L, (short)10, "Nice" },
+
+                    { 110L, (short)11, "Rome" },
+                    { 111L, (short)11, "Venice" },
+                    { 112L, (short)11, "Florence" },
+                    { 113L, (short)11, "Milan" },
+
+                    { 120L, (short)12, "Barcelona" },
+                    { 121L, (short)12, "Madrid" },
+
+                    { 130L, (short)13, "Stockholm" },
+                    { 131L, (short)13, "Gothenburg" },
+
+                    { 141L, (short)14, "Oslo" },
+
+                    { 150L, (short)15, "Vienna" },
+                    { 151L, (short)15, "Graz" },
+                    { 152L, (short)15, "Linz" },
+                    { 153L, (short)15, "Salzburg" },
+
+                    { 160L, (short)16, "Copenhagen" },
+
+                    { 170L, (short)17, "Budapest" },
+
+                    { 180L, (short)18, "Warsaw" },
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DeleteData(
-                table: "City",
-                keyColumn: "Id",
-                keyValue: 1L);
+            migrationBuilder.Sql("DELETE FROM [Country]", true);
+            migrationBuilder.Sql("DELETE FROM [City]", true);
 
-            migrationBuilder.DeleteData(
-                table: "City",
-                keyColumn: "Id",
-                keyValue: 2L);
+            //migrationBuilder.DeleteData(
+            //    table: "City",
+            //    keyColumn: "Id",
+            //    keyValue: 1L);
 
-            migrationBuilder.DeleteData(
-                table: "City",
-                keyColumn: "Id",
-                keyValue: 3L);
+            //migrationBuilder.DeleteData(
+            //    table: "City",
+            //    keyColumn: "Id",
+            //    keyValue: 2L);
 
-            migrationBuilder.DeleteData(
-                table: "City",
-                keyColumn: "Id",
-                keyValue: 4L);
-
-            migrationBuilder.DeleteData(
-                table: "City",
-                keyColumn: "Id",
-                keyValue: 5L);
-
-            migrationBuilder.DeleteData(
-                table: "City",
-                keyColumn: "Id",
-                keyValue: 6L);
-
-            migrationBuilder.DeleteData(
-                table: "City",
-                keyColumn: "Id",
-                keyValue: 7L);
-
-            migrationBuilder.DeleteData(
-                table: "City",
-                keyColumn: "Id",
-                keyValue: 8L);
-
-            migrationBuilder.DeleteData(
-                table: "City",
-                keyColumn: "Id",
-                keyValue: 9L);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)3);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)4);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)5);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)6);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)7);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)8);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)9);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)10);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)11);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)12);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)13);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)14);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)15);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)16);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)17);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)18);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)19);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)30);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)1);
-
-            migrationBuilder.DeleteData(
-                table: "Country",
-                keyColumn: "Id",
-                keyValue: (short)2);
+            //migrationBuilder.DeleteData(
+            //    table: "City",
+            //    keyColumn: "Id",
+            //    keyValue: 3L);
         }
     }
 }
