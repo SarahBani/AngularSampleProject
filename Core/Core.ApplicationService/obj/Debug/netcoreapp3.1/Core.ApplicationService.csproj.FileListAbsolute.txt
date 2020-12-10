@@ -1,9 +1,0 @@
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.ApplicationService\bin\Debug\netcoreapp3.1\Core.ApplicationService.deps.json
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.ApplicationService\bin\Debug\netcoreapp3.1\Core.ApplicationService.dll
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.ApplicationService\bin\Debug\netcoreapp3.1\Core.ApplicationService.pdb
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.ApplicationService\obj\Debug\netcoreapp3.1\Core.ApplicationService.AssemblyInfoInputs.cache
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.ApplicationService\obj\Debug\netcoreapp3.1\Core.ApplicationService.AssemblyInfo.cs
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.ApplicationService\obj\Debug\netcoreapp3.1\Core.ApplicationService.csproj.CoreCompileInputs.cache
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.ApplicationService\obj\Debug\netcoreapp3.1\Core.ApplicationService.dll
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.ApplicationService\obj\Debug\netcoreapp3.1\Core.ApplicationService.pdb
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.ApplicationService\obj\Debug\netcoreapp3.1\Core.ApplicationService.csprojAssemblyReference.cache
