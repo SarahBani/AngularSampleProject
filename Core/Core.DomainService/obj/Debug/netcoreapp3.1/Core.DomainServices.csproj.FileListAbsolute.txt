@@ -1,9 +1,0 @@
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainServices\bin\Debug\netcoreapp3.1\Core.DomainServices.deps.json
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainServices\bin\Debug\netcoreapp3.1\Core.DomainServices.dll
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainServices\bin\Debug\netcoreapp3.1\Core.DomainServices.pdb
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainServices\obj\Debug\netcoreapp3.1\Core.DomainServices.csprojAssemblyReference.cache
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainServices\obj\Debug\netcoreapp3.1\Core.DomainServices.AssemblyInfoInputs.cache
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainServices\obj\Debug\netcoreapp3.1\Core.DomainServices.AssemblyInfo.cs
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainServices\obj\Debug\netcoreapp3.1\Core.DomainServices.csproj.CoreCompileInputs.cache
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainServices\obj\Debug\netcoreapp3.1\Core.DomainServices.dll
-H:\Project\AngularSampleProject\AngularSampleProject\Core\Core.DomainServices\obj\Debug\netcoreapp3.1\Core.DomainServices.pdb

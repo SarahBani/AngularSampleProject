@@ -1,9 +1,0 @@
-H:\Project\AngularSampleProject\AngularSampleProject\DependencyInjection\obj\Debug\netcoreapp3.1\DependencyInjection.AssemblyInfoInputs.cache
-H:\Project\AngularSampleProject\AngularSampleProject\DependencyInjection\obj\Debug\netcoreapp3.1\DependencyInjection.AssemblyInfo.cs
-H:\Project\AngularSampleProject\AngularSampleProject\DependencyInjection\obj\Debug\netcoreapp3.1\DependencyInjection.csproj.CoreCompileInputs.cache
-H:\Project\AngularSampleProject\AngularSampleProject\DependencyInjection\bin\Debug\netcoreapp3.1\DependencyInjection.deps.json
-H:\Project\AngularSampleProject\AngularSampleProject\DependencyInjection\bin\Debug\netcoreapp3.1\DependencyInjection.dll
-H:\Project\AngularSampleProject\AngularSampleProject\DependencyInjection\bin\Debug\netcoreapp3.1\DependencyInjection.pdb
-H:\Project\AngularSampleProject\AngularSampleProject\DependencyInjection\obj\Debug\netcoreapp3.1\DependencyInjection.dll
-H:\Project\AngularSampleProject\AngularSampleProject\DependencyInjection\obj\Debug\netcoreapp3.1\DependencyInjection.pdb
-H:\Project\AngularSampleProject\AngularSampleProject\DependencyInjection\obj\Debug\netcoreapp3.1\DependencyInjection.csprojAssemblyReference.cache
