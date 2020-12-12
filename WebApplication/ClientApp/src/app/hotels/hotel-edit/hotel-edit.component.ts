@@ -83,24 +83,13 @@ export class HotelEditComponent extends BaseFormComponent
     }
   }
 
-  private getEmptyItemAdded(array, emptyItem) {
-    if (array != null) {
-      array = Array.prototype.slice.call(array);
-      array.unshift(emptyItem);
-    }
-    else {
-      array = [emptyItem];
-    }
-    return array;
-  }
-
   private async fillCountries() {
     super.showLoader();
     await this.locationService.getCountryList()
       .toPromise()
       .then((countries: ICountry[]) => {
         const emptyCountry: ICountry = { id: 0, name: '---' };
-        this.countries = this.getEmptyItemAdded(countries, emptyCountry);
+        this.countries = super.getEmptyItemAdded(countries, emptyCountry);
         this.onSelectCountry(emptyCountry);
         super.hideLoader();
       })
@@ -119,7 +108,7 @@ export class HotelEditComponent extends BaseFormComponent
   private onSelectCountry(country: ICountry): void {
     this.selectedCountry = country;
     const emptyCity: ICity = { id: 0, countryId: 0, name: '---', country: null };
-    this.cities = this.getEmptyItemAdded(country.cities, emptyCity);
+    this.cities = super.getEmptyItemAdded(country.cities, emptyCity);
     this.onSelectCity(emptyCity);
   }
 

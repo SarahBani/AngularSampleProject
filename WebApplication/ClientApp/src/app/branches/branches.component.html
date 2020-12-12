@@ -15,18 +15,9 @@
 <div class="container">
   <div class="row">
     <div class="dropdown col-4">
-      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="true">
-        <div>{{ selectedBankName }}</div>
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li *ngFor="let bank of banks" value="bank.id" (click)="onSelectBank(bank);"
-            [ngClass]="selectedBankId == bank.id ? 'selected' : ''">
-          <img *ngIf="bank.logoUrl != null" [src]="bank.logoUrl" alt="{{ bank.name }}" />
-          {{ bank.name }}
-        </li>
-      </ul>
+      <app-drop-down [data]="banks" textProperty="name" imageProperty="logoUrl"
+                     [selectedItem]="selectedBank" (select)="onSelectBank($event)" *ngIf="banks">
+      </app-drop-down>     
     </div>
   </div>
   <br />
