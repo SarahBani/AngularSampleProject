@@ -8,6 +8,7 @@ import { ICountry } from '../../models/ICountry.model';
 import { IHotel } from '../../models/IHotel.model';
 import { LocationService } from '../../services/location-service';
 import { HotelService } from '../../services/hotel-service';
+import { IEntity } from '../../models/IEntity.model';
 
 declare var $: any;
 
@@ -23,10 +24,8 @@ export class HotelEditComponent extends BaseFormComponent
   private id: number;
   private countries: ICountry[] = [];
   private cities: ICity[] = [];
-  private selectedCountryId: number;
-  private selectedCountryName: string = '---';
-  private selectedCityId: number;
-  private selectedCityName: string = '---';
+  private selectedCountry: ICountry;
+  private selectedCity: ICity;
   private operationCompletedSubscription: Subscription;
 
   constructor(private hotelService: HotelService,
@@ -84,12 +83,25 @@ export class HotelEditComponent extends BaseFormComponent
     }
   }
 
+  private getEmptyItemAdded(array, emptyItem) {
+    if (array != null) {
+      array = Array.prototype.slice.call(array);
+      array.unshift(emptyItem);
+    }
+    else {
+      array = [emptyItem];
+    }
+    return array;
+  }
+
   private async fillCountries() {
     super.showLoader();
     await this.locationService.getCountryList()
       .toPromise()
-      .then((countries) => {
-        this.countries = countries;
+      .then((countries: ICountry[]) => {
+        const emptyCountry: ICountry = { id: 0, name: '---' };
+        this.countries = this.getEmptyItemAdded(countries, emptyCountry);
+        this.onSelectCountry(emptyCountry);
         super.hideLoader();
       })
       .catch(error => super.showError(error));
@@ -105,25 +117,14 @@ export class HotelEditComponent extends BaseFormComponent
   }
 
   private onSelectCountry(country: ICountry): void {
-    if (country != null) {
-      this.selectedCountryId = country.id;
-      this.selectedCountryName = country.name;
-      this.cities = country.cities;
-    } else {
-      this.selectedCountryId = 0;
-      this.selectedCountryName = '---';
-    }
-    this.onSelectCity(null);
+    this.selectedCountry = country;
+    const emptyCity: ICity = { id: 0, countryId: 0, name: '---', country: null };
+    this.cities = this.getEmptyItemAdded(country.cities, emptyCity);
+    this.onSelectCity(emptyCity);
   }
 
   private onSelectCity(city: ICity): void {
-    if (city != null) {
-      this.selectedCityId = city.id;
-      this.selectedCityName = city.name;
-    } else {
-      this.selectedCityId = 0;
-      this.selectedCityName = '---';
-    }
+    this.selectedCity = city;
   }
 
   private setStars(stars: number = 0) {
@@ -146,7 +147,7 @@ export class HotelEditComponent extends BaseFormComponent
     super.showLoader();
     this.hotelService.save(this.id,
       this.myForm.value.name,
-      this.selectedCityId,
+      this.selectedCity.id,
       stars,
       this.myForm.value.address);
   }

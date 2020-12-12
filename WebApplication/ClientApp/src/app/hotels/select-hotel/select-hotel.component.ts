@@ -9,7 +9,7 @@ export class SelectHotelComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
 }
