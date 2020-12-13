@@ -132,9 +132,9 @@ textarea.ng-invalid.ng-touched {
   border: 1px solid red;
 }
 
-  .dropdown > button > div {
-    float: left;
-  }
+.dropdown > button > div {
+  float: left;
+}
 
 ul.dropdown-menu {
   padding: 0;
@@ -208,4 +208,11 @@ ul.dropdown-menu {
 .delete-image {
   cursor: pointer;
   float: left;
+}
+
+.rows-count {
+  color: #FFF;
+  background-color: #343A40;
+  border: 1px solid #000;
+  padding: 10px;
 }

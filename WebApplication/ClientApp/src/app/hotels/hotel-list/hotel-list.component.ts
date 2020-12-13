@@ -12,6 +12,7 @@ import { HotelService } from '../../services/hotel-service';
 })
 export class HotelListComponent extends BaseLoadingComponent implements OnInit, OnDestroy {
 
+  private count: number = 0
   private hotels: IHotel[] = [];
   private operationCompletedSubscription: Subscription;
   private querySubscription: Subscription;
@@ -24,16 +25,24 @@ export class HotelListComponent extends BaseLoadingComponent implements OnInit, 
 
   public ngOnInit(): void {
     this.subscribe();
-    this.fillList();
+    this.onRefresh();
   }
 
   private subscribe(): void {
     this.operationCompletedSubscription = this.hotelService.operationCompleted
       .subscribe((hasSucceed: boolean) => {
         if (hasSucceed) {
-          this.fillList();
+          this.onRefresh();
         }
       });
+  }
+
+  private setCount(): void {
+    super.showLoader();
+    this.querySubscription = this.hotelService.getCount().subscribe((count) => {
+      this.count = count;
+      super.hideLoader();
+    }, error => super.showError(error));
   }
 
   private fillList(): void {
@@ -49,6 +58,7 @@ export class HotelListComponent extends BaseLoadingComponent implements OnInit, 
   }
 
   private onRefresh(): void {
+    this.setCount();
     this.fillList();
   }
 

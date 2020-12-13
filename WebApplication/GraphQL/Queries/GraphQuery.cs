@@ -52,7 +52,12 @@ namespace UserInterface.GraphQL.Queries
                    long hotelId = context.GetArgument<long>("id");
                    return this._hotelService.GetByIdAsync(hotelId);
                }
-           );
+           ); 
+            Field<LongGraphType>(name: "hotelsCount", "Returns the count of Hotels",
+                 resolve: context =>
+                 {
+                     return this._hotelService.GetCountAsync();
+                 });
             //Field<ListGraphType<HotelRoomType>>(name: "rooms",
             //    arguments: new QueryArguments(new QueryArgument<IntGraphType> { Name = "id" }),
             //    resolve: context =>

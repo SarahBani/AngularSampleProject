@@ -39,6 +39,14 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
       }));
   }
 
+  public getCount(): Observable<number> {
+    const query = 'hotelsCount';
+    return super.requestQuery('HotelsCount', query)
+      .pipe(map(({ data }) => {
+        return data?.hotelsCount;
+      }));
+  }
+
   public getItem(id: number): Observable<IHotel> {
     const query = `
       hotel(id: ${id}) {
