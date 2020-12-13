@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, AfterContentInit, OnChanges } from '@angular/core';
 import { IEntity } from '../models/IEntity.model';
 
+declare var $: any;
+
 @Component({
   selector: 'app-drop-down',
   templateUrl: './drop-down.component.html',
@@ -37,15 +39,18 @@ export class DropDownComponent implements OnInit, OnChanges {
     }
   }
 
-  private filter: string = '';
-
+  //public filterData(dropDown: DropDownComponent, event: KeyboardEvent): void {
+  //  console.log($(dropDown));
   public filterData(event: KeyboardEvent): void {
-//    this.filter = event.key;
-//    this.data.filter(q => q[this.textProperty].startsWith(event.key));
-
-
-//var offset = $('#someDivElementId ul li').first().position().top;
-//$('#someDivElementId').scrollTop($('#23532532532532').parent().position().top - offset);
+    const key = event.key.toLowerCase();
+    const filteredData = this.data.filter(q => q[this.textProperty].toLowerCase().startsWith(key));
+    if (filteredData.length > 0) {
+      const ul = $(event.target).siblings('ul');
+      const li = ul.children('li#' + filteredData[0].id).first();
+      const top = ul.scrollTop() + li.position().top;
+      ul.scrollTop(top);
+      //$('#country ul').animate({ scrollTop: top }, "fast");
+    }
   }
 
 }
