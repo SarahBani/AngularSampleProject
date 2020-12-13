@@ -7,6 +7,7 @@ import { ILoaderService } from './ILoader-service';
 import { map } from 'rxjs/operators';
 import { BaseGraphQLService } from './base-graphql_service';
 import { Apollo } from 'apollo-angular';
+import { IHotelPhoto } from '../models/IHotelPhoto.model';
 
 @Injectable({ providedIn: 'root' })
 export class HotelService extends BaseGraphQLService implements ILoaderService {
@@ -70,10 +71,6 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
         return data?.hotel;
       }));
   }
-
-  //public getCount(): Observable<number> {
-  //  return super.httpGetCount();
-  //}
 
   public save(id: number,
     name: string,
@@ -163,6 +160,30 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
       }, error => {
         this.onError(error);
       });
+  }
+
+  public getPhotos(): Observable<IHotelPhoto[]> {
+    const query = `
+      hotelPhotos {
+        id
+        photoUrl
+      }`;
+    return super.requestQuery('HotelPhotos', query)
+      .pipe(map(({ data }) => {
+        return data?.hotelPhotos;
+      }));
+  }
+
+  public getPhoto(hotelId: number): Observable<IHotelPhoto> {
+    const query = `
+      hotelPhoto(hotelId: ${hotelId}) {
+        id
+        photoUrl
+      }`;
+    return super.requestQuery('HotelPhoto', query)
+      .pipe(map(({ data }) => {
+        return data?.hotel;
+      }));
   }
 
 }

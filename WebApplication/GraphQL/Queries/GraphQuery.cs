@@ -13,6 +13,8 @@ namespace UserInterface.GraphQL.Queries
 
         private IHotelService _hotelService;
 
+        private IHotelPhotoService _hotelPhotoService;
+
         private IHotelRoomService _hotelRoomService;
 
         private ICountryService _countryService;
@@ -22,11 +24,13 @@ namespace UserInterface.GraphQL.Queries
         #endregion /Properties
 
         public GraphQuery(IHotelService hotelService,
+            IHotelPhotoService hotelPhotoService,
             IHotelRoomService hotelRoomService,
             ICountryService countryService,
             ICityService cityService)
         {
             this._hotelService = hotelService;
+            this._hotelPhotoService = hotelPhotoService;
             this._hotelRoomService = hotelRoomService;
             this._countryService = countryService;
             this._cityService = cityService;
@@ -58,6 +62,30 @@ namespace UserInterface.GraphQL.Queries
                  {
                      return this._hotelService.GetCountAsync();
                  });
+            Field<ListGraphType<HotelPhotoType>>(name: "hotelPhotos", "Returns the photos of the specific hotel",
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<LongGraphType>>
+                {
+                    Name = "hotelId",
+                    Description = "Hotel Id"
+                }),
+                resolve: context =>
+                {
+                    long hotelId = context.GetArgument<long>("hotelId");
+                    return this._hotelPhotoService.GetListByHotelIdAsync(hotelId);
+                }
+            );
+            Field<ListGraphType<HotelPhotoType>>(name: "hotelPhoto", "Returns the first photo of the specific hotel",
+                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<LongGraphType>>
+                {
+                    Name = "hotelId",
+                    Description = "Hotel Id"
+                }),
+                resolve: context =>
+                {
+                    long hotelId = context.GetArgument<long>("hotelId");
+                    return this._hotelPhotoService.GetFirstByHotelIdAsync(hotelId);
+                }
+            );
             //Field<ListGraphType<HotelRoomType>>(name: "rooms",
             //    arguments: new QueryArguments(new QueryArgument<IntGraphType> { Name = "id" }),
             //    resolve: context =>

@@ -26,6 +26,8 @@ namespace Core.ApplicationService
 
         public IHotelRepository HotelRepository { get; private set; }
 
+        public IHotelPhotoRepository HotelPhotoRepository { get; private set; }
+
         public IHotelRoomRepository HotelRoomRepository { get; private set; }
 
         #endregion /Repositories
@@ -102,6 +104,20 @@ namespace Core.ApplicationService
             }
         }
 
+        private IHotelPhotoService _hotelPhotoService;
+        public IHotelPhotoService HotelPhotoService
+        {
+            get
+            {
+                if (_hotelPhotoService == null)
+                {
+                    _hotelPhotoService = new HotelPhotoService(this);
+
+                }
+                return _hotelPhotoService;
+            }
+        }
+
         private IHotelRoomService _hotelRoomService;
         public IHotelRoomService HotelRoomService
         {
@@ -127,6 +143,7 @@ namespace Core.ApplicationService
                              IBaseRepository<Bank, int> bankRepository,
                              IBaseRepository<Branch, int> branchRepository,
                              IBaseRepository<Hotel, long> hotelRepository,
+                             IBaseRepository<HotelPhoto, long> hotelPhotoRepository,
                              IBaseRepository<HotelRoom, long> hotelRoomRepository,
                              IUnitOfWork unitOfWork)
         {
@@ -135,6 +152,7 @@ namespace Core.ApplicationService
             this.BankRepository = (bankRepository as IBankRepository);
             this.BranchRepository = (branchRepository as IBranchRepository);
             this.HotelRepository = (hotelRepository as IHotelRepository);
+            this.HotelPhotoRepository = (hotelPhotoRepository as IHotelPhotoRepository);
             this.HotelRoomRepository = (hotelRoomRepository as IHotelRoomRepository);
 
             this.UnitOfWork = unitOfWork;

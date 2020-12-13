@@ -23,6 +23,8 @@ namespace Core.DomainModel.Entities
 
         public virtual City City { get; set; }
 
+        public ICollection<HotelPhoto> HotelPhotos { get; set; }
+
         public ICollection<HotelRoom> HotelRooms { get; set; }
 
     }
@@ -42,6 +44,11 @@ namespace Core.DomainModel.Entities
                 .WithMany(q => q.Hotels)
                 .HasForeignKey(q => q.CityId)
                 .HasConstraintName("FK_Hotel_City");
+
+            builder.HasMany(q => q.HotelPhotos)
+                .WithOne(q => q.Hotel)
+                .HasForeignKey(q => q.HotelId)
+                .HasConstraintName("FK_HotelPhoto_Hotel");
 
             builder.HasMany(q => q.HotelRooms)
                 .WithOne(q => q.Hotel)

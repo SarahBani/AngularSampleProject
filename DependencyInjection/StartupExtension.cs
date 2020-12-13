@@ -28,6 +28,7 @@ namespace DependencyInjection
             services.AddScoped(typeof(IBaseMongoDBRepository<Book>), typeof(BookRepository));
             services.AddScoped(typeof(IBaseRepository<Branch, int>), typeof(BranchRepository));
             services.AddScoped(typeof(IBaseRepository<Hotel, long>), typeof(HotelRepository));
+            services.AddScoped(typeof(IBaseRepository<HotelPhoto, long>), typeof(HotelPhotoRepository));
             services.AddScoped(typeof(IBaseRepository<HotelRoom, long>), typeof(HotelRoomRepository));
 
             services.AddScoped(typeof(ICityService), typeof(CityService));
@@ -36,6 +37,7 @@ namespace DependencyInjection
             services.AddScoped(typeof(IBookService), typeof(BookService));
             services.AddScoped(typeof(IBranchService), typeof(BranchService));
             services.AddScoped(typeof(IHotelService), typeof(HotelService));
+            services.AddScoped(typeof(IHotelPhotoService), typeof(HotelPhotoService));
             services.AddScoped(typeof(IHotelRoomService), typeof(HotelRoomService));
 
             services.AddSingleton<IMongoDBDatabaseSettings>(sp =>
