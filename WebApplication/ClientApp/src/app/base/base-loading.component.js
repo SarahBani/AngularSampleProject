@@ -46,6 +46,16 @@ var BaseLoadingComponent = /** @class */ (function () {
             this.changeLoaderStatusSubscription.unsubscribe();
         }
     };
+    BaseLoadingComponent.prototype.getEmptyItemAdded = function (array, emptyItem) {
+        if (array != null) {
+            array = Array.prototype.slice.call(array);
+            array.unshift(emptyItem);
+        }
+        else {
+            array = [emptyItem];
+        }
+        return array;
+    };
     return BaseLoadingComponent;
 }());
 exports.BaseLoadingComponent = BaseLoadingComponent;

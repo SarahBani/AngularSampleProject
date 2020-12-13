@@ -1,8 +1,8 @@
 import { ICity } from "./ICity.model";
+import { IEntity } from "./IEntity.model";
 
-export interface ICountry {
-  id: number;
+export interface ICountry extends IEntity {
   name: string;
-  flagUrl: string;
-  cities: ICity[]
+  flagUrl?: string;
+  cities?: ICity[]
 }

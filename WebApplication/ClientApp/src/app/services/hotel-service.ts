@@ -6,7 +6,7 @@ import { ExceptionHandlerService } from './exception-handler-service';
 import { ILoaderService } from './ILoader-service';
 import { map } from 'rxjs/operators';
 import { BaseGraphQLService } from './base-graphql_service';
-import { Apollo, gql } from 'apollo-angular';
+import { Apollo } from 'apollo-angular';
 
 @Injectable({ providedIn: 'root' })
 export class HotelService extends BaseGraphQLService implements ILoaderService {
@@ -147,7 +147,7 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
       removeHotel(id : ${id}) {
           isSuccessful
           customExceptionMessage
-      }}`;
+      }`;
     super.requestMutation('RemoveHotel', mutation)
       .pipe(map(({ data }) => {
         return data?.removeHotel;

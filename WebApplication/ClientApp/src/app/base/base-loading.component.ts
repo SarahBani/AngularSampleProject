@@ -53,4 +53,15 @@ export abstract class BaseLoadingComponent implements OnDestroy {
     }
   }
 
+  protected getEmptyItemAdded(array, emptyItem) {
+    if (array != null) {
+      array = Array.prototype.slice.call(array);
+      array.unshift(emptyItem);
+    }
+    else {
+      array = [emptyItem];
+    }
+    return array;
+  }
+
 }

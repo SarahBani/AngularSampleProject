@@ -13,8 +13,7 @@ import { BranchService } from '../services/branch-service';
 export class BranchesComponent extends BaseLoadingComponent implements OnInit {
 
   private banks: IBank[] = [];
-  private selectedBankId: number;
-  private selectedBankName: string = 'Select Bank';
+  private selectedBank: IBank;
   private url: string = '/branches';
 
   constructor(private bankService: BankService,
@@ -28,15 +27,16 @@ export class BranchesComponent extends BaseLoadingComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    if (this.selectedBankId != null) {
-      this.branchService.changeBank(this.selectedBankId);
+    if (this.selectedBank?.id != null) {
+      this.branchService.changeBank(this.selectedBank.id);
     }
   }
 
   private fillBanks(): void {
     super.showLoader();
     this.bankService.getList().subscribe((banks: IBank[]) => {
-      this.banks = banks;
+      const emptyBank: IBank = { id: 0, name: 'Select Bank' };
+      this.banks = super.getEmptyItemAdded(banks, emptyBank);
       super.hideLoader();
     }, error => super.showError(error));
   }
@@ -44,15 +44,13 @@ export class BranchesComponent extends BaseLoadingComponent implements OnInit {
   private setSelectedBank(): void {
     const state = this.router.getCurrentNavigation().extras.state;
     if (state != null && state.bank != null) {
-      this.selectedBankId = state.bank.id;
-      this.selectedBankName = state.bank.name;
+      this.selectedBank = state.bank;
     }
   }
 
   private onSelectBank(bank: IBank): void {
     this.resetUrl();
-    this.selectedBankId = bank.id;
-    this.selectedBankName = bank.name;
+    this.selectedBank = bank;
     this.branchService.changeBank(bank.id);
   }
 

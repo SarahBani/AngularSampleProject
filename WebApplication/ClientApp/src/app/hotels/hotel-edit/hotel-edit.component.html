@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <form (ngSubmit)="onSave()" #f="ngForm">
+    <form (ngSubmit)="onSave()" #myForm="ngForm">
       <div class="form-group">
         <label for="name">Name: </label>
         <input type="text" id="name" name="name" class="form-control" ngModel required />
@@ -8,37 +8,16 @@
 
       <div class="form-group">
         <label for="country">Country: </label>
-        <div class="dropdown" id="country">
-          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="true">
-            <div>{{ selectedCountryName }}</div>
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li *ngFor="let country of countries" value="country.id" (click)="onSelectCountry(country);"
-                [ngClass]="selectedCountryId == country.id ? 'selected' : ''">
-              <img *ngIf="country.flagUrl != null" [src]="country.flagUrl" alt="{{ country.name }}" />
-              {{ country.name }}
-            </li>
-          </ul>
-        </div>
+        <app-drop-down id="country" [data]="countries" textProperty="name" imageProperty="flagUrl" required="true" 
+                       [selectedItem]="selectedCountry" (select)="onSelectCountry($event)" (focusout)="ngAfterContentChecked()">
+        </app-drop-down>        
       </div>
 
       <div class="form-group">
         <label for="city">City: </label>
-        <div class="dropdown" id="city">
-          <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
-                  aria-haspopup="true" aria-expanded="true">
-            <div>{{ selectedCityName }}</div>
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu">
-            <li *ngFor="let city of cities" value="city.id" (click)="onSelectCity(city);"
-                [ngClass]="selectedCityId == city.id ? 'selected' : ''">
-              {{ city.name }}
-            </li>
-          </ul>
-        </div>
+        <app-drop-down id="city" [data]="cities" textProperty="name" required="true"
+                       [selectedItem]="selectedCity" (select)="onSelectCity($event)" (focusout)="ngAfterContentChecked()">
+        </app-drop-down>
       </div>
 
       <div class="form-group">
@@ -51,14 +30,14 @@
         <textarea type="text" id="address" name="address" class="form-control" ngModel></textarea>
       </div>
 
-      <p *ngIf="(f.controls.name != null && !f.controls.name.valid && f.controls.name.touched)"
+      <p *ngIf="!isValid"
          class="alert-danger">
         Please enter valid values!
       </p>
       <div class="row">
         <div class="col-12">
           <button class="btn btn-primary" type="reset" (click)="onClear()">Clear</button>
-          <button class="btn btn-success" type="submit" [disabled]="!f.valid">Save</button>
+          <button class="btn btn-success" type="submit" [disabled]="!myForm.valid || selectedCity?.id == 0">Save</button>
           <button class="btn btn-danger" type="button" [disabled]="id == null" (click)="onDelete()">Delete</button>
           <button class="btn btn-warning" type="button" (click)="onCancel()">Cancel</button>
         </div>

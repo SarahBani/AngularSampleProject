@@ -19,15 +19,14 @@ declare var $: any;
 export class HotelEditComponent extends BaseFormComponent
   implements OnInit, OnDestroy {
 
-  @ViewChild('f') myForm: NgForm;
+  @ViewChild('myForm') form: NgForm;
   private id: number;
   private countries: ICountry[] = [];
   private cities: ICity[] = [];
-  private selectedCountryId: number;
-  private selectedCountryName: string = '---';
-  private selectedCityId: number;
-  private selectedCityName: string = '---';
+  private selectedCountry: ICountry;
+  private selectedCity: ICity;
   private operationCompletedSubscription: Subscription;
+  private isValid: boolean = true;
 
   constructor(private hotelService: HotelService,
     private locationService: LocationService,
@@ -41,12 +40,28 @@ export class HotelEditComponent extends BaseFormComponent
     this.initForm();
   }
 
+  public ngAfterContentChecked() {
+    setTimeout(() => {
+      if (document.getElementsByTagName('form')?.length > 0) {
+        this.isValid = (document.getElementsByTagName('form')[0].getElementsByClassName('ng-invalid ng-touched').length == 0);
+      }
+
+      //const controls = this.form?.controls;
+      //for (const name in controls) {
+      //  if (controls[name].invalid) {
+      //    this.isValid = false;
+      //  }
+      //}
+      //this.isValid = true;
+    }, 0);
+  }
+
   private subscribe(): void {
     this.operationCompletedSubscription = this.hotelService.operationCompleted
       .subscribe((hasSucceed: boolean) => {
         if (hasSucceed) {
           this.changesSaved = true;
-          this.myForm.reset();
+          this.form.reset();
           this.redirectBack();
         }
         else {
@@ -68,7 +83,7 @@ export class HotelEditComponent extends BaseFormComponent
           this.redirectBack(2);
           return;
         }
-        this.myForm.setValue({
+        this.form.setValue({
           'name': hotel.name,
           'address': hotel.address,
         });
@@ -88,8 +103,10 @@ export class HotelEditComponent extends BaseFormComponent
     super.showLoader();
     await this.locationService.getCountryList()
       .toPromise()
-      .then((countries) => {
-        this.countries = countries;
+      .then((countries: ICountry[]) => {
+        const emptyCountry: ICountry = { id: 0, name: '---' };
+        this.countries = super.getEmptyItemAdded(countries, emptyCountry);
+        this.onSelectCountry(emptyCountry);
         super.hideLoader();
       })
       .catch(error => super.showError(error));
@@ -105,25 +122,14 @@ export class HotelEditComponent extends BaseFormComponent
   }
 
   private onSelectCountry(country: ICountry): void {
-    if (country != null) {
-      this.selectedCountryId = country.id;
-      this.selectedCountryName = country.name;
-      this.cities = country.cities;
-    } else {
-      this.selectedCountryId = 0;
-      this.selectedCountryName = '---';
-    }
-    this.onSelectCity(null);
+    this.selectedCountry = country;
+    const emptyCity: ICity = { id: 0, countryId: 0, name: '---', country: null };
+    this.cities = super.getEmptyItemAdded(country.cities, emptyCity);
+    this.onSelectCity(emptyCity);
   }
 
   private onSelectCity(city: ICity): void {
-    if (city != null) {
-      this.selectedCityId = city.id;
-      this.selectedCityName = city.name;
-    } else {
-      this.selectedCityId = 0;
-      this.selectedCityName = '---';
-    }
+    this.selectedCity = city;
   }
 
   private setStars(stars: number = 0) {
@@ -145,10 +151,10 @@ export class HotelEditComponent extends BaseFormComponent
     const stars = $('.starrr>.fa-star').length;
     super.showLoader();
     this.hotelService.save(this.id,
-      this.myForm.value.name,
-      this.selectedCityId,
+      this.form.value.name,
+      this.selectedCity.id,
       stars,
-      this.myForm.value.address);
+      this.form.value.address);
   }
 
   private onDelete(): void {

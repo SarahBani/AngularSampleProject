@@ -1,0 +1,16 @@
+<div class="dropdown {{!required || selectedItem.id > 0 ? '' : 'ng-invalid'}}"
+      (keydown)="filterData($event);">
+     <!--(keydown)="filterData(this, $event);">-->
+  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="true" onblur="this.parentNode.classList.add('ng-touched');">
+    <div>{{ selectedItem[textProperty] }}</div>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li *ngFor="let item of data" [id]="item.id" (click)="onSelect(item);"
+        [ngClass]="selectedItem.id == item.id ? 'selected' : ''">
+      <img *ngIf="imageProperty != null && item[imageProperty] != null" [src]="item[imageProperty]" alt="{{ item[textProperty] }}" />
+      {{ item[textProperty] }}
+    </li>
+  </ul>
+</div>

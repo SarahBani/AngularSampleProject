@@ -51,6 +51,8 @@ import { HotelDetailComponent } from './hotels/hotel-detail/hotel-detail.compone
 import { HotelItemComponent } from './hotels/hotel-item/hotel-item.component';
 import { HotelEditComponent } from './hotels/hotel-edit/hotel-edit.component';
 import { SelectHotelComponent } from './hotels/select-hotel/select-hotel.component';
+import { DropDownComponent } from './drop-down/drop-down.component';
+import { RequiredDirective } from './directives/required.directive';
 
 @NgModule({
   declarations: [
@@ -92,6 +94,8 @@ import { SelectHotelComponent } from './hotels/select-hotel/select-hotel.compone
     HotelItemComponent,
     HotelEditComponent,
     SelectHotelComponent,
+    DropDownComponent,
+    RequiredDirective,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
