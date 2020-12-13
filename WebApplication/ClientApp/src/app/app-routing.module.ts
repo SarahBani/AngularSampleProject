@@ -25,6 +25,7 @@ import { HotelsComponent } from './hotels/hotels.component';
 import { SelectHotelComponent } from './hotels/select-hotel/select-hotel.component';
 import { HotelEditComponent } from './hotels/hotel-edit/hotel-edit.component';
 import { HotelDetailComponent } from './hotels/hotel-detail/hotel-detail.component';
+import { HotelPhotosComponent } from './hotels/hotel-photos/hotel-photos.component';
 
 @NgModule({
   declarations: [],
@@ -69,7 +70,11 @@ import { HotelDetailComponent } from './hotels/hotel-detail/hotel-detail.compone
         children: [
             { path: '', component: SelectHotelComponent },
             { path: 'new', component: HotelEditComponent, canDeactivate: [CanDeactivateGuardService] },
-            { path: ':id', component: HotelDetailComponent, pathMatch: 'full' },
+            { path: ':id', component: HotelDetailComponent, pathMatch: 'full' ,
+                children: [
+                    { path: 'photos', component: HotelPhotosComponent },
+                ]
+            },
             { path: ':id/edit', component: HotelEditComponent, canDeactivate: [CanDeactivateGuardService] },
         ]
     },

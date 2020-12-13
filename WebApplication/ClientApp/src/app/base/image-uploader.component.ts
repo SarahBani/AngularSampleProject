@@ -14,11 +14,8 @@ export abstract class ImageUploaderComponent extends BaseFormComponent implement
   public ngOnInit(): void {
   }
 
-  protected uploadImage(files: FileList) {
-    if (files.length == 0) {
-      return;
-    }
-    this.getUploadFile(files.item(0))
+  protected uploadImage(file: File) {
+    this.getUploadFile(file)
       .subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
           this.uploadedPercentage = Math.round(100 * event.loaded / event.total);

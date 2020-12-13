@@ -18,29 +18,11 @@
           <label for="genre">Genre: </label>
           <input type="text" id="genre" class="form-control" formControlName="genre" />
         </div>
-        <div class="form-group">
-          <label for="uploadedImageUrl">Cover Image: </label>
-          <input type="file" id="uploadedImageUrl" class="form-control-file border"
-                 accept="image/*" (change)="uploadImage($event.target.files)">
-        </div>
-        <div class="row" *ngIf="uploadedPercentage != null">
-          <div class="col-12">
-            <progress id="file" value="{{ uploadedPercentage }}" max="100"></progress>
-            <small class="align-top"> {{ uploadedPercentage }}%</small>
-          </div>
-        </div>
-        <div class="row" *ngIf="uploadedImageUrl != null">
-          <div class="col-12 uploaded-image">
-            <img [src]="uploadedImageUrl" class="img-response" />
-            <div>
-              <img class="delete-image" src='/images/delete.png' alt="Delete Image"
-                   (click)="onDeleteImage()" />
-            </div>
-          </div>
-        </div>
-        <div class="row" *ngIf="uploadedImageUrl == null">
-          <img src="images/NoImage.png" class="img-response" />
-        </div>
+
+        <app-upload-image labelText="Cover Image" [uploadedImageUrl]="uploadedImageUrl"
+                          [uploadedPercentage]="uploadedPercentage"
+                          (uploadImageFile)="uploadImage($event);" (deleteImage)="onDeleteImage();">
+        </app-upload-image>
 
         <div class="form-group">
           <label for="summary">Summary: </label>

@@ -62,7 +62,14 @@ export class HotelDetailComponent extends BaseLoadingComponent implements OnInit
   }
 
   private onPhotos(): void {
-
+    this.router.navigate(['photos'], { relativeTo: this.route });
+    var modalContainerResult = this.modalService.showModalContainer('Photos');
+    modalContainerResult.subscribe((result: any) => {
+      if (result != null) {
+        //this.refreshPhotos();
+      }
+      this.router.navigate(['./'], { relativeTo: this.route });
+    });
   }
 
   private onRooms(): void {
