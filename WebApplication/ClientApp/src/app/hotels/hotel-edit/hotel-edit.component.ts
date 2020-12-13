@@ -8,7 +8,6 @@ import { ICountry } from '../../models/ICountry.model';
 import { IHotel } from '../../models/IHotel.model';
 import { LocationService } from '../../services/location-service';
 import { HotelService } from '../../services/hotel-service';
-import { IEntity } from '../../models/IEntity.model';
 
 declare var $: any;
 
@@ -20,13 +19,14 @@ declare var $: any;
 export class HotelEditComponent extends BaseFormComponent
   implements OnInit, OnDestroy {
 
-  @ViewChild('f') myForm: NgForm;
+  @ViewChild('myForm') form: NgForm;
   private id: number;
   private countries: ICountry[] = [];
   private cities: ICity[] = [];
   private selectedCountry: ICountry;
   private selectedCity: ICity;
   private operationCompletedSubscription: Subscription;
+  private isValid: boolean = true;
 
   constructor(private hotelService: HotelService,
     private locationService: LocationService,
@@ -40,12 +40,28 @@ export class HotelEditComponent extends BaseFormComponent
     this.initForm();
   }
 
+  public ngAfterContentChecked() {
+    setTimeout(() => {
+      if (document.getElementsByTagName('form')?.length > 0) {
+        this.isValid = (document.getElementsByTagName('form')[0].getElementsByClassName('ng-invalid ng-touched').length == 0);
+      }
+
+      //const controls = this.form?.controls;
+      //for (const name in controls) {
+      //  if (controls[name].invalid) {
+      //    this.isValid = false;
+      //  }
+      //}
+      //this.isValid = true;
+    }, 0);
+  }
+
   private subscribe(): void {
     this.operationCompletedSubscription = this.hotelService.operationCompleted
       .subscribe((hasSucceed: boolean) => {
         if (hasSucceed) {
           this.changesSaved = true;
-          this.myForm.reset();
+          this.form.reset();
           this.redirectBack();
         }
         else {
@@ -67,7 +83,7 @@ export class HotelEditComponent extends BaseFormComponent
           this.redirectBack(2);
           return;
         }
-        this.myForm.setValue({
+        this.form.setValue({
           'name': hotel.name,
           'address': hotel.address,
         });
@@ -135,10 +151,10 @@ export class HotelEditComponent extends BaseFormComponent
     const stars = $('.starrr>.fa-star').length;
     super.showLoader();
     this.hotelService.save(this.id,
-      this.myForm.value.name,
+      this.form.value.name,
       this.selectedCity.id,
       stars,
-      this.myForm.value.address);
+      this.form.value.address);
   }
 
   private onDelete(): void {

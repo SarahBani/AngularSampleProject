@@ -128,16 +128,20 @@ textarea.ng-invalid.ng-touched {
   width: 100%;
 }
 
+.dropdown.ng-invalid.ng-touched > button {
+  border: 1px solid red;
+}
+
   .dropdown > button > div {
     float: left;
   }
 
 ul.dropdown-menu {
   padding: 0;
+  width: 100%;
+  min-height: 80px;
   max-height: 200px;
   overflow-y: auto;
-  min-height: 80px;
-  width: 100%;
 }
 
   ul.dropdown-menu > li {

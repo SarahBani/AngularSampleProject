@@ -1,6 +1,7 @@
-<div class="dropdown">
+<div class="dropdown {{!required || selectedItem.id > 0 ? '' : 'ng-invalid'}}"
+     (keydown)="filterData($event);">
   <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"
-          aria-haspopup="true" aria-expanded="true">
+          aria-haspopup="true" aria-expanded="true" onblur="this.parentNode.classList.add('ng-touched');">
     <div>{{ selectedItem[textProperty] }}</div>
     <span class="caret"></span>
   </button>

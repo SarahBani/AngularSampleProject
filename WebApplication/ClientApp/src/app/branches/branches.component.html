@@ -16,7 +16,7 @@
   <div class="row">
     <div class="dropdown col-4">
       <app-drop-down [data]="banks" textProperty="name" imageProperty="logoUrl"
-                     [selectedItem]="selectedBank" (select)="onSelectBank($event)" *ngIf="banks">
+                     [selectedItem]="selectedBank" (select)="onSelectBank($event)">
       </app-drop-down>     
     </div>
   </div>
