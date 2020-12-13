@@ -13,6 +13,8 @@ namespace UserInterface.GraphQL.Queries
 
         private IHotelService _hotelService;
 
+        private IHotelPhotoService _hotelPhotoService;
+
         private IHotelRoomService _hotelRoomService;
 
         #endregion /Properties
@@ -20,9 +22,11 @@ namespace UserInterface.GraphQL.Queries
         #region Constructors
 
         public GraphMutation(IHotelService hotelService,
+            IHotelPhotoService hotelPhotoService,
             IHotelRoomService hotelRoomService)
         {
             this._hotelService = hotelService;
+            this._hotelPhotoService = hotelPhotoService;
             this._hotelRoomService = hotelRoomService;
 
             SetMutation();
@@ -77,6 +81,28 @@ namespace UserInterface.GraphQL.Queries
                 {
                     long id = context.GetArgument<long>("id");
                     return this._hotelService.DeleteAsync(id);
+                });
+            Field<TransactionResultType>(
+                "createHotelPhoto",
+                "Insert a new Photo for Hotel",
+                arguments: new QueryArguments(
+                    new QueryArgument<NonNullGraphType<HotelPhotoInputType>> { Name = "hotelPhoto" }
+                ),
+                resolve: context =>
+                {
+                    var hotelPhoto = context.GetArgument<HotelPhoto>("hotelPhoto");
+                    return this._hotelPhotoService.InsertAsync(hotelPhoto);
+                });
+            Field<TransactionResultType>(
+                "removeHotelPhoto",
+                "Delete a Hotel Photo",
+                arguments: new QueryArguments(
+                    new QueryArgument<NonNullGraphType<LongGraphType>> { Name = "id" }
+                ),
+                resolve: context =>
+                {
+                    long id = context.GetArgument<long>("id");
+                    return this._hotelPhotoService.DeleteAsync(id);
                 });
         }
 

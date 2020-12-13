@@ -56,7 +56,7 @@ namespace UserInterface.GraphQL.Queries
                    long hotelId = context.GetArgument<long>("id");
                    return this._hotelService.GetByIdAsync(hotelId);
                }
-           ); 
+           );
             Field<LongGraphType>(name: "hotelsCount", "Returns the count of Hotels",
                  resolve: context =>
                  {
@@ -74,7 +74,7 @@ namespace UserInterface.GraphQL.Queries
                     return this._hotelPhotoService.GetListByHotelIdAsync(hotelId);
                 }
             );
-            Field<ListGraphType<HotelPhotoType>>(name: "hotelPhoto", "Returns the first photo of the specific hotel",
+            Field<HotelPhotoType>(name: "hotelPhoto", "Returns the first photo of the specific hotel",
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<LongGraphType>>
                 {
                     Name = "hotelId",
@@ -111,7 +111,6 @@ namespace UserInterface.GraphQL.Queries
                   }
                   return countries;
               });
-            short countryId = 0;
             Field<CountryType>(name: "country", "Returns a single Country",
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<ShortGraphType>>
                 {
@@ -120,7 +119,7 @@ namespace UserInterface.GraphQL.Queries
                 }),
                 resolve: context =>
                 {
-                    countryId = context.GetArgument<short>("id");
+                    short countryId = context.GetArgument<short>("id");
                     var country = this._countryService.GetByIdAsync(countryId).Result;
                     country.Cities = this._cityService.GetListByCountryIdAsync(countryId).Result;
                     return country;
@@ -134,10 +133,9 @@ namespace UserInterface.GraphQL.Queries
             }),
              resolve: context =>
              {
-                 countryId = context.GetArgument<short>("countryId");
+                 short countryId = context.GetArgument<short>("countryId");
                  return this._cityService.GetListByCountryIdAsync(countryId);
              });
-            long cityId = 0;
             Field<CityType>(name: "city", "Returns a single City",
                 arguments: new QueryArguments(new QueryArgument<NonNullGraphType<LongGraphType>>
                 {
@@ -146,7 +144,7 @@ namespace UserInterface.GraphQL.Queries
                 }),
                 resolve: context =>
                 {
-                    cityId = context.GetArgument<long>("cityId");
+                    long cityId = context.GetArgument<long>("cityId");
                     return this._cityService.GetByIdAsync(cityId);
                 }
             );

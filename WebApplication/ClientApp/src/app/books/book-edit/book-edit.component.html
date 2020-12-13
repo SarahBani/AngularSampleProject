@@ -19,10 +19,10 @@
           <input type="text" id="genre" class="form-control" formControlName="genre" />
         </div>
 
-        <app-upload-image labelText="Cover Image" [uploadedImageUrl]="uploadedImageUrl"
+        <app-image-uploader labelText="Cover Image" [uploadedImageUrl]="uploadedImageUrl"
                           [uploadedPercentage]="uploadedPercentage"
                           (uploadImageFile)="uploadImage($event);" (deleteImage)="onDeleteImage();">
-        </app-upload-image>
+        </app-image-uploader>
 
         <div class="form-group">
           <label for="summary">Summary: </label>

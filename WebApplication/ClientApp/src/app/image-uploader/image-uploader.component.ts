@@ -4,11 +4,11 @@ import { Observable } from 'rxjs';
 import { ICustomActionResult } from '../models/ICustomActionResult.model';
 
 @Component({
-  selector: 'app-upload-image',
-  templateUrl: './upload-image.component.html',
-  styleUrls: ['./upload-image.component.css']
+  selector: 'app-image-uploader',
+  templateUrl: './image-uploader.component.html',
+  styleUrls: ['./image-uploader.component.css']
 })
-export class UploadImageComponent implements OnInit {
+export class ImageUploaderComponent implements OnInit {
 
   @Input() private labelText: string;
   @Input() private uploadedPercentage: number;

@@ -5,10 +5,10 @@
         <label for="name">Name: </label>
         <input type="text" id="name" name="name" class="form-control" ngModel required />
       </div>
-      <app-upload-image labelText="Logo" [uploadedImageUrl]="uploadedImageUrl"
+      <app-image-uploader labelText="Logo" [uploadedImageUrl]="uploadedImageUrl"
                         [uploadedPercentage]="uploadedPercentage"
                         (uploadImageFile)="uploadImage($event);" (deleteImage)="onDeleteImage();">
-      </app-upload-image>
+      </app-image-uploader>
 
       <p *ngIf="(f.controls.name != null && !f.controls.name.valid && f.controls.name.touched)"
          class="alert-danger">

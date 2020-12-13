@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormArray, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { ImageUploaderComponent } from '../../base/image-uploader.component';
+import { BaseImageUploaderFormComponent } from '../../base/base-image-uploader-form.component';
 import { IBook, IBookComment } from '../../models/IBook.model';
 import { BookService } from '../../services/book-service';
 
@@ -11,7 +11,7 @@ import { BookService } from '../../services/book-service';
   templateUrl: './book-edit.component.html',
   styleUrls: ['./book-edit.component.css']
 })
-export class BookEditComponent extends ImageUploaderComponent
+export class BookEditComponent extends BaseImageUploaderFormComponent
   implements OnInit, OnDestroy {
 
   private myFormGroup: FormGroup;

@@ -1,0 +1,23 @@
+<div class="form-group">
+  <label for="uploadedImageUrl">{{ labelText }}: </label>
+  <input type="file" id="uploadedImageUrl" class="form-control-file border"
+         accept="image/*" (change)="upload($event.target.files)">
+</div>
+<div class="row" *ngIf="uploadedPercentage != null">
+  <div class="col-12">
+    <progress id="file" value="{{ uploadedPercentage }}" max="100"></progress>
+    <small class="align-top"> {{ uploadedPercentage }}%</small>
+  </div>
+</div>
+<div class="row" *ngIf="uploadedImageUrl != null">
+  <div class="col-12 uploaded-image">
+    <img [src]="uploadedImageUrl" class="img-response" />
+    <div>
+      <img class="delete-image" src='/images/delete.png' alt="Delete Image"
+           (click)="onDeleteImage()" />
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="uploadedImageUrl == null">
+  <img src="images/NoImage.png" class="img-response" />
+</div>

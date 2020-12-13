@@ -5,7 +5,7 @@ import { ICustomActionResult } from '../models/ICustomActionResult.model';
 import { BaseFormComponent } from './base-form.component';
 
 @Directive()
-export abstract class ImageUploaderComponent extends BaseFormComponent implements OnInit {
+export abstract class BaseImageUploaderFormComponent extends BaseFormComponent implements OnInit {
 
   protected fileToUpload: File = null;
   protected uploadedPercentage: number;

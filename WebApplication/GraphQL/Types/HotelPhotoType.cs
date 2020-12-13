@@ -12,7 +12,6 @@ namespace UserInterface.GraphQL.Types
 
             Field(q => q.Id);
             Field(q => q.PhotoUrl);
-            Field<HotelType>(nameof(HotelPhoto.Hotel));
         }
 
     }
