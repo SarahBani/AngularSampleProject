@@ -1,20 +1,18 @@
-import { Inject, Injectable, OnDestroy } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IBranch } from '../models/Ibranch.model';
 import { Observable, Subject, Subscription } from 'rxjs';
-import { BaseService } from './base-service';
+import { BaseRestService } from './base-rest-service';
 import { ModalService } from './modal-service';
 import { ExceptionHandlerService } from './exception-handler-service';
 import { ILoaderService } from './ILoader-service';
 
 @Injectable({ providedIn: 'root' })
-export class BranchService extends BaseService implements ILoaderService {
+export class BranchService extends BaseRestService implements ILoaderService {
 
   protected controllerName: string = 'Branch';
   public count: number;
   public selectedBankChanged: Subject<number> = new Subject<number>();
-  public operationCompleted: Subject<boolean> = new Subject<boolean>();
-  private confirmDeleteSubscription: Subscription;
   public changeLoaderStatus: Subject<boolean> = new Subject<boolean>();
 
   constructor(http: HttpClient,
@@ -98,21 +96,6 @@ export class BranchService extends BaseService implements ILoaderService {
       }, error => {
         this.onError(error);
       });
-  }
-
-  protected onSuccess(result): void {
-    if (result.isSuccessful) {
-      this.operationCompleted.next(true);
-    }
-    else {
-      this.operationCompleted.next(false);
-      this.modalService.showError(result.customExceptionMessage);
-    }
-  }
-
-  protected onError(error): void {
-    super.showError(error);
-    this.operationCompleted.next(false);
   }
 
 }

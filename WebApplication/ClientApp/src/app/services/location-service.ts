@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ICountry } from '../models/ICountry.model';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ModalService } from './modal-service';
 import { ExceptionHandlerService } from './exception-handler-service';
-import { ILoaderService } from './ILoader-service';
 import { map } from 'rxjs/operators';
 import { BaseGraphQLService } from './base-graphql_service';
-import { Apollo, gql } from 'apollo-angular';
+import { Apollo } from 'apollo-angular';
 
 @Injectable({ providedIn: 'root' })
-export class LocationService extends BaseGraphQLService implements ILoaderService {
-
-  public changeLoaderStatus: Subject<boolean> = new Subject<boolean>();
+export class LocationService extends BaseGraphQLService {
 
   constructor(apollo: Apollo,
     modalService: ModalService,

@@ -53,6 +53,7 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\models\Enums.ts" />
     <None Remove="ClientApp\src\app\services\base-graphql_service.ts" />
+    <None Remove="ClientApp\src\app\services\base-rest-service.ts" />
     <None Remove="ClientApp\src\app\services\base-service.ts" />
     <None Remove="ClientApp\src\app\services\contact-service.ts" />
     <None Remove="ClientApp\src\app\services\exception-handler-service.ts" />
@@ -96,6 +97,9 @@
 
   <ItemGroup>
     <TypeScriptCompile Update="ClientApp\src\app\services\base-graphql_service.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Update="ClientApp\src\app\services\base-rest-service.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Update="ClientApp\src\app\services\base-service.ts">

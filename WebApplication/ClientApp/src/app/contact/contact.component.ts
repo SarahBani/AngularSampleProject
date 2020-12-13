@@ -26,7 +26,7 @@ export class ContactComponent extends BaseFormComponent implements OnInit, OnDes
   }
 
   private subscribe(): void {
-    this.emailSentSubscription = this.contactService.emailSentCompleted.subscribe((hasSent) => {
+    this.emailSentSubscription = this.contactService.operationCompleted.subscribe((hasSent) => {
       if (hasSent) {
         this.changesSaved = true;
         this.myForm.reset();

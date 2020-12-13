@@ -4,14 +4,13 @@ import { Subject } from 'rxjs';
 import { IContact } from '../models/IContact.model';
 import { ModalService } from './modal-service';
 import { ExceptionHandlerService } from './exception-handler-service';
-import { BaseService } from './base-service';
+import { BaseRestService } from './base-rest-service';
 
 @Injectable({ providedIn: 'root' })
-export class ContactService extends BaseService {
+export class ContactService extends BaseRestService {
 
   protected controllerName: string = 'Contact';
   private const_SuccessMessage: string = 'Your message has been sent.';
-  public emailSentCompleted: Subject<boolean> = new Subject();
 
   constructor(http: HttpClient,
     @Inject('BASE_URL') baseUrl: string,
@@ -35,18 +34,13 @@ export class ContactService extends BaseService {
 
   protected onSuccess(result): void {
     if (result.isSuccessful) {
-      this.emailSentCompleted.next(true);
+      this.operationCompleted.next(true);
       this.modalService.showSuccess(this.const_SuccessMessage);
     }
     else {
-      this.emailSentCompleted.next(false);
+      this.operationCompleted.next(false);
       this.modalService.showError(result.customExceptionMessage);
     }
-  }
-
-  protected onError(error): void {
-    super.showError(error);
-    this.emailSentCompleted.next(false);
   }
 
 }

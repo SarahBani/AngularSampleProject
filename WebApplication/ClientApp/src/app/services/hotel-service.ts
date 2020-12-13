@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IHotel } from '../models/Ihotel.model';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ModalService } from './modal-service';
 import { ExceptionHandlerService } from './exception-handler-service';
 import { ILoaderService } from './ILoader-service';
@@ -11,8 +11,6 @@ import { Apollo } from 'apollo-angular';
 @Injectable({ providedIn: 'root' })
 export class HotelService extends BaseGraphQLService implements ILoaderService {
 
-  public operationCompleted: Subject<boolean> = new Subject<boolean>();
-  private confirmDeleteSubscription: Subscription;
   public changeLoaderStatus: Subject<boolean> = new Subject<boolean>();
 
   constructor(apollo: Apollo,
@@ -157,21 +155,6 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
       }, error => {
         this.onError(error);
       });
-  }
-
-  protected onSuccess(result): void {
-    if (result.isSuccessful) {
-      this.operationCompleted.next(true);
-    }
-    else {
-      this.operationCompleted.next(false);
-      this.modalService.showError(result.customExceptionMessage);
-    }
-  }
-
-  protected onError(error): void {
-    super.showError(error);
-    this.operationCompleted.next(false);
   }
 
 }
