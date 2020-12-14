@@ -13,11 +13,11 @@ export class BookService extends BaseRestService implements ILoaderService {
   protected controllerName: string = 'Book';
   public changeLoaderStatus: Subject<boolean> = new Subject<boolean>();
 
-  constructor(http: HttpClient,
-    @Inject('BASE_URL') baseUrl: string,
-    modalService: ModalService,
-    exceptionHandlerService: ExceptionHandlerService) {
-    super(http, baseUrl, modalService, exceptionHandlerService);
+  constructor(modalService: ModalService,
+    exceptionHandlerService: ExceptionHandlerService,
+    httpClient: HttpClient,
+    @Inject('BASE_URL') baseUrl: string) {
+    super(modalService, exceptionHandlerService, httpClient, baseUrl);
   }
 
   public getItem(id: string): Observable<IBook> {

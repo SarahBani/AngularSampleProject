@@ -2,10 +2,11 @@ import { HttpEventType } from '@angular/common/http';
 import { OnInit, Directive } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICustomActionResult } from '../models/ICustomActionResult.model';
-import { BaseFormComponent } from './base-form.component';
+import { BaseForm } from './base-form';
 
 @Directive()
-export abstract class BaseImageUploaderFormComponent extends BaseFormComponent implements OnInit {
+export abstract class BaseImageUploaderForm extends BaseForm
+  implements OnInit {
 
   protected fileToUpload: File = null;
   protected uploadedPercentage: number;

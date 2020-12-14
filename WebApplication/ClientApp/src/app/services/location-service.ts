@@ -10,6 +10,8 @@ import { Apollo } from 'apollo-angular';
 @Injectable({ providedIn: 'root' })
 export class LocationService extends BaseGraphQLService {
 
+  protected controllerName: string = '';
+
   constructor(apollo: Apollo,
     modalService: ModalService,
     exceptionHandlerService: ExceptionHandlerService) {

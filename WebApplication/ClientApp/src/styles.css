@@ -126,5 +126,5 @@ textarea.ng-invalid.ng-touched {
   color: #FFF;
   background-color: #343A40;
   border: 1px solid #000;
-  padding: 10px;
+  padding: 10px 20px;
 }

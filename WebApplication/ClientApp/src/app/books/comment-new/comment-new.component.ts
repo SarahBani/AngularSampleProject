@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { BaseModalComponent } from '../../base/base-modal.component';
+import { BaseModal } from '../../base/base-modal';
 import { IBookComment } from '../../models/IBook.model';
 import { BookService } from '../../services/book-service';
 import { ModalService } from '../../services/modal-service';
@@ -12,8 +12,8 @@ import { ModalService } from '../../services/modal-service';
   templateUrl: './comment-new.component.html',
   styleUrls: ['./comment-new.component.css']
 })
-export class CommentNewComponent extends BaseModalComponent
-  implements OnInit {
+export class CommentNewComponent extends BaseModal
+  implements OnInit, OnDestroy {
 
   private id: string;
   private operationCompletedSubscription: Subscription;
@@ -47,6 +47,10 @@ export class CommentNewComponent extends BaseModalComponent
       createdDateTime: new Date('0001-01-01T00:00:00Z')
     };
     this.bookService.insertComment(this.id, bookComment);
+  }
+
+  public ngOnDestroy(): void {
+    this.operationCompletedSubscription.unsubscribe();
   }
 
 }

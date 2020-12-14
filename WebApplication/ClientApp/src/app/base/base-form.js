@@ -13,24 +13,24 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BaseFormComponent = void 0;
-var base_loading_component_1 = require("./base-loading.component");
-var BaseFormComponent = /** @class */ (function (_super) {
-    __extends(BaseFormComponent, _super);
-    function BaseFormComponent(loaderService) {
+exports.BaseForm = void 0;
+var base_loading_1 = require("./base-loading");
+var BaseForm = /** @class */ (function (_super) {
+    __extends(BaseForm, _super);
+    function BaseForm(loaderService) {
         if (loaderService === void 0) { loaderService = null; }
         var _this = _super.call(this, loaderService) || this;
         _this.changesSaved = false;
         _this.const_confirmDiscardChanges = 'Do you want to discard the changes?';
         return _this;
     }
-    BaseFormComponent.prototype.canDeactivate = function () {
+    BaseForm.prototype.canDeactivate = function () {
         if (!this.changesSaved) {
             return confirm(this.const_confirmDiscardChanges);
         }
         return this.changesSaved;
     };
-    return BaseFormComponent;
-}(base_loading_component_1.BaseLoadingComponent));
-exports.BaseFormComponent = BaseFormComponent;
-//# sourceMappingURL=base-form.component.js.map
+    return BaseForm;
+}(base_loading_1.BaseLoading));
+exports.BaseForm = BaseForm;
+//# sourceMappingURL=base-form.js.map

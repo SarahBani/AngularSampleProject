@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BaseLoadingComponent } from '../base/base-loading.component';
+import { BaseLoading } from '../base/base-loading';
 import { IBank } from '../models/IBank.model';
 import { BankService } from '../services/bank-service';
 import { BranchService } from '../services/branch-service';
@@ -10,7 +10,7 @@ import { BranchService } from '../services/branch-service';
   templateUrl: './branches.component.html',
   styleUrls: ['./branches.component.css']
 })
-export class BranchesComponent extends BaseLoadingComponent implements OnInit {
+export class BranchesComponent extends BaseLoading implements OnInit {
 
   private banks: IBank[] = [];
   private selectedBank: IBank;

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { BaseLoadingComponent } from '../../base/base-loading.component';
+import { BaseLoading } from '../../base/base-loading';
 import { IBook } from '../../models/IBook.model';
 import { BookService } from '../../services/book-service';
 
@@ -10,7 +10,7 @@ import { BookService } from '../../services/book-service';
   templateUrl: './book-list.component.html',
   styleUrls: ['./book-list.component.css']
 })
-export class BookListComponent extends BaseLoadingComponent implements OnInit, OnDestroy {
+export class BookListComponent extends BaseLoading implements OnInit, OnDestroy {
 
   private books: IBook[] = [];
   private operationCompletedSubscription: Subscription;

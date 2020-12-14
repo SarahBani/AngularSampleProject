@@ -1,8 +1,8 @@
 import { ILoaderService } from "../services/ILoader-service";
 import { ModalService } from "../services/modal-service";
-import { BaseLoadingComponent } from "./base-loading.component";
+import { BaseImageUploaderForm } from "./base-image-uploader-form";
 
-export abstract class BaseModalComponent extends BaseLoadingComponent {
+export abstract class BaseModalImageUploader extends BaseImageUploaderForm {
 
   constructor(private modalService: ModalService,
     loaderService: ILoaderService = null) {

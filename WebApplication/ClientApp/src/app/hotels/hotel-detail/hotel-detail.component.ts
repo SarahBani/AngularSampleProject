@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
-import { BaseLoadingComponent } from '../../base/base-loading.component';
+import { BaseLoading } from '../../base/base-loading';
 import { IHotel } from '../../models/IHotel.model';
 import { HotelService } from '../../services/hotel-service';
 import { ModalService } from '../../services/modal-service';
@@ -11,7 +11,7 @@ import { ModalService } from '../../services/modal-service';
   templateUrl: './hotel-detail.component.html',
   styleUrls: ['./hotel-detail.component.css']
 })
-export class HotelDetailComponent extends BaseLoadingComponent implements OnInit, OnDestroy {
+export class HotelDetailComponent extends BaseLoading implements OnInit, OnDestroy {
 
   private model: IHotel;
   private operationCompletedSubscription: Subscription;
@@ -27,6 +27,9 @@ export class HotelDetailComponent extends BaseLoadingComponent implements OnInit
   public ngOnInit(): void {
     this.subscribe();
     this.fillData();
+    if (window.location.href.endsWith('photos')) {
+      this.onPhotos();
+    }
   }
 
   private subscribe(): void {
@@ -66,10 +69,25 @@ export class HotelDetailComponent extends BaseLoadingComponent implements OnInit
     var modalContainerResult = this.modalService.showModalContainer('Photos');
     modalContainerResult.subscribe((result: any) => {
       if (result != null) {
-        //this.refreshPhotos();
+        this.refreshPhotos();
       }
       this.router.navigate(['./'], { relativeTo: this.route });
     });
+  }
+
+  private refreshPhotos(): void {
+    super.showLoader();
+    this.route.params.subscribe((params: Params) => {
+      const id: number = params['id'];
+    //  this.hotelService.getPhotos(id).subscribe((book: IBook) => {
+    //    super.hideLoader();
+    //    if (book == null) {
+    //      this.redirectBack();
+    //      return;
+    //    }
+    //    this.model.comments = book.comments;
+    //  }, error => super.showError(error));
+   });
   }
 
   private onRooms(): void {

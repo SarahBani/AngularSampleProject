@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { IHotel } from '../models/Ihotel.model';
 import { Observable, Subject } from 'rxjs';
 import { ModalService } from './modal-service';
@@ -8,16 +8,20 @@ import { map } from 'rxjs/operators';
 import { BaseGraphQLService } from './base-graphql_service';
 import { Apollo } from 'apollo-angular';
 import { IHotelPhoto } from '../models/IHotelPhoto.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class HotelService extends BaseGraphQLService implements ILoaderService {
 
+  protected controllerName: string = 'Hotel';
   public changeLoaderStatus: Subject<boolean> = new Subject<boolean>();
 
   constructor(apollo: Apollo,
     modalService: ModalService,
-    exceptionHandlerService: ExceptionHandlerService) {
-    super(apollo, modalService, exceptionHandlerService, false);
+    exceptionHandlerService: ExceptionHandlerService,
+    httpClient: HttpClient,
+    @Inject('BASE_URL') baseUrl: string) {
+    super(apollo, modalService, exceptionHandlerService, false, httpClient, baseUrl);
   }
 
   public getList(): Observable<IHotel[]> {
@@ -162,9 +166,9 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
       });
   }
 
-  public getPhotos(): Observable<IHotelPhoto[]> {
+  public getPhotos(hotelId: number): Observable<IHotelPhoto[]> {
     const query = `
-      hotelPhotos {
+      hotelPhotos(hotelId : ${hotelId}) {
         id
         photoUrl
       }`;
@@ -184,6 +188,34 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
       .pipe(map(({ data }) => {
         return data?.hotel;
       }));
+  }
+
+  public insertPhoto(hotelId: number, photoUrl: string): void {
+    var photoUrl = photoUrl.split(String.fromCharCode(92)).join(String.fromCharCode(92, 92)); // replace / with //
+    const mutation = `
+      createHotelPhoto(hotelPhoto: { hotelId: ${hotelId}, photoUrl: "${photoUrl}" })
+      {
+        isSuccessful
+        customExceptionMessage
+      }`;
+    console.log(mutation);
+    super.requestMutation('CreateHotelPhoto', mutation)
+      .pipe(map(({ data }) => {
+        return data?.createHotelPhoto;
+      }))
+      .subscribe(result => {
+        this.onSuccess(result);
+      }, error => {
+        this.onError(error);
+      });
+  }
+
+  public uploadPhoto(hotelId: number, file: File): Observable<any> {
+    return this.postFile(`UploadPhoto/${hotelId}`, file);
+  }
+
+  public deletePhoto(filePath: string): Observable<any> {
+    return this.httpDelete(`DeletePhoto/${filePath}`);
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { BaseLoadingComponent } from '../../base/base-loading.component';
+import { BaseLoading } from '../../base/base-loading';
 import { IBranch } from '../../models/Ibranch.model';
 import { BranchService } from '../../services/branch-service';
 
@@ -10,7 +10,7 @@ import { BranchService } from '../../services/branch-service';
   templateUrl: './branch-detail.component.html',
   styleUrls: ['./branch-detail.component.css']
 })
-export class BranchDetailComponent extends BaseLoadingComponent implements OnInit, OnDestroy {
+export class BranchDetailComponent extends BaseLoading implements OnInit, OnDestroy {
 
   private model: IBranch;
   private operationCompletedSubscription: Subscription;

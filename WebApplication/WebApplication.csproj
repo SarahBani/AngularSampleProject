@@ -64,7 +64,8 @@
   <ItemGroup>
     <TypeScriptCompile Remove="ClientApp\src\app\base-form.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\base-loading.component.ts" />
-    <TypeScriptCompile Remove="ClientApp\src\app\base\base-modal.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\base\base-modal-image-uploader.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\base\base-modal.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\books\book-detail\bank-detail.component.spec.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\books\book-detail\bank-detail.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\books\book-edit\bank-edit.component.spec.ts" />

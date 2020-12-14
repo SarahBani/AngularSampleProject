@@ -1,8 +1,8 @@
 import { Observable } from 'rxjs';
-import { BaseLoadingComponent } from './base-loading.component';
+import { BaseLoading } from './base-loading';
 import { ILoaderService } from '../services/ILoader-service';
 
-export abstract class BaseFormComponent extends BaseLoadingComponent {
+export abstract class BaseForm extends BaseLoading {
 
   protected changesSaved: boolean = false;
   private const_confirmDiscardChanges: string = 'Do you want to discard the changes?';

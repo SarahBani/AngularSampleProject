@@ -8,9 +8,8 @@ namespace UserInterface.GraphQL.Types
         public HotelPhotoInputType()
         {
             Name = "HotelPhotoInput";
-            Field<LongGraphType>(nameof(HotelPhoto.Id));
             Field<NonNullGraphType<LongGraphType>>(nameof(HotelPhoto.HotelId));
-            Field<StringGraphType>(nameof(HotelPhoto.PhotoUrl));
+            Field<NonNullGraphType<StringGraphType>>(nameof(HotelPhoto.PhotoUrl));
         }
     }
 }

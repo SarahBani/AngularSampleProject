@@ -3,7 +3,7 @@ import { Subscription } from "rxjs";
 import { ILoaderService } from '../services/ILoader-service';
 
 // TODO: Add Angular decorator.
-export abstract class BaseLoadingComponent implements OnDestroy {
+export abstract class BaseLoading implements OnDestroy {
 
   protected isLoading: boolean = false;
   private counter: number = 0;

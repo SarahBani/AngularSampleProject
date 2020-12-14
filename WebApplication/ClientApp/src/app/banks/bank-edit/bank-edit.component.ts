@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { BaseImageUploaderFormComponent } from '../../base/base-image-uploader-form.component';
+import { BaseImageUploaderForm } from '../../base/base-image-uploader-form';
 import { IBank } from '../../models/IBank.model';
 import { BankService } from '../../services/bank-service';
 
@@ -11,7 +11,7 @@ import { BankService } from '../../services/bank-service';
   templateUrl: './bank-edit.component.html',
   styleUrls: ['./bank-edit.component.css']
 })
-export class BankEditComponent extends BaseImageUploaderFormComponent
+export class BankEditComponent extends BaseImageUploaderForm
   implements OnInit, OnDestroy {
 
   @ViewChild('f') myForm: NgForm;

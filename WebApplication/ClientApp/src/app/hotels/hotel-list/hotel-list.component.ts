@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { BaseLoadingComponent } from '../../base/base-loading.component';
+import { BaseLoading } from '../../base/base-loading';
 import { IHotel } from '../../models/IHotel.model';
 import { HotelService } from '../../services/hotel-service';
 
@@ -10,12 +10,13 @@ import { HotelService } from '../../services/hotel-service';
   templateUrl: './hotel-list.component.html',
   styleUrls: ['./hotel-list.component.css']
 })
-export class HotelListComponent extends BaseLoadingComponent implements OnInit, OnDestroy {
+export class HotelListComponent extends BaseLoading implements OnInit, OnDestroy {
 
   private count: number = 0
   private hotels: IHotel[] = [];
   private operationCompletedSubscription: Subscription;
-  private querySubscription: Subscription;
+  private countQuerySubscription: Subscription;
+  private listQuerySubscription: Subscription;
 
   constructor(private hotelService: HotelService,
     private router: Router,
@@ -39,7 +40,7 @@ export class HotelListComponent extends BaseLoadingComponent implements OnInit, 
 
   private setCount(): void {
     super.showLoader();
-    this.querySubscription = this.hotelService.getCount().subscribe((count) => {
+    this.countQuerySubscription = this.hotelService.getCount().subscribe((count) => {
       this.count = count;
       super.hideLoader();
     }, error => super.showError(error));
@@ -47,7 +48,7 @@ export class HotelListComponent extends BaseLoadingComponent implements OnInit, 
 
   private fillList(): void {
     super.showLoader();
-    this.querySubscription = this.hotelService.getList().subscribe((hotels) => {
+    this.listQuerySubscription = this.hotelService.getList().subscribe((hotels) => {
       this.hotels = hotels;
       super.hideLoader();
     }, error => super.showError(error));
@@ -64,7 +65,8 @@ export class HotelListComponent extends BaseLoadingComponent implements OnInit, 
 
   public ngOnDestroy(): void {
     this.operationCompletedSubscription.unsubscribe();
-    this.querySubscription.unsubscribe();
+    this.countQuerySubscription.unsubscribe();
+    this.listQuerySubscription.unsubscribe();
   }
 
 }

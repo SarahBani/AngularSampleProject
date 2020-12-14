@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
-import { BaseLoadingComponent } from '../../base/base-loading.component';
+import { BaseLoading } from '../../base/base-loading';
 import { IBook } from '../../models/IBook.model';
 import { BookService } from '../../services/book-service';
 import { ModalService } from '../../services/modal-service';
@@ -11,7 +11,7 @@ import { ModalService } from '../../services/modal-service';
   templateUrl: './book-detail.component.html',
   styleUrls: ['./book-detail.component.css']
 })
-export class BookDetailComponent extends BaseLoadingComponent implements OnInit, OnDestroy {
+export class BookDetailComponent extends BaseLoading implements OnInit, OnDestroy {
 
   private model: IBook;
   private shortSummary: string;

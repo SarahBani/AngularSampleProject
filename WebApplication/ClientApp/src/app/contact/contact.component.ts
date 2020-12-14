@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { BaseFormComponent } from '../base/base-form.component';
+import { BaseForm } from '../base/base-form';
 import { ContactService } from '../services/contact-service';
 
 @Component({
@@ -10,7 +10,7 @@ import { ContactService } from '../services/contact-service';
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.css']
 })
-export class ContactComponent extends BaseFormComponent implements OnInit, OnDestroy {
+export class ContactComponent extends BaseForm implements OnInit, OnDestroy {
 
   @ViewChild('f') myForm: NgForm;
   private emailSentSubscription: Subscription;

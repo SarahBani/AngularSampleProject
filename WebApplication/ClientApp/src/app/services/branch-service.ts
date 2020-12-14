@@ -15,11 +15,11 @@ export class BranchService extends BaseRestService implements ILoaderService {
   public selectedBankChanged: Subject<number> = new Subject<number>();
   public changeLoaderStatus: Subject<boolean> = new Subject<boolean>();
 
-  constructor(http: HttpClient,
-    @Inject('BASE_URL') baseUrl: string,
-    modalService: ModalService,
-    exceptionHandlerService: ExceptionHandlerService) {
-    super(http, baseUrl, modalService, exceptionHandlerService);
+  constructor(modalService: ModalService,
+    exceptionHandlerService: ExceptionHandlerService,
+    httpClient: HttpClient,
+    @Inject('BASE_URL') baseUrl: string) {
+    super(modalService, exceptionHandlerService, httpClient, baseUrl);
   }
 
   public changeBank(bankId: number): void {

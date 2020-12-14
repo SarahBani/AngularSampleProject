@@ -1,5 +1,5 @@
 <div class="form-group">
-  <label for="uploadedImageUrl">{{ labelText }}: </label>
+  <label for="uploadedImageUrl" *ngIf="labelText != null">{{ labelText }}: </label>
   <input type="file" id="uploadedImageUrl" class="form-control-file border"
          accept="image/*" (change)="upload($event.target.files)">
 </div>

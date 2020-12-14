@@ -2,12 +2,13 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { BaseFormComponent } from '../../base/base-form.component';
+import { BaseForm } from '../../base/base-form';
 import { ICity } from '../../models/ICity.model';
 import { ICountry } from '../../models/ICountry.model';
 import { IHotel } from '../../models/IHotel.model';
 import { LocationService } from '../../services/location-service';
 import { HotelService } from '../../services/hotel-service';
+import { ModalService } from '../../services/modal-service';
 
 declare var $: any;
 
@@ -16,7 +17,7 @@ declare var $: any;
   templateUrl: './hotel-edit.component.html',
   styleUrls: ['./hotel-edit.component.css']
 })
-export class HotelEditComponent extends BaseFormComponent
+export class HotelEditComponent extends BaseForm
   implements OnInit, OnDestroy {
 
   @ViewChild('myForm') form: NgForm;
@@ -31,7 +32,8 @@ export class HotelEditComponent extends BaseFormComponent
   constructor(private hotelService: HotelService,
     private locationService: LocationService,
     private route: ActivatedRoute,
-    private router: Router) {
+    private router: Router,
+    private modalService: ModalService) {
     super(hotelService);
   }
 
@@ -164,6 +166,10 @@ export class HotelEditComponent extends BaseFormComponent
   private onCancel(): void {
     this.changesSaved = true;
     this.redirectBack();
+  }
+
+  private onPhotos(): void {
+
   }
 
   private redirectBack(backLevelCount: number = 1): void {

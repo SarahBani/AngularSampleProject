@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { BaseFormComponent } from '../../base/base-form.component';
+import { BaseForm } from '../../base/base-form';
 import { IBranch } from '../../models/Ibranch.model';
 import { BranchService } from '../../services/branch-service';
 
@@ -11,7 +11,7 @@ import { BranchService } from '../../services/branch-service';
   templateUrl: './branch-edit.component.html',
   styleUrls: ['./branch-edit.component.css']
 })
-export class BranchEditComponent extends BaseFormComponent implements OnInit, OnDestroy {
+export class BranchEditComponent extends BaseForm implements OnInit, OnDestroy {
 
   @ViewChild('f') myForm: NgForm;
   private id: number;
