@@ -38,6 +38,10 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
             name
           }
         }
+        photos
+        {
+          photoUrl
+        }
       }`;
     return super.requestQuery('Hotels', query)
       .pipe(map(({ data }) => {

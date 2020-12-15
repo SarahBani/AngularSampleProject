@@ -1,6 +1,8 @@
 ﻿using Core.ApplicationService.Contracts;
+using Core.DomainModel.Entities;
 using GraphQL;
 using GraphQL.Types;
+using System.Collections.Generic;
 using System.Linq;
 using UserInterface.GraphQL.Types;
 
@@ -43,7 +45,17 @@ namespace UserInterface.GraphQL.Queries
             Field<ListGraphType<HotelType>>(name: "hotels", "Returns the list of Hotels",
                  resolve: context =>
                  {
-                     return this._hotelService.GetAllAsync();
+                     var hotels = this._hotelService.GetAllAsync();
+                     foreach (var hotel in hotels.Result)
+                     {
+                         var hotelPhoto = this._hotelPhotoService.GetFirstByHotelIdAsync(hotel.Id).Result;
+                         if (hotelPhoto != null)
+                         {
+                             hotel.Photos = new List<HotelPhoto>();
+                             hotel.Photos.Add(hotelPhoto);
+                         }
+                     }
+                     return hotels;
                  });
             Field<HotelType>(name: "hotel", "Returns a single Hotel",
                arguments: new QueryArguments(new QueryArgument<NonNullGraphType<LongGraphType>>

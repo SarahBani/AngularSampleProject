@@ -7,3 +7,11 @@
   color: #FFD119;
   text-shadow: 0 0 1px black, 0 0 1px black, 0 0 1px black, 0 0 1px black;
 }
+
+.list-group-item img {
+  max-width: 50px;
+  max-height: 50px;
+  margin-right: 5px;
+  border: 1px solid #000;
+  border-radius: 2px;
+}

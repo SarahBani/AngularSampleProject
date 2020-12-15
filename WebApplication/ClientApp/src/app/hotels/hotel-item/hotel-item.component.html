@@ -1,6 +1,9 @@
 <a [routerLink]="[model.id]"
    [routerLinkActive]="['active']"
    class="list-group-item clearfix">
+  <img *ngIf="model.photos?.length > 0; else noPhoto" [src]="model.photos[0].photoUrl"
+       class="img-response" />
+  <ng-template #noPhoto><img src="images/NoImage.png" class="img-response" /></ng-template>
   <strong class="list-group-item-heading">{{ model.name }}</strong>
   <em> {{ model.city?.name }} - {{ model.city?.country?.name }}</em>
   <!--<div id="stars{{ model.id }}" class='starrr float-right'></div>-->
