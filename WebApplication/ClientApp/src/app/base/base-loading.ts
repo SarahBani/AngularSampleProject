@@ -2,7 +2,6 @@ import { OnDestroy } from "@angular/core";
 import { Subscription } from "rxjs";
 import { ILoaderService } from '../services/ILoader-service';
 
-// TODO: Add Angular decorator.
 export abstract class BaseLoading implements OnDestroy {
 
   protected isLoading: boolean = false;

@@ -13,23 +13,23 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BaseModalComponent = void 0;
-var base_loading_component_1 = require("./base-loading.component");
-var BaseModalComponent = /** @class */ (function (_super) {
-    __extends(BaseModalComponent, _super);
-    function BaseModalComponent(modalService, loaderService) {
+exports.BaseModal = void 0;
+var base_loading_1 = require("./base-loading");
+var BaseModal = /** @class */ (function (_super) {
+    __extends(BaseModal, _super);
+    function BaseModal(modalService, loaderService) {
         if (loaderService === void 0) { loaderService = null; }
         var _this = _super.call(this, loaderService) || this;
         _this.modalService = modalService;
         return _this;
     }
-    BaseModalComponent.prototype.passResult = function (result) {
+    BaseModal.prototype.passResult = function (result) {
         this.modalService.passResult(result);
     };
-    BaseModalComponent.prototype.onCancel = function () {
+    BaseModal.prototype.onCancel = function () {
         this.modalService.passResult(null);
     };
-    return BaseModalComponent;
-}(base_loading_component_1.BaseLoadingComponent));
-exports.BaseModalComponent = BaseModalComponent;
-//# sourceMappingURL=base-modal.component.js.map
+    return BaseModal;
+}(base_loading_1.BaseLoading));
+exports.BaseModal = BaseModal;
+//# sourceMappingURL=base-modal.js.map

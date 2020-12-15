@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { BaseLoading } from '../../base/base-loading';
 import { IHotel } from '../../models/IHotel.model';
+import { IHotelPhoto } from '../../models/IHotelPhoto.model';
 import { HotelService } from '../../services/hotel-service';
 import { ModalService } from '../../services/modal-service';
 
@@ -14,8 +15,9 @@ import { ModalService } from '../../services/modal-service';
 export class HotelDetailComponent extends BaseLoading implements OnInit, OnDestroy {
 
   private model: IHotel;
+  private selectedPhotoUrl: string;
   private operationCompletedSubscription: Subscription;
-  private querySubscription: Subscription;
+  private photosChangedSubscription: Subscription;
 
   constructor(private hotelService: HotelService,
     private route: ActivatedRoute,
@@ -40,19 +42,29 @@ export class HotelDetailComponent extends BaseLoading implements OnInit, OnDestr
           this.redirectBack();
         }
       });
+    this.photosChangedSubscription = this.hotelService.photosChanged
+      .subscribe(() => {
+        this.fillPhotos();
+      });
   }
 
   private fillData(): void {
     super.showLoader();
     this.route.params.subscribe((params: Params) => {
       const id: number = +params['id'];
-      this.querySubscription = this.hotelService.getItem(id).subscribe((hotel: IHotel) => {
+      this.hotelService.getItem(id).subscribe((hotel: IHotel) => {
         super.hideLoader();
         if (hotel == null) {
           this.redirectBack();
           return;
         }
         this.model = hotel;
+        if (hotel.photos != null && hotel.photos.length > 0) {
+          this.selectedPhotoUrl = hotel.photos[0].photoUrl;
+        }
+        else {
+          this.selectedPhotoUrl = null;
+        }
       }, error => {
         if (error.graphQLErrors[0].extensions.code === "INVALID_OPERATION") {
           this.onBack();
@@ -64,30 +76,30 @@ export class HotelDetailComponent extends BaseLoading implements OnInit, OnDestr
     });
   }
 
-  private onPhotos(): void {
-    this.router.navigate(['photos'], { relativeTo: this.route });
-    var modalContainerResult = this.modalService.showModalContainer('Photos');
-    modalContainerResult.subscribe((result: any) => {
-      if (result != null) {
-        this.refreshPhotos();
-      }
-      this.router.navigate(['./'], { relativeTo: this.route });
-    });
-  }
-
-  private refreshPhotos(): void {
+  private fillPhotos(): void {
     super.showLoader();
     this.route.params.subscribe((params: Params) => {
       const id: number = params['id'];
-    //  this.hotelService.getPhotos(id).subscribe((book: IBook) => {
-    //    super.hideLoader();
-    //    if (book == null) {
-    //      this.redirectBack();
-    //      return;
-    //    }
-    //    this.model.comments = book.comments;
-    //  }, error => super.showError(error));
-   });
+      this.hotelService.getPhotos(id).subscribe((photos: IHotelPhoto[]) => {
+        this.model.photos = photos;
+        if (photos != null && photos.length > 0) {
+          this.selectedPhotoUrl = photos[0].photoUrl;
+        }
+        else {
+          this.selectedPhotoUrl = null;
+        }
+        super.hideLoader();
+      }, error => super.showError(error));
+    });
+  }
+
+  private onPhotos(): void {
+    this.router.navigate(['photos'], { relativeTo: this.route });
+    this.modalService.showModalContainer('Photos', true).subscribe();
+  }
+
+  private onSelectPhoto(photo: IHotelPhoto) {
+    this.selectedPhotoUrl = photo.photoUrl;
   }
 
   private onRooms(): void {
@@ -112,7 +124,7 @@ export class HotelDetailComponent extends BaseLoading implements OnInit, OnDestr
 
   public ngOnDestroy(): void {
     this.operationCompletedSubscription.unsubscribe();
-    this.querySubscription.unsubscribe();
+    this.photosChangedSubscription.unsubscribe();
   }
 
 }

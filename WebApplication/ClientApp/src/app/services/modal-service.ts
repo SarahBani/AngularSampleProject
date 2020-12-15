@@ -125,11 +125,13 @@ export class ModalService {
   //  $('#myModalContainer').modal('show');
   //}
 
-  public showModalContainer(caption: string): Observable<any> {
+  public showModalContainer(caption: string, hasCloseButton: boolean = false): Observable<any> {
     var modalContainer = $('#myModalContainer');
     modalContainer.modal({ backdrop: 'static', keyboard: false }); // initialized with no keyboard
     modalContainer.find('.modal-title').text(caption);
-    modalContainer.find('.modal-header .close').remove();
+    if (!hasCloseButton) {
+      modalContainer.find('.modal-header .close').remove();
+    }
     modalContainer.modal('show');
 
     //modalContainer.find('.modal-header .close').on('click', function (e) {

@@ -18,7 +18,7 @@ export class ModalContainerComponent implements OnInit {
   }
 
   private onClose(): void {
-  this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate(['./'], { relativeTo: this.route });
   }
 
   //private commentComponent: ComponentRef<any>;

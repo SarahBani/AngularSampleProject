@@ -1,7 +1,9 @@
 ﻿using Core.ApplicationService.Contracts;
 using Core.DomainModel.Entities;
+using Core.DomainService;
 using GraphQL;
 using GraphQL.Types;
+using System.Linq;
 using UserInterface.GraphQL.Types;
 
 namespace UserInterface.GraphQL.Queries

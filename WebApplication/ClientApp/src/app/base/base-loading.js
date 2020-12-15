@@ -1,9 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BaseLoadingComponent = void 0;
-// TODO: Add Angular decorator.
-var BaseLoadingComponent = /** @class */ (function () {
-    function BaseLoadingComponent(loaderService) {
+exports.BaseLoading = void 0;
+var BaseLoading = /** @class */ (function () {
+    function BaseLoading(loaderService) {
         var _this = this;
         if (loaderService === void 0) { loaderService = null; }
         this.isLoading = false;
@@ -23,11 +22,11 @@ var BaseLoadingComponent = /** @class */ (function () {
             });
         }
     }
-    BaseLoadingComponent.prototype.showLoader = function () {
+    BaseLoading.prototype.showLoader = function () {
         this.isLoading = true;
         this.counter++;
     };
-    BaseLoadingComponent.prototype.hideLoader = function () {
+    BaseLoading.prototype.hideLoader = function () {
         if (this.counter > 0) {
             this.counter--;
         }
@@ -35,18 +34,18 @@ var BaseLoadingComponent = /** @class */ (function () {
             this.isLoading = false;
         }
     };
-    BaseLoadingComponent.prototype.showError = function (error) {
+    BaseLoading.prototype.showError = function (error) {
         console.warn('BaseLoadingComponent - showError');
         var JsonErr = JSON.stringify(error);
         console.error(JsonErr);
         this.hideLoader();
     };
-    BaseLoadingComponent.prototype.ngOnDestroy = function () {
+    BaseLoading.prototype.ngOnDestroy = function () {
         if (this.changeLoaderStatusSubscription != null) {
             this.changeLoaderStatusSubscription.unsubscribe();
         }
     };
-    BaseLoadingComponent.prototype.getEmptyItemAdded = function (array, emptyItem) {
+    BaseLoading.prototype.getEmptyItemAdded = function (array, emptyItem) {
         if (array != null) {
             array = Array.prototype.slice.call(array);
             array.unshift(emptyItem);
@@ -56,7 +55,7 @@ var BaseLoadingComponent = /** @class */ (function () {
         }
         return array;
     };
-    return BaseLoadingComponent;
+    return BaseLoading;
 }());
-exports.BaseLoadingComponent = BaseLoadingComponent;
-//# sourceMappingURL=base-loading.component.js.map
+exports.BaseLoading = BaseLoading;
+//# sourceMappingURL=base-loading.js.map

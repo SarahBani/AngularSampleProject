@@ -15,6 +15,7 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
 
   protected controllerName: string = 'Hotel';
   public changeLoaderStatus: Subject<boolean> = new Subject<boolean>();
+  public photosChanged: Subject<void> = new Subject<void>();
 
   constructor(apollo: Apollo,
     modalService: ModalService,
@@ -68,6 +69,10 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
             id
             name
           }
+        }
+        photos
+        {
+          photoUrl
         }
       }`;
     return super.requestQuery('Hotel', query)
@@ -190,6 +195,14 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
       }));
   }
 
+  public uploadPhotoFile(hotelId: number, file: File): Observable<any> {
+    return this.postFile(`UploadPhoto/${hotelId}`, file);
+  }
+
+  public deletePhotoFile(filePath: string): Observable<any> {
+    return this.httpDelete(`DeletePhoto?filePath=${filePath}`);
+  }
+
   public insertPhoto(hotelId: number, photoUrl: string): void {
     var photoUrl = photoUrl.split(String.fromCharCode(92)).join(String.fromCharCode(92, 92)); // replace / with //
     const mutation = `
@@ -198,24 +211,42 @@ export class HotelService extends BaseGraphQLService implements ILoaderService {
         isSuccessful
         customExceptionMessage
       }`;
-    console.log(mutation);
     super.requestMutation('CreateHotelPhoto', mutation)
       .pipe(map(({ data }) => {
         return data?.createHotelPhoto;
       }))
       .subscribe(result => {
-        this.onSuccess(result);
+        this.onPhotoOperationSuccess(result);
       }, error => {
         this.onError(error);
       });
   }
 
-  public uploadPhoto(hotelId: number, file: File): Observable<any> {
-    return this.postFile(`UploadPhoto/${hotelId}`, file);
+  public deletePhoto(id: number): void {
+    const mutation = `
+      removeHotelPhoto(id: ${id})
+      {
+        isSuccessful
+        customExceptionMessage
+      }`;
+    super.requestMutation('RemoveHotelPhoto', mutation)
+      .pipe(map(({ data }) => {
+        return data?.removeHotelPhoto;
+      }))
+      .subscribe(result => {
+        this.onPhotoOperationSuccess(result);
+      }, error => {
+        this.onError(error);
+      });
   }
 
-  public deletePhoto(filePath: string): Observable<any> {
-    return this.httpDelete(`DeletePhoto/${filePath}`);
+  onPhotoOperationSuccess(result): void {
+    if (result.isSuccessful) {
+      this.photosChanged.next();
+    }
+    else {
+      this.modalService.showError(result.customExceptionMessage);
+    }
   }
 
 }

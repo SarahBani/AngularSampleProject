@@ -2,3 +2,8 @@
   color: #CCC;
   background: #343A40;
 }
+
+  #myModalContainer .modal-header .close {
+    color: #FFF;
+    padding-top: 0.8rem;
+  }

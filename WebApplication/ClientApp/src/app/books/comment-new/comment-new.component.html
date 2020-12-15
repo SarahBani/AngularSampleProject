@@ -10,9 +10,11 @@
           <label for="name">Comment: </label>
           <textarea id="comment" name="comment" class="form-control" rows="5" ngModel required></textarea>
         </div>
-        <button class="btn btn-primary" type="reset">Clear</button>
-        <button class="btn btn-success" type="submit" [disabled]="!f.valid">Save</button>
-        <button class="btn btn-warning" type="button" (click)="onCancel()">Cancel</button>
+        <div class="float-right">
+          <button class="btn btn-primary" type="reset">Clear</button>
+          <button class="btn btn-success" type="submit" [disabled]="!f.valid">Save</button>
+          <button class="btn btn-warning" type="button" (click)="onCancel()">Cancel</button>
+        </div>
       </form>
     </div>
   </div>

@@ -19,9 +19,9 @@ namespace UserInterface.GraphQL.Types
        //    type: typeof(CityType),
        //    resolve: context => context.Source.City
        //);
-
             Field<CityType>(nameof(Hotel.City));
             Field<CountryType>(nameof(Hotel.City.Country));
+            Field<ListGraphType<HotelPhotoType>>(nameof(Hotel.Photos), "list of photos");
         }
 
     }

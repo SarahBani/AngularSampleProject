@@ -1,20 +1,27 @@
 <div class="container">
   <div class="row">
-    <div class="col-12">
-      <div>
-        <img *ngFor="let photo of photos;" [src]="photo.photoUrl" class="img-response" width="100" />
+    <div class="col-12 album">
+      <div *ngFor="let photo of photos;">
+        <img [src]="photo.photoUrl" class="img-response" />
+        <div>
+          <img class="delete-image" src='/images/delete.png' alt="Delete Image"
+               (click)="onDeletePhoto(photo)" />
+        </div>
       </div>
-
-      <form (ngSubmit)="onSave(f)" #f="ngForm">
-        <app-image-uploader [uploadedImageUrl]="uploadedImageUrl"
-                            [uploadedPercentage]="uploadedPercentage"
-                            (uploadImageFile)="uploadImage($event);"
-                            (deleteImage)="onDeleteImage();">
-        </app-image-uploader>
-
-        <button class="btn btn-success" type="submit" [disabled]="!f.valid">Save</button>
-        <button class="btn btn-warning" type="button" (click)="onCancel()">Cancel</button>
-      </form>
     </div>
   </div>
+  <div class="row">
+    <div class="col-12">
+      <input type="file" class="form-control-file border"
+             accept="image/*" (change)="onUploadImage($event.target.files)">
+    </div>
+  </div>
+  <div class="row" *ngIf="uploadedPercentage != null">
+    <div class="col-12">
+      <progress id="file" value="{{ uploadedPercentage }}" max="100"></progress>
+      <small class="align-top"> {{ uploadedPercentage }}%</small>
+    </div>
+  </div>
+  <br />
+  <button class="btn btn-primary float-right" type="button" (click)="onOK()">OK</button>
 </div>

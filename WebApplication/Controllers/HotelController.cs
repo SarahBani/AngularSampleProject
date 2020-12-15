@@ -29,7 +29,7 @@ namespace WebApplication.Controllers
             return UploadImage(@$"Hotels\{hotelId}");
         }
 
-        [HttpDelete("DeletePhoto/{filePath}")]
+        [HttpDelete("DeletePhoto")]
         public IActionResult DeletePhoto(string filePath)
         {
             return DeleteImage(filePath);
