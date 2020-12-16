@@ -30,7 +30,8 @@ namespace Core.DomainModel.Migrations
                     { (short)3, "images\\countries\\UK.png", "the UK" },
                     { (short)2, "images\\countries\\Turkey.png", "Turkey" },
                     { (short)19, "images\\countries\\Finland.png", "Finland" },
-                    { (short)30, "images\\countries\\UAE.png", "UAE" }
+                    { (short)30, "images\\countries\\UAE.png", "UAE" },
+                    { (short)20, "images\\countries\\Greece.png", "Greece" }
                 });
 
             migrationBuilder.InsertData(
@@ -108,6 +109,10 @@ namespace Core.DomainModel.Migrations
                     { 170L, (short)17, "Budapest" },
 
                     { 180L, (short)18, "Warsaw" },
+
+                    { 200L, (short)20, "Athens" },
+                    { 201L, (short)20, "Santorini" },
+                    { 202L, (short)20, "Mykonos" },
                 });
         }
 

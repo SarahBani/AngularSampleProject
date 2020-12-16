@@ -80,7 +80,6 @@ export class HotelDetailComponent extends BaseLoading implements OnInit, OnDestr
       const id: number = params['id'];
       this.hotelService.getPhotos(id).subscribe((photos: IHotelPhoto[]) => {
         this.model.photos = photos;
-        console.log(photos);
         this.setPhotos(photos);
         super.hideLoader();
       }, error => super.showError(error));

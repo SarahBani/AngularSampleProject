@@ -1,7 +1,7 @@
 .album {
   overflow-y: scroll;
   text-align: center;
-  max-height: 100px;
+  height: 120px;
   margin: 5px 2px;
   position: relative;
 }
