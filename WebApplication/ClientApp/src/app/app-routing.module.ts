@@ -76,7 +76,12 @@ import { HotelPhotosComponent } from './hotels/hotel-photos/hotel-photos.compone
               { path: 'photos', component: HotelPhotosComponent }
             ]
           },
-          { path: ':id/edit', component: HotelEditComponent, canDeactivate: [CanDeactivateGuardService] },
+          {
+            path: ':id/edit', component: HotelEditComponent, canDeactivate: [CanDeactivateGuardService],
+            children: [
+              { path: 'photos', component: HotelPhotosComponent }
+            ]
+          },
         ]
       },
       { path: 'about', component: AboutComponent },

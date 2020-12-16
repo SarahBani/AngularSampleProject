@@ -1,8 +1,7 @@
 .album {
-  overflow: hidden;
+  overflow-y: scroll;
   text-align: center;
   max-height: 100px;
-  width: auto;
   margin: 5px 2px;
   position: relative;
 }
@@ -11,7 +10,7 @@
     border: 1px solid #8d8d8d;
     max-width: 100px;
     max-height: 100px;
-    margin: auto;
+    margin: 5px;
     position: relative;
     float: left;
   }

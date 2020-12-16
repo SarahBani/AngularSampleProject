@@ -169,7 +169,8 @@ export class HotelEditComponent extends BaseForm
   }
 
   private onPhotos(): void {
-
+    this.router.navigate(['photos'], { relativeTo: this.route });
+    this.modalService.showModalContainer('Photos', true).subscribe();
   }
 
   private redirectBack(backLevelCount: number = 1): void {

@@ -4,16 +4,24 @@
     <div class="col-12">
       <img *ngIf="selectedPhotoUrl != null; else noPhoto" [src]="selectedPhotoUrl"
            class="img-response selected-photo" />
-      <ng-template #noPhoto><img src="images/NoImage.png" class="img-response" /></ng-template>        
+      <ng-template #noPhoto><img src="images/NoImage.png" class="img-response" /></ng-template>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-12 slider-album">
-      <span class="fa fa-chevron-left prev"></span>
-      <img *ngFor="let photo of model.photos;" [src]="photo.photoUrl" class="img-response"
-           (click)="onSelectPhoto(photo)" [ngClass]="selectedPhotoUrl == photo.photoUrl ? 'selected': ''" />
-      <span class="fa fa-chevron-right prev"></span>
+    <div class="col-12 text-center">
+      <div class="slider-album">
+        <span class="fa fa-chevron-left prev {{photoSlideRightCount > 0  ? '': 'disabled'}}"
+              (click)="(photoSlideRightCount == 0) || onSlideLeft()"></span>
+        <div>
+          <div [ngStyle]="{left: photoSliderLeft + 'px'}">
+            <img *ngFor="let photo of model.photos;" [src]="photo.photoUrl" class="img-response"
+                 (click)="onSelectPhoto(photo)" [ngClass]="selectedPhotoUrl == photo.photoUrl ? 'selected': ''" />
+          </div>
+        </div>
+        <span class="fa fa-chevron-right next {{photoSlideRightCount + 1 < photoSliderCount ? '': 'disabled'}}"
+              (click)="(photoSlideRightCount + 1 >= photoSliderCount) || onSlideRight()"></span>
+      </div>
     </div>
   </div>
 

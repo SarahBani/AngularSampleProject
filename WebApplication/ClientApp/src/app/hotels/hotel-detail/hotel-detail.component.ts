@@ -18,6 +18,9 @@ export class HotelDetailComponent extends BaseLoading implements OnInit, OnDestr
   private selectedPhotoUrl: string;
   private operationCompletedSubscription: Subscription;
   private photosChangedSubscription: Subscription;
+  private photoSliderCount: number = 0;
+  private photoSlideRightCount: number = 0;
+  private photoSliderLeft: number = 0;
 
   constructor(private hotelService: HotelService,
     private route: ActivatedRoute,
@@ -59,12 +62,7 @@ export class HotelDetailComponent extends BaseLoading implements OnInit, OnDestr
           return;
         }
         this.model = hotel;
-        if (hotel.photos != null && hotel.photos.length > 0) {
-          this.selectedPhotoUrl = hotel.photos[0].photoUrl;
-        }
-        else {
-          this.selectedPhotoUrl = null;
-        }
+        this.setPhotos(hotel.photos);
       }, error => {
         if (error.graphQLErrors[0].extensions.code === "INVALID_OPERATION") {
           this.onBack();
@@ -82,15 +80,24 @@ export class HotelDetailComponent extends BaseLoading implements OnInit, OnDestr
       const id: number = params['id'];
       this.hotelService.getPhotos(id).subscribe((photos: IHotelPhoto[]) => {
         this.model.photos = photos;
-        if (photos != null && photos.length > 0) {
-          this.selectedPhotoUrl = photos[0].photoUrl;
-        }
-        else {
-          this.selectedPhotoUrl = null;
-        }
+        console.log(photos);
+        this.setPhotos(photos);
         super.hideLoader();
       }, error => super.showError(error));
     });
+  }
+
+  private setPhotos(photos: IHotelPhoto[]): void {
+    if (photos != null && photos.length > 0) {
+      this.selectedPhotoUrl = photos[0].photoUrl;
+      this.photoSliderCount = (photos.length > 3 ? photos.length - 3 : 0) + 1;
+    }
+    else {
+      this.selectedPhotoUrl = null;
+      this.photoSliderCount = 0;
+    }
+    this.photoSlideRightCount = 0;
+    this.photoSliderLeft = 0;
   }
 
   private onPhotos(): void {
@@ -98,8 +105,37 @@ export class HotelDetailComponent extends BaseLoading implements OnInit, OnDestr
     this.modalService.showModalContainer('Photos', true).subscribe();
   }
 
-  private onSelectPhoto(photo: IHotelPhoto) {
+  private onSelectPhoto(photo: IHotelPhoto): void {
     this.selectedPhotoUrl = photo.photoUrl;
+  }
+
+  private onSlideLeft(): void {
+    if (this.photoSlideRightCount > 0) {
+      this.photoSlideRightCount--;
+      this.setSliderLeft();
+    }
+  }
+
+  private onSlideRight(): void {
+    if (this.photoSlideRightCount + 1 < this.photoSliderCount) {
+      this.photoSlideRightCount++;
+      this.setSliderLeft();
+    }
+  }
+
+  private setSliderLeft(): void {
+    const finalLeft = (this.photoSlideRightCount * -88);
+    // for make movement animated
+    if (this.photoSliderLeft < finalLeft) { // go to right
+      for (var i = this.photoSliderLeft; i <= finalLeft; i++) {
+        setTimeout(() => { this.photoSliderLeft++; }, 100);
+      }
+    }
+    if (this.photoSliderLeft > finalLeft) { // go to left
+      for (var i = this.photoSliderLeft; i >= finalLeft; i--) {
+        setTimeout(() => { this.photoSliderLeft--; }, 100);
+      }
+    }
   }
 
   private onRooms(): void {
