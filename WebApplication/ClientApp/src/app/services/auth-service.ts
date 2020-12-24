@@ -44,9 +44,10 @@ export class AuthService extends BaseRestService implements ILoaderService {
   public login(data: IAuth): void {
     super.httpPost('Login', data)
       .pipe(map((response) => {
-        localStorage.setItem('auth_token', response.content);
-        this.authenticationChanged.next(true);
-        //globals.userLoggedIn = true;
+        if (response.isSuccessful) {
+          localStorage.setItem('auth_token', response.content);
+          this.authenticationChanged.next(true);
+        }
         return response;
       }))
       .subscribe(result => {
@@ -58,7 +59,7 @@ export class AuthService extends BaseRestService implements ILoaderService {
 
   public logout(): void {
     localStorage.removeItem('auth_token');
-    this.changeLoginStatus.next(false);
+    this.authenticationChanged.next(false);
   }
 
 }
