@@ -14,7 +14,7 @@ import { BankService } from '../../services/bank-service';
 export class BankEditComponent extends BaseImageUploaderForm
   implements OnInit, OnDestroy {
 
-  @ViewChild('f') myForm: NgForm;
+  @ViewChild('f') private myForm: NgForm;
   private id: number;
   private operationCompletedSubscription: Subscription;
 

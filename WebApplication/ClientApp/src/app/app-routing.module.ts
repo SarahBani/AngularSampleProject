@@ -26,6 +26,8 @@ import { SelectHotelComponent } from './hotels/select-hotel/select-hotel.compone
 import { HotelEditComponent } from './hotels/hotel-edit/hotel-edit.component';
 import { HotelDetailComponent } from './hotels/hotel-detail/hotel-detail.component';
 import { HotelPhotosComponent } from './hotels/hotel-photos/hotel-photos.component';
+import { LoginComponent } from './authentication/login/login.component';
+import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [],
@@ -86,6 +88,8 @@ import { HotelPhotosComponent } from './hotels/hotel-photos/hotel-photos.compone
       },
       { path: 'about', component: AboutComponent },
       { path: 'contact', component: ContactComponent, canDeactivate: [CanDeactivateGuardService] },
+      { path: 'login', component: LoginComponent },
+      { path: 'sign-up', component: SignUpComponent },
       { path: 'error-page', component: ErrorPageComponent },
       { path: 'not-found', component: PageNotFoundComponent },
       { path: 'access-denied', component: AccessDeniedComponent },

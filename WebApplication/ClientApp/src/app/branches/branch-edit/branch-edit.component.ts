@@ -13,7 +13,7 @@ import { BranchService } from '../../services/branch-service';
 })
 export class BranchEditComponent extends BaseForm implements OnInit, OnDestroy {
 
-  @ViewChild('f') myForm: NgForm;
+  @ViewChild('f') private myForm: NgForm;
   private id: number;
   private bankId: number;
   private operationCompletedSubscription: Subscription;

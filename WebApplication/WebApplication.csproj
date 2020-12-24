@@ -23,6 +23,7 @@
     <PackageReference Include="GraphQL.Server.Transports.WebSockets" Version="4.3.1" />
     <PackageReference Include="GraphQL.Server.Ui.GraphiQL" Version="4.3.1" />
     <PackageReference Include="GraphQL.Server.Ui.Playground" Version="4.3.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.8">
       <PrivateAssets>all</PrivateAssets>
@@ -62,8 +63,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Remove="ClientApp\src\app\authentication\sign-up\sign-up.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\base-form.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\base-loading.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\base\base-form-group.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\base\base-modal-image-uploader.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\base\base-modal.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\books\book-detail\bank-detail.component.spec.ts" />
@@ -80,6 +83,7 @@
     <TypeScriptCompile Remove="ClientApp\src\app\books\select-book\select-bank.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\directives\tooltip.directive.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\image-uploader.component.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\models\IAuth.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\Ibank.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\IBook.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\IBranch.model.ts" />

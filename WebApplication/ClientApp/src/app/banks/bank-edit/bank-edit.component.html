@@ -6,12 +6,12 @@
         <input type="text" id="name" name="name" class="form-control" ngModel required />
       </div>
       <app-image-uploader labelText="Logo" [uploadedImageUrl]="uploadedImageUrl"
-                        [uploadedPercentage]="uploadedPercentage"
-                        (uploadImageFile)="uploadImage($event);" (deleteImage)="onDeleteImage();">
+                          [uploadedPercentage]="uploadedPercentage"
+                          (uploadImageFile)="uploadImage($event);" (deleteImage)="onDeleteImage();">
       </app-image-uploader>
 
       <p *ngIf="(f.controls.name != null && !f.controls.name.valid && f.controls.name.touched)"
-         class="alert-danger">
+         class="alert alert-danger">
         Please enter valid values!
       </p>
       <div class="row">

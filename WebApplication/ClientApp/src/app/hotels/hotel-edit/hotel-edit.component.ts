@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { BaseForm } from '../../base/base-form';
 import { ICity } from '../../models/ICity.model';
 import { ICountry } from '../../models/ICountry.model';
@@ -20,7 +20,7 @@ declare var $: any;
 export class HotelEditComponent extends BaseForm
   implements OnInit, OnDestroy {
 
-  @ViewChild('myForm') form: NgForm;
+  @ViewChild('myForm') private form: NgForm;
   private id: number;
   private countries: ICountry[] = [];
   private cities: ICity[] = [];

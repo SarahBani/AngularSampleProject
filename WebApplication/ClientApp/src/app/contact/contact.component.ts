@@ -12,7 +12,7 @@ import { ContactService } from '../services/contact-service';
 })
 export class ContactComponent extends BaseForm implements OnInit, OnDestroy {
 
-  @ViewChild('f') myForm: NgForm;
+  @ViewChild('f') private myForm: NgForm;
   private emailSentSubscription: Subscription;
 
   constructor(private contactService: ContactService,

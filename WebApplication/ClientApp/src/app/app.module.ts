@@ -55,6 +55,9 @@ import { DropDownComponent } from './drop-down/drop-down.component';
 import { RequiredDirective } from './directives/required.directive';
 import { HotelPhotosComponent } from './hotels/hotel-photos/hotel-photos.component';
 import { ImageUploaderComponent } from './image-uploader/image-uploader.component';
+import { LoginComponent } from './authentication/login/login.component';
+import { SignUpComponent } from './authentication/sign-up/sign-up.component';
+import { ValidationErrorsComponent } from './validation/validation-errors/validation-errors.component';
 
 @NgModule({
   declarations: [
@@ -100,6 +103,9 @@ import { ImageUploaderComponent } from './image-uploader/image-uploader.componen
     RequiredDirective,
     HotelPhotosComponent,
     ImageUploaderComponent,
+    LoginComponent,
+    SignUpComponent,
+    ValidationErrorsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

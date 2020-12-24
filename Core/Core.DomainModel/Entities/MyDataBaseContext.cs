@@ -1,12 +1,11 @@
-﻿//using Microsoft.AspNetCore.Identity;
-//using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Core.DomainModel.Entities
 {
-    public class MyDataBaseContext : DbContext
-    //IdentityDbContext<User, Role, int>
+    public class MyDataBaseContext : IdentityDbContext<User, Role, int>
     {
 
         public MyDataBaseContext(DbContextOptions<MyDataBaseContext> options)
@@ -40,33 +39,35 @@ namespace Core.DomainModel.Entities
             modelBuilder.ApplyConfiguration(new HotelEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new HotelPhotoEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new RoomEntityTypeConfiguration());
-            //modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
-            //modelBuilder.ApplyConfiguration(new RoleEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new UserEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleEntityTypeConfiguration());
 
-            //modelBuilder.Ignore<IdentityUserLogin<int>>();
-            //modelBuilder.Ignore<IdentityUserToken<int>>();
-            //modelBuilder.Ignore<IdentityRoleClaim<int>>();
+            modelBuilder.Ignore<IdentityUserLogin<int>>();
+            modelBuilder.Ignore<IdentityUserToken<int>>();
+            modelBuilder.Ignore<IdentityRoleClaim<int>>();
 
-            //modelBuilder.Entity<IdentityUserRole<int>>(entity =>
-            //{
-            //    entity.ToTable("UserRole");
-            //});
-            //modelBuilder.Entity<IdentityUserLogin<int>>(entity =>
-            //{
-            //    entity.ToTable("UserLogin");
-            //});
-            //modelBuilder.Entity<IdentityUserToken<int>>(entity =>
-            //{
-            //    entity.ToTable("UserToken");
-            //});
-            //modelBuilder.Entity<IdentityUserClaim<int>>(entity =>
-            //{
-            //    entity.ToTable("UserClaim");
-            //});
-            //modelBuilder.Entity<IdentityRoleClaim<int>>(entity =>
-            //{
-            //    entity.ToTable("RoleClaim");
-            //});
+            modelBuilder.Entity<IdentityUserRole<int>>(entity =>
+            {
+                entity.ToTable("UserRole");
+            });
+            modelBuilder.Entity<IdentityUserLogin<int>>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToTable("UserLogin").HasNoKey();
+            });
+            modelBuilder.Entity<IdentityUserToken<int>>(entity =>
+            {
+                entity.HasNoKey();
+                entity.ToTable("UserToken");
+            });
+            modelBuilder.Entity<IdentityUserClaim<int>>(entity =>
+            {
+                entity.ToTable("UserClaim");
+            });
+            modelBuilder.Entity<IdentityRoleClaim<int>>(entity =>
+            {
+                entity.ToTable("RoleClaim");
+            });
 
             modelBuilder.Seed();
         }

@@ -49,10 +49,7 @@ namespace WebApplication.Controllers
                     string filePath = Utility.UploadImage(file, subFolderName);
                     return Ok(new TransactionResult(filePath));
                 }
-                else
-                {
-                    return BadRequest(new TransactionResult(new CustomException(Constant.Exception_EmptyFile)));
-                }
+                return BadRequest(new TransactionResult(new CustomException(Constant.Exception_EmptyFile)));
             }
             catch (Exception ex)
             {

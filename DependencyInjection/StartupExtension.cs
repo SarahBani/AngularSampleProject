@@ -31,6 +31,7 @@ namespace DependencyInjection
             services.AddScoped(typeof(IBaseRepository<HotelPhoto, long>), typeof(HotelPhotoRepository));
             services.AddScoped(typeof(IBaseRepository<HotelRoom, long>), typeof(HotelRoomRepository));
 
+            services.AddScoped(typeof(IAuthService), typeof(AuthService));
             services.AddScoped(typeof(ICityService), typeof(CityService));
             services.AddScoped(typeof(ICountryService), typeof(CountryService));
             services.AddScoped(typeof(IBankService), typeof(BankService));
@@ -45,6 +46,5 @@ namespace DependencyInjection
 
             return services;
         }
-
     }
 }

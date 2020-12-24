@@ -22,18 +22,34 @@ using GraphQL.Server;
 using GraphQL.Server.Ui.Playground;
 using GraphQL.Types;
 using GraphQL.NewtonsoftJson;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
+using Core.DomainModel.Settings;
+using System.Threading.Tasks;
 
 namespace WebApplication
 {
     public class Startup
     {
 
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        #region Properties
 
         public IConfiguration Configuration { get; }
+
+        #endregion /Properties
+
+        #region Constructors
+
+        public Startup(IConfiguration configuration)
+        {
+            this.Configuration = configuration;
+        }
+
+        #endregion /Constructors
+
+        #region Methods
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -71,6 +87,26 @@ namespace WebApplication
 
             services.Configure<KestrelServerOptions>(options => options.AllowSynchronousIO = true);
             services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
+
+            /// custom user & Role with int key
+            services.AddIdentity<User, Role>(options =>
+            {
+                options.SignIn.RequireConfirmedEmail = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+            })
+                .AddRoles<Role>()
+                .AddEntityFrameworkStores<MyDataBaseContext>()
+                //.AddDefaultUI()
+                .AddDefaultTokenProviders();
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            this.ConfigureAuthService(services);
+
+            // configure strongly typed settings objects
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
             services.AddCors(options =>
             {
@@ -115,6 +151,8 @@ namespace WebApplication
             //dbContext.Database.Migrate();
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
+            //app.UseAuthorization();
 
             app.UseRouting();
             app.UseCorsMiddleware();
@@ -161,5 +199,67 @@ namespace WebApplication
                 }
             });
         }
+
+        private void ConfigureAuthService(IServiceCollection services)
+        {
+            var appSettingsSection = this.Configuration.GetSection(Constant.AppSetting_AppSettings);
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.SecretKey);
+
+            // prevent from mapping "sub" claim to nameidentifier.
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            // configure jwt authentication
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            })
+            .AddJwtBearer(options =>
+            {
+                //options.ClaimsIssuer
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateAudience = true,
+                    ValidAudience = appSettings.Audience,
+                    ValidateIssuer = true,
+                    ValidIssuer = appSettings.Issuer,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(key),
+                    // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
+                    ClockSkew = TimeSpan.Zero
+                };
+                options.RequireHttpsMetadata = false;
+                options.Audience = appSettings.Issuer;
+                options.SaveToken = true;
+                options.Events = new JwtBearerEvents()
+                {
+                    OnAuthenticationFailed = async ctx =>
+                    {
+                        int i = 0;
+                    },
+                    OnTokenValidated = context =>
+                    {
+                        System.Console.WriteLine("OnTokenValidated");
+                        var identity = context.Principal.Identity;
+                        var user = context.Principal.Identity.Name;
+                        //Grab the http context user and validate the things you need to
+                        //if you are not satisfied with the validation, fail the request using the below commented code
+                        context.Fail("Unauthorized");
+
+                        //otherwise succeed the request
+                        return Task.CompletedTask;
+                    },
+                    OnMessageReceived = async ctx =>
+                    {
+                        int i = 0;
+                    }
+                };
+            });
+        }
+
+        #endregion /Methods
+
     }
 }

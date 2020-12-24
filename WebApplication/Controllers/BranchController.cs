@@ -56,10 +56,7 @@ namespace WebApplication.Controllers
             {
                 return base.GetOKResult();
             }
-            else
-            {
-                return base.GetErrorResult(result);
-            }
+            return base.GetErrorResult(result);
         }
 
         [HttpPut("UpdateAsync/{id}")]
@@ -76,10 +73,7 @@ namespace WebApplication.Controllers
             {
                 return base.GetOKResult();
             }
-            else
-            {
-                return base.GetErrorResult(result);
-            }
+            return base.GetErrorResult(result);
         }
 
         [HttpDelete("DeleteAsync/{id}")]
@@ -96,10 +90,7 @@ namespace WebApplication.Controllers
             {
                 return base.GetOKResult();
             }
-            else
-            {
-                return base.GetErrorResult(result);
-            }
+            return base.GetErrorResult(result);
         }
 
         [HttpDelete("DeleteByBankIdAsync")]
@@ -120,10 +111,7 @@ namespace WebApplication.Controllers
             {
                 return base.GetOKResult();
             }
-            else
-            {
-                return base.GetErrorResult(result);
-            }
+            return base.GetErrorResult(result);
         }
 
         #endregion /Actions

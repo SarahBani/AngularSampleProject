@@ -61,10 +61,7 @@ namespace WebApplication.Controllers
                 this.FilePath = string.Empty;
                 return base.GetOKResult();
             }
-            else
-            {
-                return base.GetErrorResult(result);
-            }
+            return base.GetErrorResult(result);
         }
 
         [HttpPut("UpdateAsync/{id:length(24)}")]
@@ -86,10 +83,7 @@ namespace WebApplication.Controllers
                 this.FilePath = string.Empty;
                 return base.GetOKResult();
             }
-            else
-            {
-                return base.GetErrorResult(result);
-            }
+            return base.GetErrorResult(result);
         }
 
         [HttpPut("InsertCommentAsync/{id:length(24)}")]
@@ -106,10 +100,7 @@ namespace WebApplication.Controllers
             {
                 return base.GetOKResult();
             }
-            else
-            {
-                return base.GetErrorResult(result);
-            }
+            return base.GetErrorResult(result);
         }
 
         [HttpDelete("DeleteAsync/{id:length(24)}")]
@@ -127,10 +118,7 @@ namespace WebApplication.Controllers
                 base.DeletePreviousFile();
                 return base.GetOKResult();
             }
-            else
-            {
-                return base.GetErrorResult(result);
-            }
+            return base.GetErrorResult(result);
         }
 
         [HttpPost("UploadCoverImage"), DisableRequestSizeLimit]

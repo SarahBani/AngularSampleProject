@@ -1,0 +1,40 @@
+<div class="alert alert-danger" *ngIf="isFormInvalid()">
+  <div *ngFor="let ctrl of controls">
+    <div *ngIf="!ctrl.valid && ctrl.touched && ctrl.errors">
+      <div *ngIf="ctrl.errors.required; else minlength">
+        Please enter {{ctrl.name}}!
+      </div>
+      <ng-template #minlength>
+        <div *ngIf="ctrl.errors.minlength; else maxlength">
+          {{ctrl.name}} should be at least {{ctrl.errors.minlength.requiredLength}} characters!
+        </div>
+      </ng-template>
+      <ng-template #maxlength>
+        <div *ngIf="ctrl.errors.maxlength; else email">
+          {{ctrl.name}} should not be more than {{ctrl.errors.maxlength.requiredLength}} characters!
+        </div>
+      </ng-template>
+      <ng-template #email>
+        <div *ngIf="ctrl.errors.email; else emailexists">
+          {{ctrl.name}} is not valid!
+        </div>
+      </ng-template>
+      <ng-template #emailexists>
+        <div *ngIf="ctrl.errors.emailexists; else mismatch">
+          This {{ctrl.name}} is already signed up!
+        </div>
+      </ng-template>
+      <ng-template #mismatch>
+        <div *ngIf="ctrl.errors.mismatch; else others">
+          {{ctrl.name}} does not match!
+        </div>
+      </ng-template>
+      <ng-template #others>
+        <div>
+          {{ctrl.errors.email}}
+          Please enter valid value for {{ctrl.name}}!
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -15,6 +15,15 @@ namespace Core.DomainModel
 
         NoActiveTransaction,
         SendEmailProblem,
+
+        SignUpFailed,
+        LoginFailed,
+        AuthenticationFailed,
+        ChangePasswordFailed,
+        RoleCreationFailed,
+        EmailAlreadyExist,
+        UserNotAccess,
+        LoginNeeded,
     }
 
     public class CustomException : Exception
@@ -87,6 +96,22 @@ namespace Core.DomainModel
                     return Constant.Exception_NoActiveTransaction;
                 case ExceptionKey.SendEmailProblem:
                     return Constant.Exception_SendEmailProblem;
+                case ExceptionKey.SignUpFailed:
+                    return Constant.Exception_SignUpFailed;
+                case ExceptionKey.LoginFailed:
+                    return Constant.Exception_LoginFailed;
+                case ExceptionKey.AuthenticationFailed:
+                    return Constant.Exception_AuthenticationFailed;
+                case ExceptionKey.ChangePasswordFailed:
+                    return Constant.Exception_ChangePasswordFailed;
+                case ExceptionKey.RoleCreationFailed:
+                    return Constant.Exception_RoleCreationFailed;
+                case ExceptionKey.EmailAlreadyExist:
+                    return Constant.Exception_EmailAlreadyExist;
+                case ExceptionKey.UserNotAccess:
+                    return Constant.Exception_UserNotAccess;
+                case ExceptionKey.LoginNeeded:
+                    return Constant.Exception_LoginNeeded;
                 case ExceptionKey.NotDefined:
                 default:
                     return Constant.Exception_HasError;

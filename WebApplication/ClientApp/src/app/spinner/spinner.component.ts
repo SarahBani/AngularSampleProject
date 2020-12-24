@@ -12,10 +12,4 @@ export class SpinnerComponent implements OnInit {
   public ngOnInit(): void {
   }
 
-  public showLoader() {
-
-  }
-
-  public hideLoader() { }
-
 }

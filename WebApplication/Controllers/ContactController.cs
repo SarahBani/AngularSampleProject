@@ -37,10 +37,7 @@ namespace WebApplication.Controllers
             {
                 return base.GetOKResult();
             }
-            else
-            {
-                return base.GetErrorResult(result);
-            }
+            return base.GetErrorResult(result);
         }
 
         #endregion /Actions

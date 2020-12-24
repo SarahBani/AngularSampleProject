@@ -85,12 +85,6 @@ footer {
   border-color: #1861ac;
 }
 
-p.alert-danger {
-  border: 1px solid red;
-  border-radius: 3px;
-  padding: 5px;
-}
-
 .breadcrumb-icon {
   font-size: 1.75rem;
   color: #6c757d;

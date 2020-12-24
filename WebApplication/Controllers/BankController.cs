@@ -63,10 +63,7 @@ namespace WebApplication.Controllers
                 this.FilePath = string.Empty;
                 return base.GetOKResult();
             }
-            else
-            {
-                return base.GetErrorResult(result);
-            }
+            return base.GetErrorResult(result);
         }
 
         [HttpPut("UpdateAsync/{id}")]
@@ -88,10 +85,7 @@ namespace WebApplication.Controllers
                 this.FilePath = string.Empty;
                 return base.GetOKResult();
             }
-            else
-            {
-                return base.GetErrorResult(result);
-            }
+            return base.GetErrorResult(result);
         }
 
         [HttpDelete("DeleteAsync/{id}")]
@@ -109,10 +103,7 @@ namespace WebApplication.Controllers
                 base.DeletePreviousFile();
                 return base.GetOKResult();
             }
-            else
-            {
-                return base.GetErrorResult(result);
-            }
+            return base.GetErrorResult(result);
         }
 
         [HttpPost("UploadLogo"), DisableRequestSizeLimit]
