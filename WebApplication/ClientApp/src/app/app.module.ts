@@ -142,9 +142,9 @@ import { ValidationErrorsComponent } from './validation/validation-errors/valida
       },
       deps: [HttpLink],
     },
-    //{
-    //  provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true
-    //}
+    {
+      provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

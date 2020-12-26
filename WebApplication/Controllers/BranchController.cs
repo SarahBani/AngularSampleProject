@@ -4,9 +4,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Core.DomainModel.Entities;
 using Core.ApplicationService.Contracts;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplication.Controllers
 {
+    [Authorize]
     [Route("[controller]")]
     public class BranchController : BaseAPIController
     {

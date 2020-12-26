@@ -63,7 +63,7 @@ export class HotelPhotosComponent extends BaseModal
         else if (event.type === HttpEventType.Response) {
           let actionResult = <ICustomActionResult>event.body;
           const uploadedImageUrl = actionResult.content;
-          this.hotelService.insertPhoto(this.hotelId, uploadedImageUrl);
+          this.hotelService.insertPhoto(this.hotelId, uploadedImageUrl.toString());
         }
       }, error => super.showError(error));
   }

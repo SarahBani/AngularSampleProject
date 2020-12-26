@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { User } from '../models/User.model';
 import { AuthService } from '../services/auth-service';
 
 @Component({
@@ -11,21 +12,26 @@ export class NavMenuComponent implements OnInit, OnDestroy {
 
   private isExpanded: boolean = false;
   private isUserLoggedIn: boolean = false;
-  private authenticationChangedSubscription: Subscription;
+  //private authenticationChangedSubscription: Subscription;
+  private userChangedSubscription: Subscription;
 
   constructor(private authService: AuthService) {
   }
 
   public ngOnInit(): void {
     this.subscribe();
-    this.isUserLoggedIn = this.authService.isAuthenticated();
+    //this.isUserLoggedIn = this.authService.isAuthenticated();
   }
 
   private subscribe(): void {
-    this.authenticationChangedSubscription = this.authService.authenticationChanged
-      .subscribe((isLoggedIn: boolean) => {
-        this.isUserLoggedIn = isLoggedIn;
-      })
+    //this.authenticationChangedSubscription = this.authService.authenticationChanged
+    //  .subscribe((isLoggedIn: boolean) => {
+    //    this.isUserLoggedIn = isLoggedIn;
+    //  })
+    this.userChangedSubscription = this.authService.userChanged
+      .subscribe((user: User) => {
+        this.isUserLoggedIn = !!user;
+      });
   }
 
   private collapse(): void {
@@ -41,7 +47,7 @@ export class NavMenuComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.authenticationChangedSubscription.unsubscribe();
+    this.userChangedSubscription.unsubscribe();
   }
 
 }

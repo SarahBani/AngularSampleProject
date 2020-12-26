@@ -1,6 +1,6 @@
 export interface ICustomActionResult {
   isSuccessful: boolean;
-  content: string;
+  content: object;
   customExceptionMessage: string;
   baseException: object;
 }

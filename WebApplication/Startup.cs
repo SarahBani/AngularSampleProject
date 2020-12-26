@@ -28,6 +28,7 @@ using System.Text;
 using System.IdentityModel.Tokens.Jwt;
 using Core.DomainModel.Settings;
 using System.Threading.Tasks;
+using WebApplication.Helpers;
 
 namespace WebApplication
 {
@@ -151,19 +152,17 @@ namespace WebApplication
             //dbContext.Database.Migrate();
 
             app.UseHttpsRedirection();
-            app.UseAuthentication();
-            //app.UseAuthorization();
-
             app.UseRouting();
-            app.UseCorsMiddleware();
-            app.UseCors("CorsPolicy");
-
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
                 RequestPath = new PathString("/Resources")
             });
+            app.UseAuthentication();
+            app.UseAuthorization();
+            app.UseCorsMiddleware();
+            app.UseCors("CorsPolicy");
 
             // comment the following code if u want to run from GraphQLController
             // add http for Schema at default url http://*DOMAIN*/graphql
@@ -213,7 +212,6 @@ namespace WebApplication
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-
             })
             .AddJwtBearer(options =>
             {
@@ -230,32 +228,32 @@ namespace WebApplication
                     // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
                     ClockSkew = TimeSpan.Zero
                 };
-                options.RequireHttpsMetadata = false;
-                options.Audience = appSettings.Issuer;
-                options.SaveToken = true;
-                options.Events = new JwtBearerEvents()
-                {
-                    OnAuthenticationFailed = async ctx =>
-                    {
-                        int i = 0;
-                    },
-                    OnTokenValidated = context =>
-                    {
-                        System.Console.WriteLine("OnTokenValidated");
-                        var identity = context.Principal.Identity;
-                        var user = context.Principal.Identity.Name;
-                        //Grab the http context user and validate the things you need to
-                        //if you are not satisfied with the validation, fail the request using the below commented code
-                        context.Fail("Unauthorized");
+                //options.RequireHttpsMetadata = false;
+                //options.Audience = appSettings.Issuer;
+                //options.SaveToken = true;
+                //options.Events = new JwtBearerEvents()
+                //{
+                //    OnAuthenticationFailed = async ctx =>
+                //    {
+                //        int i = 0;
+                //    },
+                //    OnTokenValidated = context =>
+                //    {
+                //        Console.WriteLine("OnTokenValidated");
+                //        var identity = context.Principal.Identity;
+                //        var user = context.Principal.Identity.Name;
+                //        //Grab the http context user and validate the things you need to
+                //        //if you are not satisfied with the validation, fail the request using the below commented code
+                //        context.Fail("Unauthorized");
 
-                        //otherwise succeed the request
-                        return Task.CompletedTask;
-                    },
-                    OnMessageReceived = async ctx =>
-                    {
-                        int i = 0;
-                    }
-                };
+                //        //otherwise succeed the request
+                //        return Task.CompletedTask;
+                //    },
+                //    OnMessageReceived = async ctx =>
+                //    {
+                //        int i = 0;
+                //    }
+                //};
             });
         }
 
