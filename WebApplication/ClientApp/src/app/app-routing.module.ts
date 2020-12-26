@@ -28,6 +28,7 @@ import { HotelDetailComponent } from './hotels/hotel-detail/hotel-detail.compone
 import { HotelPhotosComponent } from './hotels/hotel-photos/hotel-photos.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
+import { AuthGuardService } from './services/auth-guard-service';
 
 @NgModule({
   declarations: [],
@@ -60,6 +61,7 @@ import { SignUpComponent } from './authentication/sign-up/sign-up.component';
       },
       {
         path: 'branches', component: BranchesComponent,
+        canActivate: [AuthGuardService],
         children: [
           { path: '', component: SelectBranchComponent },
           { path: 'new', component: BranchEditComponent, canDeactivate: [CanDeactivateGuardService] },

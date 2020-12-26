@@ -218,8 +218,10 @@ namespace Core.ApplicationService.Implementation
                 //    throw new CustomException(ExceptionKey.UserNotAccess);
                 //}
 
-               string token = GenerateJwtToken();
-                return new TransactionResult(token);
+                DateTime expirationTime = DateTime.UtcNow.AddMinutes(double.Parse(this._appSettings.AccessExpiration));
+                string token = GenerateJwtToken(expirationTime);
+                var response = new AuthenticateResponse(user, token, expirationTime);
+                return new TransactionResult(response);
             }
             catch (Exception ex)
             {
@@ -227,7 +229,8 @@ namespace Core.ApplicationService.Implementation
             }
         }
 
-        private string GenerateJwtToken() {
+        private string GenerateJwtToken(DateTime expirationTime)
+        {
             var tokenHandler = new JwtSecurityTokenHandler();
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this._appSettings.SecretKey));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512Signature); //  HmacSha256Signature);
@@ -251,10 +254,10 @@ namespace Core.ApplicationService.Implementation
                 audience: this._appSettings.Audience,
                 // audience: subSystems.Value,
                 //claims: new List<Claim>(),
-                expires: DateTime.UtcNow.AddMinutes(double.Parse(this._appSettings.AccessExpiration)),
+                expires: expirationTime,
                 signingCredentials: credentials
             );
-           return new JwtSecurityTokenHandler().WriteToken(tokeOptions);
+            return new JwtSecurityTokenHandler().WriteToken(tokeOptions);
         }
 
         protected TransactionResult GetTransactionException(Exception exception)

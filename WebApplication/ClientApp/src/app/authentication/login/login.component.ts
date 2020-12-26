@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { BaseLoading } from '../../base/base-loading';
-import { IAuth } from '../../models/IAuth.model';
+import { IAuthRequest } from '../../models/IAuthRequest.model';
 import { AuthService } from '../../services/auth-service';
 
 @Component({
@@ -53,7 +53,7 @@ export class LoginComponent extends BaseLoading
       return;
     }
     super.showLoader();
-    const data: IAuth = this.myFormGroup.value;
+    const data: IAuthRequest = this.myFormGroup.value;
     this.authService.login(data);
   }
 

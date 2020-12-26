@@ -2,6 +2,7 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Rout
 import { Observable } from "rxjs";
 import { Injectable } from "@angular/core";
 import { AuthService } from "./auth-service";
+import { map, take, tap } from "rxjs/operators";
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuardService implements CanActivate, CanActivateChild {
@@ -14,26 +15,26 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
   //    throw new Error("Method not implemented.");
   //}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot)
-    : boolean | Observable<boolean> | Promise<boolean> {
-    //return this.authService.isAuthenticated()
-    //    .then((authenticated: boolean) => {
-    //        if (authenticated) {
-    //            return true;
-    //        }
-    //        else {
-    //            this.router.navigate(['/access-denied']);
-    //        }
-    //    });
-    if (this.authService.isAuthenticated()) {
-      return true;
-    }
-    else {
-      this.router.navigate(['/access-denied']);
-    }
+  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot)
+    : boolean | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    return this.authService.userChanged.pipe(
+      take(1),
+      map(user => {
+      if (!!user) {
+        return true;
+      }
+      return this.router.createUrlTree(['/access-denied']);
+      //else {
+      //  this.router.navigate(['/access-denied']);
+      //}
+      //}), tap(isAuth => {
+      //  if (!isAuth) {
+      //    this.router.navigate(['/access-denied']);
+      //  }
+    }));
   }
 
-  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot)
+  public canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot)
     : boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     return this.canActivate(childRoute, state);
   }

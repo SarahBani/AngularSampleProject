@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using Core.ApplicationService.Contracts;
 using UserInterface.Models;
+using Microsoft.AspNetCore.Authorization;
+using Core.DomainModel;
 
 namespace WebApplication.Controllers
 {
@@ -27,13 +29,14 @@ namespace WebApplication.Controllers
 
         #region Actions
 
-
+        [AllowAnonymous]
         [HttpGet("HasEmailExisted/{email}")]
         public bool HasEmailExisted([FromRoute] string email)
         {
             return this._authService.HasEmailAlreadyExisted(email);
         }
 
+        [AllowAnonymous]
         [HttpPost, Route("SignUp")]
         public async Task<IActionResult> SignUpAsync([FromBody] AuthModel model)
         {
@@ -49,6 +52,7 @@ namespace WebApplication.Controllers
             return base.GetErrorResult(transactionResult);
         }
 
+        [AllowAnonymous]
         [HttpPost, Route("Login")]
         public async Task<IActionResult> LoginAsync([FromBody] AuthModel model)
         //public async Task<IActionResult> RequestToken([FromBody] UserCredential request)
@@ -60,11 +64,19 @@ namespace WebApplication.Controllers
             var transactionResult = await this._authService.GetAuthenticationToken(model.Email, model.Password);
             if (transactionResult.IsSuccessful)
             {
-                string token = transactionResult.Content.ToString();
-                return base.GetActionResult(token);
+                var response = transactionResult.Content;
+                return base.GetActionResult(response);
             }
             return base.GetErrorResult(transactionResult);
             //return Unauthorized();
+        }
+
+        [Authorize]
+        [HttpGet, Route("GetTest")]
+        public IActionResult GetTest()
+        {
+            var data = new string[] { "value1", "value2", "value3", "value4", "value5" };
+            return Ok(data);
         }
 
         #endregion /Actions

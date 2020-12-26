@@ -83,7 +83,8 @@
     <TypeScriptCompile Remove="ClientApp\src\app\books\select-book\select-bank.component.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\directives\tooltip.directive.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\image-uploader.component.ts" />
-    <TypeScriptCompile Remove="ClientApp\src\app\models\IAuth.model.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\models\IAuthRequest.model.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\models\IAuthResponse.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\Ibank.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\IBook.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\IBranch.model.ts" />
@@ -94,6 +95,7 @@
     <TypeScriptCompile Remove="ClientApp\src\app\models\IEntity.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\IHotel.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\models\IHotelPhoto.model.ts" />
+    <TypeScriptCompile Remove="ClientApp\src\app\models\User.model.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\services\bank-service.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\services\book-service.ts" />
     <TypeScriptCompile Remove="ClientApp\src\app\services\branch-service.ts" />
@@ -120,6 +122,15 @@
     <ProjectReference Include="..\Core\Core.ApplicationService\Core.ApplicationService.csproj" />
     <ProjectReference Include="..\Core\Core.DomainModel\Core.DomainModel.csproj" />
     <ProjectReference Include="..\DependencyInjection\DependencyInjection.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ClientApp\src\app\models\IAuth - Copy - Copy.model.js.map">
+      <DependentUpon>IAuthRequest.model.js.map</DependentUpon>
+    </None>
+    <None Update="ClientApp\src\app\models\IAuth - Copy.model.js.map">
+      <DependentUpon>IAuthRequest.model.js.map</DependentUpon>
+    </None>
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

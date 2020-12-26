@@ -24,7 +24,7 @@ export abstract class BaseImageUploaderForm extends BaseForm
         }
         else if (event.type === HttpEventType.Response) {
           let actionResult = <ICustomActionResult>event.body;
-          this.uploadedImageUrl = actionResult.content;
+          this.uploadedImageUrl = actionResult.content.toString();
         }
       }, error => super.showError(error));
   }

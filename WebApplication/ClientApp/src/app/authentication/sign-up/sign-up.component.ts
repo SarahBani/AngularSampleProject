@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BaseFormGroup } from '../../base/base-form-group';
-import { IAuth } from '../../models/IAuth.model';
+import { IAuthRequest } from '../../models/IAuthRequest.model';
 import { AuthService } from '../../services/auth-service';
 import { CustomValidators } from '../../validation/custom-validators';
 import { Observable, of, Subscription } from "rxjs";
@@ -71,7 +71,7 @@ export class SignUpComponent extends BaseFormGroup
       return;
     }
     super.showLoader();
-    const data: IAuth = this.myFormGroup.value;
+    const data: IAuthRequest = this.myFormGroup.value;
     this.authService.signUp(data);
   }
 

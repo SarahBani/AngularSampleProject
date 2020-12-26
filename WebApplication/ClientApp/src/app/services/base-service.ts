@@ -14,6 +14,7 @@ export abstract class BaseService {
   protected confirmDeleteSubscription: Subscription;
 
   protected abstract controllerName: string;
+  //protected tokenName: string = 'auth_token';
 
   constructor(protected modalService: ModalService,
     private exceptionHandlerService: ExceptionHandlerService,
@@ -24,6 +25,23 @@ export abstract class BaseService {
   protected getInitialUrl(): string {
     return this.baseUrl + this.controllerName + '/';
   }
+
+  //protected getHeaders(hasToken: boolean = false): {
+  //  headers?: HttpHeaders;
+  //  responseType: 'json';
+  //} {
+  //  let headers = new HttpHeaders({
+  //    'Content-Type': 'application/json; charset=utf-8'
+  //  });
+  //  if (hasToken) {
+  //    let authToken = localStorage.getItem(this.tokenName);
+  //    headers.append('Authorization', `Bearer ${authToken}`);
+  //  }
+  //  return {
+  //    headers: headers,
+  //    responseType: 'json'
+  //  };
+  //}
 
   protected getHeaders(): {
     headers?: HttpHeaders;

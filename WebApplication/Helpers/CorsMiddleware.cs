@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
-namespace WebApplication
+namespace WebApplication.Helpers
 {
     public class CorsMiddleware
     {
