@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+
 import { HomeComponent } from './home/home.component';
 import { BanksComponent } from './banks/banks.component';
 import { BankDetailComponent } from './banks/bank-detail/bank-detail.component';

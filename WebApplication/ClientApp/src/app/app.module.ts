@@ -58,6 +58,8 @@ import { ImageUploaderComponent } from './image-uploader/image-uploader.componen
 import { LoginComponent } from './authentication/login/login.component';
 import { SignUpComponent } from './authentication/sign-up/sign-up.component';
 import { ValidationErrorsComponent } from './validation/validation-errors/validation-errors.component';
+import { AlertComponent } from './alert/alert.component';
+import { PlaceholderDirective } from './directives/placeholder.directive';
 
 @NgModule({
   declarations: [
@@ -106,6 +108,8 @@ import { ValidationErrorsComponent } from './validation/validation-errors/valida
     LoginComponent,
     SignUpComponent,
     ValidationErrorsComponent,
+    AlertComponent,
+    PlaceholderDirective,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -116,7 +120,7 @@ import { ValidationErrorsComponent } from './validation/validation-errors/valida
     TooltipModule,
     HttpLinkModule
   ],
-  providers: [AuthService, AuthGuardService, CanDeactivateGuardService,
+  providers: [CanDeactivateGuardService,
     {
       provide: APOLLO_OPTIONS,
       useFactory: (httpLink: HttpLink) => {
@@ -143,7 +147,9 @@ import { ValidationErrorsComponent } from './validation/validation-errors/valida
       deps: [HttpLink],
     },
     {
-      provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]

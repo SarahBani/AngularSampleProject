@@ -1,11 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var testing_1 = require("@angular/core/testing");
+require("jest");
 var banks_component_1 = require("./banks.component");
 describe('BanksComponent', function () {
     var component;
     var fixture;
-    beforeEach(testing_1.async(function () {
+    beforeEach(testing_1.waitForAsync(function () {
         testing_1.TestBed.configureTestingModule({
             declarations: [banks_component_1.BanksComponent]
         })

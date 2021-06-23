@@ -28,10 +28,6 @@ export class AuthService extends BaseRestService implements ILoaderService {
     super(modalService, exceptionHandlerService, httpClient, baseUrl);
   }
 
-  //public isAuthenticated() {
-  //  return (localStorage.getItem(this.tokenName) != null);
-  //}
-
   public hasEmailExisted(email: string): Observable<boolean> {
     return super.httpGet<boolean>('HasEmailExisted/' + email);
   }

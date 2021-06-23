@@ -20,7 +20,7 @@ export class BookService extends BaseRestService implements ILoaderService {
     super(modalService, exceptionHandlerService, httpClient, baseUrl);
   }
 
-  public getItem(id: string): Observable<IBook> {
+  public getItem(id: string): Observable<IBook> {    
     return super.httpGetItem<IBook>(id);
   }
 
